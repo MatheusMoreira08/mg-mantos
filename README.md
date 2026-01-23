@@ -1,17 +1,34 @@
-# ⚽ MG Mantos - Website Oficial
+# ⚽ MG Mantos - A Casa do Torcedor
 
-Bem-vindo ao repositório do site da **MG Mantos**! Este projeto é o frontend da loja/vitrine virtual especializada em camisas de futebol e artigos esportivos.
+Bem-vindo ao repositório oficial da **MG Mantos**! Este projeto é o front-end de uma loja virtual moderna (E-commerce) especializada em camisas de futebol de alta qualidade.
 
-## 💻 Sobre o Projeto
-O objetivo deste site é apresentar o catálogo de produtos, fortalecer a identidade visual da marca MG Mantos e oferecer uma interface interativa para os clientes visualizarem os "mantos".
+## 🚀 Funcionalidades Principais
 
-## 🎨 Funcionalidades
-- **Interface Responsiva:** Adaptável para celulares e computadores.
-- **Galeria de Produtos:** Exibição das imagens das camisas (pasta `img`).
-- **Header e Navegação:** Menu dinâmico para facilitar a busca (implementado via JS/CSS).
+* **Vitrine Dinâmica:** Carrosséis de produtos ("Lançamentos", "Mais Vendidos") com rolagem horizontal infinita.
+* **Página de Produto Inteligente:** Sistema de template único (`produto.html`) que carrega automaticamente a foto, nome e preço do produto clicado através de parâmetros de URL e JavaScript.
+* **Tema Claro/Escuro (Dark Mode):** Alternância completa de cores do site com um clique, utilizando Variáveis CSS modernas.
+* **Design Responsivo:** Layout fluido que se adapta a celulares (com Menu Hambúrguer lateral) e computadores.
+* **Galeria de Fotos:** Visualização detalhada com troca de imagens na página do produto.
 
 ## 🛠️ Tecnologias Utilizadas
-O projeto foi desenvolvido utilizando as tecnologias fundamentais da Web:
-- **HTML5:** Estrutura semântica das páginas.
-- **CSS3:** Estilização, layout e design responsivo.
-- **JavaScript:** Interatividade e manipulação do DOM.
+
+* **HTML5:** Estrutura semântica e organizada.
+* **CSS3:** Uso avançado de Flexbox, CSS Grid e Variáveis (`:root`) para gerenciamento de temas.
+* **JavaScript (Vanilla):** Lógica de banco de dados simulado (Arrays de Objetos), manipulação do DOM e lógica de navegação.
+
+## 📂 Estrutura do Projeto
+
+* `index.html`: Página inicial com banners e vitrines.
+* `produto.html`: Template dinâmico para detalhes das camisas.
+* `/css`: Estilos globais e responsividade.
+* `/js`: Contém o "banco de dados" dos produtos e funções de interatividade.
+* `/img`: Ativos visuais, banners e fotos dos produtos.
+
+## 📸 Como testar
+
+1.  Clone este repositório ou baixe os arquivos.
+2.  Abra o arquivo `index.html` em qualquer navegador moderno.
+3.  Navegue entre as camisas e teste o botão de troca de tema!
+
+---
+Desenvolvido por **Matheus Moreira** 🚀
