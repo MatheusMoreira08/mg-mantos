@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Camisa Barcelona Home I 25/26 - MG Mantos</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <header>
+        <div class="container header-main">
+            <div class="logo-area">
+                <a href="index.html" class="logo"> <img src="img/logo.png" alt="MG Mantos">
+                    <span id="logo-text">MG <span>MANTOS</span></span>
+                </a>
+            </div>
+            <div class="search-bar">
+                <input type="text" placeholder="Buscar camisas...">
+                <span class="material-icons-outlined search-icon">search</span>
+            </div>
+            <div class="header-actions">
+                <div class="action-item" onclick="toggleTheme()"><span class="material-icons-outlined"
+                        id="theme-icon">dark_mode</span></div>
+                <div class="action-item"><span class="material-icons-outlined">shopping_bag</span><span>(0)</span></div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container product-page">
+        <div class="breadcrumb">
+            <a href="index.html">Início</a> > <a href="#">Europeus</a> > <span>Barcelona</span>
+        </div>
+
+        <div class="product-container">
+            <div class="product-gallery">
+                <div class="main-image">
+                    <img id="currentImg" src="./img/barca_frente.jpeg" alt="Camisa Barcelona">
+                </div>
+                <div class="thumbnails">
+                    <img src="./img/barca_frente.jpeg" onclick="changeImage(this)" class="active">
+                    <img src="./img/barca_detalhe.jpeg" onclick="changeImage(this)">
+                    <img src="./img/barca_detalhe1.jpeg" onclick="changeImage(this)">
+                    <img src="./img/barca_costas.jpeg" onclick="changeImage(this)">
+                </div>
+            </div>
+
+            <div class="product-details">
+                <h1 class="p-title">Camisa Barcelona Home I 25/26 – Azul e Grená – Torcedor Masculina (Manga Longa)</h1>
+
+                <div class="p-rating">
+                    ★★★★★ <span>(4.9 de 5 estrelas)</span>
+                </div>
+
+                <div class="p-prices">
+                    <span class="old-price">R$ 289,90</span>
+                    <span class="current-price">R$ 189,90</span>
+                    <p class="payment-info">em até 3x de R$ 63,30 sem juros</p>
+                </div>
+
+                <div class="p-selector">
+                    <p>Tamanho:</p>
+                    <div class="sizes">
+                        <button class="size-btn">P</button>
+                        <button class="size-btn selected">M</button>
+                        <button class="size-btn">G</button>
+                        <button class="size-btn">GG</button>
+                        <button class="size-btn">XG</button>
+                    </div>
+                </div>
+
+                <div class="p-selector">
+                    <p>Personalização:</p>
+                    <input type="text" class="custom-input" placeholder="Nome e Número (Ex: NEYMAR 10) + R$ 15,00">
+                </div>
+
+                <button class="buy-btn">
+                    <span class="material-icons-outlined">shopping_cart</span>
+                    ADICIONAR AO CARRINHO
+                </button>
+
+                <div class="shipping-calc">
+                    <span class="material-icons-outlined">local_shipping</span>
+                    <span>Frete Grátis para todo Brasil</span>
+                </div>
+
+                <div class="p-description">
+                    <h3>Descrição do Produto</h3>
+                    <p>Vista as cores do Barça com a nova camisa Home I 25/26 Manga Longa. Tecnologia Dri-Fit para
+                        manter você seco e confortável. Escudo bordado de alta qualidade.</p>
+                    <ul>
+                        <li><strong>Gênero:</strong> Masculino</li>
+                        <li><strong>Indicado para:</strong> Dia a Dia / Jogo</li>
+                        <li><strong>Clube:</strong> Barcelona</li>
+                        <li><strong>Material:</strong> Poliéster Premium</li>
+                        <li><strong>Origem:</strong> Importada (Tailandesa 1:1)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 MG Mantos. Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="js/script.js"></script>
+    <script>
+        // Script simples EXCLUSIVO desta página para trocar as fotos
+        function changeImage(thumbnail) {
+            // 1. Pega o caminho da foto clicada
+            var newSrc = thumbnail.src;
+            // 2. Joga na imagem grande
+            document.getElementById('currentImg').src = newSrc;
+
+            // 3. Remove a borda verde de todas as miniaturas
+            document.querySelectorAll('.thumbnails img').forEach(img => img.classList.remove('active'));
+
+            // 4. Adiciona a borda verde na que foi clicada
+            thumbnail.classList.add('active');
+        }
+    </script>
+</body>
+
+</html>

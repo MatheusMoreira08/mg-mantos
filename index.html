@@ -1,69 +1,230 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Savate:wght@400;700&family=Montserrat:wght@400;700&display=swap"
-        rel="stylesheet" />
-    <!-- Ajuste do path: css/style.css -->
-    <link rel="stylesheet" href="css/style.css" />
-    <title>MG MANTOS</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MG Mantos | A Casa do Torcedor</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
-    <!-- index.html -->
-    <nav class="site-nav">
-        <div class="nav-left">
-            <img src="img/logo.png" alt="Logo MG Mantos" class="nav-logo">
-            <h1 class="nav-title">MG MANTOS</h1>
+
+    <div class="top-bar">FRETE GRÁTIS PARA TODO BRASIL <span>|</span> COMPRAS ACIMA DE R$ 199,90</div>
+
+    <header>
+        <div class="container header-main">
+            <div class="logo-area">
+                <button class="menu-btn" onclick="toggleSidebar()">
+                    <span class="material-icons-outlined">menu</span>
+                </button>
+                <a href="index.html" class="logo">
+                    <img src="img/logo.png" alt="MG Mantos" onerror="this.style.display='none'">
+                    <span id="logo-text">MG <span>MANTOS</span></span>
+                </a>
+            </div>
+
+            <div class="search-bar">
+                <input type="text" placeholder="Buscar camisas...">
+                <span class="material-icons-outlined search-icon">search</span>
+            </div>
+
+            <div class="header-actions">
+                <div class="action-item" onclick="toggleTheme()" title="Mudar Tema">
+                    <span class="material-icons-outlined" id="theme-icon">dark_mode</span>
+                </div>
+                <div class="action-item">
+                    <span class="material-icons-outlined">person</span>
+                    <span class="desktop-only">Conta</span>
+                </div>
+                <div class="action-item">
+                    <span class="material-icons-outlined">shopping_bag</span>
+                    <span class="desktop-only">(0)</span>
+                </div>
+            </div>
         </div>
-        <ul class="nav-menu">
-            <li class="nav-item">
-                <a href="#">Camisas de Time ▾</a>
-                <ul class="submenu">
-                    <li><a href="#">Temporada 25/26</a></li>
-                    <li><a href="#">Temporada 24/25</a></li>
-                    <li><a href="#">Camisas Torcedor</a></li>
-                    <li><a href="#">Camisas Jogador</a></li>
-                    <li><a href="#">Camisas Retrô</a></li>
-                    <li><a href="#">Promoções</a></li>
-                </ul>
-            </li>
-            <li class="nav-item">
-                <a href="#">Conjuntos ▾</a>
-                <ul class="submenu">
-                    <li><a href="#">Kit Regata</a></li>
-                    <li><a href="#">Kit Moletom</a></li>
-                    <li><a href="#">Kit Treino</a></li>
-                </ul>
-            </li>
-            <li class="nav-item">
-                <a href="#">Shorts ▾</a>
-                <ul class="submenu">
-                    <li><a href="#">Adidas</a></li>
-                    <li><a href="#">Nike</a></li>
-                </ul>
-            </li>
-            <!-- mais itens aqui -->
+    </header>
+
+    <div id="sidebar" class="sidebar">
+        <div class="sidebar-header">
+            <h3>MENU</h3>
+            <button onclick="toggleSidebar()" class="close-btn">&times;</button>
+        </div>
+        <ul class="sidebar-links">
+            <li><a href="#">Início</a></li>
+            <li><a href="#">Lançamentos 🔥</a></li>
+            <li><a href="#">Brasileirão</a></li>
+            <li><a href="#">Europeus</a></li>
+            <li><a href="#">Seleções</a></li>
+            <li><a href="#">Retrô</a></li>
+            <li><a href="#">Femininas</a></li>
+            <li><a href="#">Minha Conta</a></li>
         </ul>
-    </nav>
-
-    <div class="carousel" id="bannerCarousel">
-        <div class="carousel-slides">
-            <!-- Ajuste dos paths de imagem: img/bannerX.png -->
-            <div class="slide"><img src="img/banner1.png" alt="Banner 1"></div>
-            <div class="slide"><img src="img/banner2.png" alt="Banner 2"></div>
-            <div class="slide"><img src="img/banner3.png" alt="Banner 3"></div>
-            <div class="slide"><img src="img/banner4.png" alt="Banner 4"></div>
-            <div class="slide"><img src="img/banner5.png" alt="Banner 5"></div>
-            <!-- clones serão inseridos por JS -->
-        </div>
-        <div class="indicators"></div>
     </div>
+    <div id="overlay" class="overlay" onclick="toggleSidebar()"></div>
 
-    <!-- Corrija o typo e aponte para js/script.js -->
+    <main>
+        <section class="slider-container">
+            <div class="slider">
+                <a href="produto.html?id=20" class="slide fade">
+                    <img src="img/banner-barca.jpg" alt="Lançamento Barcelona" style="object-fit: cover;">
+                </a>
+
+                <a href="#" class="slide fade"><img src="img/banner1.png" alt="Bem Vindo"></a>
+                <a href="#" class="slide fade"><img src="img/banner2.png" alt="Ídolos"></a>
+                <a href="#" class="slide fade"><img src="img/banner3.png" alt="Eurocopa"></a>
+                <a href="#" class="slide fade"><img src="img/banner5.png" alt="Retrô"></a>
+            </div>
+            <a class="prev-hero" onclick="plusSlides(-1)">&#10094;</a>
+            <a class="next-hero" onclick="plusSlides(1)">&#10095;</a>
+        </section>
+
+        <div class="container main-content">
+
+            <section class="categories-grid">
+                <a href="#" class="cat-card">
+                    <img src="img/cat1.jpg" onerror="this.src='https://via.placeholder.com/400x400?text=NACIONAIS'"
+                        alt="Nacionais">
+                    <div class="cat-label">NACIONAIS</div>
+                </a>
+                <a href="#" class="cat-card">
+                    <img src="img/cat2.jpg" onerror="this.src='https://via.placeholder.com/400x400?text=EUROPEUS'"
+                        alt="Europeus">
+                    <div class="cat-label">EUROPEUS</div>
+                </a>
+                <a href="#" class="cat-card">
+                    <img src="img/cat3.jpg" onerror="this.src='https://via.placeholder.com/400x400?text=FEMININAS'"
+                        alt="Femininas">
+                    <div class="cat-label">FEMININAS</div>
+                </a>
+            </section>
+
+            <section class="section-block">
+                <div class="section-header">
+                    <h2 class="section-title">Lançamentos</h2>
+                    <a href="#" class="section-link">VER TODOS</a>
+                </div>
+                <div class="carousel-wrapper">
+                    <button class="carousel-btn btn-left"
+                        onclick="scrollCarousel('grid-lancamentos', -1)">&#10094;</button>
+                    <div class="carousel-track" id="grid-lancamentos">
+                    </div>
+                    <button class="carousel-btn btn-right"
+                        onclick="scrollCarousel('grid-lancamentos', 1)">&#10095;</button>
+                </div>
+            </section>
+
+            <section class="section-block">
+                <div class="section-header">
+                    <h2 class="section-title">Os Mais Vendidos</h2>
+                    <a href="#" class="section-link">VER TODOS</a>
+                </div>
+                <div class="carousel-wrapper">
+                    <button class="carousel-btn btn-left"
+                        onclick="scrollCarousel('grid-destaques', -1)">&#10094;</button>
+                    <div class="carousel-track" id="grid-destaques">
+                    </div>
+                    <button class="carousel-btn btn-right"
+                        onclick="scrollCarousel('grid-destaques', 1)">&#10095;</button>
+                </div>
+            </section>
+
+            <section class="categories-grid">
+                <a href="#" class="cat-card">
+                    <img src="img/cat4.jpg" onerror="this.src='https://via.placeholder.com/400x400?text=LANÇAMENTOS'"
+                        alt="Lançamentos">
+                    <div class="cat-label">LANÇAMENTOS</div>
+                </a>
+                <a href="#" class="cat-card">
+                    <img src="img/cat5.jpg" onerror="this.src='https://via.placeholder.com/400x400?text=SELEÇÕES'"
+                        alt="Seleções">
+                    <div class="cat-label">SELEÇÕES</div>
+                </a>
+                <a href="#" class="cat-card">
+                    <img src="img/cat6.jpg" onerror="this.src='https://via.placeholder.com/400x400?text=RESTO+DO+MUNDO'"
+                        alt="Resto do Mundo">
+                    <div class="cat-label">RESTO DO MUNDO</div>
+                </a>
+            </section>
+
+            <div class="brands-row">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/2/20/Adidas_Logo.svg" alt="Adidas">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a6/Logo_NIKE.svg" alt="Nike">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/8/81/Puma_Logo_Cat_Black.svg" alt="Puma">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Umbro_logo.svg" alt="Umbro">
+            </div>
+
+            <section class="section-block">
+                <div class="section-header">
+                    <h2 class="section-title">Time Internacional</h2>
+                    <a href="#" class="section-link">VER TODOS</a>
+                </div>
+                <div class="carousel-wrapper">
+                    <button class="carousel-btn btn-left"
+                        onclick="scrollCarousel('grid-internacional', -1)">&#10094;</button>
+                    <div class="carousel-track" id="grid-internacional">
+                    </div>
+                    <button class="carousel-btn btn-right"
+                        onclick="scrollCarousel('grid-internacional', 1)">&#10095;</button>
+                </div>
+            </section>
+
+            <section class="section-block">
+                <div class="section-header">
+                    <h2 class="section-title">Feminina</h2>
+                    <a href="#" class="section-link">VER TODOS</a>
+                </div>
+                <div class="carousel-wrapper">
+                    <button class="carousel-btn btn-left"
+                        onclick="scrollCarousel('grid-feminina', -1)">&#10094;</button>
+                    <div class="carousel-track" id="grid-feminina">
+                    </div>
+                    <button class="carousel-btn btn-right"
+                        onclick="scrollCarousel('grid-feminina', 1)">&#10095;</button>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <footer>
+        <div class="newsletter">
+            <h4>Receba todas as promoções</h4>
+            <p>Quer receber nossas ofertas? Cadastre-se e comece a recebê-las!</p>
+            <div class="newsletter-input">
+                <input type="email" placeholder="E-mail">
+                <button>&rarr;</button>
+            </div>
+        </div>
+        <div class="footer-links container">
+            <div>
+                <h4>Navegação</h4>
+                <ul>
+                    <li>Início</li>
+                    <li>Brasileirão</li>
+                    <li>Europa</li>
+                    <li>Seleções</li>
+                </ul>
+            </div>
+            <div>
+                <h4>Institucional</h4>
+                <ul>
+                    <li>Quem somos</li>
+                    <li>Trocas e Devoluções</li>
+                    <li>Contato</li>
+                </ul>
+            </div>
+            <div>
+                <h4>Pagamento</h4>
+                <p>Cartão, Pix, Boleto</p>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2026 MG Mantos. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
     <script src="js/script.js"></script>
 </body>
 
