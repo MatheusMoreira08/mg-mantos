@@ -20,7 +20,7 @@
                     <span class="material-icons-outlined">menu</span>
                 </button>
                 <a href="index.html" class="logo">
-                    <img src="img/logo.png" alt="MG Mantos" onerror="this.style.display='none'">
+                    <img src="img/front-page/logo_transparent.png" alt="MG Mantos" onerror="this.style.display='none'">
                     <span id="logo-text">MG <span>MANTOS</span></span>
                 </a>
             </div>
@@ -52,7 +52,7 @@
             <button onclick="toggleSidebar()" class="close-btn">&times;</button>
         </div>
         <ul class="sidebar-links">
-            <li><a href="#">Início</a></li>
+            <li><a href="index.html">Início</a></li>
             <li><a href="#">Lançamentos 🔥</a></li>
             <li><a href="#">Brasileirão</a></li>
             <li><a href="#">Europeus</a></li>
@@ -67,11 +67,11 @@
     <main>
         <section class="slider-container">
             <div class="slider">
-                <a href="#" class="slide fade"><img src="./img/banner1.png" alt="Bem Vindo"></a>
-                <a href="#" class="slide fade"><img src="./img/banner2.png" alt="Ídolos"></a>
-                <a href="#" class="slide fade"><img src="./img/banner3.png" alt="Lançamento"></a>
-                <a href="#" class="slide fade"><img src="./img/banner4.png" alt="Frete"></a>
-                <a href="#" class="slide fade"><img src="./img/banner5.png" alt="Cartão"></a>
+                <a href="#" class="slide fade"><img src="./img/front-page/banner1.png" alt="Bem Vindo"></a>
+                <a href="#" class="slide fade"><img src="./img/front-page/banner2.png" alt="Ídolos"></a>
+                <a href="#" class="slide fade"><img src="./img/front-page/banner3.png" alt="Lançamento"></a>
+                <a href="#" class="slide fade"><img src="./img/front-page/banner4.png" alt="Frete"></a>
+                <a href="#" class="slide fade"><img src="./img/front-page/banner5.png" alt="Cartão"></a>
             </div>
             <a class="prev-hero" onclick="plusSlides(-1)">&#10094;</a>
             <a class="next-hero" onclick="plusSlides(1)">&#10095;</a>
@@ -81,18 +81,18 @@
 
             <section class="categories-grid">
                 <a href="#" class="cat-card">
-                    <img src="img/cat1.jpg" onerror="this.src='https://via.placeholder.com/400x400?text=NACIONAIS'"
-                        alt="Nacionais">
+                    <img src="./img/front-page/nacional.png"
+                        onerror="this.src='https://via.placeholder.com/400x400?text=NACIONAIS'" alt="Nacionais">
                     <div class="cat-label">NACIONAIS</div>
                 </a>
                 <a href="#" class="cat-card">
-                    <img src="img/cat2.jpg" onerror="this.src='https://via.placeholder.com/400x400?text=EUROPEUS'"
-                        alt="Europeus">
+                    <img src="./img/front-page/europeu.jpg"
+                        onerror="this.src='https://via.placeholder.com/400x400?text=EUROPEUS'" alt="Europeus">
                     <div class="cat-label">EUROPEUS</div>
                 </a>
                 <a href="#" class="cat-card">
-                    <img src="img/cat3.jpg" onerror="this.src='https://via.placeholder.com/400x400?text=FEMININAS'"
-                        alt="Femininas">
+                    <img src="./img/front-page/fem-marta.jpg"
+                        onerror="this.src='https://via.placeholder.com/400x400?text=FEMININAS'" alt="Femininas">
                     <div class="cat-label">FEMININAS</div>
                 </a>
             </section>
@@ -105,8 +105,7 @@
                 <div class="carousel-wrapper">
                     <button class="carousel-btn btn-left"
                         onclick="scrollCarousel('grid-lancamentos', -1)">&#10094;</button>
-                    <div class="carousel-track" id="grid-lancamentos">
-                    </div>
+                    <div class="carousel-track" id="grid-lancamentos"></div>
                     <button class="carousel-btn btn-right"
                         onclick="scrollCarousel('grid-lancamentos', 1)">&#10095;</button>
                 </div>
@@ -120,8 +119,7 @@
                 <div class="carousel-wrapper">
                     <button class="carousel-btn btn-left"
                         onclick="scrollCarousel('grid-destaques', -1)">&#10094;</button>
-                    <div class="carousel-track" id="grid-destaques">
-                    </div>
+                    <div class="carousel-track" id="grid-destaques"></div>
                     <button class="carousel-btn btn-right"
                         onclick="scrollCarousel('grid-destaques', 1)">&#10095;</button>
                 </div>
@@ -148,8 +146,8 @@
             <div class="brands-row">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/2/20/Adidas_Logo.svg" alt="Adidas">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/a/a6/Logo_NIKE.svg" alt="Nike">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/8/81/Puma_Logo_Cat_Black.svg" alt="Puma">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Umbro_logo.svg" alt="Umbro">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/d/d6/Puma_Logo.svg" alt="Puma">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/d/d1/Umbro_logo.png" alt="Umbro">
             </div>
 
             <section class="section-block">
@@ -160,8 +158,7 @@
                 <div class="carousel-wrapper">
                     <button class="carousel-btn btn-left"
                         onclick="scrollCarousel('grid-internacional', -1)">&#10094;</button>
-                    <div class="carousel-track" id="grid-internacional">
-                    </div>
+                    <div class="carousel-track" id="grid-internacional"></div>
                     <button class="carousel-btn btn-right"
                         onclick="scrollCarousel('grid-internacional', 1)">&#10095;</button>
                 </div>
@@ -175,8 +172,7 @@
                 <div class="carousel-wrapper">
                     <button class="carousel-btn btn-left"
                         onclick="scrollCarousel('grid-feminina', -1)">&#10094;</button>
-                    <div class="carousel-track" id="grid-feminina">
-                    </div>
+                    <div class="carousel-track" id="grid-feminina"></div>
                     <button class="carousel-btn btn-right"
                         onclick="scrollCarousel('grid-feminina', 1)">&#10095;</button>
                 </div>

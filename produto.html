@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Camisa Barcelona Home I 25/26 - MG Mantos</title>
+    <title>MG Mantos | Detalhes do Produto</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 </head>
@@ -14,61 +14,69 @@
     <header>
         <div class="container header-main">
             <div class="logo-area">
-                <a href="index.html" class="logo"> <img src="img/logo.png" alt="MG Mantos">
+                <a href="index.html" class="logo">
+                    <img src="img/front-page/logo.png" alt="MG Mantos" onerror="this.style.display='none'">
                     <span id="logo-text">MG <span>MANTOS</span></span>
                 </a>
             </div>
+
             <div class="search-bar">
                 <input type="text" placeholder="Buscar camisas...">
                 <span class="material-icons-outlined search-icon">search</span>
             </div>
+
             <div class="header-actions">
-                <div class="action-item" onclick="toggleTheme()"><span class="material-icons-outlined"
-                        id="theme-icon">dark_mode</span></div>
-                <div class="action-item"><span class="material-icons-outlined">shopping_bag</span><span>(0)</span></div>
+                <div class="action-item" onclick="toggleTheme()" title="Mudar Tema">
+                    <span class="material-icons-outlined" id="theme-icon">dark_mode</span>
+                </div>
+                <div class="action-item">
+                    <span class="material-icons-outlined">person</span>
+                    <span class="desktop-only">Conta</span>
+                </div>
+                <div class="action-item">
+                    <span class="material-icons-outlined">shopping_bag</span>
+                    <span class="desktop-only">(0)</span>
+                </div>
             </div>
         </div>
     </header>
 
     <main class="container product-page">
         <div class="breadcrumb">
-            <a href="index.html">Início</a> > <a href="#">Europeus</a> > <span>Barcelona</span>
+            <a href="index.html">Início</a> > <span id="bread-cat">Categoria</span> > <span
+                id="bread-name">Produto</span>
         </div>
 
         <div class="product-container">
             <div class="product-gallery">
                 <div class="main-image">
-                    <img id="currentImg" src="./img/barca_frente.jpeg" alt="Camisa Barcelona">
+                    <img id="currentImg" src="" alt="Carregando...">
                 </div>
-                <div class="thumbnails">
-                    <img src="./img/barca_frente.jpeg" onclick="changeImage(this)" class="active">
-                    <img src="./img/barca_detalhe.jpeg" onclick="changeImage(this)">
-                    <img src="./img/barca_detalhe1.jpeg" onclick="changeImage(this)">
-                    <img src="./img/barca_costas.jpeg" onclick="changeImage(this)">
+                <div class="thumbnails" id="thumb-container">
                 </div>
             </div>
 
             <div class="product-details">
-                <h1 class="p-title">Camisa Barcelona Home I 25/26 – Azul e Grená – Torcedor Masculina (Manga Longa)</h1>
+                <h1 class="p-title" id="prod-title">Carregando produto...</h1>
 
                 <div class="p-rating">
                     ★★★★★ <span>(4.9 de 5 estrelas)</span>
                 </div>
 
                 <div class="p-prices">
-                    <span class="old-price">R$ 289,90</span>
-                    <span class="current-price">R$ 189,90</span>
-                    <p class="payment-info">em até 3x de R$ 63,30 sem juros</p>
+                    <span class="old-price" id="prod-old-price"></span>
+                    <span class="current-price" id="prod-price">R$ ...</span>
+                    <p class="payment-info">em até 3x sem juros</p>
                 </div>
 
                 <div class="p-selector">
                     <p>Tamanho:</p>
-                    <div class="sizes">
-                        <button class="size-btn">P</button>
-                        <button class="size-btn selected">M</button>
-                        <button class="size-btn">G</button>
-                        <button class="size-btn">GG</button>
-                        <button class="size-btn">XG</button>
+                    <div class="sizes" id="size-selector">
+                        <button class="size-btn" onclick="selectSize(this)">P</button>
+                        <button class="size-btn" onclick="selectSize(this)">M</button>
+                        <button class="size-btn" onclick="selectSize(this)">G</button>
+                        <button class="size-btn" onclick="selectSize(this)">GG</button>
+                        <button class="size-btn" onclick="selectSize(this)">XG</button>
                     </div>
                 </div>
 
@@ -89,14 +97,12 @@
 
                 <div class="p-description">
                     <h3>Descrição do Produto</h3>
-                    <p>Vista as cores do Barça com a nova camisa Home I 25/26 Manga Longa. Tecnologia Dri-Fit para
-                        manter você seco e confortável. Escudo bordado de alta qualidade.</p>
+                    <p>Produto oficial importado com tecnologia de alta performance. Tecido respirável, ideal para
+                        prática de esportes ou uso casual.</p>
                     <ul>
                         <li><strong>Gênero:</strong> Masculino</li>
-                        <li><strong>Indicado para:</strong> Dia a Dia / Jogo</li>
-                        <li><strong>Clube:</strong> Barcelona</li>
-                        <li><strong>Material:</strong> Poliéster Premium</li>
                         <li><strong>Origem:</strong> Importada (Tailandesa 1:1)</li>
+                        <li><strong>Garantia:</strong> Contra defeito de fabricação</li>
                     </ul>
                 </div>
             </div>
@@ -104,23 +110,31 @@
     </main>
 
     <footer>
-        <p>&copy; 2026 MG Mantos. Todos os direitos reservados.</p>
+        <p class="copyright">&copy; 2026 MG Mantos. Todos os direitos reservados.</p>
     </footer>
 
     <script src="js/script.js"></script>
+
     <script>
-        // Script simples EXCLUSIVO desta página para trocar as fotos
+        // Função para trocar a foto grande ao clicar na miniatura
         function changeImage(thumbnail) {
-            // 1. Pega o caminho da foto clicada
-            var newSrc = thumbnail.src;
-            // 2. Joga na imagem grande
+            // Pega o caminho da miniatura clicada
+            const newSrc = thumbnail.src;
+            // Joga na imagem grande
             document.getElementById('currentImg').src = newSrc;
 
-            // 3. Remove a borda verde de todas as miniaturas
+            // Remove a borda roxa das outras
             document.querySelectorAll('.thumbnails img').forEach(img => img.classList.remove('active'));
-
-            // 4. Adiciona a borda verde na que foi clicada
+            // Adiciona borda roxa na atual
             thumbnail.classList.add('active');
+        }
+
+        // Função para selecionar tamanho visualmente
+        function selectSize(btn) {
+            // Limpa os outros
+            document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('selected'));
+            // Marca o clicado
+            btn.classList.add('selected');
         }
     </script>
 </body>

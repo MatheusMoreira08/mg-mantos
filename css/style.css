@@ -7,17 +7,16 @@
   --bg-card: #141414;
   --text-main: #ffffff;
   --text-muted: #b0b0b0;
-  --accent: #00ff88;
-  /* Verde Neon */
+  --accent: #4a00e0;
+  /* Roxo Principal */
   --border: #222222;
   --input-bg: #1a1a1a;
   --carousel-btn: rgba(0, 0, 0, 0.6);
 }
 
-/* MODO CLARO (CORRIGIDO) */
+/* MODO CLARO */
 body.light-mode {
   --bg-body: #ffffff !important;
-  /* !important garante que fique branco */
   --bg-header: #ffffff !important;
   --bg-sidebar: #ffffff;
   --bg-card: #ffffff;
@@ -368,7 +367,7 @@ header {
   white-space: nowrap;
 }
 
-/* MARCAS (CORREÇÃO LOGOS) */
+/* MARCAS */
 .brands-row {
   display: flex;
   justify-content: center;
@@ -473,11 +472,12 @@ body.light-mode .brands-row img {
   right: -20px;
 }
 
-/* CARD PRODUTO */
+/* CARD PRODUTO (CORRIGIDO) */
 .product-card {
   flex: 0 0 auto;
   width: 260px;
-  background: var(--bg-card);
+  background-color: transparent !important;
+  /* CORREÇÃO: Fundo transparente */
   border-radius: 12px;
   overflow: hidden;
   border: 1px solid var(--border);
@@ -496,7 +496,8 @@ body.light-mode .brands-row img {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #fff;
+  background: transparent;
+  /* CORREÇÃO: Removido fundo branco */
 }
 
 body.light-mode .p-img {
@@ -530,6 +531,8 @@ body.light-mode .p-img {
 .p-info {
   padding: 15px;
   text-align: left;
+  background-color: var(--bg-card);
+  /* Fundo apenas no texto */
 }
 
 .p-cat {
@@ -595,7 +598,8 @@ body.light-mode .p-price {
 }
 
 .main-image {
-  background: #fff;
+  background: transparent;
+  /* CORREÇÃO: Fundo transparente */
   border-radius: 12px;
   padding: 20px;
   border: 1px solid var(--border);
@@ -621,10 +625,10 @@ body.light-mode .p-price {
   width: 80px;
   height: 80px;
   object-fit: cover;
-  background: #fff;
+  background: transparent;
   border-radius: 8px;
   cursor: pointer;
-  border: 2px solid transparent;
+  border: 2px solid var(--border);
   opacity: 0.7;
   transition: 0.3s;
 }
@@ -667,6 +671,7 @@ body.light-mode .p-price {
   color: var(--accent);
 }
 
+/* BOTÕES DE TAMANHO (CORRIGIDO) */
 .size-btn {
   width: 45px;
   height: 45px;
@@ -677,13 +682,34 @@ body.light-mode .p-price {
   border-radius: 5px;
   font-weight: bold;
   margin-right: 5px;
+  transition: 0.2s;
 }
 
 .size-btn:hover,
 .size-btn.selected {
+  /* Adicionada classe .selected */
   background: var(--accent);
   border-color: var(--accent);
   color: #fff;
+}
+
+/* INPUT PERSONALIZAÇÃO (NOVO) */
+.custom-input {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  background-color: var(--input-bg);
+  color: var(--text-main);
+  font-size: 14px;
+  transition: 0.3s;
+  outline: none;
+  margin-top: 5px;
+}
+
+.custom-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 8px rgba(74, 0, 224, 0.3);
 }
 
 .buy-btn {
@@ -813,4 +839,8 @@ footer {
   .product-container {
     grid-template-columns: 1fr;
   }
+}
+
+.light .logo {
+  filter: drop-shadow(0px 0px 3px rgba(0, 0, 0, .6));
 }
