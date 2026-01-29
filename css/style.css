@@ -1,6 +1,5 @@
 /* --- CONFIGURAÇÃO DE CORES --- */
 :root {
-  /* MODO ESCURO */
   --bg-body: #0d0d0d;
   --bg-header: #000000;
   --bg-sidebar: #111111;
@@ -8,13 +7,11 @@
   --text-main: #ffffff;
   --text-muted: #b0b0b0;
   --accent: #4a00e0;
-  /* Roxo Principal */
   --border: #222222;
   --input-bg: #1a1a1a;
   --carousel-btn: rgba(0, 0, 0, 0.6);
 }
 
-/* MODO CLARO */
 body.light-mode {
   --bg-body: #ffffff !important;
   --bg-header: #ffffff !important;
@@ -28,7 +25,6 @@ body.light-mode {
   --carousel-btn: rgba(255, 255, 255, 0.9);
 }
 
-/* RESET */
 * {
   margin: 0;
   padding: 0;
@@ -257,7 +253,7 @@ header {
   display: block;
 }
 
-/* HERO SLIDER */
+/* HERO */
 .slider-container {
   position: relative;
   width: 100%;
@@ -323,7 +319,7 @@ header {
   }
 }
 
-/* CATEGORIAS */
+/* CARDS E CATEGORIAS */
 .categories-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -337,6 +333,7 @@ header {
   overflow: hidden;
   height: 350px;
   border: 1px solid var(--border);
+  display: block;
 }
 
 .cat-card img {
@@ -367,27 +364,32 @@ header {
   white-space: nowrap;
 }
 
-/* MARCAS */
+/* LOGOS NOVAS (SVG) */
 .brands-row {
   display: flex;
   justify-content: center;
   gap: 50px;
   margin: 60px 0;
+  flex-wrap: wrap;
+  align-items: center;
 }
 
-.brands-row img {
+.brand-svg {
   height: 40px;
-  filter: invert(1) grayscale(1);
+  width: auto;
+  color: #fff;
   opacity: 0.7;
   transition: 0.3s;
 }
 
-body.light-mode .brands-row img {
-  filter: none;
+body.light-mode .brand-svg {
+  color: #000;
   opacity: 1;
 }
 
-/* CARROSSEL PRODUTOS */
+/* Preto no modo claro */
+
+/* CARROSSEL */
 .section-block {
   margin: 50px auto;
   position: relative;
@@ -472,12 +474,11 @@ body.light-mode .brands-row img {
   right: -20px;
 }
 
-/* CARD PRODUTO (CORRIGIDO) */
+/* CARD PRODUTO */
 .product-card {
   flex: 0 0 auto;
   width: 260px;
   background-color: transparent !important;
-  /* CORREÇÃO: Fundo transparente */
   border-radius: 12px;
   overflow: hidden;
   border: 1px solid var(--border);
@@ -497,7 +498,6 @@ body.light-mode .brands-row img {
   align-items: center;
   justify-content: center;
   background: transparent;
-  /* CORREÇÃO: Removido fundo branco */
 }
 
 body.light-mode .p-img {
@@ -532,7 +532,6 @@ body.light-mode .p-img {
   padding: 15px;
   text-align: left;
   background-color: var(--bg-card);
-  /* Fundo apenas no texto */
 }
 
 .p-cat {
@@ -569,7 +568,36 @@ body.light-mode .p-price {
   margin-top: 5px;
 }
 
-/* PÁGINA PRODUTO (CSS EXTRA) */
+/* PÁGINA CATEGORIA */
+.category-header {
+  text-align: center;
+  margin: 40px 0;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.category-header h1 {
+  font-size: 2.5rem;
+  text-transform: uppercase;
+  color: var(--text-main);
+}
+
+.category-header p {
+  color: var(--text-muted);
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 30px;
+  margin-bottom: 80px;
+}
+
+.products-grid .product-card {
+  width: 100%;
+}
+
+/* --- PÁGINA PRODUTO (LAYOUT "LADO A LADO") --- */
 .product-page {
   margin-top: 30px;
   margin-bottom: 80px;
@@ -585,10 +613,13 @@ body.light-mode .p-price {
   color: var(--text-muted);
 }
 
+/* AQUI ESTÁ O SEGREDO DO LAYOUT ANTIGO: */
 .product-container {
   display: grid;
-  grid-template-columns: 1.2fr 1fr;
+  grid-template-columns: 1.5fr 1fr;
+  /* Esquerda maior (foto), Direita menor (detalhes) */
   gap: 50px;
+  align-items: start;
 }
 
 .product-gallery {
@@ -599,13 +630,13 @@ body.light-mode .p-price {
 
 .main-image {
   background: transparent;
-  /* CORREÇÃO: Fundo transparente */
   border-radius: 12px;
   padding: 20px;
   border: 1px solid var(--border);
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
 }
 
 .main-image img {
@@ -613,6 +644,39 @@ body.light-mode .p-price {
   max-width: 500px;
   height: auto;
   object-fit: contain;
+}
+
+/* Setas */
+.gallery-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  font-size: 24px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  z-index: 10;
+}
+
+.gallery-arrow:hover {
+  background-color: var(--accent);
+}
+
+.gallery-arrow.prev {
+  left: 10px;
+}
+
+.gallery-arrow.next {
+  right: 10px;
 }
 
 .thumbnails {
@@ -639,8 +703,13 @@ body.light-mode .p-price {
   opacity: 1;
 }
 
+.product-details {
+  padding-top: 20px;
+  /* Alinha com o topo da foto */
+}
+
 .p-title {
-  font-size: 1.8rem;
+  font-size: 2rem;
   font-weight: 800;
   margin-bottom: 10px;
   line-height: 1.2;
@@ -666,12 +735,11 @@ body.light-mode .p-price {
 }
 
 .current-price {
-  font-size: 2.5rem;
+  font-size: 3rem;
   font-weight: 900;
   color: var(--accent);
 }
 
-/* BOTÕES DE TAMANHO (CORRIGIDO) */
 .size-btn {
   width: 45px;
   height: 45px;
@@ -687,13 +755,11 @@ body.light-mode .p-price {
 
 .size-btn:hover,
 .size-btn.selected {
-  /* Adicionada classe .selected */
   background: var(--accent);
   border-color: var(--accent);
   color: #fff;
 }
 
-/* INPUT PERSONALIZAÇÃO (NOVO) */
 .custom-input {
   width: 100%;
   padding: 12px;
@@ -819,6 +885,7 @@ footer {
   font-size: 0.8rem;
 }
 
+/* MOBILE */
 @media (max-width: 768px) {
   .desktop-only {
     display: none;
@@ -833,14 +900,47 @@ footer {
   }
 
   .brands-row {
-    gap: 20px;
+    gap: 30px;
   }
 
+  /* No celular, empilha tudo */
   .product-container {
     grid-template-columns: 1fr;
+    gap: 30px;
   }
-}
 
-.light .logo {
-  filter: drop-shadow(0px 0px 3px rgba(0, 0, 0, .6));
+  .p-title {
+    font-size: 1.5rem;
+  }
+
+  .current-price {
+    font-size: 2rem;
+  }
+
+  .products-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+
+  .product-card {
+    width: 100%;
+  }
+
+  .p-img {
+    height: 180px;
+    padding: 5px;
+  }
+
+  .p-info {
+    padding: 10px;
+  }
+
+  .p-name {
+    font-size: 0.9rem;
+    height: 40px;
+  }
+
+  .p-price {
+    font-size: 1.1rem;
+  }
 }

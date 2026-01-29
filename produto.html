@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MG Mantos | Detalhes do Produto</title>
+    <title>MG Mantos | Detalhes</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 </head>
@@ -19,59 +19,45 @@
                     <span id="logo-text">MG <span>MANTOS</span></span>
                 </a>
             </div>
-
             <div class="search-bar">
                 <input type="text" placeholder="Buscar camisas...">
                 <span class="material-icons-outlined search-icon">search</span>
             </div>
-
             <div class="header-actions">
-                <div class="action-item" onclick="toggleTheme()" title="Mudar Tema">
-                    <span class="material-icons-outlined" id="theme-icon">dark_mode</span>
-                </div>
-                <div class="action-item">
-                    <span class="material-icons-outlined">person</span>
-                    <span class="desktop-only">Conta</span>
-                </div>
-                <div class="action-item">
-                    <span class="material-icons-outlined">shopping_bag</span>
-                    <span class="desktop-only">(0)</span>
-                </div>
+                <div class="action-item" onclick="toggleTheme()"><span class="material-icons-outlined"
+                        id="theme-icon">dark_mode</span></div>
+                <div class="action-item"><span class="material-icons-outlined">shopping_bag</span></div>
             </div>
         </div>
     </header>
 
     <main class="container product-page">
         <div class="breadcrumb">
-            <a href="index.html">Início</a> > <span id="bread-cat">Categoria</span> > <span
-                id="bread-name">Produto</span>
+            <a href="index.html">Início</a> > <span id="bread-name">Produto</span>
         </div>
 
         <div class="product-container">
             <div class="product-gallery">
                 <div class="main-image">
+                    <button class="gallery-arrow prev" onclick="nextImage(-1)">&#10094;</button>
+
                     <img id="currentImg" src="" alt="Carregando...">
+
+                    <button class="gallery-arrow next" onclick="nextImage(1)">&#10095;</button>
                 </div>
-                <div class="thumbnails" id="thumb-container">
-                </div>
+                <div class="thumbnails" id="thumb-container"></div>
             </div>
 
             <div class="product-details">
-                <h1 class="p-title" id="prod-title">Carregando produto...</h1>
-
-                <div class="p-rating">
-                    ★★★★★ <span>(4.9 de 5 estrelas)</span>
-                </div>
-
+                <h1 class="p-title" id="prod-title">Carregando...</h1>
                 <div class="p-prices">
-                    <span class="old-price" id="prod-old-price"></span>
-                    <span class="current-price" id="prod-price">R$ ...</span>
+                    <span class="current-price" id="prod-price">...</span>
                     <p class="payment-info">em até 3x sem juros</p>
                 </div>
 
                 <div class="p-selector">
                     <p>Tamanho:</p>
-                    <div class="sizes" id="size-selector">
+                    <div class="sizes">
                         <button class="size-btn" onclick="selectSize(this)">P</button>
                         <button class="size-btn" onclick="selectSize(this)">M</button>
                         <button class="size-btn" onclick="selectSize(this)">G</button>
@@ -80,63 +66,21 @@
                     </div>
                 </div>
 
-                <div class="p-selector">
-                    <p>Personalização:</p>
-                    <input type="text" class="custom-input" placeholder="Nome e Número (Ex: NEYMAR 10) + R$ 15,00">
-                </div>
-
-                <button class="buy-btn">
-                    <span class="material-icons-outlined">shopping_cart</span>
-                    ADICIONAR AO CARRINHO
-                </button>
-
-                <div class="shipping-calc">
-                    <span class="material-icons-outlined">local_shipping</span>
-                    <span>Frete Grátis para todo Brasil</span>
-                </div>
+                <button class="buy-btn">ADICIONAR AO CARRINHO</button>
 
                 <div class="p-description">
                     <h3>Descrição do Produto</h3>
-                    <p>Produto oficial importado com tecnologia de alta performance. Tecido respirável, ideal para
-                        prática de esportes ou uso casual.</p>
-                    <ul>
-                        <li><strong>Gênero:</strong> Masculino</li>
-                        <li><strong>Origem:</strong> Importada (Tailandesa 1:1)</li>
-                        <li><strong>Garantia:</strong> Contra defeito de fabricação</li>
-                    </ul>
+                    <p>Produto oficial importado com tecnologia de alta performance, mesmo tecido utilizado pelos
+                        jogadores em campo.</p>
                 </div>
             </div>
         </div>
     </main>
 
     <footer>
-        <p class="copyright">&copy; 2026 MG Mantos. Todos os direitos reservados.</p>
+        <p class="copyright">&copy; 2026 MG Mantos.</p>
     </footer>
-
     <script src="js/script.js"></script>
-
-    <script>
-        // Função para trocar a foto grande ao clicar na miniatura
-        function changeImage(thumbnail) {
-            // Pega o caminho da miniatura clicada
-            const newSrc = thumbnail.src;
-            // Joga na imagem grande
-            document.getElementById('currentImg').src = newSrc;
-
-            // Remove a borda roxa das outras
-            document.querySelectorAll('.thumbnails img').forEach(img => img.classList.remove('active'));
-            // Adiciona borda roxa na atual
-            thumbnail.classList.add('active');
-        }
-
-        // Função para selecionar tamanho visualmente
-        function selectSize(btn) {
-            // Limpa os outros
-            document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('selected'));
-            // Marca o clicado
-            btn.classList.add('selected');
-        }
-    </script>
 </body>
 
 </html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MG Mantos | Categoria</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <header>
+        <div class="container header-main">
+            <div class="logo-area">
+                <a href="index.html" class="logo">
+                    <img src="img/front-page/logo.png" alt="MG Mantos" onerror="this.style.display='none'">
+                    <span id="logo-text">MG <span>MANTOS</span></span>
+                </a>
+            </div>
+            <div class="search-bar">
+                <input type="text" placeholder="Buscar camisas...">
+                <span class="material-icons-outlined search-icon">search</span>
+            </div>
+            <div class="header-actions">
+                <div class="action-item" onclick="toggleTheme()"><span class="material-icons-outlined"
+                        id="theme-icon">dark_mode</span></div>
+                <div class="action-item"><span class="material-icons-outlined">shopping_bag</span></div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container product-page">
+        <div class="category-header">
+            <h1 id="cat-title">Carregando...</h1>
+            <p id="cat-count">0 produtos encontrados</p>
+        </div>
+
+        <div class="products-grid" id="grid-categoria">
+        </div>
+    </main>
+
+    <footer>
+        <p class="copyright">&copy; 2026 MG Mantos. Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+
+</html>

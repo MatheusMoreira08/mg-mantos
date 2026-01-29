@@ -20,7 +20,7 @@
                     <span class="material-icons-outlined">menu</span>
                 </button>
                 <a href="index.html" class="logo">
-                    <img src="img/front-page/logo_transparent.png" alt="MG Mantos" onerror="this.style.display='none'">
+                    <img src="img/front-page/logo.png" alt="MG Mantos" onerror="this.style.display='none'">
                     <span id="logo-text">MG <span>MANTOS</span></span>
                 </a>
             </div>
@@ -53,12 +53,12 @@
         </div>
         <ul class="sidebar-links">
             <li><a href="index.html">Início</a></li>
-            <li><a href="#">Lançamentos 🔥</a></li>
-            <li><a href="#">Brasileirão</a></li>
-            <li><a href="#">Europeus</a></li>
-            <li><a href="#">Seleções</a></li>
-            <li><a href="#">Retrô</a></li>
-            <li><a href="#">Femininas</a></li>
+            <li><a href="categoria.html?tag=lancamento">Lançamentos 🔥</a></li>
+            <li><a href="categoria.html?tag=nacional">Brasileirão</a></li>
+            <li><a href="categoria.html?tag=europeus">Europeus</a></li>
+            <li><a href="categoria.html?tag=selecoes">Seleções</a></li>
+            <li><a href="categoria.html?tag=retro">Retrô</a></li>
+            <li><a href="categoria.html?tag=feminina">Femininas</a></li>
             <li><a href="#">Minha Conta</a></li>
         </ul>
     </div>
@@ -67,9 +67,12 @@
     <main>
         <section class="slider-container">
             <div class="slider">
-                <a href="#" class="slide fade"><img src="./img/front-page/banner1.png" alt="Bem Vindo"></a>
-                <a href="#" class="slide fade"><img src="./img/front-page/banner2.png" alt="Ídolos"></a>
-                <a href="#" class="slide fade"><img src="./img/front-page/banner3.png" alt="Lançamento"></a>
+                <a href="categoria.html?tag=lancamento" class="slide fade"><img src="./img/front-page/banner1.png"
+                        alt="Bem Vindo"></a>
+                <a href="categoria.html?tag=retro" class="slide fade"><img src="./img/front-page/banner2.png"
+                        alt="Ídolos"></a>
+                <a href="categoria.html?tag=lancamento" class="slide fade"><img src="./img/front-page/banner3.png"
+                        alt="Lançamento"></a>
                 <a href="#" class="slide fade"><img src="./img/front-page/banner4.png" alt="Frete"></a>
                 <a href="#" class="slide fade"><img src="./img/front-page/banner5.png" alt="Cartão"></a>
             </div>
@@ -80,17 +83,17 @@
         <div class="container main-content">
 
             <section class="categories-grid">
-                <a href="#" class="cat-card">
+                <a href="categoria.html?tag=nacional" class="cat-card">
                     <img src="./img/front-page/nacional.png"
                         onerror="this.src='https://via.placeholder.com/400x400?text=NACIONAIS'" alt="Nacionais">
                     <div class="cat-label">NACIONAIS</div>
                 </a>
-                <a href="#" class="cat-card">
+                <a href="categoria.html?tag=europeus" class="cat-card">
                     <img src="./img/front-page/europeu.jpg"
                         onerror="this.src='https://via.placeholder.com/400x400?text=EUROPEUS'" alt="Europeus">
                     <div class="cat-label">EUROPEUS</div>
                 </a>
-                <a href="#" class="cat-card">
+                <a href="categoria.html?tag=feminina" class="cat-card">
                     <img src="./img/front-page/fem-marta.jpg"
                         onerror="this.src='https://via.placeholder.com/400x400?text=FEMININAS'" alt="Femininas">
                     <div class="cat-label">FEMININAS</div>
@@ -100,7 +103,7 @@
             <section class="section-block">
                 <div class="section-header">
                     <h2 class="section-title">Lançamentos</h2>
-                    <a href="#" class="section-link">VER TODOS</a>
+                    <a href="categoria.html?tag=lancamento" class="section-link">VER TODOS</a>
                 </div>
                 <div class="carousel-wrapper">
                     <button class="carousel-btn btn-left"
@@ -114,7 +117,7 @@
             <section class="section-block">
                 <div class="section-header">
                     <h2 class="section-title">Os Mais Vendidos</h2>
-                    <a href="#" class="section-link">VER TODOS</a>
+                    <a href="categoria.html?tag=destaque" class="section-link">VER TODOS</a>
                 </div>
                 <div class="carousel-wrapper">
                     <button class="carousel-btn btn-left"
@@ -126,17 +129,17 @@
             </section>
 
             <section class="categories-grid">
-                <a href="#" class="cat-card">
+                <a href="categoria.html?tag=lancamento" class="cat-card">
                     <img src="img/cat4.jpg" onerror="this.src='https://via.placeholder.com/400x400?text=LANÇAMENTOS'"
                         alt="Lançamentos">
                     <div class="cat-label">LANÇAMENTOS</div>
                 </a>
-                <a href="#" class="cat-card">
+                <a href="categoria.html?tag=selecoes" class="cat-card">
                     <img src="img/cat5.jpg" onerror="this.src='https://via.placeholder.com/400x400?text=SELEÇÕES'"
                         alt="Seleções">
                     <div class="cat-label">SELEÇÕES</div>
                 </a>
-                <a href="#" class="cat-card">
+                <a href="categoria.html?tag=internacional" class="cat-card">
                     <img src="img/cat6.jpg" onerror="this.src='https://via.placeholder.com/400x400?text=RESTO+DO+MUNDO'"
                         alt="Resto do Mundo">
                     <div class="cat-label">RESTO DO MUNDO</div>
@@ -144,16 +147,32 @@
             </section>
 
             <div class="brands-row">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/2/20/Adidas_Logo.svg" alt="Adidas">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a6/Logo_NIKE.svg" alt="Nike">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/d/d6/Puma_Logo.svg" alt="Puma">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/d/d1/Umbro_logo.png" alt="Umbro">
+                <svg viewBox="0 0 50 32" class="brand-svg">
+                    <path fill="currentColor"
+                        d="M12.2 9.5L0 29.8h9.3L16.8 17.3 12.2 9.5zM25.7 0L10.9 29.8h9.3L35 0h-9.3zm13.5 0L42.8 5.7 30.5 29.8h9.3l7.9-15.6L52.8 22 58.6 10.7 39.2 0z"
+                        transform="scale(0.8)" />
+                </svg>
+
+                <svg viewBox="0 0 50 18" class="brand-svg">
+                    <path fill="currentColor"
+                        d="M50 0L14.3 12.8C5.2 16.1 0 13.9 0 13.9c0-5.8 8.8-9.2 8.8-9.2L3.5 8.7C10 8.7 15.6 5.8 50 0z" />
+                </svg>
+
+                <svg viewBox="0 0 50 25" class="brand-svg">
+                    <path fill="currentColor"
+                        d="M49.3 10.2c-.3-.2-2.3-1.6-4.5.3-.2.2-.5.1-.6-.2-.1-.2 0-.5.2-.6 2.6-2.2 5-1 5.6-.6.4.3.4.9 0 1.2-.2.2-.5.1-.7-.1zM4.3 15.8c-1.3-1.3-2.6-1.5-2.6-1.5-.7-.1-1.3.4-1.4 1.1-.1.7.4 1.3 1.1 1.4 0 0 2.2.3 4.2 2.3 2 2 2.3 4.2 2.3 4.2.1.7.7 1.2 1.4 1.1.7-.1 1.2-.7 1.1-1.4 0 0-.2-1.3-1.5-2.6l-4.6-4.6zm42.1-7.2c-.7-.7-2.3-1.2-3.7-1-.3 0-.6-.2-.6-.5s.2-.6.5-.6c2-.3 4.2.4 5.3 1.5.3.3.3.8 0 1.1-.2.4-.7.4-1.1-.1l-.4-.4zM26.2 8.9c2.3 1 3.5 2.1 4 2.7.2.2.5.3.7.1.2-.2.3-.5.1-.7-.6-.8-2-2.1-4.7-3.2-1.4-.6-2.7-.8-3.9-.8-1.5-.1-2.9.4-4.1 1.1-2.4 1.4-3.5 3.3-3.6 3.6-.1.2 0 .5.3.6.2.1.5 0 .6-.3 0-.1 1-1.7 3.1-2.9 1-.6 2.2-1 3.5-.9 1 .1 2.2.3 3.5.9l.5-.2z" />
+                </svg>
+
+                <svg viewBox="0 0 50 30" class="brand-svg">
+                    <path fill="currentColor"
+                        d="M25 5.5l-9.5 9.5 9.5 9.5 9.5-9.5L25 5.5zm0-5.5L8.5 16.5l16.5 16.5 16.5-16.5L25 0zM5.5 16.5L16.5 5.5H8L0 13.5v6l8 8h8.5L5.5 16.5zm39 0l-11 11H42l8-8v-6l-8-8h-8.5l11 11z" />
+                </svg>
             </div>
 
             <section class="section-block">
                 <div class="section-header">
                     <h2 class="section-title">Time Internacional</h2>
-                    <a href="#" class="section-link">VER TODOS</a>
+                    <a href="categoria.html?tag=internacional" class="section-link">VER TODOS</a>
                 </div>
                 <div class="carousel-wrapper">
                     <button class="carousel-btn btn-left"
@@ -167,7 +186,7 @@
             <section class="section-block">
                 <div class="section-header">
                     <h2 class="section-title">Feminina</h2>
-                    <a href="#" class="section-link">VER TODOS</a>
+                    <a href="categoria.html?tag=feminina" class="section-link">VER TODOS</a>
                 </div>
                 <div class="carousel-wrapper">
                     <button class="carousel-btn btn-left"
@@ -194,10 +213,10 @@
             <div>
                 <h4>Navegação</h4>
                 <ul>
-                    <li>Início</li>
-                    <li>Brasileirão</li>
-                    <li>Europa</li>
-                    <li>Seleções</li>
+                    <li><a href="index.html">Início</a></li>
+                    <li><a href="categoria.html?tag=nacional">Brasileirão</a></li>
+                    <li><a href="categoria.html?tag=europeus">Europa</a></li>
+                    <li><a href="categoria.html?tag=selecoes">Seleções</a></li>
                 </ul>
             </div>
             <div>
