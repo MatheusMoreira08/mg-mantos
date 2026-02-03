@@ -3,8 +3,8 @@ const products = [
   // --- 25/26 JOGADOR (EUROPA) ---
   {
     id: 20, name: "Camisa Barcelona Home I 25/26 – Manga Longa", price: "R$ 169,90",
-    image: "img/produtos/25-26/torcedor/barcelona/manga-longa/principal.jpeg",
-    images: ["img/produtos/25-26/torcedor/barcelona/manga-longa/principal.jpeg", "img/produtos/25-26/torcedor/barcelona/manga-longa/detalhes.jpeg", "img/produtos/25-26/torcedor/barcelona/manga-longa/costas.jpeg"],
+    image: "img/produtos/25-26/torcedor/barcelona/principal-MANGALONGA.jpeg",
+    images: ["img/produtos/25-26/torcedor/barcelona/principal-MANGALONGA.jpeg", "img/produtos/25-26/torcedor/barcelona/detalhe-MANGALONGA.jpeg", "img/produtos/25-26/torcedor/barcelona/costas-MANGALONGA.jpeg"],
     tags: ["lancamento", "destaque", "europeus"], badge: "Novo", link: "produto.html"
   },
   { id: 21, name: "Camisa Milan Home 25/26 - Jogador", price: "R$ 149,90", image: "img/produtos/25-26/jogador/milan/principal.jpg", images: ["img/produtos/25-26/jogador/milan/principal.jpg", "img/produtos/25-26/jogador/milan/costas.jpg", "img/produtos/25-26/jogador/milan/detalhe.jpg"], tags: ["lancamento", "europeus"], badge: "Jogador", link: "produto.html" },
@@ -43,7 +43,7 @@ const products = [
   {
     id: 219, name: "Camisa Man. United Especial 25/26", price: "R$ 129,90",
     image: "img/produtos/25-26/torcedor/MAN. UNITED/principal-ESPECIAL + GOLA.jpg",
-    images: ["img/produtos/25-26/torcedor/MAN. UNITED/principal-ESPECIAL + GOLA.jpg", "img/produtos/25-26/torcedor/MAN. UNITED/costas-ESPECIAL + GOLA.jpg", "img/produtos/25-26/torcedor/MAN. UNITED/detalhes-ESPECIAL + GOLA.jpg"],
+    images: ["img/produtos/25-26/torcedor/MAN. UNITED/principal-ESPECIAL + GOLA.jpg", "img/produtos/25-26/torcedor/MAN. UNITED/costas-ESPECIAL + GOLA.jpg ", "img/produtos/25-26/torcedor/MAN. UNITED/detalhes-ESPECIAL + GOLA.jpg"],
     tags: ["europeus", "ingles"], link: "produto.html"
   },
   {
@@ -151,8 +151,8 @@ const products = [
   { id: 33, name: "Camisa Atlético de Madrid Home 24/25", price: "R$ 129,90", image: "img/produtos/24-25/torcedor/ATLÉTICO DE MADRID/principal.jpg", images: ["img/produtos/24-25/torcedor/ATLÉTICO DE MADRID/principal.jpg", "img/produtos/24-25/torcedor/ATLÉTICO DE MADRID/detalhes.jpg", "img/produtos/24-25/torcedor/ATLÉTICO DE MADRID/detalhes2.jpg"], tags: ["europeus", "espanhol"], link: "produto.html" },
 
   // GRUPO B
-  { id: 40, name: "Camisa Barcelona Edição Especial 304", price: "R$ 129,90", image: "img/produtos/24-25/torcedor/BARCELONA/principal-EDICAO O ESPECIAL .jpg", images: ["img/produtos/24-25/torcedor/BARCELONA/principal-EDICAO O ESPECIAL .jpg", "img/produtos/24-25/torcedor/BARCELONA/costas-EDICAO ESPECIAL.jpg", "img/produtos/24-25/torcedor/BARCELONA/detalhes-EDICAO ESPECIAL .jpg"], tags: ["europeus", "destaque"], badge: "Exclusivo", link: "produto.html" },
-  { id: 41, name: "Camisa Barcelona Away Preta Spotify", price: "R$ 129,90", image: "img/produtos/24-25/torcedor/BARCELONA/principal-SPOTIFY Y PRETA -.jpg", images: ["img/produtos/24-25/torcedor/BARCELONA/principal-SPOTIFY Y PRETA -.jpg", "img/produtos/24-25/torcedor/BARCELONA/costas-SPOTIFY PRETA .jpg", "img/produtos/24-25/torcedor/BARCELONA/detalhes-SPOTIFY PRETA .jpg"], tags: ["europeus", "lancamento"], link: "produto.html" },
+  { id: 40, name: "Camisa Barcelona Edição Especial 304", price: "R$ 129,90", image: "img/produtos/24-25/torcedor/BARCELONA/principal-EDICAO ESPECIAL .jpg", images: ["img/produtos/24-25/torcedor/BARCELONA/principal-EDICAO ESPECIAL .jpg", "img/produtos/24-25/torcedor/BARCELONA/costas-EDICAO ESPECIAL.jpg", "img/produtos/24-25/torcedor/BARCELONA/detalhes-EDICAO ESPECIAL .jpg"], tags: ["europeus", "destaque"], badge: "Exclusivo", link: "produto.html" },
+  { id: 41, name: "Camisa Barcelona Away Preta Spotify", price: "R$ 129,90", image: "img/produtos/24-25/torcedor/BARCELONA/principal-SPOTIFY PRETA -.jpg", images: ["img/produtos/24-25/torcedor/BARCELONA/principal-SPOTIFY PRETA -.jpg", "img/produtos/24-25/torcedor/BARCELONA/costas-SPOTIFY PRETA .jpg", "img/produtos/24-25/torcedor/BARCELONA/detalhes-SPOTIFY PRETA .jpg"], tags: ["europeus", "lancamento"], link: "produto.html" },
   { id: 42, name: "Camisa Bayer Leverkusen Away Branca", price: "R$ 129,90", image: "img/produtos/24-25/torcedor/BAYERN LEVERKUSEN/princial-BRANCa.jpg", images: ["img/produtos/24-25/torcedor/BAYERN LEVERKUSEN/princial-BRANCa.jpg", "img/produtos/24-25/torcedor/BAYERN LEVERKUSEN/costas-BRANCA.jpg", "img/produtos/24-25/torcedor/BAYERN LEVERKUSEN/detalhes-BRANCA.jpg"], tags: ["europeus", "alemao"], link: "produto.html" },
   { id: 43, name: "Camisa Betis Home 24/25", price: "R$ 129,90", image: "img/produtos/24-25/torcedor/BETIS/principal-HOME.jpg", images: ["img/produtos/24-25/torcedor/BETIS/principal-HOME.jpg", "img/produtos/24-25/torcedor/BETIS/detalhes-HOME.jpg", "img/produtos/24-25/torcedor/BETIS/detalhes2-HOME.jpg"], tags: ["europeus", "espanhol"], link: "produto.html" },
   { id: 44, name: "Camisa Boca Juniors Away Branca", price: "R$ 129,90", image: "img/produtos/24-25/torcedor/BOCA JUNIORS/principal-BRANCA.jpg", images: ["img/produtos/24-25/torcedor/BOCA JUNIORS/principal-BRANCA.jpg", "img/produtos/24-25/torcedor/BOCA JUNIORS/costas-BRANCA.jpg", "img/produtos/24-25/torcedor/BOCA JUNIORS/detalhes-BRANCA.jpg"], tags: ["internacional", "sulamericano"], link: "produto.html" },
