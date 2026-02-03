@@ -10,6 +10,8 @@
   --border: #222222;
   --input-bg: #1a1a1a;
   --carousel-btn: rgba(0, 0, 0, 0.6);
+  --success: #00c853;
+  /* Verde para botões de compra */
 }
 
 body.light-mode {
@@ -30,13 +32,15 @@ body.light-mode {
   padding: 0;
   box-sizing: border-box;
   font-family: 'Segoe UI', sans-serif;
-  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+  -webkit-tap-highlight-color: transparent;
+  /* Remove clique azul no celular */
 }
 
 body {
   background-color: var(--bg-body);
   color: var(--text-main);
   overflow-x: hidden;
+  transition: background-color 0.3s, color 0.3s;
 }
 
 a {
@@ -319,7 +323,7 @@ header {
   }
 }
 
-/* CARDS E CATEGORIAS */
+/* CATEGORIAS E CARDS */
 .categories-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -364,16 +368,7 @@ header {
   white-space: nowrap;
 }
 
-/* LOGOS NOVAS (SVG) */
-.brands-row {
-  display: flex;
-  justify-content: center;
-  gap: 50px;
-  margin: 60px 0;
-  flex-wrap: wrap;
-  align-items: center;
-}
-
+/* MARCAS (SVG) */
 .brand-svg {
   height: 40px;
   width: auto;
@@ -387,9 +382,7 @@ body.light-mode .brand-svg {
   opacity: 1;
 }
 
-/* Preto no modo claro */
-
-/* CARROSSEL */
+/* CARROSSEL DE PRODUTOS */
 .section-block {
   margin: 50px auto;
   position: relative;
@@ -569,23 +562,6 @@ body.light-mode .p-price {
 }
 
 /* PÁGINA CATEGORIA */
-.category-header {
-  text-align: center;
-  margin: 40px 0;
-  padding-bottom: 20px;
-  border-bottom: 1px solid var(--border);
-}
-
-.category-header h1 {
-  font-size: 2.5rem;
-  text-transform: uppercase;
-  color: var(--text-main);
-}
-
-.category-header p {
-  color: var(--text-muted);
-}
-
 .products-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -597,7 +573,7 @@ body.light-mode .p-price {
   width: 100%;
 }
 
-/* --- PÁGINA PRODUTO (LAYOUT "LADO A LADO") --- */
+/* --- PÁGINA PRODUTO --- */
 .product-page {
   margin-top: 30px;
   margin-bottom: 80px;
@@ -609,23 +585,11 @@ body.light-mode .p-price {
   color: var(--text-muted);
 }
 
-.breadcrumb a {
-  color: var(--text-muted);
-}
-
-/* AQUI ESTÁ O SEGREDO DO LAYOUT ANTIGO: */
 .product-container {
   display: grid;
   grid-template-columns: 1.5fr 1fr;
-  /* Esquerda maior (foto), Direita menor (detalhes) */
   gap: 50px;
   align-items: start;
-}
-
-.product-gallery {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
 }
 
 .main-image {
@@ -646,7 +610,6 @@ body.light-mode .p-price {
   object-fit: contain;
 }
 
-/* Setas */
 .gallery-arrow {
   position: absolute;
   top: 50%;
@@ -663,7 +626,6 @@ body.light-mode .p-price {
   display: flex;
   align-items: center;
   justify-content: center;
-  user-select: none;
   z-index: 10;
 }
 
@@ -683,6 +645,7 @@ body.light-mode .p-price {
   display: flex;
   gap: 10px;
   justify-content: center;
+  margin-top: 15px;
 }
 
 .thumbnails img {
@@ -705,7 +668,6 @@ body.light-mode .p-price {
 
 .product-details {
   padding-top: 20px;
-  /* Alinha com o topo da foto */
 }
 
 .p-title {
@@ -716,22 +678,10 @@ body.light-mode .p-price {
   text-transform: uppercase;
 }
 
-.p-rating {
-  color: #ffc107;
-  font-size: 1.1rem;
-  margin-bottom: 20px;
-}
-
 .p-prices {
   margin-bottom: 30px;
   border-bottom: 1px solid var(--border);
   padding-bottom: 20px;
-}
-
-.old-price {
-  text-decoration: line-through;
-  color: var(--text-muted);
-  margin-right: 10px;
 }
 
 .current-price {
@@ -760,27 +710,62 @@ body.light-mode .p-price {
   color: #fff;
 }
 
-.custom-input {
-  width: 100%;
-  padding: 12px;
-  border: 2px solid var(--border);
+.custom-box {
+  margin: 20px 0;
+  padding: 15px;
+  background-color: #f8f9fa;
   border-radius: 8px;
-  background-color: var(--input-bg);
-  color: var(--text-main);
-  font-size: 14px;
-  transition: 0.3s;
-  outline: none;
-  margin-top: 5px;
+  border: 1px solid #eee;
 }
 
-.custom-input:focus {
-  border-color: var(--accent);
-  box-shadow: 0 0 8px rgba(74, 0, 224, 0.3);
+body:not(.light-mode) .custom-box {
+  background-color: #222;
+  border-color: #333;
+}
+
+/* Ajuste escuro */
+
+.custom-title {
+  font-weight: 600;
+  margin-bottom: 10px;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+body:not(.light-mode) .custom-title {
+  color: #fff;
+}
+
+.custom-inputs {
+  display: flex;
+  gap: 10px;
+}
+
+#cust-name {
+  flex: 2;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+#cust-number {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.custom-note {
+  font-size: 0.75rem;
+  color: #888;
+  margin-top: 8px;
+  font-style: italic;
 }
 
 .buy-btn {
   width: 100%;
-  background: #28a745;
+  background: var(--success);
   color: #fff;
   border: none;
   padding: 18px;
@@ -797,19 +782,7 @@ body.light-mode .p-price {
 }
 
 .buy-btn:hover {
-  background: #218838;
-}
-
-.p-description h3 {
-  font-size: 1.2rem;
-  margin-bottom: 10px;
-  border-left: 4px solid var(--accent);
-  padding-left: 10px;
-}
-
-.p-description p {
-  margin-bottom: 15px;
-  color: var(--text-muted);
+  background: #00a844;
 }
 
 /* FOOTER */
@@ -885,62 +858,197 @@ footer {
   font-size: 0.8rem;
 }
 
-/* MOBILE */
-@media (max-width: 768px) {
-  .desktop-only {
-    display: none;
+/* --- MODAL DE CARRINHO (CORREÇÃO DE "MANCHA" E RESPONSIVIDADE) --- */
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(5px);
+  /* Efeito de vidro */
+  -webkit-backdrop-filter: blur(5px);
+  z-index: 2000;
+
+  /* O SEGREDO PRA NÃO APARECER SOZINHO: */
+  display: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.modal-box {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.9);
+  width: 90%;
+  max-width: 500px;
+  background: #fff;
+  border-radius: 12px;
+  z-index: 2001;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+
+  /* COMEÇA ESCONDIDO TAMBÉM: */
+  display: none;
+  flex-direction: column;
+  max-height: 90vh;
+  /* Máximo 90% da altura da tela */
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* CLASSE QUE ATIVA O CARRINHO (JS ADICIONA ESSA CLASSE) */
+.modal-overlay.show,
+.modal-box.show {
+  display: flex;
+  /* Flex para alinhar itens */
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* O RESTO DO ESTILO DO CARRINHO */
+.modal-header {
+  padding: 15px 20px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-header h3 {
+  font-size: 1.1rem;
+  margin: 0;
+  color: #333;
+}
+
+.close-modal {
+  font-size: 1.8rem;
+  cursor: pointer;
+  color: #999;
+}
+
+.modal-body {
+  overflow-y: auto;
+  /* Rolagem se tiver muitos itens */
+  padding: 20px;
+  flex: 1;
+}
+
+.modal-item {
+  display: flex;
+  gap: 15px;
+  border-bottom: 1px solid #f0f0f0;
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+  align-items: center;
+}
+
+.modal-item img {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  border: 1px solid #eee;
+  border-radius: 6px;
+}
+
+.modal-item-info h4 {
+  font-size: 0.9rem;
+  margin: 0 0 5px 0;
+  color: #333;
+}
+
+.modal-item-info p {
+  font-size: 0.8rem;
+  color: #666;
+  margin: 0;
+}
+
+.modal-remove-btn {
+  margin-left: auto;
+  color: red;
+  cursor: pointer;
+}
+
+.modal-footer {
+  padding: 20px;
+  background: #f9f9f9;
+  border-radius: 0 0 12px 12px;
+  border-top: 1px solid #eee;
+}
+
+.modal-total-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: #00c853;
+}
+
+.modal-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-continue,
+.btn-finalize {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+}
+
+.btn-continue {
+  background: #e0e0e0;
+  color: #333;
+}
+
+.btn-finalize {
+  background: #00c853;
+  color: white;
+}
+
+/* MODO ESCURO DO MODAL */
+body:not(.light-mode) .modal-box {
+  background: #1a1a1a;
+  color: #fff;
+  border: 1px solid #333;
+}
+
+body:not(.light-mode) .modal-header,
+body:not(.light-mode) .modal-footer {
+  border-color: #333;
+  background: #1a1a1a;
+}
+
+body:not(.light-mode) .modal-item {
+  border-color: #333;
+}
+
+body:not(.light-mode) .modal-header h3 {
+  color: #fff;
+}
+
+body:not(.light-mode) .modal-item-info h4 {
+  color: #fff;
+}
+
+/* RESPONSIVIDADE (CELULAR) */
+@media (max-width: 600px) {
+  .modal-box {
+    width: 95%;
+    max-height: 85vh;
   }
 
-  .search-bar {
-    display: none;
+  .modal-buttons {
+    flex-direction: column-reverse;
   }
 
-  .carousel-btn {
-    display: none;
-  }
-
-  .brands-row {
-    gap: 30px;
-  }
-
-  /* No celular, empilha tudo */
-  .product-container {
-    grid-template-columns: 1fr;
-    gap: 30px;
-  }
-
-  .p-title {
-    font-size: 1.5rem;
-  }
-
-  .current-price {
-    font-size: 2rem;
-  }
-
-  .products-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
-  }
-
-  .product-card {
-    width: 100%;
-  }
-
-  .p-img {
-    height: 180px;
-    padding: 5px;
-  }
-
-  .p-info {
-    padding: 10px;
-  }
-
-  .p-name {
-    font-size: 0.9rem;
-    height: 40px;
-  }
-
-  .p-price {
-    font-size: 1.1rem;
-  }
+  /* Botão continuar embaixo */
 }
