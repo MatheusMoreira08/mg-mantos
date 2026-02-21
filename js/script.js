@@ -1,8 +1,5 @@
-// --- 1. BANCO DE DADOS DE PRODUTOS (LISTA COMPLETA E UNIFICADA) ---
 const products = [
-  // =================================================================
   // LANÇAMENTOS 25/26 e 26/27 (FUTURO/JOGADOR)
-  // =================================================================
   { id: 701, name: "Camisa Brasil Home 26/27", price: "R$ 129,90", image: "img/produtos/26-27/torcedor/BRASIL/principal-home.jpeg", images: ["img/produtos/26-27/torcedor/BRASIL/principal-home.jpeg", "img/produtos/26-27/torcedor/BRASIL/detalhes-home.jpeg", "img/produtos/26-27/torcedor/BRASIL/neymar.jpeg"], tags: ["selecoes", "lancamento", "destaque"], badge: "Futuro", link: "produto.html" },
   { id: 20, name: "Camisa Barcelona Home I 25/26 – Manga Longa", price: "R$ 169,90", image: "img/produtos/25-26/torcedor/barcelona/principal-MANGALONGA.jpeg", images: ["img/produtos/25-26/torcedor/barcelona/principal-MANGALONGA.jpeg", "img/produtos/25-26/torcedor/barcelona/detalhe-MANGALONGA.jpeg", "img/produtos/25-26/torcedor/barcelona/costas-MANGALONGA.jpeg"], tags: ["lancamento", "destaque", "europeus"], badge: "Novo", link: "produto.html" },
   { id: 21, name: "Camisa Milan Home 25/26 - Jogador", price: "R$ 149,90", image: "img/produtos/25-26/jogador/milan/principal.jpg", images: ["img/produtos/25-26/jogador/milan/principal.jpg", "img/produtos/25-26/jogador/milan/costas.jpg", "img/produtos/25-26/jogador/milan/detalhe.jpg"], tags: ["lancamento", "europeus"], badge: "Jogador", link: "produto.html" },
@@ -51,7 +48,6 @@ const products = [
   { id: 730, name: "Camisa Vasco Home 26/27", price: "R$ 129,90", image: "img/produtos/26-27/torcedor/VASCO/principal-home.jpg", images: ["img/produtos/26-27/torcedor/VASCO/principal-home.jpg", "img/produtos/26-27/torcedor/VASCO/costas-home.jpg", "img/produtos/26-27/torcedor/VASCO/detalhes-home.jpg"], tags: ["nacional", "brasileirao", "destaque"], link: "produto.html" },
   { id: 731, name: "Camisa Man. United Especial 26/27", price: "R$ 149,90", image: "img/produtos/26-27/torcedor/MAN. UNITED/principal-especial.jpg", images: ["img/produtos/26-27/torcedor/MAN. UNITED/principal-especial.jpg", "img/produtos/26-27/torcedor/MAN. UNITED/costas-especial.jpg", "img/produtos/26-27/torcedor/MAN. UNITED/detalhes-especial.png"], tags: ["europeus", "ingles"], badge: "Exclusivo", link: "produto.html" },
   // TIMES NACIONAIS (25/26 e 26/27)
-  // =================================================================
   { id: 410, name: "Camisa Athletico Paranaense Home 25/26", price: "R$ 129,90", image: "img/produtos/25-26/torcedor/ATLETICO PARANAENSE/principal-HOME.jpg", images: ["img/produtos/25-26/torcedor/ATLETICO PARANAENSE/principal-HOME.jpg"], tags: ["nacional", "brasileirao"], link: "produto.html" },
   { id: 400, name: "Camisa Atlético Mineiro Home 25/26", price: "R$ 129,90", image: "img/produtos/25-26/torcedor/ATLETICO MINEIRO/principal-HOME.jpg", images: ["img/produtos/25-26/torcedor/ATLETICO MINEIRO/principal-HOME.jpg"], tags: ["nacional", "brasileirao"], link: "produto.html" },
   { id: 401, name: "Camisa Atlético Mineiro Away Branca", price: "R$ 129,90", image: "img/produtos/25-26/torcedor/ATLETICO MINEIRO/principal-AWAY.jpg", images: ["img/produtos/25-26/torcedor/ATLETICO MINEIRO/principal-AWAY.jpg"], tags: ["nacional", "brasileirao"], link: "produto.html" },
@@ -131,9 +127,7 @@ const products = [
   { id: 540, name: "Camisa Vitória Home 25/26", price: "R$ 129,90", image: "img/produtos/25-26/torcedor/VITORIA/principal-HOME.jpg", images: ["img/produtos/25-26/torcedor/VITORIA/principal-HOME.jpg"], tags: ["nacional", "brasileirao"], link: "produto.html" },
   { id: 541, name: "Camisa Vitória Away 25/26", price: "R$ 129,90", image: "img/produtos/25-26/torcedor/VITORIA/principal-AWAY.jpg", images: ["img/produtos/25-26/torcedor/VITORIA/principal-AWAY.jpg"], tags: ["nacional", "brasileirao"], link: "produto.html" },
 
-  // =================================================================
   // TEMPORADA 24/25 (RESTORED FULL LIST)
-  // =================================================================
   { id: 30, name: "Camisa Al-Hilal Home 24/25 - Puma", price: "R$ 129,90", image: "img/produtos/24-25/torcedor/AL-HILAL/principal.jpg", images: ["img/produtos/24-25/torcedor/AL-HILAL/principal.jpg", "img/produtos/24-25/torcedor/AL-HILAL/costas.jpg", "img/produtos/24-25/torcedor/AL-HILAL/detalhes.jpg"], tags: ["internacional", "saudita"], badge: "Neymar", link: "produto.html" },
   { id: 31, name: "Camisa Arsenal Home 24/25 - Adidas", price: "R$ 129,90", image: "img/produtos/24-25/torcedor/ARSENAL/principal.jpg", images: ["img/produtos/24-25/torcedor/ARSENAL/principal.jpg", "img/produtos/24-25/torcedor/ARSENAL/costas.jpg", "img/produtos/24-25/torcedor/ARSENAL/detalhes.jpg"], tags: ["europeus", "ingles"], link: "produto.html" },
   { id: 32, name: "Camisa Atalanta Home 24/25", price: "R$ 129,90", image: "img/produtos/24-25/torcedor/ATALANTA/principal.jpeg", images: ["img/produtos/24-25/torcedor/ATALANTA/principal.jpeg", "img/produtos/24-25/torcedor/ATALANTA/detalhes.jpeg", "img/produtos/24-25/torcedor/ATALANTA/detalhes2.jpeg"], tags: ["europeus", "italiano"], link: "produto.html" },
@@ -185,9 +179,7 @@ const products = [
   { id: 107, name: "Camisa Vasco Off-White Diagonais", price: "R$ 129,90", image: "img/produtos/24-25/torcedor/VASCO/principal-THIRD.jpg", images: ["img/produtos/24-25/torcedor/VASCO/principal-THIRD.jpg", "img/produtos/24-25/torcedor/VASCO/costas-THIRD.jpg", "img/produtos/24-25/torcedor/VASCO/detalhes-THIRD.jpg"], tags: ["nacional", "destaque"], link: "produto.html" },
   { id: 108, name: "Camisa Vasco Pré-Jogo Branca", price: "R$ 129,90", image: "img/produtos/24-25/torcedor/VASCO/principal-PRÉ JOGO.jpg", images: ["img/produtos/24-25/torcedor/VASCO/principal-PRÉ JOGO.jpg", "img/produtos/24-25/torcedor/VASCO/detalhes-PRÉ JOGO.jpg"], tags: ["nacional", "treino"], link: "produto.html" },
 
-  // =================================================================
   // RETRÔ (R$ 179,90)
-  // =================================================================
   { id: 300, name: "Camisa Alemanha 1998 Retrô", price: "R$ 179,90", image: "img/produtos/retro/ALEMANHA/principal-1998.jpg", images: ["img/produtos/retro/ALEMANHA/principal-1998.jpg", "img/produtos/retro/ALEMANHA/costas-1998.jpg", "img/produtos/retro/ALEMANHA/detalhes-1998.jpg"], tags: ["retro", "selecoes", "europeus"], link: "produto.html" },
   { id: 301, name: "Camisa Alemanha 2014 Özil", price: "R$ 179,90", image: "img/produtos/retro/ALEMANHA/principal-OZIL-2014.jpeg", images: ["img/produtos/retro/ALEMANHA/principal-OZIL-2014.jpeg", "img/produtos/retro/ALEMANHA/costas-OZIL-2014.jpeg", "img/produtos/retro/ALEMANHA/detalhes-OZIL-2014.jpeg", "img/produtos/retro/ALEMANHA/detalhes1-OZIL-2014.jpeg"], tags: ["retro", "selecoes", "europeus"], badge: "7x1", link: "produto.html" },
   { id: 302, name: "Camisa Atl. Madrid F. Torres", price: "R$ 179,90", image: "img/produtos/retro/ATLETICO DE MADRID/principal-FERNANDO TORRES.jpeg", images: ["img/produtos/retro/ATLETICO DE MADRID/principal-FERNANDO TORRES.jpeg", "img/produtos/retro/ATLETICO DE MADRID/costas-FERNANDO TORRES.jpeg", "img/produtos/retro/ATLETICO DE MADRID/detalhes-FERNANDO TORRES.jpeg"], tags: ["retro", "europeus", "espanhol"], link: "produto.html" },
@@ -274,14 +266,12 @@ function updateThumbnails() {
 // --- 3. LÓGICA DE INICIALIZAÇÃO ---
 document.addEventListener('DOMContentLoaded', () => {
 
-  // --- LÓGICA DE PESQUISA INTELIGENTE (NOVO) ---
   const searchInput = document.querySelector('.search-bar input');
   const searchIcon = document.querySelector('.search-bar .search-icon');
 
   function performSearch() {
     const term = searchInput.value.trim();
     if (term) {
-      // Redireciona para categoria.html com o termo de busca
       window.location.href = `categoria.html?busca=${encodeURIComponent(term)}`;
     }
   }
@@ -402,14 +392,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // LÓGICA DE FILTRO (TAG OU BUSCA)
     if (searchTerm) {
-      // Se for uma busca, filtra pelo nome ou tag que contenha o texto
       filtered = products.filter(p =>
         p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         p.tags.some(t => t.includes(searchTerm.toLowerCase()))
       );
       if (title) title.innerText = `Resultados para: "${searchTerm}"`;
     } else if (tag) {
-      // Se for clique no menu
       filtered = products.filter(p => p.tags.includes(tag));
       if (title) title.innerText = titulos[tag] || "Produtos";
     }
@@ -448,7 +436,6 @@ document.addEventListener('DOMContentLoaded', () => {
   let cart = JSON.parse(localStorage.getItem('mgMantosCart')) || [];
   updateCartIcon();
 
-  // FUNÇÕES DE ABRIR/FECHAR MODAL
   window.openCartModal = function (isAddedAction = false) {
     const overlay = document.getElementById('cart-modal-overlay');
     const modal = document.getElementById('cart-modal');
@@ -609,8 +596,7 @@ document.addEventListener('DOMContentLoaded', () => {
     message += `*TOTAL: ${total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}*%0A`;
     message += `------------------------------%0A`;
     message += `Gostaria de prosseguir para o pagamento.`;
-
-    const phone = "5544988215198"; // SEU NÚMERO
+    const phone = "5544988215198";
     window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
   }
 
