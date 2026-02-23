@@ -2,7 +2,7 @@ const products = [
   // LANÇAMENTOS 25/26 e 26/27 (FUTURO/JOGADOR)
   { id: 701, name: "Camisa Brasil Home 26/27", price: "R$ 129,90", image: "img/produtos/26-27/torcedor/BRASIL/principal-home.jpeg", images: ["img/produtos/26-27/torcedor/BRASIL/principal-home.jpeg", "img/produtos/26-27/torcedor/BRASIL/detalhes-home.jpeg", "img/produtos/26-27/torcedor/BRASIL/neymar.jpeg"], tags: ["selecoes", "lancamento", "destaque"], badge: "Futuro", link: "produto.html" },
   { id: 20, name: "Camisa Barcelona Home I 25/26 – Manga Longa", price: "R$ 169,90", image: "img/produtos/25-26/torcedor/BARCELONA/principal-MANGALONGA.jpeg", images: ["img/produtos/25-26/torcedor/BARCELONA/principal-MANGALONGA.jpeg", "img/produtos/25-26/torcedor/BARCELONA/detalhe-MANGALONGA.jpeg", "img/produtos/25-26/torcedor/BARCELONA/costas-MANGALONGA.jpeg"], tags: ["lancamento", "destaque", "europeus"], badge: "Novo", link: "produto.html" },
-  { id: 21, name: "Camisa Milan Home 25/26 - Jogador", price: "R$ 149,90", image: "img/produtos/25-26/jogador/MILAN/principal.jpg", images: ["img/produtos/25-26/jogador/milan/principal.jpg", "img/produtos/25-26/jogador/milan/costas.jpg", "img/produtos/25-26/jogador/MILAN/detalhes.jpg"], tags: ["lancamento", "europeus"], badge: "Jogador", link: "produto.html" },
+  { id: 21, name: "Camisa Milan Home 25/26 - Jogador", price: "R$ 149,90", image: "img/produtos/25-26/jogador/MILAN/principal.jpg", images: ["img/produtos/25-26/jogador/MILAN/principal.jpg", "img/produtos/25-26/jogador/MILAN/costas.jpg", "img/produtos/25-26/jogador/MILAN/detalhes.jpg"], tags: ["lancamento", "europeus"], badge: "Jogador", link: "produto.html" },
   { id: 120, name: "Camisa Aston Villa Home 25/26 - Jogador", price: "R$ 149,90", image: "img/produtos/25-26/jogador/ASTON VILLA/principal-HOME.jpg", images: ["img/produtos/25-26/jogador/ASTON VILLA/principal-HOME.jpg", "img/produtos/25-26/jogador/ASTON VILLA/costas-HOME.jpg", "img/produtos/25-26/jogador/ASTON VILLA/detalhes-HOME.jpg"], tags: ["lancamento", "europeus", "ingles"], badge: "Jogador", link: "produto.html" },
   { id: 202, name: "Camisa Chelsea Home 25/26 - Torcedor", price: "R$ 129,90", image: "img/produtos/25-26/torcedor/CHEALSEA/principal-AZUL.jpg", images: ["img/produtos/25-26/torcedor/CHEALSEA/principal-AZUL.jpg", "img/produtos/25-26/torcedor/CHEALSEA/costas-AZUL.jpg", "img/produtos/25-26/torcedor/CHEALSEA/detalhes-AZUL.jpg"], tags: ["europeus", "ingles"], link: "produto.html" },
   { id: 122, name: "Camisa Inter de Milão Home 25/26 - Jogador", price: "R$ 149,90", image: "img/produtos/25-26/jogador/INTER DE MILAO/principal-HOME.jpg", images: ["img/produtos/25-26/jogador/INTER DE MILAO/principal-HOME.jpg", "img/produtos/25-26/jogador/INTER DE MILAO/costas-HOME.jpg", "img/produtos/25-26/jogador/INTER DE MILAO/detalhes-HOME.jpg"], tags: ["lancamento", "europeus", "italiano"], badge: "Jogador", link: "produto.html" },
@@ -592,9 +592,6 @@ document.addEventListener('DOMContentLoaded', () => {
       message += `%0A`;
     });
 
-    message += `------------------------------%0A`;
-    message += `*TOTAL: ${total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}*%0A`;
-    message += `------------------------------%0A`;
     message += `Gostaria de prosseguir para o pagamento.`;
     const phone = "5544988215198";
     window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
