@@ -1,8 +1,8 @@
 const products = [
   // LANÇAMENTOS 25/26 e 26/27 (FUTURO/JOGADOR)
   { id: 701, name: "Camisa Brasil Home 26/27", price: "R$ 129,90", image: "img/produtos/26-27/torcedor/BRASIL/principal-home.jpeg", images: ["img/produtos/26-27/torcedor/BRASIL/principal-home.jpeg", "img/produtos/26-27/torcedor/BRASIL/detalhes-home.jpeg", "img/produtos/26-27/torcedor/BRASIL/neymar.jpeg"], tags: ["selecoes", "lancamento", "destaque"], badge: "Futuro", link: "produto.html" },
-  { id: 20, name: "Camisa Barcelona Home I 25/26 – Manga Longa", price: "R$ 169,90", image: "img/produtos/25-26/torcedor/BARCELONA/principal-MANGALONGA.jpeg", images: ["img/produtos/25-26/torcedor/BARCELONA/principal-MANGALONGA.jpeg", "img/produtos/25-26/torcedor/BARCELONA/detalhe-MANGALONGA.jpeg", "img/produtos/25-26/torcedor/BARCELONA/costas-MANGALONGA.jpeg"], tags: ["lancamento", "destaque", "europeus"], badge: "Novo", link: "produto.html" },
-  { id: 21, name: "Camisa Milan Home 25/26 - Jogador", price: "R$ 149,90", image: "img/produtos/25-26/jogador/MILAN/principal.jpg", images: ["img/produtos/25-26/jogador/MILAN/principal.jpg", "img/produtos/25-26/jogador/MILAN/costas.jpg", "img/produtos/25-26/jogador/MILAN/detalhes.jpg"], tags: ["lancamento", "europeus"], badge: "Jogador", link: "produto.html" },
+  { id: 20, name: "Camisa Barcelona Home I 25/26 – Manga Longa", price: "R$ 169,90", image: "img/produtos/25-26/torcedor/BARCELONA/principal-MANGALONGA.jpg", images: ["img/produtos/25-26/torcedor/BARCELONA/principal-MANGALONGA.jpg", "img/produtos/25-26/torcedor/BARCELONA/detalhe-MANGALONGA.jpeg", "img/produtos/25-26/torcedor/BARCELONA/costas-MANGALONGA.jpeg"], tags: ["lancamento", "destaque", "europeus"], badge: "Novo", link: "produto.html" },
+  { id: 21, name: "Camisa Milan Home 25/26 - Jogador", price: "R$ 149,90", image: "img/produtos/25-26/jogador/MILAN/principal.jpg", images: ["img/produtos/25-26/jogador/milan/principal.jpg", "img/produtos/25-26/jogador/milan/costas.jpg", "img/produtos/25-26/jogador/MILAN/detalhes.jpg"], tags: ["lancamento", "europeus"], badge: "Jogador", link: "produto.html" },
   { id: 120, name: "Camisa Aston Villa Home 25/26 - Jogador", price: "R$ 149,90", image: "img/produtos/25-26/jogador/ASTON VILLA/principal-HOME.jpg", images: ["img/produtos/25-26/jogador/ASTON VILLA/principal-HOME.jpg", "img/produtos/25-26/jogador/ASTON VILLA/costas-HOME.jpg", "img/produtos/25-26/jogador/ASTON VILLA/detalhes-HOME.jpg"], tags: ["lancamento", "europeus", "ingles"], badge: "Jogador", link: "produto.html" },
   { id: 202, name: "Camisa Chelsea Home 25/26 - Torcedor", price: "R$ 129,90", image: "img/produtos/25-26/torcedor/CHEALSEA/principal-AZUL.jpg", images: ["img/produtos/25-26/torcedor/CHEALSEA/principal-AZUL.jpg", "img/produtos/25-26/torcedor/CHEALSEA/costas-AZUL.jpg", "img/produtos/25-26/torcedor/CHEALSEA/detalhes-AZUL.jpg"], tags: ["europeus", "ingles"], link: "produto.html" },
   { id: 122, name: "Camisa Inter de Milão Home 25/26 - Jogador", price: "R$ 149,90", image: "img/produtos/25-26/jogador/INTER DE MILAO/principal-HOME.jpg", images: ["img/produtos/25-26/jogador/INTER DE MILAO/principal-HOME.jpg", "img/produtos/25-26/jogador/INTER DE MILAO/costas-HOME.jpg", "img/produtos/25-26/jogador/INTER DE MILAO/detalhes-HOME.jpg"], tags: ["lancamento", "europeus", "italiano"], badge: "Jogador", link: "produto.html" },
@@ -51,24 +51,25 @@ const products = [
   { id: 410, name: "Camisa Athletico Paranaense Home 25/26", price: "R$ 129,90", image: "img/produtos/25-26/torcedor/ATLETICO PARANAENSE/principal-HOME.jpg", images: ["img/produtos/25-26/torcedor/ATLETICO PARANAENSE/principal-HOME.jpg"], tags: ["nacional", "brasileirao"], link: "produto.html" },
   { id: 400, name: "Camisa Atlético Mineiro Home 25/26", price: "R$ 129,90", image: "img/produtos/25-26/torcedor/ATLETICO MINEIRO/principal-HOME.jpg", images: ["img/produtos/25-26/torcedor/ATLETICO MINEIRO/principal-HOME.jpg"], tags: ["nacional", "brasileirao"], link: "produto.html" },
   { id: 401, name: "Camisa Atlético Mineiro Away Branca", price: "R$ 129,90", image: "img/produtos/25-26/torcedor/ATLETICO MINEIRO/principal-AWAY.jpg", images: ["img/produtos/25-26/torcedor/ATLETICO MINEIRO/principal-AWAY.jpg"], tags: ["nacional", "brasileirao"], link: "produto.html" },
-  { id: 402, name: "Camisa Atlético Mineiro Third Preta", price: "R$ 129,90", image: "img/produtos/25-26/torcedor/ATLETICO MINEIRO/principal-preta.jpg", tags: ["nacional", "destaque"], link: "produto.html" }, { id: 403, name: "Camisa Atlético Mineiro Treino", price: "R$ 129,90", image: "img/produtos/25-26/torcedor/ATLETICO MINEIRO/principal-TREINO-PATROCINIO.png", images: ["img/produtos/25-26/torcedor/ATLETICO MINEIRO/principal-TREINO-PATROCINIO.png"], tags: ["nacional", "treino"], link: "produto.html" },
+  { id: 402, name: "Camisa Atlético Mineiro Third Preta", price: "R$ 129,90", image: "img/produtos/25-26/torcedor/ATLETICO MINEIRO/principal-PRETA.JPG", images: ["img/produtos/25-26/torcedor/ATLETICO MINEIRO/principal-PRETA.JPG"], tags: ["nacional", "destaque"], link: "produto.html" },
+  { id: 403, name: "Camisa Atlético Mineiro Treino", price: "R$ 129,90", image: "img/produtos/25-26/torcedor/ATLETICO MINEIRO/principal-TREINO-PATROCINIO.png", images: ["img/produtos/25-26/torcedor/ATLETICO MINEIRO/principal-TREINO-PATROCINIO.png"], tags: ["nacional", "treino"], link: "produto.html" },
   { id: 500, name: "Camisa Bahia Home 25/26 - Jogador", price: "R$ 149,90", image: "img/produtos/25-26/jogador/BAHIA/principal-HOME.jpg", images: ["img/produtos/25-26/jogador/BAHIA/principal-HOME.jpg"], tags: ["nacional", "brasileirao"], badge: "Jogador", link: "produto.html" },
   { id: 501, name: "Camisa Bahia Away 25/26 - Jogador", price: "R$ 149,90", image: "img/produtos/25-26/jogador/BAHIA/principal-AWAY.jpg", images: ["img/produtos/25-26/jogador/BAHIA/principal-AWAY.jpg"], tags: ["nacional", "brasileirao"], badge: "Jogador", link: "produto.html" },
   { id: 502, name: "Camisa Bahia Home 25/26 - Torcedor", price: "R$ 129,90", image: "img/produtos/25-26/torcedor/BAHIA/principal-HOME.jpg", images: ["img/produtos/25-26/torcedor/BAHIA/principal-HOME.jpg"], tags: ["nacional", "brasileirao"], link: "produto.html" },
   { id: 503, name: "Camisa Bahia Away 25/26 - Torcedor", price: "R$ 129,90", image: "img/produtos/25-26/torcedor/BAHIA/principal-AWAY.jpg", images: ["img/produtos/25-26/torcedor/BAHIA/principal-AWAY.jpg"], tags: ["nacional", "brasileirao"], link: "produto.html" },
-  { id: 504, name: "Camisa Bahia Super Man", price: "R$ 129,90", image: "img/produtos/25-26/torcedor/BAHIA/principal-SUPERMAN.jpg", images: ["img/produtos/25-26/torcedor/BAHIA/principal-SUPERMAN.jpg"], tags: ["nacional", "destaque"], link: "produto.html" },
-  { id: 510, name: "Camisa Botafogo Home 25/26 - Jogador", price: "R$ 149,90", image: "img/produtos/25-26/jogador/BOTAFOGO/principal-HOME.jpg", tags: ["nacional", "brasileirao"], badge: "Jogador", link: "produto.html" },
-  { id: 511, name: "Camisa Botafogo Home 25/26 - Torcedor", price: "R$ 129,90", image: "img/produtos/25-26/torcedor/BOTAFOGO/principal-TORCEDOR2.jpg", tags: ["nacional", "brasileirao"], link: "produto.html" },
-  { id: 512, name: "Camisa Botafogo Away Branca 25/26", price: "R$ 129,90", image: "img/produtos/25-26/torcedor/BOTAFOGO/principal-TORCEDOR6.jpg", tags: ["nacional", "brasileirao"], link: "produto.html" },
-  { id: 513, name: "Camisa Botafogo Roxa 25/26", price: "R$ 129,90", image: "img/produtos/25-26/torcedor/BOTAFOGO/principal-TORCEDOR7.jpg", tags: ["nacional", "destaque"], link: "produto.html" },
-  { id: 514, name: "Camisa Botafogo Amarela 25/26", price: "R$ 129,90", image: "img/produtos/25-26/torcedor/BOTAFOGO/principal-TORCEDOR1.jpg", tags: ["nacional", "destaque"], link: "produto.html" },
-  { id: 515, name: "Camisa Botafogo Azul 25/26", price: "R$ 129,90", image: "img/produtos/25-26/torcedor/BOTAFOGO/principal-TORCEDOR3.jpg", tags: ["nacional", "destaque"], link: "produto.html" },
-  { id: 516, name: "Camisa Botafogo Preta II 25/26", price: "R$ 129,90", image: "img/produtos/25-26/torcedor/BOTAFOGO/principal-TORCEDOR4.jpg", tags: ["nacional", "destaque"], link: "produto.html" },
-  { id: 517, name: "Camisa Botafogo Roxa Clara 25/26", price: "R$ 129,90", image: "img/produtos/25-26/torcedor/BOTAFOGO/principal-TORCEDOR8.jpg", tags: ["nacional", "destaque"], link: "produto.html" },
-  { id: 518, name: "Camisa Botafogo Branca 25/26", price: "R$ 129,90", image: "img/produtos/25-26/torcedor/BOTAFOGO/principal-TORCEDOR9.jpg", tags: ["nacional", "destaque"], link: "produto.html" },
-  { id: 519, name: "Camisa Botafogo Preta 25/26", price: "R$ 129,90", image: "img/produtos/25-26/torcedor/BOTAFOGO/principal-TORCEDOR5.jpg", tags: ["nacional", "destaque"], link: "produto.html" },
-  { id: 520, name: "Camisa Bragantino Home 25/26", price: "R$ 129,90", image: "img/produtos/25-26/torcedor/BRAGANTINO/principal-HOME.jpg", images: ["img/produtos/25-26/torcedor/BRAGANTINO/principal-HOME.jpg"], tags: ["nacional", "brasileirao"], link: "produto.html" },
-  { id: 521, name: "Camisa Bragantino Away 25/26", price: "R$ 129,90", image: "img/produtos/25-26/torcedor/BRAGANTINO/principal-AWAY.jpg", images: ["img/produtos/25-26/torcedor/BRAGANTINO/principal-AWAY.jpg"], tags: ["nacional", "brasileirao"], link: "produto.html" },
+  { id: 504, name: "Camisa Bahia Super Man", price: "R$ 129,90", image: "img/produtos/25-26/torcedor/BAHIA/principal-SUPERMAN.JPG", images: ["img/produtos/25-26/torcedor/BAHIA/principal-SUPERMAN.JPG"], tags: ["nacional", "destaque"], link: "produto.html" },
+  { id: 510, name: "Camisa Botafogo Home 25/26 - Jogador", price: "R$ 149,90", image: "img/produtos/25-26/jogador/BOTAFOGO/principal-HOME.jpg", images: ["img/produtos/25-26/jogador/BOTAFOGO/principal-HOME.jpg"], tags: ["nacional", "brasileirao"], badge: "Jogador", link: "produto.html" },
+  { id: 511, name: "Camisa Botafogo Home 25/26 - Torcedor", price: "R$ 129,90", image: "img/produtos/25-26/torcedor/BOTAFOGO/principal-TORCEDOR2.jpg", images: ["img/produtos/25-26/torcedor/BOTAFOGO/principal-TORCEDOR2.jpg"], tags: ["nacional", "brasileirao"], link: "produto.html" },
+  { id: 512, name: "Camisa Botafogo Away Branca 25/26", price: "R$ 129,90", image: "img/produtos/25-26/torcedor/BOTAFOGO/principal-TORCEDOR6.JPG", images: ["img/produtos/25-26/torcedor/BOTAFOGO/principal-TORCEDOR6.JPG"], tags: ["nacional", "brasileirao"], link: "produto.html" },
+  { id: 513, name: "Camisa Botafogo Roxa 25/26", price: "R$ 129,90", image: "img/produtos/25-26/torcedor/BOTAFOGO/principal-TORCEDOR7.JPG", images: ["img/produtos/25-26/torcedor/BOTAFOGO/principal-TORCEDOR7.JPG"], tags: ["nacional", "destaque"], link: "produto.html" },
+  { id: 513, name: "Camisa Botafogo Amarela 25/26", price: "R$ 129,90", image: "img/produtos/25-26/torcedor/BOTAFOGO/principal-TORCEDOR1.JPG", images: ["img/produtos/25-26/torcedor/BOTAFOGO/principal-TORCEDOR1.JPG"], tags: ["nacional", "destaque"], link: "produto.html" },
+  { id: 513, name: "Camisa Botafogo Azul 25/26", price: "R$ 129,90", image: "img/produtos/25-26/torcedor/BOTAFOGO/principal-TORCEDOR3.JPG", images: ["img/produtos/25-26/torcedor/BOTAFOGO/principal-TORCEDOR3.JPG"], tags: ["nacional", "destaque"], link: "produto.html" },
+  { id: 513, name: "Camisa Botafogo Preta II 25/26", price: "R$ 129,90", image: "img/produtos/25-26/torcedor/BOTAFOGO/principal-TORCEDOR4.JPG", images: ["img/produtos/25-26/torcedor/BOTAFOGO/principal-TORCEDOR4.JPG"], tags: ["nacional", "destaque"], link: "produto.html" },
+  { id: 513, name: "Camisa Botafogo Roxa Clara 25/26", price: "R$ 129,90", image: "img/produtos/25-26/torcedor/BOTAFOGO/principal-TORCEDOR8.JPG", images: ["img/produtos/25-26/torcedor/BOTAFOGO/principal-TORCEDOR8.JPG"], tags: ["nacional", "destaque"], link: "produto.html" },
+  { id: 513, name: "Camisa Botafogo Branca 25/26", price: "R$ 129,90", image: "img/produtos/25-26/torcedor/BOTAFOGO/principal-TORCEDOR9.JPG", images: ["img/produtos/25-26/torcedor/BOTAFOGO/principal-TORCEDOR9.JPG"], tags: ["nacional", "destaque"], link: "produto.html" },
+  { id: 513, name: "Camisa Botafogo Preta 25/26", price: "R$ 129,90", image: "img/produtos/25-26/torcedor/BOTAFOGO/principal-TORCEDOR5.JPG", images: ["img/produtos/25-26/torcedor/BOTAFOGO/principal-TORCEDOR5.JPG"], tags: ["nacional", "destaque"], link: "produto.html" },
+  { id: 520, name: "Camisa Bragantino Home 25/26", price: "R$ 129,90", image: "img/produtos/25-26/torcedor/BRAGANTINO/principal-HOME.JPG", images: ["img/produtos/25-26/torcedor/BRAGANTINO/principal-HOME.JPG"], tags: ["nacional", "brasileirao"], link: "produto.html" },
+  { id: 521, name: "Camisa Bragantino Away 25/26", price: "R$ 129,90", image: "img/produtos/25-26/torcedor/BRAGANTINO/principal-AWAY.JPG", images: ["img/produtos/25-26/torcedor/BRAGANTINO/principal-AWAY.JPG"], tags: ["nacional", "brasileirao"], link: "produto.html" },
   { id: 200, name: "Camisa Ceará Third 25/26", price: "R$ 129,90", image: "img/produtos/25-26/torcedor/CEARA/principal-THIRD.jpg", images: ["img/produtos/25-26/torcedor/CEARA/principal-THIRD.jpg", "img/produtos/25-26/torcedor/CEARA/costas-THIRD.jpg", "img/produtos/25-26/torcedor/CEARA/detalhes-THIRD.jpg"], tags: ["nacional", "brasileirao"], link: "produto.html" },
   { id: 201, name: "Camisa Ceará Torcida Organizada", price: "R$ 129,90", image: "img/produtos/25-26/torcedor/CEARA/principal-TORCIDA ORGANIZADA.jpg", images: ["img/produtos/25-26/torcedor/CEARA/principal-TORCIDA ORGANIZADA.jpg", "img/produtos/25-26/torcedor/CEARA/costas-TORCIDA ORGANIZADA.jpg", "img/produtos/25-26/torcedor/CEARA/detalhes-TORCIDA ORGANIZADA.jpg"], tags: ["nacional", "destaque"], link: "produto.html" },
   { id: 205, name: "Camisa Corinthians Especial Blackout", price: "R$ 129,90", image: "img/produtos/24-25/torcedor/CORINTHIANS/principal-PRETA.jpg", images: ["img/produtos/24-25/torcedor/CORINTHIANS/principal-PRETA.jpg", "img/produtos/24-25/torcedor/CORINTHIANS/detalhes2-PRETA.jpg", "img/produtos/24-25/torcedor/CORINTHIANS/detalhes-PRETA.jpg"], tags: ["nacional", "destaque"], badge: "Black", link: "produto.html" },
@@ -123,10 +124,10 @@ const products = [
   { id: 691, name: "Camisa São Paulo Away Listrada 25/26", price: "R$ 129,90", image: "img/produtos/25-26/torcedor/SAO PAULO/principal-AWAY.jpg", images: ["img/produtos/25-26/torcedor/SAO PAULO/principal-AWAY.jpg"], tags: ["nacional", "brasileirao"], link: "produto.html" },
   { id: 692, name: "Camisa São Paulo Feminina Home", price: "R$ 129,90", image: "img/produtos/25-26/torcedor/SAO PAULO/HOME FEMININA.jpg", images: ["img/produtos/25-26/torcedor/SAO PAULO/HOME FEMININA.jpg"], tags: ["nacional", "feminina"], link: "produto.html" },
   { id: 236, name: "Camisa Tigres Home 25/26", price: "R$ 129,90", image: "img/produtos/25-26/torcedor/TIGRES/principal-HOME.jpg", images: ["img/produtos/25-26/torcedor/TIGRES/principal-HOME.jpg", "img/produtos/25-26/torcedor/TIGRES/costas-HOME.jpg", "img/produtos/25-26/torcedor/TIGRES/detalhes-HOME.jpg"], tags: ["internacional", "destaque"], link: "produto.html" },
-  { id: 540, name: "Camisa Vitória Home 25/26", price: "R$ 129,90", image: "img/produtos/25-26/torcedor/VITORIA/principal-HOME.jpg", tags: ["nacional", "brasileirao"], link: "produto.html" },
+  { id: 540, name: "Camisa Vitória Home 25/26", price: "R$ 129,90", image: "img/produtos/25-26/torcedor/VITORIA/principal-HOME.jpg", images: ["img/produtos/25-26/torcedor/VITORIA/principal-HOME.jpg"], tags: ["nacional", "brasileirao"], link: "produto.html" },
   { id: 541, name: "Camisa Vitória Away 25/26", price: "R$ 129,90", image: "img/produtos/25-26/torcedor/VITORIA/principal-AWAY.jpg", images: ["img/produtos/25-26/torcedor/VITORIA/principal-AWAY.jpg"], tags: ["nacional", "brasileirao"], link: "produto.html" },
 
-  // TEMPORADA 24/25 (RESTORED FULL LIST!)
+  // TEMPORADA 24/25 (RESTORED FULL LIST)
   { id: 30, name: "Camisa Al-Hilal Home 24/25 - Puma", price: "R$ 129,90", image: "img/produtos/24-25/torcedor/AL-HILAL/principal.jpg", images: ["img/produtos/24-25/torcedor/AL-HILAL/principal.jpg", "img/produtos/24-25/torcedor/AL-HILAL/costas.jpg", "img/produtos/24-25/torcedor/AL-HILAL/detalhes.jpg"], tags: ["internacional", "saudita"], badge: "Neymar", link: "produto.html" },
   { id: 31, name: "Camisa Arsenal Home 24/25 - Adidas", price: "R$ 129,90", image: "img/produtos/24-25/torcedor/ARSENAL/principal.jpg", images: ["img/produtos/24-25/torcedor/ARSENAL/principal.jpg", "img/produtos/24-25/torcedor/ARSENAL/costas.jpg", "img/produtos/24-25/torcedor/ARSENAL/detalhes.jpg"], tags: ["europeus", "ingles"], link: "produto.html" },
   { id: 32, name: "Camisa Atalanta Home 24/25", price: "R$ 129,90", image: "img/produtos/24-25/torcedor/ATALANTA/principal.jpeg", images: ["img/produtos/24-25/torcedor/ATALANTA/principal.jpeg", "img/produtos/24-25/torcedor/ATALANTA/detalhes.jpeg", "img/produtos/24-25/torcedor/ATALANTA/detalhes2.jpeg"], tags: ["europeus", "italiano"], link: "produto.html" },
@@ -233,6 +234,7 @@ function scrollCarousel(containerId, direction) {
   }
 }
 
+// Variáveis globais para galeria
 let currentImageIndex = 0;
 let currentProductImages = [];
 
@@ -283,7 +285,7 @@ document.addEventListener('DOMContentLoaded', () => {
     searchIcon.addEventListener('click', performSearch);
   }
 
-  // A) Lógica da HOME - Com Otimização Lighthouse
+  // A) Lógica da HOME
   if (document.getElementById('grid-lancamentos')) {
     function renderCarouselTrack(containerId, filterTag) {
       const container = document.getElementById(containerId);
@@ -293,24 +295,18 @@ document.addEventListener('DOMContentLoaded', () => {
         const badgeHTML = product.badge ? `<span class="badge ${product.badge === 'Novo' ? 'new' : ''}">${product.badge}</span>` : '';
         const linkUrl = `produto.html?id=${product.id}`;
         const html = `
-            <a href="${linkUrl}" class="product-card" style="text-decoration: none;">
-                <div class="p-img">
-                    ${badgeHTML}
-                    <img src="${product.image}" 
-                         onerror="this.src='img/front-page/logo.png'" 
-                         alt="${product.name}"
-                         loading="lazy"
-                         width="800"
-                         height="800"
-                         decoding="async">
-                </div>
-                <div class="p-info">
-                    <div class="p-cat">Importada Tailandesa 1:1</div>
-                    <div class="p-name">${product.name}</div>
-                    <div class="p-price">${product.price}</div>
-                    <div class="p-installments">em até 3x sem juros</div>
-                </div>
-            </a>`;
+                    <a href="${linkUrl}" class="product-card" style="text-decoration: none;">
+                        <div class="p-img">
+                            ${badgeHTML}
+                            <img src="${product.image}" onerror="this.src='img/front-page/logo.png'" alt="${product.name}">
+                        </div>
+                        <div class="p-info">
+                            <div class="p-cat">Importada Tailandesa 1:1</div>
+                            <div class="p-name">${product.name}</div>
+                            <div class="p-price">${product.price}</div>
+                            <div class="p-installments">em até 3x sem juros</div>
+                        </div>
+                    </a>`;
         container.innerHTML += html;
       });
     }
@@ -361,14 +357,18 @@ document.addEventListener('DOMContentLoaded', () => {
       const mainImg = document.getElementById('currentImg');
       const thumbContainer = document.getElementById('thumb-container');
 
-      currentProductImages = (product.images && product.images.length > 0) ? product.images : [product.image];
+      if (product.images && product.images.length > 0) {
+        currentProductImages = product.images;
+      } else {
+        currentProductImages = [product.image];
+      }
       if (mainImg) mainImg.src = currentProductImages[0];
 
       if (thumbContainer) {
         thumbContainer.innerHTML = '';
         currentProductImages.forEach((imgSrc, index) => {
           const activeClass = index === 0 ? 'active' : '';
-          thumbContainer.innerHTML += `<img src="${imgSrc}" onclick="jumpToImage(${index})" class="${activeClass}" loading="lazy">`;
+          thumbContainer.innerHTML += `<img src="${imgSrc}" onclick="jumpToImage(${index})" class="${activeClass}">`;
         });
       }
     } else {
@@ -377,11 +377,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // C) Lógica da PÁGINA DE CATEGORIA
+  // C) Lógica da PÁGINA DE CATEGORIA (AGORA COM BUSCA)
   if (window.location.pathname.includes("categoria.html")) {
     const params = new URLSearchParams(window.location.search);
     const tag = params.get('tag');
-    const searchTerm = params.get('busca');
+    const searchTerm = params.get('busca'); // Pega o que foi digitado na busca
     const container = document.getElementById('grid-categoria');
     const title = document.getElementById('cat-title');
     const count = document.getElementById('cat-count');
@@ -389,8 +389,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const titulos = { 'lancamento': 'Lançamentos 🔥', 'nacional': 'Brasileirão & Nacionais', 'europeus': 'Futebol Europeu', 'selecoes': 'Seleções Mundiais', 'retro': 'Relíquias Retrô', 'feminina': 'Futebol Feminino', 'internacional': 'Times Internacionais' };
 
     let filtered = [];
+
+    // LÓGICA DE FILTRO (TAG OU BUSCA)
     if (searchTerm) {
-      filtered = products.filter(p => p.name.toLowerCase().includes(searchTerm.toLowerCase()));
+      filtered = products.filter(p =>
+        p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        p.tags.some(t => t.includes(searchTerm.toLowerCase()))
+      );
       if (title) title.innerText = `Resultados para: "${searchTerm}"`;
     } else if (tag) {
       filtered = products.filter(p => p.tags.includes(tag));
@@ -399,20 +404,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (container) {
       if (count) count.innerText = `${filtered.length} produtos encontrados`;
-      container.innerHTML = filtered.map(product => `
-        <a href="produto.html?id=${product.id}" class="product-card" style="text-decoration: none;">
-            <div class="p-img">
-                <img src="${product.image}" alt="${product.name}" loading="lazy" width="800" height="800">
-            </div>
-            <div class="p-info">
-                <div class="p-name">${product.name}</div>
-                <div class="p-price">${product.price}</div>
-            </div>
-        </a>`).join('') || '<p>Nenhum produto encontrado.</p>';
+      container.innerHTML = '';
+
+      if (filtered.length > 0) {
+        filtered.forEach(product => {
+          const badgeHTML = product.badge ? `<span class="badge ${product.badge === 'Novo' ? 'new' : ''}">${product.badge}</span>` : '';
+          const linkUrl = `produto.html?id=${product.id}`;
+          const html = `
+                        <a href="${linkUrl}" class="product-card" style="text-decoration: none;">
+                            <div class="p-img">
+                                ${badgeHTML}
+                                <img src="${product.image}" onerror="this.src='img/front-page/logo.png'" alt="${product.name}">
+                            </div>
+                            <div class="p-info">
+                                <div class="p-cat">Importada Tailandesa 1:1</div>
+                                <div class="p-name">${product.name}</div>
+                                <div class="p-price">${product.price}</div>
+                                <div class="p-installments">em até 3x sem juros</div>
+                            </div>
+                        </a>`;
+          container.innerHTML += html;
+        });
+      } else {
+        container.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #888; font-size: 1.2rem; margin-top: 50px;">Nenhum produto encontrado.</p>';
+      }
     }
   }
 
-  // --- LÓGICA DO CARRINHO ---
+  // --- LÓGICA DO CARRINHO (VERSÃO MODAL POPUP) ---
+
   let cart = JSON.parse(localStorage.getItem('mgMantosCart')) || [];
   updateCartIcon();
 
@@ -420,86 +440,164 @@ document.addEventListener('DOMContentLoaded', () => {
     const overlay = document.getElementById('cart-modal-overlay');
     const modal = document.getElementById('cart-modal');
     const title = document.getElementById('modal-title');
+
     if (isAddedAction) {
-      title.innerText = "Adicionado ao seu carrinho!";
+      title.innerText = "Este produto foi adicionado ao seu carrinho!";
       title.style.color = "#00c853";
     } else {
-      title.innerText = "Seu Carrinho";
+      title.innerText = "Seu Carrinho de Compras";
       title.style.color = "#333";
     }
+
     renderModalItems();
+
     overlay.style.display = 'block';
     modal.style.display = 'flex';
-    setTimeout(() => { overlay.classList.add('show'); modal.classList.add('show'); }, 10);
+
+    setTimeout(() => {
+      overlay.classList.add('show');
+      modal.classList.add('show');
+    }, 10);
   }
 
   window.closeCartModal = function () {
     const overlay = document.getElementById('cart-modal-overlay');
     const modal = document.getElementById('cart-modal');
+
     overlay.classList.remove('show');
     modal.classList.remove('show');
-    setTimeout(() => { overlay.style.display = 'none'; modal.style.display = 'none'; }, 300);
+
+    setTimeout(() => {
+      overlay.style.display = 'none';
+      modal.style.display = 'none';
+    }, 300);
   }
 
+  // BOTÃO "ADICIONAR AO CARRINHO"
   const buyBtn = document.querySelector('.buy-btn');
   if (buyBtn) {
     buyBtn.addEventListener('click', () => {
       const sizeBtn = document.querySelector('.size-btn.selected');
-      if (!sizeBtn) return alert("Selecione um tamanho!");
-      cart.push({
+      if (!sizeBtn) {
+        alert("Por favor, selecione um tamanho!");
+        return;
+      }
+
+      const product = {
         id: Date.now(),
         name: document.getElementById('prod-title').innerText,
         price: document.getElementById('prod-price').innerText,
         image: document.getElementById('currentImg').src,
         size: sizeBtn.innerText,
         personalization: getPersonalization()
-      });
-      saveCart(); updateCartIcon(); openCartModal(true);
+      };
+
+      cart.push(product);
+      saveCart();
+      updateCartIcon();
+
+      openCartModal(true);
     });
   }
 
+  // 3.1 Botão da Sacola (Header)
+  const bagIconDiv = document.querySelector('.header-actions .action-item:last-child');
+  if (bagIconDiv) {
+    bagIconDiv.onclick = function () { openCartModal(false); };
+  }
+
+  // 4. Renderizar Itens no Modal
   function renderModalItems() {
     const container = document.getElementById('modal-cart-items');
     const totalEl = document.getElementById('modal-total-price');
+
     if (cart.length === 0) {
-      container.innerHTML = '<p>Seu carrinho está vazio.</p>';
+      container.innerHTML = '<p style="text-align:center; padding:20px; color:#888;">Seu carrinho está vazio.</p>';
       totalEl.innerText = "R$ 0,00";
       return;
     }
-    let total = 0;
-    container.innerHTML = cart.map((item, index) => {
-      total += parseFloat(item.price.replace('R$', '').replace('.', '').replace(',', '.'));
-      return `
-        <div class="modal-item">
-            <img src="${item.image}" alt="Produto" width="50" height="50">
-            <div class="modal-item-info">
-                <h4>${item.name}</h4>
-                <p>Tam: ${item.size}</p>
-                <p><strong>${item.price}</strong></p>
-            </div>
-            <span class="material-icons-outlined" onclick="removeItem(${index})">delete</span>
-        </div>`;
-    }).join('');
-    totalEl.innerText = total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-  }
 
-  window.removeItem = function (index) { cart.splice(index, 1); saveCart(); renderModalItems(); updateCartIcon(); }
-  function saveCart() { localStorage.setItem('mgMantosCart', JSON.stringify(cart)); }
-  function updateCartIcon() {
-    const badge = document.querySelector('.cart-count-badge');
-    if (badge) { badge.innerText = cart.length; badge.style.display = cart.length > 0 ? 'flex' : 'none'; }
-  }
+    container.innerHTML = '';
+    let totalPrice = 0;
 
-  window.finalizeOrder = function () {
-    if (cart.length === 0) return;
-    let msg = `*PEDIDO MG MANTOS*%0A%0A`;
-    cart.forEach((item, i) => msg += `*${i + 1}. ${item.name}* (Tam: ${item.size}) - ${item.price}%0A`);
-    window.open(`https://wa.me/5544988215198?text=${msg}`, '_blank');
+    cart.forEach((item, index) => {
+      const priceNumber = parseFloat(item.price.replace('R$', '').replace('.', '').replace(',', '.'));
+      totalPrice += priceNumber;
+
+      const html = `
+                <div class="modal-item">
+                    <img src="${item.image}" alt="Produto">
+                    <div class="modal-item-info">
+                        <h4>${item.name}</h4>
+                        <p>Tam: <strong>${item.size}</strong></p>
+                        ${item.personalization ? `<p style="color:#d32f2f; font-size:0.75rem">${item.personalization}</p>` : ''}
+                        <p style="margin-top:5px; font-weight:bold; color: #00c853;">${item.price}</p>
+                    </div>
+                    <span class="material-icons-outlined modal-remove-btn" onclick="removeItem(${index})">delete</span>
+                </div>
+            `;
+      container.innerHTML += html;
+    });
+
+    totalEl.innerText = totalPrice.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
   }
 
   function getPersonalization() {
-    const n = document.getElementById('cust-name')?.value;
-    const num = document.getElementById('cust-number')?.value;
-    return (n || num) ? `Nome: ${n} | Nº: ${num}` : null;
+    const name = document.getElementById('cust-name')?.value.trim();
+    const number = document.getElementById('cust-number')?.value.trim();
+    return (name || number) ? `Nome: ${name} | Nº: ${number}` : null;
   }
+
+  window.removeItem = function (index) {
+    cart.splice(index, 1);
+    saveCart();
+    renderModalItems();
+    updateCartIcon();
+  }
+
+  function saveCart() {
+    localStorage.setItem('mgMantosCart', JSON.stringify(cart));
+  }
+
+  function updateCartIcon() {
+    const bagContainer = document.querySelector('.header-actions .action-item:last-child');
+    if (!bagContainer) return;
+
+    let badge = bagContainer.querySelector('.cart-count-badge');
+
+    if (!badge) {
+      badge = document.createElement('span');
+      badge.className = 'cart-count-badge';
+      badge.style.cssText = "position:absolute; top:-5px; right:-5px; background:red; color:white; font-size:10px; width:16px; height:16px; border-radius:50%; display:flex; justify-content:center; align-items:center; font-weight:bold;";
+      bagContainer.style.position = 'relative';
+      bagContainer.appendChild(badge);
+    }
+
+    badge.innerText = cart.length;
+    badge.style.display = cart.length > 0 ? 'flex' : 'none';
+  }
+
+  // FINALIZAR PEDIDO (WHATSAPP)
+  window.finalizeOrder = function () {
+    if (cart.length === 0) return alert("Seu carrinho está vazio!");
+
+    let message = `*NOVO PEDIDO DO SITE*%0A%0A`;
+    let total = 0;
+
+    cart.forEach((item, i) => {
+      const val = parseFloat(item.price.replace('R$', '').replace('.', '').replace(',', '.'));
+      total += val;
+      message += `*${i + 1}. ${item.name}*%0A   📏 Tam: ${item.size} | 💰 ${item.price}%0A`;
+      if (item.personalization) message += `   🎨 ${item.personalization}%0A`;
+      message += `%0A`;
+    });
+
+    message += `------------------------------%0A`;
+    message += `*TOTAL: ${total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}*%0A`;
+    message += `------------------------------%0A`;
+    message += `Gostaria de prosseguir para o pagamento.`;
+    const phone = "5544988215198";
+    window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
+  }
+
 });

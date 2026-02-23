@@ -1132,3 +1132,35 @@ body:not(.light-mode) .modal-item-info h4 {
 
   }
 }
+
+/* --- AJUSTES DE ACESSIBILIDADE E PERFORMANCE --- */
+
+/* Melhora o contraste do texto no Header e Seções (Lighthouse) */
+.logo span,
+.section-link,
+.cat-label {
+  color: var(--text-main);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+  /* Garante leitura em qualquer fundo */
+}
+
+/* Evita o Layout Shift (pulo de conteúdo) reservando espaço */
+.categories-grid,
+.carousel-track {
+  min-height: 350px;
+  content-visibility: auto;
+  /* Otimiza renderização de seções fora da tela */
+}
+
+.product-card .p-img {
+  aspect-ratio: 1 / 1;
+  /* Reserva o espaço quadrado da imagem antes dela carregar */
+  background-color: rgba(128, 128, 128, 0.05);
+  /* Placeholder visual leve */
+}
+
+/* Ajuste de contraste para o texto roxo (MG MANTOS) */
+.logo span span {
+  color: #a277ff;
+  /* Um roxo mais claro para passar no teste de contraste */
+}

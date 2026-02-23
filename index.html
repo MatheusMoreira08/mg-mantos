@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MG Mantos | A Casa do Torcedor</title>
     <link rel="icon" type="image/png" href="img/front-page/logo.png">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 </head>
 
@@ -17,7 +17,7 @@
     <header>
         <div class="container header-main">
             <div class="logo-area">
-                <button class="menu-btn" onclick="toggleSidebar()">
+                <button class="menu-btn" onclick="toggleSidebar()" aria-label="Abrir Menu">
                     <span class="material-icons-outlined">menu</span>
                 </button>
                 <a href="index.html" class="logo">
@@ -64,14 +64,16 @@
     <main>
         <section class="slider-container">
             <div class="slider">
-                <a href="categoria.html?tag=lancamento" class="slide fade"><img src="./img/front-page/banner1.png"
-                        alt="Bem Vindo"></a>
+                <a href="categoria.html?tag=lancamento" class="slide fade">
+                    <img src="./img/front-page/banner1.png" alt="Bem Vindo" fetchpriority="high">
+                </a>
                 <a href="categoria.html?tag=retro" class="slide fade"><img src="./img/front-page/banner2.png"
-                        alt="Ídolos"></a>
+                        alt="Ídolos" loading="lazy"></a>
                 <a href="categoria.html?tag=lancamento" class="slide fade"><img src="./img/front-page/banner3.png"
-                        alt="Lançamento"></a>
-                <a href="#" class="slide fade"><img src="./img/front-page/banner4.png" alt="Frete"></a>
-                <a href="#" class="slide fade"><img src="./img/front-page/banner6.png" alt="Copa do Mundo"></a>
+                        alt="Lançamento" loading="lazy"></a>
+                <a href="#" class="slide fade"><img src="./img/front-page/banner4.png" alt="Frete" loading="lazy"></a>
+                <a href="#" class="slide fade"><img src="./img/front-page/banner6.png" alt="Copa do Mundo"
+                        loading="lazy"></a>
             </div>
             <a class="prev-hero" onclick="plusSlides(-1)">&#10094;</a>
             <a class="next-hero" onclick="plusSlides(1)">&#10095;</a>
@@ -80,18 +82,15 @@
         <div class="container main-content">
             <section class="categories-grid">
                 <a href="categoria.html?tag=nacional" class="cat-card">
-                    <img src="./img/front-page/nacional.png"
-                        onerror="this.src='https://via.placeholder.com/400x400?text=NACIONAIS'" alt="Nacionais">
+                    <img src="./img/front-page/nacional.png" alt="Nacionais" loading="lazy">
                     <div class="cat-label">NACIONAIS</div>
                 </a>
                 <a href="categoria.html?tag=europeus" class="cat-card">
-                    <img src="./img/front-page/europeu.jpg"
-                        onerror="this.src='https://via.placeholder.com/400x400?text=EUROPEUS'" alt="Europeus">
+                    <img src="./img/front-page/europeu.jpg" alt="Europeus" loading="lazy">
                     <div class="cat-label">EUROPEUS</div>
                 </a>
                 <a href="categoria.html?tag=feminina" class="cat-card">
-                    <img src="./img/front-page/fem-marta.jpg"
-                        onerror="this.src='https://via.placeholder.com/400x400?text=FEMININAS'" alt="Femininas">
+                    <img src="./img/front-page/fem-marta.jpg" alt="Femininas" loading="lazy">
                     <div class="cat-label">FEMININAS</div>
                 </a>
             </section>
@@ -123,65 +122,16 @@
                         onclick="scrollCarousel('grid-destaques', 1)">&#10095;</button>
                 </div>
             </section>
-
-            <section class="categories-grid">
-                <a href="categoria.html?tag=lancamento" class="cat-card">
-                    <img src="./img/front-page/lancamento.webp"
-                        onerror="this.src='https://images.unsplash.com/photo-1522770179533-24471fcdba45?q=80&w=800&auto=format&fit=crop'"
-                        alt="Lançamentos">
-                    <div class="cat-label">LANÇAMENTOS</div>
-                </a>
-                <a href="categoria.html?tag=selecoes" class="cat-card">
-                    <img src="./img/front-page/selecoess.avif"
-                        onerror="this.src='https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=800&auto=format&fit=crop'"
-                        alt="Seleções">
-                    <div class="cat-label">SELEÇÕES</div>
-                </a>
-                <a href="categoria.html?tag=internacional" class="cat-card">
-                    <img src="./img/front-page/restodomundo.avif"
-                        onerror="this.src='https://images.unsplash.com/photo-1518091043644-c1d4457512c6?q=80&w=800&auto=format&fit=crop'"
-                        alt="Resto do Mundo">
-                    <div class="cat-label">RESTO DO MUNDO</div>
-                </a>
-            </section>
-
-            <section class="section-block">
-                <div class="section-header">
-                    <h2 class="section-title">Time Internacional</h2>
-                    <a href="categoria.html?tag=internacional" class="section-link">VER TODOS</a>
-                </div>
-                <div class="carousel-wrapper">
-                    <button class="carousel-btn btn-left"
-                        onclick="scrollCarousel('grid-internacional', -1)">&#10094;</button>
-                    <div class="carousel-track" id="grid-internacional"></div>
-                    <button class="carousel-btn btn-right"
-                        onclick="scrollCarousel('grid-internacional', 1)">&#10095;</button>
-                </div>
-            </section>
-
-            <section class="section-block">
-                <div class="section-header">
-                    <h2 class="section-title">Feminina</h2>
-                    <a href="categoria.html?tag=feminina" class="section-link">VER TODOS</a>
-                </div>
-                <div class="carousel-wrapper">
-                    <button class="carousel-btn btn-left"
-                        onclick="scrollCarousel('grid-feminina', -1)">&#10094;</button>
-                    <div class="carousel-track" id="grid-feminina"></div>
-                    <button class="carousel-btn btn-right"
-                        onclick="scrollCarousel('grid-feminina', 1)">&#10095;</button>
-                </div>
-            </section>
         </div>
     </main>
 
     <footer>
         <div class="newsletter">
             <h4>Receba todas as promoções</h4>
-            <p>Quer receber nossas ofertas? Cadastre-se e comece a recebê-las!</p>
+            <p>Quer receber nossas ofertas? Cadastre-se agora!</p>
             <div class="newsletter-input">
-                <input type="email" placeholder="E-mail">
-                <button>&rarr;</button>
+                <input type="email" placeholder="Seu melhor e-mail">
+                <button aria-label="Cadastrar">&rarr;</button>
             </div>
         </div>
         <div class="footer-links container">
@@ -191,20 +141,14 @@
                     <li><a href="index.html">Início</a></li>
                     <li><a href="categoria.html?tag=nacional">Brasileirão</a></li>
                     <li><a href="categoria.html?tag=europeus">Europa</a></li>
-                    <li><a href="categoria.html?tag=selecoes">Seleções</a></li>
                 </ul>
             </div>
             <div>
                 <h4>Institucional</h4>
                 <ul>
                     <li>Quem somos</li>
-                    <li>Trocas e Devoluções</li>
                     <li>Contato</li>
                 </ul>
-            </div>
-            <div>
-                <h4>Pagamento</h4>
-                <p>Cartão, Pix, Boleto</p>
             </div>
         </div>
         <div class="copyright">
@@ -215,19 +159,18 @@
     <div id="cart-modal-overlay" class="modal-overlay" onclick="closeCartModal()"></div>
     <div id="cart-modal" class="modal-box">
         <div class="modal-header">
-            <h3 id="modal-title">Seu Carrinho de Compras</h3>
+            <h3 id="modal-title">Seu Carrinho</h3>
             <span class="close-modal" onclick="closeCartModal()">&times;</span>
         </div>
-        <div id="modal-cart-items" class="modal-body">
-        </div>
+        <div id="modal-cart-items" class="modal-body"></div>
         <div class="modal-footer">
             <div class="modal-total-row">
                 <span>Total estimado:</span>
-                <span id="modal-total-price" class="total-price-text">R$ 0,00</span>
+                <span id="modal-total-price">R$ 0,00</span>
             </div>
             <div class="modal-buttons">
-                <button onclick="closeCartModal()" class="btn-continue">Adicionar mais itens</button>
-                <button onclick="finalizeOrder()" class="btn-finalize">Finalizar Compra</button>
+                <button onclick="closeCartModal()" class="btn-continue">Continuar Comprando</button>
+                <button onclick="finalizeOrder()" class="btn-finalize">Finalizar no WhatsApp</button>
             </div>
         </div>
     </div>
