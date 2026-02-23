@@ -127,7 +127,7 @@ const products = [
   { id: 540, name: "Camisa Vitória Home 25/26", price: "R$ 129,90", image: "img/produtos/25-26/torcedor/VITORIA/principal-HOME.jpg", images: ["img/produtos/25-26/torcedor/VITORIA/principal-HOME.jpg"], tags: ["nacional", "brasileirao"], link: "produto.html" },
   { id: 541, name: "Camisa Vitória Away 25/26", price: "R$ 129,90", image: "img/produtos/25-26/torcedor/VITORIA/principal-AWAY.jpg", images: ["img/produtos/25-26/torcedor/VITORIA/principal-AWAY.jpg"], tags: ["nacional", "brasileirao"], link: "produto.html" },
 
-  // TEMPORADA 24/25 (RESTORED FULL LIST)
+  // TEMPORADA 24/25 (RESTORED FULL LIST!)
   { id: 30, name: "Camisa Al-Hilal Home 24/25 - Puma", price: "R$ 129,90", image: "img/produtos/24-25/torcedor/AL-HILAL/principal.jpg", images: ["img/produtos/24-25/torcedor/AL-HILAL/principal.jpg", "img/produtos/24-25/torcedor/AL-HILAL/costas.jpg", "img/produtos/24-25/torcedor/AL-HILAL/detalhes.jpg"], tags: ["internacional", "saudita"], badge: "Neymar", link: "produto.html" },
   { id: 31, name: "Camisa Arsenal Home 24/25 - Adidas", price: "R$ 129,90", image: "img/produtos/24-25/torcedor/ARSENAL/principal.jpg", images: ["img/produtos/24-25/torcedor/ARSENAL/principal.jpg", "img/produtos/24-25/torcedor/ARSENAL/costas.jpg", "img/produtos/24-25/torcedor/ARSENAL/detalhes.jpg"], tags: ["europeus", "ingles"], link: "produto.html" },
   { id: 32, name: "Camisa Atalanta Home 24/25", price: "R$ 129,90", image: "img/produtos/24-25/torcedor/ATALANTA/principal.jpeg", images: ["img/produtos/24-25/torcedor/ATALANTA/principal.jpeg", "img/produtos/24-25/torcedor/ATALANTA/detalhes.jpeg", "img/produtos/24-25/torcedor/ATALANTA/detalhes2.jpeg"], tags: ["europeus", "italiano"], link: "produto.html" },
