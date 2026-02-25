@@ -46,7 +46,7 @@ const products = [
   { id: 728, name: "Camisa Ucrânia Home 26/27", price: "R$ 129,90", image: "img/produtos/26-27/torcedor/UCRANIA/principal-home.jpg", images: ["img/produtos/26-27/torcedor/UCRANIA/principal-home.jpg", "img/produtos/26-27/torcedor/UCRANIA/costas-home.jpg"], tags: ["selecoes", "europeus"], link: "produto.html" },
   { id: 729, name: "Camisa Uruguai Home 26/27 - Jogador", price: "R$ 149,90", image: "img/produtos/26-27/jogador/URUGUAI/principal-jogador.jpg", images: ["img/produtos/26-27/jogador/URUGUAI/principal-jogador.jpg", "img/produtos/26-27/jogador/URUGUAI/costas-jogador.jpg"], tags: ["selecoes", "sulamericano"], badge: "Jogador", link: "produto.html" },
   { id: 730, name: "Camisa Vasco Home 26/27", price: "R$ 129,90", image: "img/produtos/26-27/torcedor/VASCO/principal-home.jpg", images: ["img/produtos/26-27/torcedor/VASCO/principal-home.jpg", "img/produtos/26-27/torcedor/VASCO/costas-home.jpg", "img/produtos/26-27/torcedor/VASCO/detalhes-home.jpg"], tags: ["nacional", "brasileirao", "destaque"], link: "produto.html" },
-  { id: 731, name: "Camisa Man. United Especial 26/27", price: "R$ 149,90", image: "img/produtos/26-27/torcedor/MAN. UNITED/principal-especial.jpg", images: ["img/produtos/26-27/torcedor/MAN. UNITED/principal-especial.jpg", "img/produtos/26-27/torcedor/MAN. UNITED/costas-especial.jpg", "img/produtos/26-27/torcedor/MAN. UNITED/detalhes-especial.png"], tags: ["europeus", "ingles"], badge: "Exclusivo", link: "produto.html" },
+  { id: 731, name: "Camisa Man. United Especial 26/27", price: "R$ 149,90", image: "img/produtos/26-27/torcedor/MAN. UNITED/principal-especial.webp", images: ["img/produtos/26-27/torcedor/MAN. UNITED/principal-especial.webp", "img/produtos/26-27/torcedor/MAN. UNITED/costas-especial.webp", "img/produtos/26-27/torcedor/MAN. UNITED/detalhes-especial.webp"], tags: ["europeus", "ingles"], badge: "Exclusivo", link: "produto.html" },
   // TIMES NACIONAIS (25/26 e 26/27)
   { id: 410, name: "Camisa Athletico Paranaense Home 25/26", price: "R$ 129,90", image: "img/produtos/25-26/torcedor/ATLETICO PARANAENSE/principal-HOME.jpg", images: ["img/produtos/25-26/torcedor/ATLETICO PARANAENSE/principal-HOME.jpg"], tags: ["nacional", "brasileirao"], link: "produto.html" },
   { id: 400, name: "Camisa Atlético Mineiro Home 25/26", price: "R$ 129,90", image: "img/produtos/25-26/torcedor/ATLETICO MINEIRO/principal-HOME.jpg", images: ["img/produtos/25-26/torcedor/ATLETICO MINEIRO/principal-HOME.jpg"], tags: ["nacional", "brasileirao"], link: "produto.html" },
@@ -264,6 +264,7 @@ function updateThumbnails() {
 }
 
 // --- 3. LÓGICA DE INICIALIZAÇÃO ---
+// --- 3. LÓGICA DE INICIALIZAÇÃO ATUALIZADA ---
 document.addEventListener('DOMContentLoaded', () => {
 
   const searchInput = document.querySelector('.search-bar input');
@@ -285,55 +286,66 @@ document.addEventListener('DOMContentLoaded', () => {
     searchIcon.addEventListener('click', performSearch);
   }
 
-  // A) Lógica da HOME
-  if (document.getElementById('grid-lancamentos')) {
-    function renderCarouselTrack(containerId, filterTag) {
+  // A) Lógica da HOME - Organizada conforme as novas seções
+  if (document.getElementById('grid-lancamentos') || document.getElementById('grid-destaques')) {
+
+    function renderCarouselTrack(containerId, filterTag, specificFilter = null) {
       const container = document.getElementById(containerId);
       if (!container) return;
-      const filtered = products.filter(p => p.tags.includes(filterTag));
+
+      // Filtro inteligente: por Tag e, opcionalmente, por texto no nome (ex: "26/27")
+      let filtered = products.filter(p => p.tags.includes(filterTag));
+
+      if (specificFilter) {
+        filtered = filtered.filter(p => p.name.includes(specificFilter));
+      }
+
+      container.innerHTML = ''; // Limpa antes de renderizar
+
       filtered.forEach(product => {
         const badgeHTML = product.badge ? `<span class="badge ${product.badge === 'Novo' ? 'new' : ''}">${product.badge}</span>` : '';
         const linkUrl = `produto.html?id=${product.id}`;
         const html = `
-                    <a href="${linkUrl}" class="product-card" style="text-decoration: none;">
-                        <div class="p-img">
-                            ${badgeHTML}
-                            <img src="${product.image}" onerror="this.src='img/front-page/logo.png'" alt="${product.name}">
-                        </div>
-                        <div class="p-info">
-                            <div class="p-cat">Importada Tailandesa 1:1</div>
-                            <div class="p-name">${product.name}</div>
-                            <div class="p-price">${product.price}</div>
-                            <div class="p-installments">em até 3x sem juros</div>
-                        </div>
-                    </a>`;
+            <a href="${linkUrl}" class="product-card" style="text-decoration: none;">
+                <div class="p-img">
+                    ${badgeHTML}
+                    <img src="${product.image}" onerror="this.src='img/front-page/logo.png'" alt="${product.name}">
+                </div>
+                <div class="p-info">
+                    <div class="p-cat">Importada Tailandesa 1:1</div>
+                    <div class="p-name">${product.name}</div>
+                    <div class="p-price">${product.price}</div>
+                    <div class="p-installments">em até 3x sem juros</div>
+                </div>
+            </a>`;
         container.innerHTML += html;
       });
     }
-    renderCarouselTrack('grid-lancamentos', 'lancamento');
-    renderCarouselTrack('grid-destaques', 'destaque');
-    renderCarouselTrack('grid-feminina', 'feminina');
-    renderCarouselTrack('grid-internacional', 'internacional');
 
-    if (document.querySelector('.slider')) {
-      let slideIndex = 0;
-      showSlides();
-      function showSlides() {
-        let slides = document.getElementsByClassName("slide");
-        for (let i = 0; i < slides.length; i++) { slides[i].style.display = "none"; }
-        slideIndex++;
-        if (slideIndex > slides.length) { slideIndex = 1 }
-        if (slides[slideIndex - 1]) slides[slideIndex - 1].style.display = "block";
-        setTimeout(showSlides, 5000);
-      }
-      window.plusSlides = function (n) {
-        let slides = document.getElementsByClassName("slide");
-        slideIndex += n;
-        if (slideIndex > slides.length) { slideIndex = 1 }
-        if (slideIndex < 1) { slideIndex = slides.length }
-        for (let i = 0; i < slides.length; i++) { slides[i].style.display = "none"; }
-        slides[slideIndex - 1].style.display = "block";
-      }
+    renderCarouselTrack('grid-destaques', 'destaque');    // Mais Vendidos
+    renderCarouselTrack('grid-lancamentos', 'lancamento', '26/27'); // Lançamentos (Só 26/27)
+    renderCarouselTrack('grid-feminina', 'feminina');     // Futebol Feminino
+    renderCarouselTrack('grid-internacional', 'internacional');
+  }
+
+  if (document.querySelector('.slider')) {
+    let slideIndex = 0;
+    showSlides();
+    function showSlides() {
+      let slides = document.getElementsByClassName("slide");
+      for (let i = 0; i < slides.length; i++) { slides[i].style.display = "none"; }
+      slideIndex++;
+      if (slideIndex > slides.length) { slideIndex = 1 }
+      if (slides[slideIndex - 1]) slides[slideIndex - 1].style.display = "block";
+      setTimeout(showSlides, 5000);
+    }
+    window.plusSlides = function (n) {
+      let slides = document.getElementsByClassName("slide");
+      slideIndex += n;
+      if (slideIndex > slides.length) { slideIndex = 1 }
+      if (slideIndex < 1) { slideIndex = slides.length }
+      for (let i = 0; i < slides.length; i++) { slides[i].style.display = "none"; }
+      slides[slideIndex - 1].style.display = "block";
     }
   }
 
