@@ -232,7 +232,6 @@ header {
 .sidebar-links a:hover {
   background: var(--accent);
   color: #ffffff !important;
-  /* No hover, o texto sempre fica branco por causa do fundo roxo */
   padding-left: 35px;
 }
 
@@ -266,12 +265,17 @@ header {
 }
 
 .sidebar-links a {
-  display: block;
-  color: white;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 15px 25px;
+  font-size: 1rem;
+  font-weight: 600;
+  /* AQUI: usa a variável de texto principal que muda conforme o tema */
+  color: var(--text-main) !important;
+  transition: 0.3s;
+  border-bottom: 1px solid var(--border);
   text-decoration: none;
-  padding: 15px 0;
-  font-size: 1.1rem;
-  border-bottom: 1px solid #222;
 }
 
 .close-btn {

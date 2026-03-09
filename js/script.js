@@ -212,11 +212,14 @@ function selectSize(btn) {
 }
 
 function toggleTheme() {
-  document.body.classList.toggle('light-mode');
+  const isLight = document.body.classList.toggle('light-mode');
   const icon = document.getElementById('theme-icon');
+
   if (icon) {
-    icon.textContent = document.body.classList.contains('light-mode') ? 'dark_mode' : 'light_mode';
+    icon.textContent = isLight ? 'dark_mode' : 'light_mode';
   }
+
+  localStorage.setItem('theme', isLight ? 'light' : 'dark');
 }
 
 function toggleSidebar() {
@@ -266,6 +269,17 @@ function updateThumbnails() {
 // --- 3. LÓGICA DE INICIALIZAÇÃO ---
 // --- 3. LÓGICA DE INICIALIZAÇÃO ATUALIZADA ---
 document.addEventListener('DOMContentLoaded', () => {
+
+  const savedTheme = localStorage.getItem('theme');
+  const icon = document.getElementById('theme-icon');
+
+  if (savedTheme === 'light') {
+    document.body.classList.add('light-mode');
+    if (icon) icon.textContent = 'dark_mode';
+  } else {
+    document.body.classList.remove('light-mode');
+    if (icon) icon.textContent = 'light_mode';
+  }
 
   const searchInput = document.querySelector('.search-bar input');
   const searchIcon = document.querySelector('.search-bar .search-icon');
