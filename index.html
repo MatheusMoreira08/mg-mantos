@@ -6,16 +6,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MG Mantos | A Casa do Torcedor</title>
     <link rel="icon" type="image/png" href="img/front-page/logo.png">
-    <link rel="preload" as="image" href="img/front-page/banner1.png">
+
+    <link rel="preload" as="image" href="img/front-page/banner1.png" fetchpriority="high">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link rel="preload" href="https://fonts.gstatic.com/s/materialicons/v142/gok-H7zzDkdnRel8-NL29nyu3CDA9q6G.woff2"
+        as="font" type="font/woff2" crossorigin>
+
     <link href="https://fonts.googleapis.com/css2?family=Material+Icons+Outlined&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
 
     <div class="top-bar">FRETE GRÁTIS PARA TODO BRASIL <span>|</span> COMPRAS ACIMA DE R$ 199,90</div>
+
+    <div id="sidebar" class="sidebar">
+        <div class="sidebar-header">
+            <span id="logo-text">MG <span>MANTOS</span></span>
+            <span class="material-icons-outlined" onclick="toggleSidebar()" style="cursor:pointer">close</span>
+        </div>
+        <nav class="sidebar-links">
+            <a href="index.html"><span class="material-icons-outlined">home</span> Início</a>
+            <a href="categoria.html?tag=nacional">Nacionais</a>
+            <a href="categoria.html?tag=europeus">Europeus</a>
+            <a href="categoria.html?tag=feminina">Femininas</a> <a href="categoria.html?tag=selecoes">Seleções</a>
+            <a href="categoria.html?tag=retro">Retrô</a>
+        </nav>
+    </div>
+
+    <div id="overlay" class="overlay" onclick="toggleSidebar()"></div>
 
     <header>
         <div class="container header-main">
@@ -50,15 +73,23 @@
         <section class="slider-container">
             <div class="slider">
                 <a href="categoria.html?tag=lancamento" class="slide fade">
-                    <img src="./img/front-page/banner1.png" alt="Bem Vindo" fetchpriority="high">
+                    <img src="./img/front-page/banner1.png" alt="Bem Vindo" fetchpriority="high" width="1200"
+                        height="400" style="width: 100%; height: auto;">
                 </a>
-                <a href="categoria.html?tag=retro" class="slide fade"><img src="./img/front-page/banner2.png"
-                        alt="Ídolos" loading="lazy"></a>
-                <a href="categoria.html?tag=lancamento" class="slide fade"><img src="./img/front-page/banner3.png"
-                        alt="Lançamento" loading="lazy"></a>
-                <a href="#" class="slide fade"><img src="./img/front-page/banner4.png" alt="Frete" loading="lazy"></a>
-                <a href="#" class="slide fade"><img src="./img/front-page/banner6.png" alt="Copa do Mundo"
-                        loading="lazy"></a>
+
+                <a href="categoria.html?tag=retro" class="slide fade">
+                    <img src="./img/front-page/banner2.png" alt="Ídolos" loading="lazy" width="1200" height="400">
+                </a>
+                <a href="categoria.html?tag=lancamento" class="slide fade">
+                    <img src="./img/front-page/banner3.png" alt="Lançamento" loading="lazy" width="1200" height="400">
+                </a>
+                <a href="#" class="slide fade">
+                    <img src="./img/front-page/banner4.png" alt="Frete" loading="lazy" width="1200" height="400">
+                </a>
+                <a href="#" class="slide fade">
+                    <img src="./img/front-page/banner6.png" alt="Copa do Mundo" loading="lazy" width="1200"
+                        height="400">
+                </a>
             </div>
             <a class="prev-hero" onclick="plusSlides(-1)">&#10094;</a>
             <a class="next-hero" onclick="plusSlides(1)">&#10095;</a>
@@ -68,15 +99,15 @@
 
             <section class="categories-grid">
                 <a href="categoria.html?tag=nacional" class="cat-card">
-                    <img src="./img/front-page/nacional.png" alt="Nacionais">
+                    <img src="./img/front-page/nacional.png" alt="Nacionais" loading="lazy" width="300" height="300">
                     <div class="cat-label">NACIONAIS</div>
                 </a>
                 <a href="categoria.html?tag=europeus" class="cat-card">
-                    <img src="./img/front-page/europeu.jpg" alt="Europeus">
+                    <img src="./img/front-page/europeu.jpg" alt="Europeus" loading="lazy" width="300" height="300">
                     <div class="cat-label">EUROPEUS</div>
                 </a>
                 <a href="categoria.html?tag=selecoes" class="cat-card">
-                    <img src="./img/front-page/selecoess.avif" alt="Seleções">
+                    <img src="./img/front-page/selecoess.avif" alt="Seleções" loading="lazy" width="300" height="300">
                     <div class="cat-label">SELEÇÕES</div>
                 </a>
             </section>
@@ -125,6 +156,28 @@
             </section>
 
         </div>
+
+        <div id="cart-modal-overlay" class="modal-overlay" onclick="closeCartModal()"></div>
+
+        <div id="cart-modal" class="modal-box">
+            <div class="modal-header">
+                <h3 id="modal-title">Seu Carrinho</h3>
+                <span class="close-modal" onclick="closeCartModal()">&times;</span>
+            </div>
+            <div class="modal-body" id="modal-cart-items">
+            </div>
+            <div class="modal-footer">
+                <div class="modal-total-row">
+                    <span>Total:</span>
+                    <span id="modal-total-price">R$ 0,00</span>
+                </div>
+                <div class="modal-buttons">
+                    <button class="btn-continue" onclick="closeCartModal()">Continuar Comprando</button>
+                    <button class="btn-finalize" onclick="finalizeOrder()">Finalizar no WhatsApp</button>
+                </div>
+            </div>
+        </div>
+
     </main>
 
     <script src="js/script.js" defer></script>
