@@ -266,7 +266,6 @@ function updateThumbnails() {
   });
 }
 
-// --- 3. LÓGICA DE INICIALIZAÇÃO ---
 // --- 3. LÓGICA DE INICIALIZAÇÃO ATUALIZADA ---
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -613,14 +612,12 @@ document.addEventListener('DOMContentLoaded', () => {
     cart.forEach((item, i) => {
       const val = parseFloat(item.price.replace('R$', '').replace('.', '').replace(',', '.'));
       total += val;
-      message += `*${i + 1}. ${item.name}*%0A   📏 Tam: ${item.size} | 💰 ${item.price}%0A`;
+      message += `*${i + 1}. ${item.name}*%0A   📏 Tam: ${item.size} `;
       if (item.personalization) message += `   🎨 ${item.personalization}%0A`;
       message += `%0A`;
     });
 
-    message += `------------------------------%0A`;
-    message += `*TOTAL: ${total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}*%0A`;
-    message += `------------------------------%0A`;
+    message += `---------------------------------------------------------%0A`;
     message += `Gostaria de prosseguir para o pagamento.`;
     const phone = "5544988215198";
     window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
