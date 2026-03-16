@@ -6,16 +6,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MG Mantos | Categoria</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@800&family=Oswald:wght@600&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
 
 
-    <div class="top-bar">...</div>
+    <div id="sidebar" class="sidebar">
+        <div class="sidebar-header">
+            <span id="logo-text">MG <span>MANTOS</span></span>
+            <span class="material-icons-outlined" onclick="toggleSidebar()" style="cursor:pointer">close</span>
+        </div>
+        <nav class="sidebar-links">
+            <a href="index.html"><span class="material-icons-outlined">home</span> Início</a>
+            <a href="categoria.html?tag=nacional">Nacionais</a>
+            <a href="categoria.html?tag=europeus">Europeus</a>
+            <a href="categoria.html?tag=feminina">Femininas</a>
+            <a href="categoria.html?tag=selecoes">Seleções</a>
+            <a href="categoria.html?tag=retro">Retrô</a>
+        </nav>
+    </div>
 
-    <div id="sidebar" class="sidebar">...</div>
-    <div id="overlay" class="overlay"></div>
+    <div id="overlay" class="overlay" onclick="toggleSidebar()"></div>
 
     <header>
         <div class="container header-main">

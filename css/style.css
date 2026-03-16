@@ -1191,3 +1191,19 @@ body:not(.light-mode) .modal-item-info h4 {
 .logo span span {
   color: #a277ff;
 }
+
+#logo-text {
+  font-family: 'Oswald', sans-serif;
+  /* Teste trocar por 'Bebas Neue' ou 'Montserrat' para ver qual prefere */
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  /* Dá um leve espaçamento elegante entre as letras */
+}
+
+/* Opcional: Destaque a palavra "MANTOS" com a cor da sua marca, igual está no cabeçalho principal */
+#logo-text span {
+  color: #9b59b6;
+  /* Substitua pelo roxo exato da sua logo */
+  font-weight: 800;
+}
