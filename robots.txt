@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://mg-mantos.vercel.app/sitemap.xml
