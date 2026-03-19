@@ -51,7 +51,7 @@ Como o projeto é estático (apenas Front-end), não é necessária a instalaç�
 
 **1. Clone este repositório:**
 ```bash
-git clone https://github.com/SEU_USUARIO/mg-mantos.git
+[git clone [https://github.com/MatheusMoreira08/mg-mantos.git]
 ```
 
 **2. Navegue até o diretório do projeto:**
