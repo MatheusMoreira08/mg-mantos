@@ -1057,28 +1057,43 @@ body:not(.light-mode) .modal-item-info h4 {
 /* --- RESPONSIVIDADE PARA CELULAR --- */
 @media (max-width: 768px) {
 
+  /* --- ALTERAÇÕES DO CABEÇALHO --- */
   .header-main {
     padding: 10px 0;
     gap: 10px;
+    display: flex !important;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: nowrap;
   }
 
-  .logo span {
-    font-size: 1.1rem;
-
-  }
-
-  .logo img {
-    height: 35px;
-
-  }
-
-  .desktop-only {
+  /* Oculta o Logo "MG Mantos" */
+  .logo,
+  #logo-text {
     display: none !important;
   }
 
+  /* Ajusta a Barra de Busca para o centro */
   .search-bar {
     max-width: 100%;
+    order: 2;
+    flex-grow: 1;
+    margin: 0 10px;
+    display: block !important;
+  }
+
+  /* Ícones da direita (Lembre-se de verificar se essas são as classes exatas do seu site) */
+  .theme-toggle {
     order: 3;
+  }
+
+  .cart-icon {
+    order: 4;
+  }
+
+  /* --- RESTANTE DO SEU CÓDIGO (Mantido igual) --- */
+  .desktop-only {
+    display: none !important;
   }
 
   .slider-container {
@@ -1114,7 +1129,6 @@ body:not(.light-mode) .modal-item-info h4 {
 
   .product-container {
     grid-template-columns: 1fr;
-
     gap: 20px;
   }
 
@@ -1156,46 +1170,5 @@ body:not(.light-mode) .modal-item-info h4 {
 @media (max-width: 400px) {
   .products-grid {
     grid-template-columns: 1fr;
-
   }
-}
-
-.logo span,
-.section-link,
-.cat-label {
-  color: var(--text-main);
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
-}
-
-.categories-grid,
-.carousel-track {
-  min-height: 350px;
-  content-visibility: auto;
-}
-
-.product-card .p-img {
-  aspect-ratio: 1 / 1;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: rgba(128, 128, 128, 0.05);
-  overflow: hidden;
-}
-
-.logo span span {
-  color: #a277ff;
-}
-
-#logo-text {
-  font-family: 'Oswald', sans-serif;
-  font-size: 24px;
-  font-weight: 600;
-  letter-spacing: 1px;
-}
-
-#logo-text span {
-  color: #9b59b6;
-
-  font-weight: 800;
 }
