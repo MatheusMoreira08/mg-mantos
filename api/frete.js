@@ -21,7 +21,7 @@ export default async function handler(req, res) {
 
     // O CEP de origem (De onde a MG Mantos envia as camisas)
     // COLOLOQUE O SEU CEP REAL AQUI NAS ASPAS, EX: "01001000"
-    const cepOrigem = "01001000";
+    const cepOrigem = "87600000";
 
     const urlApiMelhorEnvio = "https://www.melhorenvio.com.br/api/v2/me/shipment/calculate";
 
