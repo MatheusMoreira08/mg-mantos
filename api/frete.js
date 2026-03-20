@@ -12,20 +12,12 @@ export default async function handler(req, res) {
         return res.status(400).json({ erro: 'CEP de destino não informado.' });
     }
 
-    // Remove o traço do CEP para enviar só números pro Melhor Envio
     const cepLimpo = cepDestino.replace(/\D/g, '');
-
-    // IMPORTANTE: Esse token ficará salvo no painel da Vercel (Environment Variables)
-    // NUNCA escreva o seu token real aqui no código!
     const tokenMelhorEnvio = process.env.MELHOR_ENVIO_TOKEN;
-
-    // O CEP de origem (De onde a MG Mantos envia as camisas)
-    // COLOLOQUE O SEU CEP REAL AQUI NAS ASPAS, EX: "01001000"
-    const cepOrigem = "87600000";
+    const cepOrigem = "8760000";
 
     const urlApiMelhorEnvio = "https://www.melhorenvio.com.br/api/v2/me/shipment/calculate";
 
-    // Montando as informações do pacote (Camisa)
     const payload = {
         from: {
             postal_code: cepOrigem
