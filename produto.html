@@ -5,6 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MG Mantos | Detalhes do Produto</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
+
     <link href="https://fonts.googleapis.com/css2?family=Material+Icons+Outlined&display=swap" rel="stylesheet">
     <link rel="icon" type="image/webp" href="img/front-page/logo.png">
     <link
@@ -46,9 +49,10 @@
                 </a>
             </div>
 
-            <div class="search-bar">
-                <input type="text" placeholder="Buscar camisas...">
+            <div class="search-bar" style="position: relative;">
+                <input type="text" id="inputBusca" placeholder="Buscar camisas..." autocomplete="off">
                 <span class="material-icons-outlined search-icon">search</span>
+                <div id="caixaResultados" class="search-results-box" style="display: none;"></div>
             </div>
 
             <div class="header-actions">
@@ -106,6 +110,17 @@
                     <p class="custom-note">Ex: NEYMAR JR | 10</p>
                 </div>
 
+                <div class="frete-box"
+                    style="margin-top: 20px; margin-bottom: 20px; padding: 15px; border: 1px solid var(--border-color, #e0e0e0); border-radius: 8px;">
+                    <p style="margin-bottom: 10px; font-weight: bold; font-size: 14px;">Calcule o frete e prazo:</p>
+                    <div style="display: flex; gap: 10px;">
+                        <input type="text" id="inputCep" placeholder="00000-000" maxlength="9"
+                            style="flex: 1; padding: 10px; border-radius: 4px; border: 1px solid #ccc; font-family: inherit;">
+                        <button id="btnCalcularFrete"
+                            style="padding: 10px 15px; background: #333; color: #fff; border: none; border-radius: 4px; cursor: pointer; font-weight: bold;">Calcular</button>
+                    </div>
+                    <div id="resultadoFrete" style="margin-top: 15px; font-size: 13px;"></div>
+                </div>
                 <button class="buy-btn">ADICIONAR AO CARRINHO</button>
             </div>
         </div>
@@ -136,8 +151,8 @@
             </div>
         </div>
     </div>
-
     <script src="js/script.js"></script>
+    <script src="js/frete.js"></script>
 </body>
 
 </html>

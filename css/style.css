@@ -1172,3 +1172,68 @@ body:not(.light-mode) .modal-item-info h4 {
     grid-template-columns: 1fr;
   }
 }
+
+/* --- ESTILOS DA BUSCA INTELIGENTE --- */
+.search-results-box {
+  position: absolute;
+  top: calc(100% + 5px);
+  /* Dá uma margem da barra de pesquisa */
+  left: 0;
+  width: 100%;
+  background-color: var(--card-bg, #ffffff);
+  /* Usa a variável do seu tema */
+  border: 1px solid var(--border-color, #e0e0e0);
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  z-index: 9999;
+  max-height: 350px;
+  overflow-y: auto;
+}
+
+.resultado-item {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  text-decoration: none;
+  color: var(--text-color, #333);
+  border-bottom: 1px solid var(--border-color, #eee);
+  transition: background-color 0.2s;
+}
+
+.resultado-item:last-child {
+  border-bottom: none;
+}
+
+.resultado-item:hover {
+  background-color: var(--hover-bg, #f5f5f5);
+}
+
+.resultado-item img {
+  width: 45px;
+  height: 45px;
+  object-fit: cover;
+  margin-right: 15px;
+  border-radius: 4px;
+}
+
+.resultado-info {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.resultado-info p {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.2;
+  font-family: 'Inter', sans-serif;
+}
+
+.resultado-info span {
+  font-size: 12px;
+  color: #00a650;
+  /* Verde estilo mercado livre */
+  font-weight: 700;
+  margin-top: 3px;
+}

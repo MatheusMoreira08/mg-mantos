@@ -5,6 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MG Mantos | Categoria</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
+
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined&display=swap" rel="stylesheet">
     <link rel="icon" type="image/webp" href="img/front-page/logo.png">
     <link
@@ -14,7 +17,6 @@
 </head>
 
 <body>
-
 
     <div id="sidebar" class="sidebar">
         <div class="sidebar-header">
@@ -45,9 +47,10 @@
                 </a>
             </div>
 
-            <div class="search-bar">
-                <input type="text" placeholder="Buscar camisas...">
+            <div class="search-bar" style="position: relative;">
+                <input type="text" id="inputBusca" placeholder="Buscar camisas..." autocomplete="off">
                 <span class="material-icons-outlined search-icon">search</span>
+                <div id="caixaResultados" class="search-results-box" style="display: none;"></div>
             </div>
 
             <div class="header-actions">

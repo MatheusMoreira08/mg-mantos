@@ -279,24 +279,80 @@ document.addEventListener('DOMContentLoaded', () => {
     if (icon) icon.textContent = 'light_mode';
   }
 
-  const searchInput = document.querySelector('.search-bar input');
+  // =========================================================================
+  // SISTEMA DE BUSCA INTELIGENTE (FUSE.JS)
+  // =========================================================================
+  const searchInput = document.getElementById('inputBusca');
   const searchIcon = document.querySelector('.search-bar .search-icon');
+  const caixaDeResultados = document.getElementById('caixaResultados');
 
-  function performSearch() {
-    const term = searchInput.value.trim();
-    if (term) {
-      window.location.href = `categoria.html?busca=${encodeURIComponent(term)}`;
-    }
-  }
+  if (typeof Fuse !== 'undefined' && typeof products !== 'undefined' && searchInput && caixaDeResultados) {
+    const opcoesDeBusca = {
+      keys: ['name', 'tags'],
+      threshold: 0.4,
+      ignoreLocation: true,
+      minMatchCharLength: 2
+    };
 
-  if (searchInput) {
+    const fuseMotor = new Fuse(products, opcoesDeBusca);
+
+    searchInput.addEventListener('input', function (e) {
+      const oQueFoiDigitado = e.target.value.trim();
+
+      if (oQueFoiDigitado.length < 2) {
+        caixaDeResultados.style.display = 'none';
+        return;
+      }
+
+      const resultados = fuseMotor.search(oQueFoiDigitado);
+      caixaDeResultados.innerHTML = '';
+
+      if (resultados.length > 0) {
+        const top5 = resultados.slice(0, 5);
+
+        top5.forEach(itemEncontrado => {
+          const manto = itemEncontrado.item;
+          const htmlDoItem = `
+            <a href="produto.html?id=${manto.id}" class="resultado-item">
+                <img src="${manto.image}" alt="${manto.name}" onerror="this.src='img/front-page/logo.png'">
+                <div class="resultado-info">
+                    <p>${manto.name}</p>
+                    <span>${manto.price}</span>
+                </div>
+            </a>
+          `;
+          caixaDeResultados.innerHTML += htmlDoItem;
+        });
+      } else {
+        caixaDeResultados.innerHTML = '<div style="padding: 15px; text-align: center; font-family: Inter, sans-serif; font-size: 13px; color: #666;">Nenhum manto encontrado.</div>';
+      }
+
+      caixaDeResultados.style.display = 'block';
+    });
+
+    // Permite buscar teclando Enter (Redireciona para a página de categorias)
     searchInput.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') performSearch();
+      if (e.key === 'Enter') {
+        const term = searchInput.value.trim();
+        if (term) window.location.href = `categoria.html?busca=${encodeURIComponent(term)}`;
+      }
+    });
+
+    if (searchIcon) {
+      searchIcon.addEventListener('click', () => {
+        const term = searchInput.value.trim();
+        if (term) window.location.href = `categoria.html?busca=${encodeURIComponent(term)}`;
+      });
+    }
+
+    // Esconde a caixinha se clicar fora dela
+    document.addEventListener('click', function (e) {
+      if (!e.target.closest('.search-bar')) {
+        caixaDeResultados.style.display = 'none';
+      }
     });
   }
-  if (searchIcon) {
-    searchIcon.addEventListener('click', performSearch);
-  }
+  // =========================================================================
 
   // A) Lógica da HOME - Organizada conforme as novas seções
   if (document.getElementById('grid-lancamentos') || document.getElementById('grid-destaques')) {
@@ -305,14 +361,13 @@ document.addEventListener('DOMContentLoaded', () => {
       const container = document.getElementById(containerId);
       if (!container) return;
 
-      // Filtro inteligente: por Tag e, opcionalmente, por texto no nome (ex: "26/27")
-      let filtered = products.filter(p => p.tags.includes(filterTag));
+      let filtered = products.filter(p => p.tags && p.tags.includes(filterTag));
 
       if (specificFilter) {
         filtered = filtered.filter(p => p.name.includes(specificFilter));
       }
 
-      container.innerHTML = ''; // Limpa antes de renderizar
+      container.innerHTML = '';
 
       filtered.forEach(product => {
         const badgeHTML = product.badge ? `<span class="badge ${product.badge === 'Novo' ? 'new' : ''}">${product.badge}</span>` : '';
@@ -334,9 +389,9 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    renderCarouselTrack('grid-destaques', 'destaque');    // Mais Vendidos
-    renderCarouselTrack('grid-lancamentos', 'lancamento', '26/27'); // Lançamentos (Só 26/27)
-    renderCarouselTrack('grid-feminina', 'feminina');     // Futebol Feminino
+    renderCarouselTrack('grid-destaques', 'destaque');
+    renderCarouselTrack('grid-lancamentos', 'lancamento', '26/27');
+    renderCarouselTrack('grid-feminina', 'feminina');
     renderCarouselTrack('grid-internacional', 'internacional');
   }
 
@@ -405,7 +460,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (window.location.pathname.includes("categoria.html")) {
     const params = new URLSearchParams(window.location.search);
     const tag = params.get('tag');
-    const searchTerm = params.get('busca'); // Pega o que foi digitado na busca
+    const searchTerm = params.get('busca');
     const container = document.getElementById('grid-categoria');
     const title = document.getElementById('cat-title');
     const count = document.getElementById('cat-count');
@@ -416,13 +471,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // LÓGICA DE FILTRO (TAG OU BUSCA)
     if (searchTerm) {
-      filtered = products.filter(p =>
-        p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        p.tags.some(t => t.includes(searchTerm.toLowerCase()))
-      );
+      if (typeof Fuse !== 'undefined' && typeof products !== 'undefined') {
+        const fuseCategoria = new Fuse(products, { keys: ['name', 'tags'], threshold: 0.4 });
+        filtered = fuseCategoria.search(searchTerm).map(result => result.item);
+      } else {
+        filtered = products.filter(p =>
+          p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          (p.tags && p.tags.some(t => t.includes(searchTerm.toLowerCase())))
+        );
+      }
       if (title) title.innerText = `Resultados para: "${searchTerm}"`;
     } else if (tag) {
-      filtered = products.filter(p => p.tags.includes(tag));
+      filtered = products.filter(p => p.tags && p.tags.includes(tag));
       if (title) title.innerText = titulos[tag] || "Produtos";
     }
 
