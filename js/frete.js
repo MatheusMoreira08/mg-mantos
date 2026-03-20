@@ -75,20 +75,20 @@ document.addEventListener('DOMContentLoaded', () => {
                         const previsaoData = calcularDataPrevisao(opcao.delivery_time);
 
                         htmlOpcoes += `
-                            <div style="padding: 12px 0; border-bottom: 1px solid #eee; font-family: 'Inter', sans-serif;">
-                                <span style="font-weight: 600; font-size: 14px; color: #333;">${nomeExibicao}</span>
-                                <span style="font-weight: 600; font-size: 14px; color: #333;"> - R$ ${opcao.price}</span>
-                                <span style="font-size: 13px; color: #555;"> - até ${opcao.delivery_time} dias úteis - Previsão ${previsaoData}</span>
+                            <div style="padding: 12px 0; border-bottom: 1px solid var(--border-color, #eee); font-family: 'Inter', sans-serif;">
+                                <span style="font-weight: 600; font-size: 14px; color: var(--text-color, #333);">${nomeExibicao}</span>
+                                <span style="font-weight: 600; font-size: 14px; color: var(--text-color, #333);"> - R$ ${opcao.price}</span>
+                                <span style="font-size: 13px; color: var(--text-muted, #888);"> - até ${opcao.delivery_time} dias úteis - Previsão ${previsaoData}</span>
                             </div>
                         `;
                     }
                 });
 
                 htmlOpcoes += `
-                    <div style="padding: 12px 0; border-bottom: 1px solid #eee; font-family: 'Inter', sans-serif;">
-                        <span style="font-weight: 600; font-size: 14px; color: #333;">FRETE A COMBINAR - EXCURSÕES</span>
-                        <span style="font-size: 13px; color: #555; display: block; margin-top: 4px;">Você poderá combinar com o vendedor antes ou após a compra.</span>
-                        <span style="font-size: 11px; color: #666; display: block; margin-top: 4px; text-transform: uppercase;">Para envios de excursões (Ônibus). Informar ao vendedor antes finalizar a compra.</span>
+                    <div style="padding: 12px 0; border-bottom: 1px solid var(--border-color, #eee); font-family: 'Inter', sans-serif;">
+                        <span style="font-weight: 600; font-size: 14px; color: var(--text-color, #333);">FRETE A COMBINAR - EXCURSÕES</span>
+                        <span style="font-size: 13px; color: var(--text-muted, #888); display: block; margin-top: 4px;">Você poderá combinar com o vendedor antes ou após a compra.</span>
+                        <span style="font-size: 11px; color: var(--text-muted, #888); display: block; margin-top: 4px; text-transform: uppercase;">Para envios de excursões (Ônibus). Informar ao vendedor antes finalizar a compra.</span>
                     </div>
                 `;
 
