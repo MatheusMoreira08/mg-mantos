@@ -1,5 +1,3 @@
-// Arquivo: js/frete.js
-
 document.addEventListener('DOMContentLoaded', () => {
     const inputCep = document.getElementById('inputCep');
     const btnCalcularFrete = document.getElementById('btnCalcularFrete');
@@ -7,7 +5,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (inputCep && btnCalcularFrete && divResultado) {
 
-        // Máscara do CEP
         inputCep.addEventListener('input', function (e) {
             let value = e.target.value.replace(/\D/g, '');
             if (value.length > 5) value = value.replace(/^(\d{5})(\d)/, '$1-$2');
@@ -20,13 +17,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
             while (diasAdicionados < diasUteis) {
                 data.setDate(data.getDate() + 1);
-                // Pula Sábado (6) e Domingo (0)
                 if (data.getDay() !== 0 && data.getDay() !== 6) {
                     diasAdicionados++;
                 }
             }
 
-            // Formata a data para DD/MM/AAAA
             const dia = String(data.getDate()).padStart(2, '0');
             const mes = String(data.getMonth() + 1).padStart(2, '0');
             const ano = data.getFullYear();
@@ -60,16 +55,22 @@ document.addEventListener('DOMContentLoaded', () => {
                     return;
                 }
 
-                const transportadorasDesejadas = ["PAC", "SEDEX", ".Package", ".Com"];
+                const transportadorasDesejadas = ["PAC", "SEDEX", ".Package", ".Com", "Total Express", "Buslog"];
+                const transportadorasVistas = new Set();
 
                 let htmlOpcoes = `<div style="margin-top: 20px; border-top: 1px solid #eee; padding-top: 15px;">`;
 
                 transportadoras.forEach(opcao => {
-                    if (!opcao.error && transportadorasDesejadas.some(nome => opcao.name.includes(nome))) {
+                    if (!opcao.error && transportadorasDesejadas.some(nome => opcao.name.toLowerCase().includes(nome.toLowerCase()))) {
 
                         let nomeExibicao = opcao.name.toUpperCase();
                         if (nomeExibicao.includes('.PACKAGE')) nomeExibicao = "JADLOG PACKAGE";
                         if (nomeExibicao.includes('.COM')) nomeExibicao = "JADLOG COM";
+                        if (nomeExibicao.includes('TOTAL EXPRESS')) nomeExibicao = "TOTAL EXPRESS";
+                        if (nomeExibicao.includes('BUSLOG')) nomeExibicao = "BUSLOG";
+                        if (transportadorasVistas.has(nomeExibicao)) return;
+
+                        transportadorasVistas.add(nomeExibicao);
 
                         const previsaoData = calcularDataPrevisao(opcao.delivery_time);
 
