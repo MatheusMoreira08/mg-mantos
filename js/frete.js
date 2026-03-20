@@ -56,7 +56,6 @@ document.addEventListener('DOMContentLoaded', () => {
                         divResultado.innerHTML += htmlOpcao;
                     }
                 });
-
             } catch (erro) {
                 console.error("Erro no cálculo de frete:", erro);
                 divResultado.innerHTML = "<span style='color: #d32f2f; font-size: 13px; font-weight: 500;'>Ocorreu um erro ao conectar com as transportadoras. Tente novamente mais tarde.</span>";
