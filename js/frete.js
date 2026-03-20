@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            divResultado.innerHTML = "<span style='color: #666; font-size: 13px;'>Calculando prazos e preços...</span>";
+            divResultado.innerHTML = "<span style='font-size: 13px; color: inherit; opacity: 0.7;'>Calculando prazos e preços...</span>";
 
             try {
                 const resposta = await fetch('/api/frete', {
@@ -56,9 +56,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
                 const transportadorasDesejadas = ["PAC", "SEDEX", ".Package", ".Com", "Total Express", "Buslog"];
-                const transportadorasVistas = new Set();
 
-                let htmlOpcoes = `<div style="margin-top: 20px; border-top: 1px solid #eee; padding-top: 15px;">`;
+                const transportadorasVistas = new Set();
+                let htmlOpcoes = `<div style="margin-top: 20px; border-top: 1px solid var(--border-color, #444); padding-top: 15px;">`;
 
                 transportadoras.forEach(opcao => {
                     if (!opcao.error && transportadorasDesejadas.some(nome => opcao.name.toLowerCase().includes(nome.toLowerCase()))) {
@@ -75,22 +75,14 @@ document.addEventListener('DOMContentLoaded', () => {
                         const previsaoData = calcularDataPrevisao(opcao.delivery_time);
 
                         htmlOpcoes += `
-                            <div style="padding: 12px 0; border-bottom: 1px solid var(--border-color, #eee); font-family: 'Inter', sans-serif;">
-                                <span style="font-weight: 600; font-size: 14px; color: var(--text-color, #333);">${nomeExibicao}</span>
-                                <span style="font-weight: 600; font-size: 14px; color: var(--text-color, #333);"> - R$ ${opcao.price}</span>
-                                <span style="font-size: 13px; color: var(--text-muted, #888);"> - até ${opcao.delivery_time} dias úteis - Previsão ${previsaoData}</span>
+                            <div style="padding: 12px 0; border-bottom: 1px solid var(--border-color, #444); font-family: 'Inter', sans-serif;">
+                                <span style="font-weight: 600; font-size: 14px; color: inherit;">${nomeExibicao}</span>
+                                <span style="font-weight: 600; font-size: 14px; color: inherit;"> - R$ ${opcao.price}</span>
+                                <span style="font-size: 13px; color: inherit; opacity: 0.7;"> - até ${opcao.delivery_time} dias úteis - Previsão ${previsaoData}</span>
                             </div>
                         `;
                     }
                 });
-
-                htmlOpcoes += `
-                    <div style="padding: 12px 0; border-bottom: 1px solid var(--border-color, #eee); font-family: 'Inter', sans-serif;">
-                        <span style="font-weight: 600; font-size: 14px; color: var(--text-color, #333);">FRETE A COMBINAR - EXCURSÕES</span>
-                        <span style="font-size: 13px; color: var(--text-muted, #888); display: block; margin-top: 4px;">Você poderá combinar com o vendedor antes ou após a compra.</span>
-                        <span style="font-size: 11px; color: var(--text-muted, #888); display: block; margin-top: 4px; text-transform: uppercase;">Para envios de excursões (Ônibus). Informar ao vendedor antes finalizar a compra.</span>
-                    </div>
-                `;
 
                 htmlOpcoes += `</div>`;
                 divResultado.innerHTML = htmlOpcoes;
