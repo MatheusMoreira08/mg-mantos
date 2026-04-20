@@ -5,9 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MG Mantos | Detalhes do Produto</title>
-
-    <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
-
     <link href="https://fonts.googleapis.com/css2?family=Material+Icons+Outlined&display=swap" rel="stylesheet">
     <link rel="icon" type="image/webp" href="img/front-page/logo.png">
     <link
@@ -49,10 +46,9 @@
                 </a>
             </div>
 
-            <div class="search-bar" style="position: relative;">
-                <input type="text" id="inputBusca" placeholder="Buscar camisas..." autocomplete="off">
+            <div class="search-bar">
+                <input type="text" placeholder="Buscar camisas...">
                 <span class="material-icons-outlined search-icon">search</span>
-                <div id="caixaResultados" class="search-results-box" style="display: none;"></div>
             </div>
 
             <div class="header-actions">
@@ -110,31 +106,6 @@
                     <p class="custom-note">Ex: NEYMAR JR | 10</p>
                 </div>
 
-                <div class="frete-box"
-                    style="margin-top: 30px; margin-bottom: 20px; padding: 20px 0; border-top: 1px solid var(--border-color, #eee);">
-
-                    <div
-                        style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px;">
-                        <div style="display: flex; align-items: center; gap: 8px;">
-                            <span class="material-icons-outlined"
-                                style="color: var(--text-color, #555);">local_shipping</span>
-                            <span
-                                style="font-weight: 600; font-size: 14px; color: var(--text-color, #555); text-transform: uppercase;">Calcular
-                                prazos e preços</span>
-                        </div>
-                        <a href="https://buscacepinter.correios.com.br/app/endereco/index.php" target="_blank"
-                            style="font-size: 13px; color: #007bff; text-decoration: none;">Não sei meu CEP</a>
-                    </div>
-
-                    <div style="display: flex; gap: 10px;">
-                        <input type="text" id="inputCep" placeholder="00000-000" maxlength="9"
-                            style="width: 150px; padding: 10px 15px; border-radius: 4px; border: 1px solid #ccc; font-family: inherit; font-size: 16px; text-align: center;">
-                        <button id="btnCalcularFrete"
-                            style="padding: 10px 20px; background: var(--text-color, #333); color: var(--card-bg, #fff); border: none; border-radius: 4px; cursor: pointer; font-weight: 600; font-family: inherit; font-size: 15px;">Consultar</button>
-                    </div>
-
-                    <div id="resultadoFrete"></div>
-                </div>
                 <button class="buy-btn">ADICIONAR AO CARRINHO</button>
             </div>
         </div>
@@ -165,8 +136,8 @@
             </div>
         </div>
     </div>
+
     <script src="js/script.js"></script>
-    <script src="js/frete.js"></script>
 </body>
 
 </html>
