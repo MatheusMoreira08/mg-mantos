@@ -295,6 +295,15 @@ function isExactTeamMatch(term) {
   return matches;
 }
 
+function generateAliases(produto) {
+  const base = normalizarTexto(produto.name);
+  const compact = base.replace(/\s+/g, '');
+  const tagString = (produto.tags || []).map(normalizarTexto).join(' ');
+  const extra = (produto.aliases || []).map(normalizarTexto).join(' ');
+  const set = new Set([base, compact, tagString, extra].filter(Boolean));
+  return Array.from(set);
+}
+
 function buscarProdutosPorTermo(termo) {
   const termoNormalizado = normalizarTexto(termo).trim();
 
@@ -321,12 +330,13 @@ function buscarProdutosPorTermo(termo) {
     const produtosIndexados = products.map(produto => ({
       produto,
       nomeBusca: normalizarTexto(produto.name),
-      tagsBusca: normalizarTexto((produto.tags || []).join(' '))
+      tagsBusca: normalizarTexto((produto.tags || []).join(' ')),
+      aliasesBusca: generateAliases(produto).join(' ')
     }));
 
     const buscador = new Fuse(produtosIndexados, {
-      keys: ['nomeBusca', 'tagsBusca'],
-      threshold: 0.4,
+      keys: ['nomeBusca', 'tagsBusca', 'aliasesBusca'],
+      threshold: 0.3,
       ignoreLocation: true,
       minMatchCharLength: 2
     });
