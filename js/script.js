@@ -272,6 +272,38 @@ function normalizarTexto(texto) {
     .replace(/[\u0300-\u036f]/g, '');
 }
 
+function isExactTeamMatch(term) {
+  const t = normalizarTexto(term).trim();
+  if (!t) return [];
+
+  // Try to find products where the normalized name contains the term as a whole word
+  const regex = new RegExp('\\b' + t.replace(/[.*+?^${}()|[\\]\\]/g, '\\$&') + '\\b');
+
+  const matches = products.filter(produto => {
+    const nome = normalizarTexto(produto.name);
+    const tags = (produto.tags || []).map(normalizarTexto).join(' ');
+
+    if (tags.includes(t)) return true;
+    if (regex.test(nome)) return true;
+
+    // also allow simple contains when word match fails (covers multi-word teams)
+    if (nome.includes(t)) return true;
+
+    return false;
+  });
+
+  return matches;
+}
+
+function generateAliases(produto) {
+  const base = normalizarTexto(produto.name);
+  const compact = base.replace(/\s+/g, '');
+  const tagString = (produto.tags || []).map(normalizarTexto).join(' ');
+  const extra = (produto.aliases || []).map(normalizarTexto).join(' ');
+  const set = new Set([base, compact, tagString, extra].filter(Boolean));
+  return Array.from(set);
+}
+
 function buscarProdutosPorTermo(termo) {
   const termoNormalizado = normalizarTexto(termo).trim();
 
@@ -286,6 +318,10 @@ function buscarProdutosPorTermo(termo) {
     });
   }
 
+  // Pre-match: if the term matches a team name or tag exactly, return those products first
+  const preMatches = isExactTeamMatch(termoNormalizado);
+  if (preMatches && preMatches.length > 0) return preMatches;
+
   if (termoNormalizado === 'selecao' || termoNormalizado === 'selecoes' || termoNormalizado === 'seleção') {
     return products.filter(produto => produto.tags && produto.tags.includes('selecoes'));
   }
@@ -294,12 +330,13 @@ function buscarProdutosPorTermo(termo) {
     const produtosIndexados = products.map(produto => ({
       produto,
       nomeBusca: normalizarTexto(produto.name),
-      tagsBusca: normalizarTexto((produto.tags || []).join(' '))
+      tagsBusca: normalizarTexto((produto.tags || []).join(' ')),
+      aliasesBusca: generateAliases(produto).join(' ')
     }));
 
     const buscador = new Fuse(produtosIndexados, {
-      keys: ['nomeBusca', 'tagsBusca'],
-      threshold: 0.4,
+      keys: ['nomeBusca', 'tagsBusca', 'aliasesBusca'],
+      threshold: 0.3,
       ignoreLocation: true,
       minMatchCharLength: 2
     });
@@ -414,8 +451,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const html = `
             <a href="${linkUrl}" class="product-card" style="text-decoration: none;">
                 <div class="p-img">
-                    ${badgeHTML}
-                    <img src="${product.image}" onerror="this.src='img/front-page/logo.webp'" alt="${product.name}">
+                  ${badgeHTML}
+                  <img loading="lazy" src="${product.image}" onerror="this.src='img/front-page/logo.webp'" alt="${product.name}">
                 </div>
                 <div class="p-info">
                     <div class="p-cat">Importada Tailandesa 1:1</div>
@@ -486,7 +523,7 @@ document.addEventListener('DOMContentLoaded', () => {
         thumbContainer.innerHTML = '';
         currentProductImages.forEach((imgSrc, index) => {
           const activeClass = index === 0 ? 'active' : '';
-          thumbContainer.innerHTML += `<img src="${imgSrc}" onclick="jumpToImage(${index})" class="${activeClass}">`;
+          thumbContainer.innerHTML += `<img loading="lazy" src="${imgSrc}" onclick="jumpToImage(${index})" class="${activeClass}">`;
         });
       }
     } else {
@@ -525,12 +562,12 @@ document.addEventListener('DOMContentLoaded', () => {
         filtered.forEach(product => {
           const badgeHTML = product.badge ? `<span class="badge ${product.badge === 'Novo' ? 'new' : ''}">${product.badge}</span>` : '';
           const linkUrl = `produto.html?id=${product.id}`;
-          const html = `
-                        <a href="${linkUrl}" class="product-card" style="text-decoration: none;">
-                            <div class="p-img">
-                                ${badgeHTML}
-                                <img src="${product.image}" onerror="this.src='img/front-page/logo.webp'" alt="${product.name}">
-                            </div>
+            const html = `
+                  <a href="${linkUrl}" class="product-card" style="text-decoration: none;">
+                    <div class="p-img">
+                      ${badgeHTML}
+                      <img loading="lazy" src="${product.image}" onerror="this.src='img/front-page/logo.webp'" alt="${product.name}">
+                    </div>
                             <div class="p-info">
                                 <div class="p-cat">Importada Tailandesa 1:1</div>
                                 <div class="p-name">${product.name}</div>
@@ -555,6 +592,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const overlay = document.getElementById('cart-modal-overlay');
     const modal = document.getElementById('cart-modal');
     const title = document.getElementById('modal-title');
+    const finalizeBtn = document.querySelector('.btn-finalize');
 
     if (isAddedAction) {
       title.innerText = "Este produto foi adicionado ao seu carrinho!";
@@ -562,6 +600,11 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
       title.innerText = "Seu Carrinho de Compras";
       title.style.color = "#333";
+    }
+
+    if (finalizeBtn && !window.location.pathname.includes('carrinho.html')) {
+      finalizeBtn.innerText = 'Ir para Carrinho';
+      finalizeBtn.onclick = () => window.location.href = 'carrinho.html';
     }
 
     renderModalItems();
@@ -692,23 +735,226 @@ document.addEventListener('DOMContentLoaded', () => {
     badge.style.display = cart.length > 0 ? 'flex' : 'none';
   }
 
-  // FINALIZAR PEDIDO (WHATSAPP)
-  window.finalizeOrder = function () {
-    if (cart.length === 0) return alert("Seu carrinho está vazio!");
+  function parseMoneyToNumber(value) {
+    return parseFloat(String(value || '0').replace('R$', '').replace(/\./g, '').replace(',', '.')) || 0;
+  }
 
+  function formatMoney(value) {
+    return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+  }
+
+  function getCartGroupKey(item) {
+    return [item.name, item.price, item.image, item.size || '', item.personalization || ''].join('||');
+  }
+
+  function getGroupedCart() {
+    const grupos = new Map();
+
+    cart.forEach(item => {
+      const key = getCartGroupKey(item);
+      if (!grupos.has(key)) {
+        grupos.set(key, {
+          key,
+          name: item.name,
+          price: item.price,
+          image: item.image,
+          size: item.size,
+          personalization: item.personalization || '',
+          quantity: 0
+        });
+      }
+
+      grupos.get(key).quantity += 1;
+    });
+
+    return Array.from(grupos.values());
+  }
+
+  function saveGroupedCart(groups) {
+    cart = [];
+
+    groups.forEach(group => {
+      for (let i = 0; i < group.quantity; i++) {
+        cart.push({
+          id: Date.now() + Math.random(),
+          name: group.name,
+          price: group.price,
+          image: group.image,
+          size: group.size,
+          personalization: group.personalization || null
+        });
+      }
+    });
+
+    saveCart();
+    updateCartIcon();
+  }
+
+  function getCartSubtotal() {
+    return cart.reduce((total, item) => total + parseMoneyToNumber(item.price), 0);
+  }
+
+  function findCheckoutPageElements() {
+    return {
+      container: document.getElementById('checkout-items'),
+      subtotal: document.getElementById('checkout-subtotal'),
+      total: document.getElementById('checkout-total'),
+      count: document.getElementById('checkout-count'),
+      panelCount: document.getElementById('checkout-cart-counter'),
+      summaryCount: document.getElementById('checkout-summary-count'),
+      emptyState: document.getElementById('checkout-empty'),
+      whatsappBtn: document.getElementById('checkout-whatsapp-btn'),
+      cartBadge: document.getElementById('checkout-cart-badge')
+    };
+  }
+
+  function syncCheckoutSummary() {
+    const { subtotal, total, count, panelCount, summaryCount, cartBadge } = findCheckoutPageElements();
+    const totalItens = cart.length;
+    const subtotalValue = getCartSubtotal();
+
+    if (subtotal) subtotal.innerText = formatMoney(subtotalValue);
+    if (total) total.innerText = formatMoney(subtotalValue);
+    if (count) count.innerText = `${totalItens} ${totalItens === 1 ? 'item' : 'itens'}`;
+    if (panelCount) panelCount.innerText = totalItens;
+    if (summaryCount) summaryCount.innerText = totalItens;
+    if (cartBadge) cartBadge.innerText = totalItens;
+  }
+
+  function renderCheckoutPage() {
+    const { container, emptyState, whatsappBtn } = findCheckoutPageElements();
+    if (!container || !emptyState) return;
+
+    const groups = getGroupedCart();
+
+    if (groups.length === 0) {
+      container.innerHTML = '';
+      emptyState.style.display = 'block';
+      if (whatsappBtn) whatsappBtn.disabled = true;
+      syncCheckoutSummary();
+      return;
+    }
+
+    emptyState.style.display = 'none';
+    if (whatsappBtn) whatsappBtn.disabled = false;
+
+    container.innerHTML = '';
+
+    groups.forEach(group => {
+      const subtotalItem = parseMoneyToNumber(group.price) * group.quantity;
+      const personalizationValue = group.personalization || '';
+
+      container.innerHTML += `
+        <article class="checkout-item" data-key="${group.key}">
+          <img loading="lazy" class="checkout-item-image" src="${group.image}" alt="${group.name}" onerror="this.src='img/front-page/logo.png'">
+          <div class="checkout-item-info">
+            <div class="checkout-item-head">
+              <div>
+                <h3>${group.name}</h3>
+                <p>Tamanho: <strong>${group.size || '-'}</strong></p>
+                <p class="checkout-item-price">${group.price}</p>
+              </div>
+              <button class="checkout-remove-btn" onclick="checkoutRemoveGroup('${group.key.replace(/'/g, "\\'")}')">Remover</button>
+            </div>
+
+            <div class="checkout-item-controls">
+              <div class="checkout-qty-control">
+                <button onclick="checkoutChangeQuantity('${group.key.replace(/'/g, "\\'")}', -1)">-</button>
+                <span>${group.quantity}</span>
+                <button onclick="checkoutChangeQuantity('${group.key.replace(/'/g, "\\'")}', 1)">+</button>
+              </div>
+
+              <label class="checkout-personalization">
+                <span>Personalização</span>
+                <textarea maxlength="35" rows="2" oninput="checkoutUpdatePersonalization('${group.key.replace(/'/g, "\\'")}', this.value)">${personalizationValue}</textarea>
+              </label>
+            </div>
+
+            <div class="checkout-item-footer">
+              <span>Subtotal do item</span>
+              <strong>${formatMoney(subtotalItem)}</strong>
+            </div>
+          </div>
+        </article>
+      `;
+    });
+
+    syncCheckoutSummary();
+  }
+
+  window.checkoutChangeQuantity = function (key, delta) {
+    const groups = getGroupedCart();
+    const target = groups.find(group => group.key === key);
+    if (!target) return;
+
+    target.quantity += delta;
+
+    if (target.quantity <= 0) {
+      const remaining = groups.filter(group => group.key !== key);
+      saveGroupedCart(remaining);
+    } else {
+      saveGroupedCart(groups);
+    }
+
+    renderCheckoutPage();
+  };
+
+  window.checkoutUpdatePersonalization = function (key, value) {
+    const groups = getGroupedCart();
+    const target = groups.find(group => group.key === key);
+    if (!target) return;
+
+    target.personalization = value.trim();
+    saveGroupedCart(groups);
+    renderCheckoutPage();
+  };
+
+  window.checkoutRemoveGroup = function (key) {
+    const groups = getGroupedCart().filter(group => group.key !== key);
+    saveGroupedCart(groups);
+    renderCheckoutPage();
+  };
+
+  function buildOrderMessage(items) {
     let message = `*NOVO PEDIDO DO SITE*%0A%0A`;
-    let total = 0;
 
-    cart.forEach((item, i) => {
-      const val = parseFloat(item.price.replace('R$', '').replace('.', '').replace(',', '.'));
-      total += val;
-      message += `*${i + 1}. ${item.name}*%0A   📏 Tam: ${item.size} `;
-      if (item.personalization) message += `   🎨 ${item.personalization}%0A`;
+    items.forEach((item, index) => {
+      const quantityLabel = item.quantity || 1;
+      message += `*${index + 1}. ${item.name}*%0A   📏 Tam: ${item.size || '-'}%0A   🔢 Qtd: ${quantityLabel}%0A`;
+
+      if (item.personalization) {
+        message += `   🎨 ${item.personalization}%0A`;
+      }
+
       message += `%0A`;
     });
 
     message += `---------------------------------------------------------%0A`;
     message += `Gostaria de prosseguir para o pagamento.`;
+
+    return message;
+  }
+
+  window.checkoutFinalizeOrder = function () {
+    if (cart.length === 0) return alert('Seu carrinho está vazio!');
+
+    const groups = getGroupedCart();
+    const message = buildOrderMessage(groups);
+    const phone = '5544988215198';
+    window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
+  };
+
+  if (window.location.pathname.includes('carrinho.html')) {
+    renderCheckoutPage();
+    syncCheckoutSummary();
+  }
+
+  // FINALIZAR PEDIDO (WHATSAPP)
+  window.finalizeOrder = function () {
+    if (cart.length === 0) return alert("Seu carrinho está vazio!");
+
+    const groupedItems = getGroupedCart();
+    const message = buildOrderMessage(groupedItems);
     const phone = "5544988215198";
     window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
   }
