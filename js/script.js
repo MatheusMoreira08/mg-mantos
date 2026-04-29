@@ -265,6 +265,55 @@ function updateThumbnails() {
   });
 }
 
+function normalizarTexto(texto) {
+  return String(texto || '')
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '');
+}
+
+function buscarProdutosPorTermo(termo) {
+  const termoNormalizado = normalizarTexto(termo).trim();
+
+  if (!termoNormalizado) {
+    return [];
+  }
+
+  if (termoNormalizado === 'brasil') {
+    return products.filter(produto => {
+      const nomeNormalizado = normalizarTexto(produto.name);
+      return produto.tags && produto.tags.includes('selecoes') && nomeNormalizado.includes('brasil');
+    });
+  }
+
+  if (termoNormalizado === 'selecao' || termoNormalizado === 'selecoes' || termoNormalizado === 'seleção') {
+    return products.filter(produto => produto.tags && produto.tags.includes('selecoes'));
+  }
+
+  if (typeof Fuse !== 'undefined' && typeof products !== 'undefined') {
+    const produtosIndexados = products.map(produto => ({
+      produto,
+      nomeBusca: normalizarTexto(produto.name),
+      tagsBusca: normalizarTexto((produto.tags || []).join(' '))
+    }));
+
+    const buscador = new Fuse(produtosIndexados, {
+      keys: ['nomeBusca', 'tagsBusca'],
+      threshold: 0.4,
+      ignoreLocation: true,
+      minMatchCharLength: 2
+    });
+
+    return buscador.search(termoNormalizado).map(resultado => resultado.item.produto);
+  }
+
+  return products.filter(produto => {
+    const nomeNormalizado = normalizarTexto(produto.name);
+    const tagsNormalizadas = (produto.tags || []).map(normalizarTexto);
+    return nomeNormalizado.includes(termoNormalizado) || tagsNormalizadas.some(tag => tag.includes(termoNormalizado));
+  });
+}
+
 // --- 3. LÓGICA DE INICIALIZAÇÃO ATUALIZADA ---
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -287,15 +336,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const caixaDeResultados = document.getElementById('caixaResultados');
 
   if (typeof Fuse !== 'undefined' && typeof products !== 'undefined' && searchInput && caixaDeResultados) {
-    const opcoesDeBusca = {
-      keys: ['name', 'tags'],
-      threshold: 0.4,
-      ignoreLocation: true,
-      minMatchCharLength: 2
-    };
-
-    const fuseMotor = new Fuse(products, opcoesDeBusca);
-
     searchInput.addEventListener('input', function (e) {
       const oQueFoiDigitado = e.target.value.trim();
 
@@ -304,14 +344,13 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      const resultados = fuseMotor.search(oQueFoiDigitado);
+      const resultados = buscarProdutosPorTermo(oQueFoiDigitado);
       caixaDeResultados.innerHTML = '';
 
       if (resultados.length > 0) {
         const top5 = resultados.slice(0, 5);
 
-        top5.forEach(itemEncontrado => {
-          const manto = itemEncontrado.item;
+        top5.forEach(manto => {
           const htmlDoItem = `
             <a href="produto.html?id=${manto.id}" class="resultado-item">
                 <img src="${manto.image}" alt="${manto.name}" onerror="this.src='img/front-page/logo.png'">
@@ -471,15 +510,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // LÓGICA DE FILTRO (TAG OU BUSCA)
     if (searchTerm) {
-      if (typeof Fuse !== 'undefined' && typeof products !== 'undefined') {
-        const fuseCategoria = new Fuse(products, { keys: ['name', 'tags'], threshold: 0.4 });
-        filtered = fuseCategoria.search(searchTerm).map(result => result.item);
-      } else {
-        filtered = products.filter(p =>
-          p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          (p.tags && p.tags.some(t => t.includes(searchTerm.toLowerCase())))
-        );
-      }
+      filtered = buscarProdutosPorTermo(searchTerm);
       if (title) title.innerText = `Resultados para: "${searchTerm}"`;
     } else if (tag) {
       filtered = products.filter(p => p.tags && p.tags.includes(tag));
