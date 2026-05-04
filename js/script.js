@@ -604,7 +604,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (finalizeBtn && !window.location.pathname.includes('carrinho.html')) {
       finalizeBtn.innerText = 'Ir para Carrinho';
-      finalizeBtn.onclick = () => window.location.href = 'carrinho.html';
+      finalizeBtn.onclick = () => window.location.href = '/carrinho.html';
     }
 
     renderModalItems();

@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0f0f10">
+    <title>MG Mantos | Carrinho</title>
+    <link rel="icon" type="image/webp" href="img/front-page/logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Icons+Outlined&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body {
+            background:
+                radial-gradient(circle at top left, rgba(0, 200, 83, 0.12), transparent 30%),
+                radial-gradient(circle at top right, rgba(255, 214, 0, 0.12), transparent 30%),
+                #0c0c0d;
+        }
+
+        body.light-mode {
+            background:
+                radial-gradient(circle at top left, rgba(0, 200, 83, 0.08), transparent 30%),
+                radial-gradient(circle at top right, rgba(255, 193, 7, 0.08), transparent 30%),
+                #f5f7fb;
+        }
+
+        .checkout-page {
+            padding: 28px 0 60px;
+        }
+
+        .checkout-hero {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            gap: 20px;
+            margin-bottom: 24px;
+            padding: 28px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+            background: linear-gradient(135deg, rgba(18, 18, 22, 0.95), rgba(35, 35, 40, 0.86));
+            box-shadow: 0 24px 80px rgba(0, 0, 0, 0.28);
+        }
+
+        body.light-mode .checkout-hero,
+        body.light-mode .checkout-panel,
+        body.light-mode .checkout-summary,
+        body.light-mode .checkout-frete {
+            background: #fff;
+            border-color: rgba(0, 0, 0, 0.08);
+            box-shadow: 0 18px 50px rgba(15, 18, 28, 0.08);
+        }
+
+        body.light-mode .checkout-hero h1,
+        body.light-mode .checkout-panel-header h2,
+        body.light-mode .checkout-summary-header h2,
+        body.light-mode .checkout-frete-header h2 {
+            color: #101828;
+        }
+
+        .checkout-hero h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(2.4rem, 5vw, 4.2rem);
+            line-height: 0.95;
+            margin: 0;
+            letter-spacing: 1px;
+        }
+
+        .checkout-hero p {
+            margin: 10px 0 0;
+            color: rgba(255, 255, 255, 0.72);
+            max-width: 700px;
+            font-size: 0.98rem;
+        }
+
+        body.light-mode .checkout-hero p,
+        body.light-mode .checkout-meta,
+        body.light-mode .checkout-item-head p,
+        body.light-mode .checkout-item-footer,
+        body.light-mode .checkout-frete-note,
+        body.light-mode .checkout-summary .summary-note {
+            color: #5c6472;
+        }
+
+        .checkout-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 14px;
+            border-radius: 999px;
+            background: rgba(0, 200, 83, 0.15);
+            color: #8dffb0;
+            font-size: 0.82rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+
+        body.light-mode .checkout-badge {
+            background: rgba(0, 200, 83, 0.12);
+            color: #0b8f3a;
+        }
+
+        .checkout-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.45fr) minmax(320px, 0.85fr);
+            gap: 22px;
+            align-items: start;
+        }
+
+        .checkout-panel,
+        .checkout-summary,
+        .checkout-frete {
+            border-radius: 22px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(18, 18, 22, 0.92);
+            backdrop-filter: blur(18px);
+        }
+
+        .checkout-panel {
+            padding: 20px;
+        }
+
+        .checkout-panel-header,
+        .checkout-summary-header,
+        .checkout-frete-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 18px;
+        }
+
+        .checkout-panel-header h2,
+        .checkout-summary-header h2,
+        .checkout-frete-header h2 {
+            margin: 0;
+            font-size: 1.05rem;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+
+        .checkout-count,
+        .checkout-cart-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 28px;
+            height: 28px;
+            padding: 0 8px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.08);
+            color: inherit;
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+
+        .checkout-empty {
+            display: none;
+            text-align: center;
+            padding: 44px 18px;
+            border: 1px dashed rgba(255, 255, 255, 0.16);
+            border-radius: 20px;
+            color: rgba(255, 255, 255, 0.72);
+        }
+
+        .checkout-empty a {
+            display: inline-flex;
+            margin-top: 16px;
+            color: #00c853;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .checkout-items {
+            display: grid;
+            gap: 16px;
+        }
+
+        .checkout-item {
+            display: grid;
+            grid-template-columns: 112px minmax(0, 1fr);
+            gap: 16px;
+            padding: 16px;
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        body.light-mode .checkout-item {
+            background: #f7f8fb;
+            border-color: rgba(0, 0, 0, 0.06);
+        }
+
+        .checkout-item-image {
+            width: 112px;
+            height: 112px;
+            object-fit: cover;
+            border-radius: 16px;
+            background: #111;
+        }
+
+        .checkout-item-info {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .checkout-item-head {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            align-items: flex-start;
+        }
+
+        .checkout-item-head h3 {
+            margin: 0 0 6px;
+            font-size: 1rem;
+            line-height: 1.2;
+        }
+
+        .checkout-item-head p,
+        .checkout-meta,
+        .checkout-frete-note,
+        .checkout-summary .summary-note {
+            margin: 0;
+            font-size: 0.92rem;
+        }
+
+        .checkout-item-price {
+            color: #00c853;
+            font-weight: 800;
+            margin-top: 4px;
+        }
+
+        .checkout-remove-btn {
+            border: 0;
+            background: transparent;
+            color: #ff6b6b;
+            font-weight: 700;
+            cursor: pointer;
+            padding: 0;
+        }
+
+        .checkout-item-controls {
+            display: grid;
+            grid-template-columns: auto minmax(0, 1fr);
+            gap: 14px;
+            align-items: start;
+        }
+
+        .checkout-qty-control {
+            display: inline-flex;
+            align-items: center;
+            border-radius: 999px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        body.light-mode .checkout-qty-control {
+            background: #fff;
+            border-color: rgba(0, 0, 0, 0.08);
+        }
+
+        .checkout-qty-control button {
+            width: 38px;
+            height: 38px;
+            border: 0;
+            background: transparent;
+            color: inherit;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .checkout-qty-control span {
+            min-width: 36px;
+            text-align: center;
+            font-weight: 800;
+        }
+
+        .checkout-personalization {
+            display: grid;
+            gap: 8px;
+        }
+
+        .checkout-personalization span {
+            font-size: 0.82rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            opacity: 0.75;
+        }
+
+        .checkout-personalization textarea,
+        .checkout-frete input {
+            width: 100%;
+            box-sizing: border-box;
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: rgba(255, 255, 255, 0.04);
+            color: inherit;
+            padding: 12px 14px;
+            font: inherit;
+            resize: vertical;
+        }
+
+        body.light-mode .checkout-personalization textarea,
+        body.light-mode .checkout-frete input {
+            background: #fff;
+            border-color: rgba(0, 0, 0, 0.08);
+        }
+
+        .checkout-item-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 2px;
+            font-size: 0.92rem;
+        }
+
+        .checkout-summary {
+            padding: 20px;
+            position: sticky;
+            top: 16px;
+            display: grid;
+            gap: 18px;
+        }
+
+        .summary-box,
+        .checkout-frete {
+            padding: 18px;
+        }
+
+        .summary-lines {
+            display: grid;
+            gap: 12px;
+        }
+
+        .summary-line {
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+            font-size: 0.96rem;
+        }
+
+        .summary-total {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            padding-top: 14px;
+            margin-top: 14px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 1.08rem;
+            font-weight: 800;
+        }
+
+        .summary-total strong,
+        .summary-line strong {
+            color: #00c853;
+        }
+
+        .summary-note {
+            line-height: 1.5;
+        }
+
+        .checkout-actions {
+            display: grid;
+            gap: 12px;
+        }
+
+        .checkout-actions button,
+        .checkout-actions a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            min-height: 48px;
+            border-radius: 14px;
+            border: 0;
+            font: inherit;
+            font-weight: 800;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .checkout-actions .primary {
+            background: linear-gradient(135deg, #00c853, #00b84f);
+            color: #041207;
+            box-shadow: 0 16px 30px rgba(0, 200, 83, 0.22);
+        }
+
+        .checkout-actions .secondary {
+            background: rgba(255, 255, 255, 0.08);
+            color: inherit;
+        }
+
+        body.light-mode .checkout-actions .secondary {
+            background: #f1f3f8;
+        }
+
+        .checkout-frete-header h2 {
+            font-size: 0.98rem;
+        }
+
+        .checkout-frete-grid {
+            display: grid;
+            gap: 10px;
+        }
+
+        .checkout-frete #btnCalcularFrete {
+            min-height: 48px;
+            border-radius: 14px;
+            border: 0;
+            background: linear-gradient(135deg, #00c853, #00b84f);
+            color: #041207;
+            font: inherit;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 14px 28px rgba(0, 200, 83, 0.18);
+        }
+
+        body.light-mode .checkout-frete #btnCalcularFrete {
+            color: #07110a;
+        }
+
+        .checkout-frete #resultadoFrete {
+            display: grid;
+            gap: 10px;
+        }
+
+        .checkout-frete #resultadoFrete > div {
+            color: inherit;
+        }
+
+        .checkout-frete-note {
+            margin: 10px 0 0;
+            font-size: 0.88rem;
+        }
+
+        .checkout-whatsapp-hint {
+            font-size: 0.88rem;
+            opacity: 0.75;
+            line-height: 1.4;
+        }
+
+        @media (max-width: 980px) {
+            .checkout-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .checkout-summary {
+                position: static;
+            }
+        }
+
+        @media (max-width: 720px) {
+            .checkout-hero {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .checkout-item {
+                grid-template-columns: 1fr;
+            }
+
+            .checkout-item-image {
+                width: 100%;
+                height: 240px;
+            }
+
+            .checkout-item-controls {
+                grid-template-columns: 1fr;
+            }
+
+            .checkout-item-head {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="top-bar">FRETE GRÁTIS PARA TODO BRASIL <span>|</span> COMPRAS ACIMA DE R$ 199,90</div>
+
+    <div id="sidebar" class="sidebar">
+        <div class="sidebar-header">
+            <span id="logo-text">MG <span>MANTOS</span></span>
+            <span class="material-icons-outlined" onclick="toggleSidebar()" style="cursor:pointer">close</span>
+        </div>
+        <nav class="sidebar-links">
+            <a href="index.html"><span class="material-icons-outlined">home</span> Início</a>
+            <a href="categoria.html?tag=nacional">Nacionais</a>
+            <a href="categoria.html?tag=europeus">Europeus</a>
+            <a href="categoria.html?tag=feminina">Femininas</a>
+            <a href="categoria.html?tag=selecoes">Seleções</a>
+            <a href="categoria.html?tag=retro">Retrô</a>
+        </nav>
+    </div>
+
+    <div id="overlay" class="overlay" onclick="toggleSidebar()"></div>
+
+    <header>
+        <div class="container header-main">
+            <div class="logo-area">
+                <button class="menu-btn" onclick="toggleSidebar()" aria-label="Abrir Menu">
+                    <span class="material-icons-outlined">menu</span>
+                </button>
+                <a href="index.html" class="logo">
+                    <img src="img/front-page/logo.png" width="45" height="45" alt="MG Mantos">
+                    <span id="logo-text">MG <span>MANTOS</span></span>
+                </a>
+            </div>
+
+            <div class="search-bar" style="position: relative;">
+                <input type="text" id="inputBusca" placeholder="Buscar camisas..." autocomplete="off">
+                <span class="material-icons-outlined search-icon">search</span>
+                <div id="caixaResultados" class="search-results-box" style="display:none;"></div>
+            </div>
+
+            <div class="header-actions">
+                <div class="action-item" onclick="toggleTheme()" title="Mudar Tema">
+                    <span class="material-icons-outlined" id="theme-icon">dark_mode</span>
+                </div>
+                <div class="action-item" onclick="openCartModal(false)" style="position: relative;">
+                    <span class="material-icons-outlined">shopping_bag</span>
+                    <span class="cart-count-badge" id="checkout-cart-badge" style="display: none;">0</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="checkout-page">
+        <div class="container">
+            <section class="checkout-hero">
+                <div>
+                    <span class="checkout-badge">Carrinho / Resumo</span>
+                    <h1>Revise seu carrinho antes de finalizar.</h1>
+                    <p>Ajuste a quantidade, altere a personalização e consulte o frete sem sair da página. Tudo fica salvo no carrinho até você concluir a compra.</p>
+                </div>
+                <div class="checkout-meta">
+                    <strong id="checkout-count">0 itens</strong>
+                </div>
+            </section>
+
+            <section class="checkout-grid">
+                <div class="checkout-panel">
+                    <div class="checkout-panel-header">
+                        <h2>Itens do carrinho</h2>
+                        <span class="checkout-count" id="checkout-cart-counter">0</span>
+                    </div>
+
+                    <div id="checkout-empty" class="checkout-empty">
+                        Seu carrinho está vazio.
+                        <div>
+                            <a href="index.html">Voltar para a loja</a>
+                        </div>
+                    </div>
+
+                    <div id="checkout-items" class="checkout-items"></div>
+                </div>
+
+                <aside class="checkout-summary">
+                    <div class="summary-box">
+                        <div class="checkout-summary-header">
+                            <h2>Resumo do carrinho</h2>
+                            <span class="checkout-count" id="checkout-summary-count">0</span>
+                        </div>
+
+                        <div class="summary-lines">
+                            <div class="summary-line">
+                                <span>Subtotal</span>
+                                <strong id="checkout-subtotal">R$ 0,00</strong>
+                            </div>
+                            <div class="summary-line">
+                                <span>Frete</span>
+                                <strong>A consultar</strong>
+                            </div>
+                        </div>
+
+                        <div class="summary-total">
+                            <span>Total</span>
+                            <strong id="checkout-total">R$ 0,00</strong>
+                        </div>
+
+                        <p class="summary-note">O total do carrinho considera apenas os produtos. O frete pode ser consultado logo abaixo com o CEP.</p>
+                    </div>
+
+                    <div class="checkout-frete">
+                        <div class="checkout-frete-header">
+                            <h2>Consultar frete</h2>
+                            <span class="material-icons-outlined">local_shipping</span>
+                        </div>
+
+                        <div class="checkout-frete-grid">
+                            <input type="text" id="inputCep" placeholder="00000-000" maxlength="9" autocomplete="off">
+                            <button id="btnCalcularFrete" class="primary" type="button">Consultar frete</button>
+                            <div id="resultadoFrete"></div>
+                        </div>
+
+                        <p class="checkout-frete-note">Use o CEP para verificar prazos e valores antes de mandar o pedido.</p>
+                    </div>
+
+                    <div class="checkout-actions">
+                        <button class="secondary" type="button" onclick="window.location.href='index.html'">Continuar comprando</button>
+                        <button class="primary" id="checkout-whatsapp-btn" type="button" onclick="checkoutFinalizeOrder()">Enviar pedido no WhatsApp</button>
+                    </div>
+
+                    <p class="checkout-whatsapp-hint">A personalização será enviada junto com cada item, já com a quantidade ajustada.</p>
+                </aside>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p class="copyright">&copy; 2026 MG Mantos. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <div id="cart-modal-overlay" class="modal-overlay" onclick="closeCartModal()"></div>
+    <div id="cart-modal" class="modal-box">
+        <div class="modal-header">
+            <h3 id="modal-title">Seu Carrinho de Compras</h3>
+            <span class="close-modal" onclick="closeCartModal()">&times;</span>
+        </div>
+        <div id="modal-cart-items" class="modal-body"></div>
+        <div class="modal-footer">
+            <div class="modal-total-row">
+                <span>Total:</span>
+                <span id="modal-total-price">R$ 0,00</span>
+            </div>
+            <div class="modal-buttons">
+                <button class="btn-continue" onclick="closeCartModal()">Continuar</button>
+                <button class="btn-finalize" onclick="window.location.href='/carrinho.html'">Ir para Carrinho</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/script.js" defer></script>
+    <script src="js/frete.js" defer></script>
+</body>
+
+</html>
