@@ -1,0 +1,2747 @@
+[
+  {
+    "id": 701,
+    "name": "Camisa Brasil Home 26/27",
+    "price": 129.9,
+    "image": "img/produtos/26-27/torcedor/BRASIL/principal-home.webp",
+    "images": [
+      "img/produtos/26-27/torcedor/BRASIL/principal-home.webp",
+      "img/produtos/26-27/torcedor/BRASIL/detalhes-home.webp",
+      "img/produtos/26-27/torcedor/BRASIL/neymar.webp"
+    ],
+    "tags": [
+      "selecoes",
+      "lancamento",
+      "destaque"
+    ],
+    "badge": "Futuro"
+  },
+  {
+    "id": 20,
+    "name": "Camisa Barcelona Home I 25/26 – Manga Longa",
+    "price": 169.9,
+    "image": "img/produtos/25-26/torcedor/BARCELONA/principal-MANGALONGA.webp",
+    "images": [
+      "img/produtos/25-26/torcedor/BARCELONA/principal-MANGALONGA.webp",
+      "img/produtos/25-26/torcedor/BARCELONA/detalhe-MANGALONGA.webp",
+      "img/produtos/25-26/torcedor/BARCELONA/costas-MANGALONGA.webp"
+    ],
+    "tags": [
+      "lancamento",
+      "destaque",
+      "europeus"
+    ],
+    "badge": "Novo"
+  },
+  {
+    "id": 21,
+    "name": "Camisa Milan Home 25/26 - Jogador",
+    "price": 159.9,
+    "image": "img/produtos/25-26/jogador/MILAN/principal.webp",
+    "images": [
+      "img/produtos/25-26/jogador/milan/principal.webp",
+      "img/produtos/25-26/jogador/milan/costas.webp",
+      "img/produtos/25-26/jogador/MILAN/detalhes.webp"
+    ],
+    "tags": [
+      "lancamento",
+      "europeus"
+    ],
+    "badge": "Jogador"
+  },
+  {
+    "id": 120,
+    "name": "Camisa Aston Villa Home 25/26 - Jogador",
+    "price": 159.9,
+    "image": "img/produtos/25-26/jogador/ASTON VILLA/principal-HOME.webp",
+    "images": [
+      "img/produtos/25-26/jogador/ASTON VILLA/principal-HOME.webp",
+      "img/produtos/25-26/jogador/ASTON VILLA/costas-HOME.webp",
+      "img/produtos/25-26/jogador/ASTON VILLA/detalhes-HOME.webp"
+    ],
+    "tags": [
+      "lancamento",
+      "europeus",
+      "ingles"
+    ],
+    "badge": "Jogador"
+  },
+  {
+    "id": 202,
+    "name": "Camisa Chelsea Home 25/26 - Torcedor",
+    "price": 129.9,
+    "image": "img/produtos/25-26/torcedor/CHEALSEA/principal-AZUL.webp",
+    "images": [
+      "img/produtos/25-26/torcedor/CHEALSEA/principal-AZUL.webp",
+      "img/produtos/25-26/torcedor/CHEALSEA/costas-AZUL.webp",
+      "img/produtos/25-26/torcedor/CHEALSEA/detalhes-AZUL.webp"
+    ],
+    "tags": [
+      "europeus",
+      "ingles"
+    ]
+  },
+  {
+    "id": 122,
+    "name": "Camisa Inter de Milão Home 25/26 - Jogador",
+    "price": 159.9,
+    "image": "img/produtos/25-26/jogador/INTER DE MILAO/principal-HOME.webp",
+    "images": [
+      "img/produtos/25-26/jogador/INTER DE MILAO/principal-HOME.webp",
+      "img/produtos/25-26/jogador/INTER DE MILAO/costas-HOME.webp",
+      "img/produtos/25-26/jogador/INTER DE MILAO/detalhes-HOME.webp"
+    ],
+    "tags": [
+      "lancamento",
+      "europeus",
+      "italiano"
+    ],
+    "badge": "Jogador"
+  },
+  {
+    "id": 123,
+    "name": "Camisa Juventus Away 25/26 - Torcedor",
+    "price": 129.9,
+    "image": "img/produtos/25-26/torcedor/JUVENTUS/principal-AWAY.webp",
+    "images": [
+      "img/produtos/25-26/torcedor/JUVENTUS/principal-AWAY.webp",
+      "img/produtos/25-26/torcedor/JUVENTUS/costas-AWAY.webp",
+      "img/produtos/25-26/torcedor/JUVENTUS/detalhes-AWAY.webp"
+    ],
+    "tags": [
+      "lancamento",
+      "europeus",
+      "italiano"
+    ]
+  },
+  {
+    "id": 124,
+    "name": "Camisa Liverpool Home 25/26 - Jogador",
+    "price": 159.9,
+    "image": "img/produtos/25-26/jogador/LIVERPOOL/principal-HOME.webp",
+    "images": [
+      "img/produtos/25-26/jogador/LIVERPOOL/principal-HOME.webp",
+      "img/produtos/25-26/jogador/LIVERPOOL/costas-HOME.webp",
+      "img/produtos/25-26/jogador/LIVERPOOL/detalhes-HOME.webp"
+    ],
+    "tags": [
+      "lancamento",
+      "europeus",
+      "ingles"
+    ],
+    "badge": "Jogador"
+  },
+  {
+    "id": 125,
+    "name": "Camisa Man City Edição Especial 25/26 - Jogador",
+    "price": 159.9,
+    "image": "img/produtos/25-26/jogador/MAN. CITY/principal-ESPECIAL.webp",
+    "images": [
+      "img/produtos/25-26/jogador/MAN. CITY/principal-ESPECIAL.webp",
+      "img/produtos/25-26/jogador/MAN. CITY/costas-ESPECIAL.webp",
+      "img/produtos/25-26/jogador/MAN. CITY/detalhes-ESPECIAL.webp"
+    ],
+    "tags": [
+      "lancamento",
+      "europeus",
+      "ingles"
+    ],
+    "badge": "Jogador"
+  },
+  {
+    "id": 220,
+    "name": "Camisa Man. City Away 25/26",
+    "price": 129.9,
+    "image": "img/produtos/25-26/torcedor/MAN. CITY/principal-AZUL.webp",
+    "images": [
+      "img/produtos/25-26/torcedor/MAN. CITY/principal-AZUL.webp",
+      "img/produtos/25-26/torcedor/MAN. CITY/costas-AZUL.webp",
+      "img/produtos/25-26/torcedor/MAN. CITY/detalhes-AZUL.webp"
+    ],
+    "tags": [
+      "europeus",
+      "ingles"
+    ]
+  },
+  {
+    "id": 226,
+    "name": "Camisa Real Madrid Home 25/26 - Torcedor",
+    "price": 129.9,
+    "image": "img/produtos/25-26/torcedor/REAL MADRID/principal-HOME.webp",
+    "images": [
+      "img/produtos/25-26/torcedor/REAL MADRID/principal-HOME.webp",
+      "img/produtos/25-26/torcedor/REAL MADRID/costas-HOME.webp",
+      "img/produtos/25-26/torcedor/REAL MADRID/detalhes-HOME.webp"
+    ],
+    "tags": [
+      "europeus",
+      "espanhol"
+    ]
+  },
+  {
+    "id": 225,
+    "name": "Camisa Real Madrid Away 25/26 - Torcedor",
+    "price": 129.9,
+    "image": "img/produtos/25-26/torcedor/REAL MADRID/principal-AWAY.webp",
+    "images": [
+      "img/produtos/25-26/torcedor/REAL MADRID/principal-AWAY.webp",
+      "img/produtos/25-26/torcedor/REAL MADRID/costas-AWAY.webp",
+      "img/produtos/25-26/torcedor/REAL MADRID/detalhes-AWAY.webp"
+    ],
+    "tags": [
+      "europeus",
+      "espanhol"
+    ]
+  },
+  {
+    "id": 127,
+    "name": "Camisa Real Madrid Dragon 25/26 - Jogador",
+    "price": 159.9,
+    "image": "img/produtos/25-26/jogador/REAL MADRID/principal-VERSÕES3.webp",
+    "images": [
+      "img/produtos/25-26/jogador/REAL MADRID/principal-VERSÕES3.webp",
+      "img/produtos/25-26/jogador/REAL MADRID/costas-VERSÕES3.webp",
+      "img/produtos/25-26/jogador/REAL MADRID/principal-VERSÕES3.webp"
+    ],
+    "tags": [
+      "lancamento",
+      "europeus",
+      "espanhol"
+    ],
+    "badge": "Exclusivo"
+  },
+  {
+    "id": 227,
+    "name": "Camisa Red Bull Salzburg Home 25/26",
+    "price": 129.9,
+    "image": "img/produtos/25-26/torcedor/RED BULL SALZBURG/principal-HOME.webp",
+    "images": [
+      "img/produtos/25-26/torcedor/RED BULL SALZBURG/principal-HOME.webp",
+      "img/produtos/25-26/torcedor/RED BULL SALZBURG/costas-HOME.webp",
+      "img/produtos/25-26/torcedor/RED BULL SALZBURG/detalhes-HOME.webp"
+    ],
+    "tags": [
+      "europeus",
+      "destaque"
+    ]
+  },
+  {
+    "id": 129,
+    "name": "Camisa Tottenham Home 25/26 - Jogador",
+    "price": 159.9,
+    "image": "img/produtos/25-26/jogador/TOTTENHAM/principal-HOME.webp",
+    "images": [
+      "img/produtos/25-26/jogador/TOTTENHAM/principal-HOME.webp",
+      "img/produtos/25-26/jogador/TOTTENHAM/costas-HOME.webp",
+      "img/produtos/25-26/jogador/TOTTENHAM/detalhes-HOME.webp"
+    ],
+    "tags": [
+      "lancamento",
+      "europeus",
+      "ingles"
+    ],
+    "badge": "Jogador"
+  },
+  {
+    "id": 130,
+    "name": "Camisa Tottenham Away 25/26",
+    "price": 129.9,
+    "image": "img/produtos/25-26/torcedor/TOTTENHAM/principal-AWAY.webp",
+    "images": [
+      "img/produtos/25-26/torcedor/TOTTENHAM/principal-AWAY.webp",
+      "img/produtos/25-26/torcedor/TOTTENHAM/costas-AWAY.webp",
+      "img/produtos/25-26/torcedor/TOTTENHAM/detalhes-AWAY.webp"
+    ],
+    "tags": [
+      "europeus",
+      "ingles"
+    ]
+  },
+  {
+    "id": 702,
+    "name": "Camisa Argentina Home 26/27 - Jogador",
+    "price": 159.9,
+    "image": "img/produtos/26-27/jogador/ARGENTINA/principal-jogador.webp",
+    "images": [
+      "img/produtos/26-27/jogador/ARGENTINA/principal-jogador.webp",
+      "img/produtos/26-27/jogador/ARGENTINA/detalhes-jogador.webp"
+    ],
+    "tags": [
+      "selecoes",
+      "lancamento"
+    ],
+    "badge": "Jogador"
+  },
+  {
+    "id": 703,
+    "name": "Camisa México Away 26/27 - Jogador",
+    "price": 159.9,
+    "image": "img/produtos/26-27/jogador/MEXICO/principal-away.webp",
+    "images": [
+      "img/produtos/26-27/jogador/MEXICO/principal-away.webp",
+      "img/produtos/26-27/jogador/MEXICO/costas-away.webp"
+    ],
+    "tags": [
+      "selecoes",
+      "lancamento"
+    ],
+    "badge": "Jogador"
+  },
+  {
+    "id": 704,
+    "name": "Camisa Arábia Saudita Home 26/27",
+    "price": 129.9,
+    "image": "img/produtos/26-27/torcedor/ARABIA SAUDITA/principal-home.webp",
+    "images": [
+      "img/produtos/26-27/torcedor/ARABIA SAUDITA/principal-home.webp"
+    ],
+    "tags": [
+      "selecoes",
+      "lancamento"
+    ]
+  },
+  {
+    "id": 705,
+    "name": "Camisa Argentina Feminina 26/27",
+    "price": 129.9,
+    "image": "img/produtos/26-27/torcedor/ARGENTINA/principal-feminina.webp",
+    "images": [
+      "img/produtos/26-27/torcedor/ARGENTINA/principal-feminina.webp"
+    ],
+    "tags": [
+      "selecoes",
+      "feminina"
+    ]
+  },
+  {
+    "id": 706,
+    "name": "Camisa Atlético Mineiro Home 26/27",
+    "price": 129.9,
+    "image": "img/produtos/26-27/torcedor/ATLETICO MINEIRO/principal-home.webp",
+    "images": [
+      "img/produtos/26-27/torcedor/ATLETICO MINEIRO/principal-home.webp",
+      "img/produtos/26-27/torcedor/ATLETICO MINEIRO/detalhes-home.webp"
+    ],
+    "tags": [
+      "nacional",
+      "brasileirao"
+    ]
+  },
+  {
+    "id": 707,
+    "name": "Camisa Brasil Away 26/27 - Jogador",
+    "price": 159.9,
+    "image": "img/produtos/26-27/jogador/BRASIL/principal-jogador2.webp",
+    "images": [
+      "img/produtos/26-27/jogador/BRASIL/principal-jogador2.webp",
+      "img/produtos/26-27/jogador/BRASIL/detalhes-jogador2.webp"
+    ],
+    "tags": [
+      "selecoes",
+      "destaque"
+    ],
+    "badge": "Jogador"
+  },
+  {
+    "id": 708,
+    "name": "Camisa Brasil Away 26/27 - Torcedor",
+    "price": 129.9,
+    "image": "img/produtos/26-27/torcedor/BRASIL/principal-away.webp",
+    "images": [
+      "img/produtos/26-27/torcedor/BRASIL/principal-away.webp",
+      "img/produtos/26-27/torcedor/BRASIL/costas-away.webp"
+    ],
+    "tags": [
+      "selecoes"
+    ]
+  },
+  {
+    "id": 709,
+    "name": "Camisa Canadá Home 26/27 - Jogador",
+    "price": 159.9,
+    "image": "img/produtos/26-27/jogador/CANADA/principal-jogador.webp",
+    "images": [
+      "img/produtos/26-27/jogador/CANADA/principal-jogador.webp",
+      "img/produtos/26-27/jogador/CANADA/detalhes-jogador.webp"
+    ],
+    "tags": [
+      "selecoes"
+    ],
+    "badge": "Jogador"
+  },
+  {
+    "id": 710,
+    "name": "Camisa Catar Home 26/27",
+    "price": 129.9,
+    "image": "img/produtos/26-27/torcedor/CATAR/principal-home.webp",
+    "images": [
+      "img/produtos/26-27/torcedor/CATAR/principal-home.webp",
+      "img/produtos/26-27/torcedor/CATAR/costas-home.webp"
+    ],
+    "tags": [
+      "selecoes"
+    ]
+  },
+  {
+    "id": 711,
+    "name": "Camisa Colômbia Away 26/27",
+    "price": 129.9,
+    "image": "img/produtos/26-27/torcedor/COLOMBIA/principal-away.webp",
+    "images": [
+      "img/produtos/26-27/torcedor/COLOMBIA/principal-away.webp",
+      "img/produtos/26-27/torcedor/COLOMBIA/costas-away.webp"
+    ],
+    "tags": [
+      "selecoes"
+    ]
+  },
+  {
+    "id": 712,
+    "name": "Camisa Costa Rica Home 26/27",
+    "price": 129.9,
+    "image": "img/produtos/26-27/torcedor/COSTA RICA/principal-home.webp",
+    "images": [
+      "img/produtos/26-27/torcedor/COSTA RICA/principal-home.webp",
+      "img/produtos/26-27/torcedor/COSTA RICA/costas-home.webp"
+    ],
+    "tags": [
+      "selecoes"
+    ]
+  },
+  {
+    "id": 713,
+    "name": "Camisa Croácia Home 26/27",
+    "price": 129.9,
+    "image": "img/produtos/26-27/torcedor/CROACIA/principal-home.webp",
+    "images": [
+      "img/produtos/26-27/torcedor/CROACIA/principal-home.webp",
+      "img/produtos/26-27/torcedor/CROACIA/costas-home.webp"
+    ],
+    "tags": [
+      "selecoes",
+      "europeus"
+    ]
+  },
+  {
+    "id": 714,
+    "name": "Camisa Croácia Away 26/27",
+    "price": 129.9,
+    "image": "img/produtos/26-27/torcedor/CROACIA/principal-away.webp",
+    "images": [
+      "img/produtos/26-27/torcedor/CROACIA/principal-away.webp",
+      "img/produtos/26-27/torcedor/CROACIA/costas-away.webp"
+    ],
+    "tags": [
+      "selecoes",
+      "europeus"
+    ]
+  },
+  {
+    "id": 715,
+    "name": "Camisa Cruzeiro Home 26/27",
+    "price": 129.9,
+    "image": "img/produtos/26-27/torcedor/CRUZEIRO/principal-home.webp",
+    "images": [
+      "img/produtos/26-27/torcedor/CRUZEIRO/principal-home.webp",
+      "img/produtos/26-27/torcedor/CRUZEIRO/detalhes-HOME.webp"
+    ],
+    "tags": [
+      "nacional",
+      "brasileirao"
+    ]
+  },
+  {
+    "id": 716,
+    "name": "Camisa Cruzeiro Polo 26/27",
+    "price": 129.9,
+    "image": "img/produtos/26-27/torcedor/CRUZEIRO/principal-polo.webp",
+    "images": [
+      "img/produtos/26-27/torcedor/CRUZEIRO/principal-polo.webp",
+      "img/produtos/26-27/torcedor/CRUZEIRO/detalhes-polo.webp"
+    ],
+    "tags": [
+      "nacional",
+      "treino"
+    ]
+  },
+  {
+    "id": 717,
+    "name": "Camisa Espanha Goleiro 26/27",
+    "price": 129.9,
+    "image": "img/produtos/26-27/torcedor/ESPANHA/principal-goleiro.webp",
+    "images": [
+      "img/produtos/26-27/torcedor/ESPANHA/principal-goleiro.webp",
+      "img/produtos/26-27/torcedor/ESPANHA/detalhes-goleiro.webp"
+    ],
+    "tags": [
+      "selecoes",
+      "goleiro"
+    ]
+  },
+  {
+    "id": 718,
+    "name": "Camisa Flamengo Home 26/27 - Jogador",
+    "price": 159.9,
+    "image": "img/produtos/26-27/jogador/FLAMENGO/principal-jogador.webp",
+    "images": [
+      "img/produtos/26-27/jogador/FLAMENGO/principal-jogador.webp",
+      "img/produtos/26-27/torcedor/FLAMENGO/detalhes-home.webp"
+    ],
+    "tags": [
+      "nacional",
+      "brasileirao"
+    ],
+    "badge": "Jogador"
+  },
+  {
+    "id": 719,
+    "name": "Camisa Flamengo Away 26/27",
+    "price": 129.9,
+    "image": "img/produtos/26-27/torcedor/FLAMENGO/principal-away.webp",
+    "images": [
+      "img/produtos/26-27/torcedor/FLAMENGO/principal-away.webp",
+      "img/produtos/26-27/torcedor/FLAMENGO/detalhes-AWAY2.webp"
+    ],
+    "tags": [
+      "nacional"
+    ]
+  },
+  {
+    "id": 720,
+    "name": "Camisa Fluminense Home 26/27",
+    "price": 129.9,
+    "image": "img/produtos/26-27/torcedor/FLUMINENSE/principal-home.webp",
+    "images": [
+      "img/produtos/26-27/torcedor/FLUMINENSE/principal-home.webp",
+      "img/produtos/26-27/torcedor/FLUMINENSE/costas-home.webp"
+    ],
+    "tags": [
+      "nacional",
+      "brasileirao"
+    ]
+  },
+  {
+    "id": 721,
+    "name": "Camisa Irlanda Home 26/27",
+    "price": 129.9,
+    "image": "img/produtos/26-27/torcedor/IRLANDA/principal-home.webp",
+    "images": [
+      "img/produtos/26-27/torcedor/IRLANDA/principal-home.webp",
+      "img/produtos/26-27/torcedor/IRLANDA/detalhes-home.webp"
+    ],
+    "tags": [
+      "selecoes",
+      "europeus"
+    ]
+  },
+  {
+    "id": 722,
+    "name": "Camisa Palmeiras Home 26/27",
+    "price": 129.9,
+    "image": "img/produtos/26-27/torcedor/PALMEIRAS/principal-HOME.webp",
+    "images": [
+      "img/produtos/26-27/torcedor/PALMEIRAS/principal-HOME.webp",
+      "img/produtos/26-27/torcedor/PALMEIRAS/costas-home.webp",
+      "img/produtos/26-27/torcedor/PALMEIRAS/detalhes-home.webp"
+    ],
+    "tags": [
+      "nacional",
+      "brasileirao",
+      "lancamento"
+    ]
+  },
+  {
+    "id": 723,
+    "name": "Camisa Palmeiras Away 26/27",
+    "price": 129.9,
+    "image": "img/produtos/26-27/torcedor/PALMEIRAS/principal-AWAY.webp",
+    "images": [
+      "img/produtos/26-27/torcedor/PALMEIRAS/principal-AWAY.webp",
+      "img/produtos/26-27/torcedor/PALMEIRAS/costas-away.webp",
+      "img/produtos/26-27/torcedor/PALMEIRAS/detalhes-away.webp"
+    ],
+    "tags": [
+      "nacional",
+      "brasileirao"
+    ]
+  },
+  {
+    "id": 724,
+    "name": "Camisa Peru Home 26/27",
+    "price": 129.9,
+    "image": "img/produtos/26-27/torcedor/PERU/principal-home.webp",
+    "images": [
+      "img/produtos/26-27/torcedor/PERU/principal-home.webp",
+      "img/produtos/26-27/torcedor/PERU/costas-home.webp",
+      "img/produtos/26-27/torcedor/PERU/detalhes-home.webp"
+    ],
+    "tags": [
+      "selecoes",
+      "sulamericano"
+    ]
+  },
+  {
+    "id": 725,
+    "name": "Camisa Portugal Away 26/27 - Jogador",
+    "price": 159.9,
+    "image": "img/produtos/26-27/jogador/PORTUGAL/principal-jogador.webp",
+    "images": [
+      "img/produtos/26-27/jogador/PORTUGAL/principal-jogador.webp",
+      "img/produtos/26-27/jogador/PORTUGAL/detalhes-jogador.webp"
+    ],
+    "tags": [
+      "selecoes",
+      "europeus"
+    ],
+    "badge": "Jogador"
+  },
+  {
+    "id": 726,
+    "name": "Camisa Portugal Away 26/27 - Torcedor",
+    "price": 129.9,
+    "image": "img/produtos/26-27/torcedor/PORTUGAL/principal-away.webp",
+    "images": [
+      "img/produtos/26-27/torcedor/PORTUGAL/principal-away.webp",
+      "img/produtos/26-27/torcedor/PORTUGAL/costas-away.webp",
+      "img/produtos/26-27/torcedor/PORTUGAL/detalhes-away.webp"
+    ],
+    "tags": [
+      "selecoes",
+      "europeus"
+    ]
+  },
+  {
+    "id": 727,
+    "name": "Camisa Real Madrid Especial 26/27",
+    "price": 129.9,
+    "image": "img/produtos/26-27/torcedor/REAL MADRID/principal-especial.webp",
+    "images": [
+      "img/produtos/26-27/torcedor/REAL MADRID/principal-especial.webp",
+      "img/produtos/26-27/torcedor/REAL MADRID/costas-especial.webp",
+      "img/produtos/26-27/torcedor/REAL MADRID/detalhes-especial.webp"
+    ],
+    "tags": [
+      "europeus",
+      "espanhol",
+      "destaque"
+    ],
+    "badge": "Novo"
+  },
+  {
+    "id": 728,
+    "name": "Camisa Ucrânia Home 26/27",
+    "price": 129.9,
+    "image": "img/produtos/26-27/torcedor/UCRANIA/principal-home.webp",
+    "images": [
+      "img/produtos/26-27/torcedor/UCRANIA/principal-home.webp",
+      "img/produtos/26-27/torcedor/UCRANIA/costas-home.webp"
+    ],
+    "tags": [
+      "selecoes",
+      "europeus"
+    ]
+  },
+  {
+    "id": 729,
+    "name": "Camisa Uruguai Home 26/27 - Jogador",
+    "price": 159.9,
+    "image": "img/produtos/26-27/jogador/URUGUAI/principal-jogador.webp",
+    "images": [
+      "img/produtos/26-27/jogador/URUGUAI/principal-jogador.webp",
+      "img/produtos/26-27/jogador/URUGUAI/costas-jogador.webp"
+    ],
+    "tags": [
+      "selecoes",
+      "sulamericano"
+    ],
+    "badge": "Jogador"
+  },
+  {
+    "id": 730,
+    "name": "Camisa Vasco Home 26/27",
+    "price": 129.9,
+    "image": "img/produtos/26-27/torcedor/VASCO/principal-home.webp",
+    "images": [
+      "img/produtos/26-27/torcedor/VASCO/principal-home.webp",
+      "img/produtos/26-27/torcedor/VASCO/costas-home.webp",
+      "img/produtos/26-27/torcedor/VASCO/detalhes-home.webp"
+    ],
+    "tags": [
+      "nacional",
+      "brasileirao",
+      "destaque"
+    ]
+  },
+  {
+    "id": 731,
+    "name": "Camisa Man. United Especial 26/27",
+    "price": 159.9,
+    "image": "img/produtos/26-27/torcedor/MAN. UNITED/principal-especial.webp",
+    "images": [
+      "img/produtos/26-27/torcedor/MAN. UNITED/principal-especial.webp",
+      "img/produtos/26-27/torcedor/MAN. UNITED/costas-especial.webp",
+      "img/produtos/26-27/torcedor/MAN. UNITED/detalhes-especial.webp"
+    ],
+    "tags": [
+      "europeus",
+      "ingles"
+    ],
+    "badge": "Exclusivo"
+  },
+  {
+    "id": 410,
+    "name": "Camisa Athletico Paranaense Home 25/26",
+    "price": 129.9,
+    "image": "img/produtos/25-26/torcedor/ATLETICO PARANAENSE/principal-HOME.webp",
+    "images": [
+      "img/produtos/25-26/torcedor/ATLETICO PARANAENSE/principal-HOME.webp"
+    ],
+    "tags": [
+      "nacional",
+      "brasileirao"
+    ]
+  },
+  {
+    "id": 400,
+    "name": "Camisa Atlético Mineiro Home 25/26",
+    "price": 129.9,
+    "image": "img/produtos/25-26/torcedor/ATLETICO MINEIRO/principal-HOME.webp",
+    "images": [
+      "img/produtos/25-26/torcedor/ATLETICO MINEIRO/principal-HOME.webp"
+    ],
+    "tags": [
+      "nacional",
+      "brasileirao"
+    ]
+  },
+  {
+    "id": 401,
+    "name": "Camisa Atlético Mineiro Away Branca",
+    "price": 129.9,
+    "image": "img/produtos/25-26/torcedor/ATLETICO MINEIRO/principal-AWAY.webp",
+    "images": [
+      "img/produtos/25-26/torcedor/ATLETICO MINEIRO/principal-AWAY.webp"
+    ],
+    "tags": [
+      "nacional",
+      "brasileirao"
+    ]
+  },
+  {
+    "id": 402,
+    "name": "Camisa Atlético Mineiro Third Preta",
+    "price": 129.9,
+    "image": "img/produtos/25-26/torcedor/ATLETICO MINEIRO/principal-PRETA.webp",
+    "images": [
+      "img/produtos/25-26/torcedor/ATLETICO MINEIRO/principal-PRETA.webp"
+    ],
+    "tags": [
+      "nacional",
+      "destaque"
+    ]
+  },
+  {
+    "id": 403,
+    "name": "Camisa Atlético Mineiro Treino",
+    "price": 129.9,
+    "image": "img/produtos/25-26/torcedor/ATLETICO MINEIRO/principal-TREINO-PATROCINIO.png",
+    "images": [
+      "img/produtos/25-26/torcedor/ATLETICO MINEIRO/principal-TREINO-PATROCINIO.png"
+    ],
+    "tags": [
+      "nacional",
+      "treino"
+    ]
+  },
+  {
+    "id": 500,
+    "name": "Camisa Bahia Home 25/26 - Jogador",
+    "price": 159.9,
+    "image": "img/produtos/25-26/jogador/BAHIA/principal-HOME.webp",
+    "images": [
+      "img/produtos/25-26/jogador/BAHIA/principal-HOME.webp"
+    ],
+    "tags": [
+      "nacional",
+      "brasileirao"
+    ],
+    "badge": "Jogador"
+  },
+  {
+    "id": 501,
+    "name": "Camisa Bahia Away 25/26 - Jogador",
+    "price": 159.9,
+    "image": "img/produtos/25-26/jogador/BAHIA/principal-AWAY.webp",
+    "images": [
+      "img/produtos/25-26/jogador/BAHIA/principal-AWAY.webp"
+    ],
+    "tags": [
+      "nacional",
+      "brasileirao"
+    ],
+    "badge": "Jogador"
+  },
+  {
+    "id": 502,
+    "name": "Camisa Bahia Home 25/26 - Torcedor",
+    "price": 129.9,
+    "image": "img/produtos/25-26/torcedor/BAHIA/principal-HOME.webp",
+    "images": [
+      "img/produtos/25-26/torcedor/BAHIA/principal-HOME.webp"
+    ],
+    "tags": [
+      "nacional",
+      "brasileirao"
+    ]
+  },
+  {
+    "id": 503,
+    "name": "Camisa Bahia Away 25/26 - Torcedor",
+    "price": 129.9,
+    "image": "img/produtos/25-26/torcedor/BAHIA/principal-AWAY.webp",
+    "images": [
+      "img/produtos/25-26/torcedor/BAHIA/principal-AWAY.webp"
+    ],
+    "tags": [
+      "nacional",
+      "brasileirao"
+    ]
+  },
+  {
+    "id": 504,
+    "name": "Camisa Bahia Super Man",
+    "price": 129.9,
+    "image": "img/produtos/25-26/torcedor/BAHIA/principal-SUPERMAN.webp",
+    "images": [
+      "img/produtos/25-26/torcedor/BAHIA/principal-SUPERMAN.webp"
+    ],
+    "tags": [
+      "nacional",
+      "destaque"
+    ]
+  },
+  {
+    "id": 510,
+    "name": "Camisa Botafogo Home 25/26 - Jogador",
+    "price": 159.9,
+    "image": "img/produtos/25-26/jogador/BOTAFOGO/principal-HOME.webp",
+    "images": [
+      "img/produtos/25-26/jogador/BOTAFOGO/principal-HOME.webp"
+    ],
+    "tags": [
+      "nacional",
+      "brasileirao"
+    ],
+    "badge": "Jogador"
+  },
+  {
+    "id": 511,
+    "name": "Camisa Botafogo Home 25/26 - Torcedor",
+    "price": 129.9,
+    "image": "img/produtos/25-26/torcedor/BOTAFOGO/principal-TORCEDOR2.webp",
+    "images": [
+      "img/produtos/25-26/torcedor/BOTAFOGO/principal-TORCEDOR2.webp"
+    ],
+    "tags": [
+      "nacional",
+      "brasileirao"
+    ]
+  },
+  {
+    "id": 512,
+    "name": "Camisa Botafogo Away Branca 25/26",
+    "price": 129.9,
+    "image": "img/produtos/25-26/torcedor/BOTAFOGO/principal-TORCEDOR6.webp",
+    "images": [
+      "img/produtos/25-26/torcedor/BOTAFOGO/principal-TORCEDOR6.webp"
+    ],
+    "tags": [
+      "nacional",
+      "brasileirao"
+    ]
+  },
+  {
+    "id": 513,
+    "name": "Camisa Botafogo Roxa 25/26",
+    "price": 129.9,
+    "image": "img/produtos/25-26/torcedor/BOTAFOGO/principal-TORCEDOR7.webp",
+    "images": [
+      "img/produtos/25-26/torcedor/BOTAFOGO/principal-TORCEDOR7.webp"
+    ],
+    "tags": [
+      "nacional",
+      "destaque"
+    ]
+  },
+  {
+    "id": 732,
+    "name": "Camisa Botafogo Amarela 25/26",
+    "price": 129.9,
+    "image": "img/produtos/25-26/torcedor/BOTAFOGO/principal-TORCEDOR1.webp",
+    "images": [
+      "img/produtos/25-26/torcedor/BOTAFOGO/principal-TORCEDOR1.webp"
+    ],
+    "tags": [
+      "nacional",
+      "destaque"
+    ]
+  },
+  {
+    "id": 733,
+    "name": "Camisa Botafogo Azul 25/26",
+    "price": 129.9,
+    "image": "img/produtos/25-26/torcedor/BOTAFOGO/principal-TORCEDOR3.webp",
+    "images": [
+      "img/produtos/25-26/torcedor/BOTAFOGO/principal-TORCEDOR3.webp"
+    ],
+    "tags": [
+      "nacional",
+      "destaque"
+    ]
+  },
+  {
+    "id": 734,
+    "name": "Camisa Botafogo Preta II 25/26",
+    "price": 129.9,
+    "image": "img/produtos/25-26/torcedor/BOTAFOGO/principal-TORCEDOR4.webp",
+    "images": [
+      "img/produtos/25-26/torcedor/BOTAFOGO/principal-TORCEDOR4.webp"
+    ],
+    "tags": [
+      "nacional",
+      "destaque"
+    ]
+  },
+  {
+    "id": 735,
+    "name": "Camisa Botafogo Roxa Clara 25/26",
+    "price": 129.9,
+    "image": "img/produtos/25-26/torcedor/BOTAFOGO/principal-TORCEDOR8.webp",
+    "images": [
+      "img/produtos/25-26/torcedor/BOTAFOGO/principal-TORCEDOR8.webp"
+    ],
+    "tags": [
+      "nacional",
+      "destaque"
+    ]
+  },
+  {
+    "id": 736,
+    "name": "Camisa Botafogo Branca 25/26",
+    "price": 129.9,
+    "image": "img/produtos/25-26/torcedor/BOTAFOGO/principal-TORCEDOR9.webp",
+    "images": [
+      "img/produtos/25-26/torcedor/BOTAFOGO/principal-TORCEDOR9.webp"
+    ],
+    "tags": [
+      "nacional",
+      "destaque"
+    ]
+  },
+  {
+    "id": 737,
+    "name": "Camisa Botafogo Preta 25/26",
+    "price": 129.9,
+    "image": "img/produtos/25-26/torcedor/BOTAFOGO/principal-TORCEDOR5.webp",
+    "images": [
+      "img/produtos/25-26/torcedor/BOTAFOGO/principal-TORCEDOR5.webp"
+    ],
+    "tags": [
+      "nacional",
+      "destaque"
+    ]
+  },
+  {
+    "id": 520,
+    "name": "Camisa Bragantino Home 25/26",
+    "price": 129.9,
+    "image": "img/produtos/25-26/torcedor/BRAGANTINO/principal-HOME.webp",
+    "images": [
+      "img/produtos/25-26/torcedor/BRAGANTINO/principal-HOME.webp"
+    ],
+    "tags": [
+      "nacional",
+      "brasileirao"
+    ]
+  },
+  {
+    "id": 521,
+    "name": "Camisa Bragantino Away 25/26",
+    "price": 129.9,
+    "image": "img/produtos/25-26/torcedor/BRAGANTINO/principal-AWAY.webp",
+    "images": [
+      "img/produtos/25-26/torcedor/BRAGANTINO/principal-AWAY.webp"
+    ],
+    "tags": [
+      "nacional",
+      "brasileirao"
+    ]
+  },
+  {
+    "id": 200,
+    "name": "Camisa Ceará Third 25/26",
+    "price": 129.9,
+    "image": "img/produtos/25-26/torcedor/CEARA/principal-THIRD.webp",
+    "images": [
+      "img/produtos/25-26/torcedor/CEARA/principal-THIRD.webp",
+      "img/produtos/25-26/torcedor/CEARA/costas-THIRD.webp",
+      "img/produtos/25-26/torcedor/CEARA/detalhes-THIRD.webp"
+    ],
+    "tags": [
+      "nacional",
+      "brasileirao"
+    ]
+  },
+  {
+    "id": 201,
+    "name": "Camisa Ceará Torcida Organizada",
+    "price": 129.9,
+    "image": "img/produtos/25-26/torcedor/CEARA/principal-TORCIDA ORGANIZADA.webp",
+    "images": [
+      "img/produtos/25-26/torcedor/CEARA/principal-TORCIDA ORGANIZADA.webp",
+      "img/produtos/25-26/torcedor/CEARA/costas-TORCIDA ORGANIZADA.webp",
+      "img/produtos/25-26/torcedor/CEARA/detalhes-TORCIDA ORGANIZADA.webp"
+    ],
+    "tags": [
+      "nacional",
+      "destaque"
+    ]
+  },
+  {
+    "id": 205,
+    "name": "Camisa Corinthians Especial Blackout",
+    "price": 129.9,
+    "image": "img/produtos/24-25/torcedor/CORINTHIANS/principal-PRETA.webp",
+    "images": [
+      "img/produtos/24-25/torcedor/CORINTHIANS/principal-PRETA.webp",
+      "img/produtos/24-25/torcedor/CORINTHIANS/detalhes2-PRETA.webp",
+      "img/produtos/24-25/torcedor/CORINTHIANS/detalhes-PRETA.webp"
+    ],
+    "tags": [
+      "nacional",
+      "destaque"
+    ],
+    "badge": "Black"
+  },
+  {
+    "id": 206,
+    "name": "Camisa Corinthians Especial 25/26",
+    "price": 129.9,
+    "image": "img/produtos/25-26/torcedor/CORINTHIANS/principal-ESPECIAL.webp",
+    "images": [
+      "img/produtos/25-26/torcedor/CORINTHIANS/principal-ESPECIAL.webp",
+      "img/produtos/25-26/torcedor/CORINTHIANS/costas-ESPECIAL.webp",
+      "img/produtos/25-26/torcedor/CORINTHIANS/detalhes-ESPECIAL.webp"
+    ],
+    "tags": [
+      "nacional",
+      "destaque"
+    ]
+  },
+  {
+    "id": 207,
+    "name": "Camisa Corinthians Home 25/26",
+    "price": 129.9,
+    "image": "img/produtos/25-26/torcedor/CORINTHIANS/principal-HOME.webp",
+    "images": [
+      "img/produtos/25-26/torcedor/CORINTHIANS/principal-HOME.webp",
+      "img/produtos/25-26/torcedor/CORINTHIANS/costas-HOME.webp",
+      "img/produtos/25-26/torcedor/CORINTHIANS/detalhes-HOME.webp"
+    ],
+    "tags": [
+      "nacional",
+      "brasileirao"
+    ]
+  },
+  {
+    "id": 208,
+    "name": "Camisa Corinthians Away 25/26",
+    "price": 129.9,
+    "image": "img/produtos/25-26/torcedor/CORINTHIANS/principal-SEGUNDA CAMISA.webp",
+    "images": [
+      "img/produtos/25-26/torcedor/CORINTHIANS/principal-SEGUNDA CAMISA.webp",
+      "img/produtos/25-26/torcedor/CORINTHIANS/costas-SEGUNDA CAMISA.webp",
+      "img/produtos/25-26/torcedor/CORINTHIANS/detalhes-SEGUNDA CAMISA.webp"
+    ],
+    "tags": [
+      "nacional",
+      "brasileirao"
+    ]
+  },
+  {
+    "id": 209,
+    "name": "Camisa Corinthians Treino Roxa 25/26",
+    "price": 129.9,
+    "image": "img/produtos/25-26/torcedor/CORINTHIANS/principal-TREINO ROXA.webp",
+    "images": [
+      "img/produtos/25-26/torcedor/CORINTHIANS/principal-TREINO ROXA.webp",
+      "img/produtos/25-26/torcedor/CORINTHIANS/costas-TREINO ROXA.webp",
+      "img/produtos/25-26/torcedor/CORINTHIANS/detalhes-TREINO ROXA.webp"
+    ],
+    "tags": [
+      "nacional",
+      "treino"
+    ]
+  },
+  {
+    "id": 210,
+    "name": "Camisa Corinthians Treino 25/26",
+    "price": 129.9,
+    "image": "img/produtos/25-26/torcedor/CORINTHIANS/principal-TREINO.webp",
+    "images": [
+      "img/produtos/25-26/torcedor/CORINTHIANS/principal-TREINO.webp",
+      "img/produtos/25-26/torcedor/CORINTHIANS/costas-TREINO.webp",
+      "img/produtos/25-26/torcedor/CORINTHIANS/detalhes-TREINO.webp"
+    ],
+    "tags": [
+      "nacional",
+      "treino"
+    ]
+  },
+  {
+    "id": 630,
+    "name": "Camisa Cruzeiro Third 25/26",
+    "price": 129.9,
+    "image": "img/produtos/25-26/torcedor/CRUZEIRO/principal-3.webp",
+    "images": [
+      "img/produtos/25-26/torcedor/CRUZEIRO/principal-3.webp"
+    ],
+    "tags": [
+      "nacional",
+      "brasileirao"
+    ]
+  },
+  {
+    "id": 631,
+    "name": "Camisa Cruzeiro Away Branca 25/26",
+    "price": 129.9,
+    "image": "img/produtos/25-26/torcedor/CRUZEIRO/principal-AWAY.webp",
+    "images": [
+      "img/produtos/25-26/torcedor/CRUZEIRO/principal-AWAY.webp"
+    ],
+    "tags": [
+      "nacional",
+      "brasileirao"
+    ]
+  },
+  {
+    "id": 634,
+    "name": "Camisa Cruzeiro Home 25/26",
+    "price": 129.9,
+    "image": "img/produtos/25-26/torcedor/CRUZEIRO/principal-HOME.png",
+    "images": [
+      "img/produtos/25-26/torcedor/CRUZEIRO/principal-HOME.png"
+    ],
+    "tags": [
+      "nacional",
+      "brasileirao"
+    ]
+  },
+  {
+    "id": 636,
+    "name": "Camisa Cruzeiro Especial Cinza 25/26",
+    "price": 129.9,
+    "image": "img/produtos/25-26/torcedor/CRUZEIRO/principal-CINZA.webp",
+    "images": [
+      "img/produtos/25-26/torcedor/CRUZEIRO/principal-CINZA.webp"
+    ],
+    "tags": [
+      "nacional",
+      "destaque"
+    ]
+  },
+  {
+    "id": 637,
+    "name": "Camisa Cruzeiro Treino Verde Raposa",
+    "price": 129.9,
+    "image": "img/produtos/25-26/torcedor/CRUZEIRO/principal-RAPOSA.webp",
+    "images": [
+      "img/produtos/25-26/torcedor/CRUZEIRO/principal-RAPOSA.webp"
+    ],
+    "tags": [
+      "nacional",
+      "treino"
+    ]
+  },
+  {
+    "id": 638,
+    "name": "Camisa Cruzeiro Treino Menta Raposa",
+    "price": 129.9,
+    "image": "img/produtos/25-26/torcedor/CRUZEIRO/principal-RAPOSA2.webp",
+    "images": [
+      "img/produtos/25-26/torcedor/CRUZEIRO/principal-RAPOSA2.webp"
+    ],
+    "tags": [
+      "nacional",
+      "treino"
+    ]
+  },
+  {
+    "id": 738,
+    "name": "Camisa Flamengo Especial Geométrica",
+    "price": 129.9,
+    "image": "img/produtos/25-26/torcedor/FLAMENGO/principal-ESPECIAL.webp",
+    "images": [
+      "img/produtos/25-26/torcedor/FLAMENGO/principal-ESPECIAL.webp",
+      "img/produtos/25-26/torcedor/FLAMENGO/costas-ESPECIAL.webp",
+      "img/produtos/25-26/torcedor/FLAMENGO/detalhes-ESPECIAL.webp"
+    ],
+    "tags": [
+      "nacional",
+      "destaque"
+    ]
+  },
+  {
+    "id": 211,
+    "name": "Camisa Flamengo Goleiro 25/26",
+    "price": 129.9,
+    "image": "img/produtos/25-26/torcedor/FLAMENGO/principal-GOLEIRO.webp",
+    "images": [
+      "img/produtos/25-26/torcedor/FLAMENGO/principal-GOLEIRO.webp",
+      "img/produtos/25-26/torcedor/FLAMENGO/costas-GOLEIRO.webp",
+      "img/produtos/25-26/torcedor/FLAMENGO/detalhes1-GOLEIRO.webp"
+    ],
+    "tags": [
+      "nacional",
+      "goleiro"
+    ]
+  },
+  {
+    "id": 212,
+    "name": "Camisa Flamengo Home 25/26 (Com Patrocínio)",
+    "price": 129.9,
+    "image": "img/produtos/25-26/torcedor/FLAMENGO/principal-HOME+PATROCINIO.webp",
+    "images": [
+      "img/produtos/25-26/torcedor/FLAMENGO/principal-HOME+PATROCINIO.webp",
+      "img/produtos/25-26/torcedor/FLAMENGO/costas-HOME+PATROCINIO.webp",
+      "img/produtos/25-26/torcedor/FLAMENGO/detalhes-HOME+PATROCINIO.webp"
+    ],
+    "tags": [
+      "nacional",
+      "brasileirao"
+    ]
+  },
+  {
+    "id": 213,
+    "name": "Camisa Flamengo Home 25/26 (Limpa)",
+    "price": 129.9,
+    "image": "img/produtos/25-26/torcedor/FLAMENGO/principal-HOME.webp",
+    "images": [
+      "img/produtos/25-26/torcedor/FLAMENGO/principal-HOME.webp",
+      "img/produtos/25-26/torcedor/FLAMENGO/costas-HOME.webp",
+      "img/produtos/25-26/torcedor/FLAMENGO/detalhes2-HOME.webp"
+    ],
+    "tags": [
+      "nacional",
+      "brasileirao"
+    ]
+  },
+  {
+    "id": 214,
+    "name": "Camisa Flamengo Treino Azul Claro",
+    "price": 129.9,
+    "image": "img/produtos/25-26/torcedor/FLAMENGO/principal-TREINO1.webp",
+    "images": [
+      "img/produtos/25-26/torcedor/FLAMENGO/principal-TREINO1.webp",
+      "img/produtos/25-26/torcedor/FLAMENGO/costas-TREINO1.webp",
+      "img/produtos/25-26/torcedor/FLAMENGO/detalhes-TREINO1.webp"
+    ],
+    "tags": [
+      "nacional",
+      "treino"
+    ]
+  },
+  {
+    "id": 215,
+    "name": "Camisa Flamengo Treino Azul Escuro",
+    "price": 129.9,
+    "image": "img/produtos/25-26/torcedor/FLAMENGO/principal-TREINO.webp",
+    "images": [
+      "img/produtos/25-26/torcedor/FLAMENGO/principal-TREINO.webp",
+      "img/produtos/25-26/torcedor/FLAMENGO/costas-TREINO.webp",
+      "img/produtos/25-26/torcedor/FLAMENGO/detalhes-TREINO.webp"
+    ],
+    "tags": [
+      "nacional",
+      "treino"
+    ]
+  },
+  {
+    "id": 640,
+    "name": "Camisa Flamengo Home 26/27",
+    "price": 129.9,
+    "image": "img/produtos/26-27/torcedor/FLAMENGO/principal-HOME.webp",
+    "images": [
+      "img/produtos/26-27/torcedor/FLAMENGO/principal-HOME.webp"
+    ],
+    "tags": [
+      "nacional",
+      "brasileirao"
+    ],
+    "badge": "Futuro"
+  },
+  {
+    "id": 642,
+    "name": "Camisa Flamengo Away II 26/27",
+    "price": 129.9,
+    "image": "img/produtos/26-27/torcedor/FLAMENGO/principal-AWAY2.webp",
+    "images": [
+      "img/produtos/26-27/torcedor/FLAMENGO/principal-AWAY2.webp"
+    ],
+    "tags": [
+      "nacional",
+      "destaque"
+    ],
+    "badge": "Futuro"
+  },
+  {
+    "id": 650,
+    "name": "Camisa Fluminense Home 25/26",
+    "price": 129.9,
+    "image": "img/produtos/25-26/torcedor/FLUMINENSE/principal-HOME.png",
+    "images": [
+      "img/produtos/25-26/torcedor/FLUMINENSE/principal-HOME.png"
+    ],
+    "tags": [
+      "nacional",
+      "brasileirao"
+    ]
+  },
+  {
+    "id": 651,
+    "name": "Camisa Fluminense Away 25/26",
+    "price": 129.9,
+    "image": "img/produtos/25-26/jogador/FLUMINENSE/principal-AWAY.webp",
+    "images": [
+      "img/produtos/25-26/jogador/FLUMINENSE/principal-AWAY.webp"
+    ],
+    "tags": [
+      "nacional",
+      "brasileirao"
+    ]
+  },
+  {
+    "id": 652,
+    "name": "Camisa Fluminense Feminina",
+    "price": 129.9,
+    "image": "img/produtos/25-26/torcedor/FLUMINENSE/principal-FEMININA.png",
+    "images": [
+      "img/produtos/25-26/torcedor/FLUMINENSE/principal-FEMININA.png"
+    ],
+    "tags": [
+      "nacional",
+      "feminina"
+    ]
+  },
+  {
+    "id": 216,
+    "name": "Camisa Fortaleza Away 25/26",
+    "price": 129.9,
+    "image": "img/produtos/25-26/torcedor/FORTALEZA/principal-AWAY.webp",
+    "images": [
+      "img/produtos/25-26/torcedor/FORTALEZA/principal-AWAY.webp",
+      "img/produtos/25-26/torcedor/FORTALEZA/costas-AWAY.webp",
+      "img/produtos/25-26/torcedor/FORTALEZA/detalhes-AWAY.webp"
+    ],
+    "tags": [
+      "nacional",
+      "brasileirao"
+    ]
+  },
+  {
+    "id": 660,
+    "name": "Camisa Grêmio Home 25/26",
+    "price": 129.9,
+    "image": "img/produtos/25-26/torcedor/GREMIO/principal-HOME.webp",
+    "images": [
+      "img/produtos/25-26/torcedor/GREMIO/principal-HOME.webp"
+    ],
+    "tags": [
+      "nacional",
+      "brasileirao"
+    ]
+  },
+  {
+    "id": 661,
+    "name": "Camisa Grêmio Away 25/26",
+    "price": 129.9,
+    "image": "img/produtos/25-26/torcedor/GREMIO/principal-AWAY.webp",
+    "images": [
+      "img/produtos/25-26/torcedor/GREMIO/principal-AWAY.webp"
+    ],
+    "tags": [
+      "nacional",
+      "brasileirao"
+    ]
+  },
+  {
+    "id": 232,
+    "name": "Camisa Internacional Casual 25/26",
+    "price": 129.9,
+    "image": "img/produtos/25-26/torcedor/INTERNACIONAL/principal-CASUAL.webp",
+    "images": [
+      "img/produtos/25-26/torcedor/INTERNACIONAL/principal-CASUAL.webp",
+      "img/produtos/25-26/torcedor/INTERNACIONAL/costas-CASUAL.webp",
+      "img/produtos/25-26/torcedor/INTERNACIONAL/detalhes-CASUAL.webp"
+    ],
+    "tags": [
+      "nacional",
+      "treino"
+    ]
+  },
+  {
+    "id": 233,
+    "name": "Camisa Internacional Home 25/26",
+    "price": 129.9,
+    "image": "img/produtos/25-26/torcedor/INTERNACIONAL/principal-HOME.webp",
+    "images": [
+      "img/produtos/25-26/torcedor/INTERNACIONAL/principal-HOME.webp",
+      "img/produtos/25-26/torcedor/INTERNACIONAL/costas-HOME.webp",
+      "img/produtos/25-26/torcedor/INTERNACIONAL/detalhes-HOME.webp"
+    ],
+    "tags": [
+      "nacional",
+      "brasileirao"
+    ]
+  },
+  {
+    "id": 234,
+    "name": "Camisa Internacional Polo 25/26",
+    "price": 129.9,
+    "image": "img/produtos/25-26/torcedor/INTERNACIONAL/principal-POLO.webp",
+    "images": [
+      "img/produtos/25-26/torcedor/INTERNACIONAL/principal-POLO.webp",
+      "img/produtos/25-26/torcedor/INTERNACIONAL/costas-POLO.webp",
+      "img/produtos/25-26/torcedor/INTERNACIONAL/detalhes-POLO.webp"
+    ],
+    "tags": [
+      "nacional",
+      "treino"
+    ]
+  },
+  {
+    "id": 235,
+    "name": "Camisa Internacional Treino Cinza 25/26",
+    "price": 129.9,
+    "image": "img/produtos/25-26/torcedor/INTERNACIONAL/principal-BRANCA.webp",
+    "images": [
+      "img/produtos/25-26/torcedor/INTERNACIONAL/principal-BRANCA.webp",
+      "img/produtos/25-26/torcedor/INTERNACIONAL/costas-BRANCA.webp",
+      "img/produtos/25-26/torcedor/INTERNACIONAL/detalhes-BRANCA.webp"
+    ],
+    "tags": [
+      "nacional",
+      "treino"
+    ]
+  },
+  {
+    "id": 221,
+    "name": "Camisa Palmeiras Branca Total 25/26",
+    "price": 129.9,
+    "image": "img/produtos/25-26/torcedor/PALMEIRAS/principal-BRANCA TOTAL.webp",
+    "images": [
+      "img/produtos/25-26/torcedor/PALMEIRAS/principal-BRANCA TOTAL.webp"
+    ],
+    "tags": [
+      "nacional",
+      "destaque"
+    ]
+  },
+  {
+    "id": 222,
+    "name": "Camisa Palmeiras Away 25/26",
+    "price": 129.9,
+    "image": "img/produtos/25-26/torcedor/PALMEIRAS/principal-BRANCA.webp",
+    "images": [
+      "img/produtos/25-26/torcedor/PALMEIRAS/principal-BRANCA.webp",
+      "img/produtos/25-26/torcedor/PALMEIRAS/costas-BRANCA.webp",
+      "img/produtos/25-26/torcedor/PALMEIRAS/detalhes-BRANCA.webp"
+    ],
+    "tags": [
+      "nacional",
+      "brasileirao"
+    ]
+  },
+  {
+    "id": 223,
+    "name": "Camisa Palmeiras Home 25/26",
+    "price": 129.9,
+    "image": "img/produtos/25-26/torcedor/PALMEIRAS/principal-HOME.webp",
+    "images": [
+      "img/produtos/25-26/torcedor/PALMEIRAS/principal-HOME.webp",
+      "img/produtos/25-26/torcedor/PALMEIRAS/costas-HOME.webp",
+      "img/produtos/25-26/torcedor/PALMEIRAS/detalhes-HOME.webp"
+    ],
+    "tags": [
+      "nacional",
+      "brasileirao"
+    ]
+  },
+  {
+    "id": 670,
+    "name": "Camisa Palmeiras Home 26/27",
+    "price": 129.9,
+    "image": "img/produtos/26-27/torcedor/PALMEIRAS/principal-HOME.webp",
+    "images": [
+      "img/produtos/26-27/torcedor/PALMEIRAS/principal-HOME.webp"
+    ],
+    "tags": [
+      "nacional",
+      "brasileirao"
+    ],
+    "badge": "Futuro"
+  },
+  {
+    "id": 671,
+    "name": "Camisa Palmeiras Away 26/27",
+    "price": 129.9,
+    "image": "img/produtos/26-27/torcedor/PALMEIRAS/principal-AWAY.webp",
+    "images": [
+      "img/produtos/26-27/torcedor/PALMEIRAS/principal-AWAY.webp"
+    ],
+    "tags": [
+      "nacional",
+      "brasileirao"
+    ],
+    "badge": "Futuro"
+  },
+  {
+    "id": 672,
+    "name": "Camisa Palmeiras Amarela 25/26",
+    "price": 129.9,
+    "image": "img/produtos/25-26/jogador/PALMEIRAS/principal-AMARELA.webp",
+    "images": [
+      "img/produtos/25-26/jogador/PALMEIRAS/principal-AMARELA.webp"
+    ],
+    "tags": [
+      "nacional",
+      "destaque"
+    ],
+    "badge": "Jogador"
+  },
+  {
+    "id": 224,
+    "name": "Camisa Paysandu Home 25/26",
+    "price": 129.9,
+    "image": "img/produtos/25-26/torcedor/PAYSANDU/principal-HOME.webp",
+    "images": [
+      "img/produtos/25-26/torcedor/PAYSANDU/principal-HOME.webp",
+      "img/produtos/25-26/torcedor/PAYSANDU/costas-HOME.webp",
+      "img/produtos/25-26/torcedor/PAYSANDU/detalhes-HOME.webp"
+    ],
+    "tags": [
+      "nacional",
+      "brasileirao"
+    ]
+  },
+  {
+    "id": 228,
+    "name": "Camisa Remo Especial 25/26",
+    "price": 129.9,
+    "image": "img/produtos/25-26/torcedor/REMO/principal-ESPECIAL.webp",
+    "images": [
+      "img/produtos/25-26/torcedor/REMO/principal-ESPECIAL.webp",
+      "img/produtos/25-26/torcedor/REMO/costas-ESPECIAL.webp",
+      "img/produtos/25-26/torcedor/REMO/detalhes-ESPECIAL.webp"
+    ],
+    "tags": [
+      "nacional",
+      "brasileirao"
+    ]
+  },
+  {
+    "id": 229,
+    "name": "Camisa Santa Cruz Feminina 25/26",
+    "price": 129.9,
+    "image": "img/produtos/25-26/torcedor/SANTA CRUZ/principal-FEMININA.webp",
+    "images": [
+      "img/produtos/25-26/torcedor/SANTA CRUZ/principal-FEMININA.webp",
+      "img/produtos/25-26/torcedor/SANTA CRUZ/costas-FEMININA.webp",
+      "img/produtos/25-26/torcedor/SANTA CRUZ/detalhes-FEMININA.webp"
+    ],
+    "tags": [
+      "nacional",
+      "feminina"
+    ]
+  },
+  {
+    "id": 101,
+    "name": "Camisa Santos Home Neymar",
+    "price": 129.9,
+    "image": "img/produtos/25-26/torcedor/SANTOS/principal-NEYMAR 10.webp",
+    "images": [
+      "img/produtos/25-26/torcedor/SANTOS/principal-NEYMAR 10.webp",
+      "img/produtos/25-26/torcedor/SANTOS/costas-NEYMAR 10.webp",
+      "img/produtos/25-26/torcedor/SANTOS/detalhes-NEYMAR 10.webp"
+    ],
+    "tags": [
+      "nacional",
+      "brasileirao"
+    ]
+  },
+  {
+    "id": 680,
+    "name": "Camisa Santos Home Listrada",
+    "price": 129.9,
+    "image": "img/produtos/25-26/torcedor/SANTOS/principal-HOME.webp",
+    "images": [
+      "img/produtos/25-26/torcedor/SANTOS/principal-HOME.webp"
+    ],
+    "tags": [
+      "nacional",
+      "brasileirao"
+    ]
+  },
+  {
+    "id": 681,
+    "name": "Camisa Santos Azul 25/26",
+    "price": 129.9,
+    "image": "img/produtos/25-26/torcedor/SANTOS/principal-AZUL.webp",
+    "images": [
+      "img/produtos/25-26/torcedor/SANTOS/principal-AZUL.webp"
+    ],
+    "tags": [
+      "nacional",
+      "destaque"
+    ]
+  },
+  {
+    "id": 128,
+    "name": "Camisa São Paulo Home 25/26",
+    "price": 129.9,
+    "image": "img/produtos/25-26/torcedor/SAO PAULO/principal-HOME.webp",
+    "images": [
+      "img/produtos/25-26/torcedor/SAO PAULO/principal-HOME.webp",
+      "img/produtos/25-26/torcedor/SAO PAULO/costas-HOME.webp",
+      "img/produtos/25-26/torcedor/SAO PAULO/detalhes-HOME.webp"
+    ],
+    "tags": [
+      "nacional",
+      "brasileirao"
+    ]
+  },
+  {
+    "id": 690,
+    "name": "Camisa São Paulo Home 25/26 - Torcedor",
+    "price": 129.9,
+    "image": "img/produtos/25-26/torcedor/SAO PAULO/principal-HOME.webp",
+    "images": [
+      "img/produtos/25-26/torcedor/SAO PAULO/principal-HOME.webp"
+    ],
+    "tags": [
+      "nacional",
+      "brasileirao"
+    ]
+  },
+  {
+    "id": 691,
+    "name": "Camisa São Paulo Away Listrada 25/26",
+    "price": 129.9,
+    "image": "img/produtos/25-26/torcedor/SAO PAULO/principal-AWAY.webp",
+    "images": [
+      "img/produtos/25-26/torcedor/SAO PAULO/principal-AWAY.webp"
+    ],
+    "tags": [
+      "nacional",
+      "brasileirao"
+    ]
+  },
+  {
+    "id": 692,
+    "name": "Camisa São Paulo Feminina Home",
+    "price": 129.9,
+    "image": "img/produtos/25-26/torcedor/SAO PAULO/HOME FEMININA.webp",
+    "images": [
+      "img/produtos/25-26/torcedor/SAO PAULO/HOME FEMININA.webp"
+    ],
+    "tags": [
+      "nacional",
+      "feminina"
+    ]
+  },
+  {
+    "id": 236,
+    "name": "Camisa Tigres Home 25/26",
+    "price": 129.9,
+    "image": "img/produtos/25-26/torcedor/TIGRES/principal-HOME.webp",
+    "images": [
+      "img/produtos/25-26/torcedor/TIGRES/principal-HOME.webp",
+      "img/produtos/25-26/torcedor/TIGRES/costas-HOME.webp",
+      "img/produtos/25-26/torcedor/TIGRES/detalhes-HOME.webp"
+    ],
+    "tags": [
+      "internacional",
+      "destaque"
+    ]
+  },
+  {
+    "id": 540,
+    "name": "Camisa Vitória Home 25/26",
+    "price": 129.9,
+    "image": "img/produtos/25-26/torcedor/VITORIA/principal-HOME.webp",
+    "images": [
+      "img/produtos/25-26/torcedor/VITORIA/principal-HOME.webp"
+    ],
+    "tags": [
+      "nacional",
+      "brasileirao"
+    ]
+  },
+  {
+    "id": 541,
+    "name": "Camisa Vitória Away 25/26",
+    "price": 129.9,
+    "image": "img/produtos/25-26/torcedor/VITORIA/principal-AWAY.webp",
+    "images": [
+      "img/produtos/25-26/torcedor/VITORIA/principal-AWAY.webp"
+    ],
+    "tags": [
+      "nacional",
+      "brasileirao"
+    ]
+  },
+  {
+    "id": 30,
+    "name": "Camisa Al-Hilal Home 24/25 - Puma",
+    "price": 129.9,
+    "image": "img/produtos/24-25/torcedor/AL-HILAL/principal.webp",
+    "images": [
+      "img/produtos/24-25/torcedor/AL-HILAL/principal.webp",
+      "img/produtos/24-25/torcedor/AL-HILAL/costas.webp",
+      "img/produtos/24-25/torcedor/AL-HILAL/detalhes.webp"
+    ],
+    "tags": [
+      "internacional",
+      "saudita"
+    ],
+    "badge": "Neymar"
+  },
+  {
+    "id": 31,
+    "name": "Camisa Arsenal Home 24/25 - Adidas",
+    "price": 129.9,
+    "image": "img/produtos/24-25/torcedor/ARSENAL/principal.webp",
+    "images": [
+      "img/produtos/24-25/torcedor/ARSENAL/principal.webp",
+      "img/produtos/24-25/torcedor/ARSENAL/costas.webp",
+      "img/produtos/24-25/torcedor/ARSENAL/detalhes.webp"
+    ],
+    "tags": [
+      "europeus",
+      "ingles"
+    ]
+  },
+  {
+    "id": 32,
+    "name": "Camisa Atalanta Home 24/25",
+    "price": 129.9,
+    "image": "img/produtos/24-25/torcedor/ATALANTA/principal.webp",
+    "images": [
+      "img/produtos/24-25/torcedor/ATALANTA/principal.webp",
+      "img/produtos/24-25/torcedor/ATALANTA/detalhes.webp",
+      "img/produtos/24-25/torcedor/ATALANTA/detalhes2.webp"
+    ],
+    "tags": [
+      "europeus",
+      "italiano"
+    ]
+  },
+  {
+    "id": 33,
+    "name": "Camisa Atlético de Madrid Home 24/25",
+    "price": 129.9,
+    "image": "img/produtos/24-25/torcedor/ATLÉTICO DE MADRID/principal.webp",
+    "images": [
+      "img/produtos/24-25/torcedor/ATLÉTICO DE MADRID/principal.webp",
+      "img/produtos/24-25/torcedor/ATLÉTICO DE MADRID/detalhes.webp",
+      "img/produtos/24-25/torcedor/ATLÉTICO DE MADRID/detalhes2.webp"
+    ],
+    "tags": [
+      "europeus",
+      "espanhol"
+    ]
+  },
+  {
+    "id": 411,
+    "name": "Camisa Athletico Paranaense Feminina Dourada",
+    "price": 129.9,
+    "image": "img/produtos/24-25/torcedor/ATLETICO PARANAENSE/principal-FEMININA.webp",
+    "images": [
+      "img/produtos/24-25/torcedor/ATLETICO PARANAENSE/principal-FEMININA.webp"
+    ],
+    "tags": [
+      "nacional",
+      "feminina"
+    ]
+  },
+  {
+    "id": 739,
+    "name": "Camisa Athletico Paranaense Feminina Classica",
+    "price": 129.9,
+    "image": "img/produtos/24-25/torcedor/ATLETICO PARANAENSE/principal-FEMININA2.webp",
+    "images": [
+      "img/produtos/24-25/torcedor/ATLETICO PARANAENSE/principal-FEMININA2.webp"
+    ],
+    "tags": [
+      "nacional",
+      "feminina"
+    ]
+  },
+  {
+    "id": 40,
+    "name": "Camisa Barcelona Edição Especial 304",
+    "price": 129.9,
+    "image": "img/produtos/24-25/torcedor/BARCELONA/principal-EDICAO ESPECIAL .webp",
+    "images": [
+      "img/produtos/24-25/torcedor/BARCELONA/principal-EDICAO ESPECIAL .webp",
+      "img/produtos/24-25/torcedor/BARCELONA/costas-EDICAO ESPECIAL.webp",
+      "img/produtos/24-25/torcedor/BARCELONA/detalhes-EDICAO ESPECIAL .webp"
+    ],
+    "tags": [
+      "europeus",
+      "destaque"
+    ],
+    "badge": "Exclusivo"
+  },
+  {
+    "id": 41,
+    "name": "Camisa Barcelona Away Preta Spotify",
+    "price": 129.9,
+    "image": "img/produtos/24-25/torcedor/BARCELONA/principal-SPOTIFY PRETA -.webp",
+    "images": [
+      "img/produtos/24-25/torcedor/BARCELONA/principal-SPOTIFY PRETA -.webp",
+      "img/produtos/24-25/torcedor/BARCELONA/costas-SPOTIFY PRETA .webp",
+      "img/produtos/24-25/torcedor/BARCELONA/detalhes-SPOTIFY PRETA .webp"
+    ],
+    "tags": [
+      "europeus",
+      "lancamento"
+    ]
+  },
+  {
+    "id": 42,
+    "name": "Camisa Bayer Leverkusen Away Branca",
+    "price": 129.9,
+    "image": "img/produtos/24-25/torcedor/BAYERN LEVERKUSEN/princial-BRANCa.webp",
+    "images": [
+      "img/produtos/24-25/torcedor/BAYERN LEVERKUSEN/princial-BRANCa.webp",
+      "img/produtos/24-25/torcedor/BAYERN LEVERKUSEN/costas-BRANCA.webp",
+      "img/produtos/24-25/torcedor/BAYERN LEVERKUSEN/detalhes-BRANCA.webp"
+    ],
+    "tags": [
+      "europeus",
+      "alemao"
+    ]
+  },
+  {
+    "id": 43,
+    "name": "Camisa Betis Home 24/25",
+    "price": 129.9,
+    "image": "img/produtos/24-25/torcedor/BETIS/principal-HOME.webp",
+    "images": [
+      "img/produtos/24-25/torcedor/BETIS/principal-HOME.webp",
+      "img/produtos/24-25/torcedor/BETIS/detalhes-HOME.webp",
+      "img/produtos/24-25/torcedor/BETIS/detalhes2-HOME.webp"
+    ],
+    "tags": [
+      "europeus",
+      "espanhol"
+    ]
+  },
+  {
+    "id": 44,
+    "name": "Camisa Boca Juniors Away Branca",
+    "price": 129.9,
+    "image": "img/produtos/24-25/torcedor/BOCA JUNIORS/principal-BRANCA.webp",
+    "images": [
+      "img/produtos/24-25/torcedor/BOCA JUNIORS/principal-BRANCA.webp",
+      "img/produtos/24-25/torcedor/BOCA JUNIORS/costas-BRANCA.webp",
+      "img/produtos/24-25/torcedor/BOCA JUNIORS/detalhes-BRANCA.webp"
+    ],
+    "tags": [
+      "internacional",
+      "sulamericano"
+    ]
+  },
+  {
+    "id": 50,
+    "name": "Camisa Botafogo Home - Patch Libertadores",
+    "price": 129.9,
+    "image": "img/produtos/24-25/torcedor/BOTAFOGO/principal-HOME+PATCH-LIBERTADORES.webp",
+    "images": [
+      "img/produtos/24-25/torcedor/BOTAFOGO/principal-HOME+PATCH-LIBERTADORES.webp",
+      "img/produtos/24-25/torcedor/BOTAFOGO/costas-HOME+PATCH-LIBERTADORES.webp",
+      "img/produtos/24-25/torcedor/BOTAFOGO/detalhes-HOME+PATCH-LIBERTADORES.webp"
+    ],
+    "tags": [
+      "nacional",
+      "brasileirao"
+    ],
+    "badge": "Libertadores"
+  },
+  {
+    "id": 51,
+    "name": "Camisa Botafogo Goleiro Roxa",
+    "price": 129.9,
+    "image": "img/produtos/24-25/torcedor/BOTAFOGO/principal-ROXA.webp",
+    "images": [
+      "img/produtos/24-25/torcedor/BOTAFOGO/principal-ROXA.webp",
+      "img/produtos/24-25/torcedor/BOTAFOGO/costas-ROXA.webp",
+      "img/produtos/24-25/torcedor/BOTAFOGO/detalhes-ROXA.webp"
+    ],
+    "tags": [
+      "nacional",
+      "goleiro"
+    ]
+  },
+  {
+    "id": 52,
+    "name": "Camisa Brighton Away Amarela",
+    "price": 129.9,
+    "image": "img/produtos/24-25/torcedor/BRIGHTON/principal-AWAY.webp",
+    "images": [
+      "img/produtos/24-25/torcedor/BRIGHTON/principal-AWAY.webp",
+      "img/produtos/24-25/torcedor/BRIGHTON/costas-AWAY.webp",
+      "img/produtos/24-25/torcedor/BRIGHTON/detalhes-AWAY.webp"
+    ],
+    "tags": [
+      "europeus",
+      "ingles"
+    ]
+  },
+  {
+    "id": 60,
+    "name": "Camisa Chelsea Away Branca 24/25",
+    "price": 129.9,
+    "image": "img/produtos/24-25/torcedor/CHELSEA/principal-BRANCA.webp",
+    "images": [
+      "img/produtos/24-25/torcedor/CHELSEA/principal-BRANCA.webp",
+      "img/produtos/24-25/torcedor/CHELSEA/costas-BRANCA.webp",
+      "img/produtos/24-25/torcedor/CHELSEA/detalhes-BRANCA.webp"
+    ],
+    "tags": [
+      "europeus",
+      "ingles"
+    ]
+  },
+  {
+    "id": 61,
+    "name": "Camisa Chelsea Treino Preta",
+    "price": 129.9,
+    "image": "img/produtos/24-25/torcedor/CHELSEA/principal-PRETA.webp",
+    "images": [
+      "img/produtos/24-25/torcedor/CHELSEA/principal-PRETA.webp",
+      "img/produtos/24-25/torcedor/CHELSEA/costas-PRETA.webp",
+      "img/produtos/24-25/torcedor/CHELSEA/detalhes-PRETA.webp"
+    ],
+    "tags": [
+      "europeus",
+      "treino"
+    ]
+  },
+  {
+    "id": 65,
+    "name": "Camisa Colômbia Edição Especial",
+    "price": 129.9,
+    "image": "img/produtos/24-25/torcedor/COLOMBIA/principal-EDICAO ESPECIAL.webp",
+    "images": [
+      "img/produtos/24-25/torcedor/COLOMBIA/principal-EDICAO ESPECIAL.webp",
+      "img/produtos/24-25/torcedor/COLOMBIA/costas-EDICAO ESPECIAL.webp",
+      "img/produtos/24-25/torcedor/COLOMBIA/detalhes-EDICAO ESPECIAL.webp"
+    ],
+    "tags": [
+      "selecoes",
+      "destaque"
+    ],
+    "badge": "Centenário"
+  },
+  {
+    "id": 66,
+    "name": "Camisa Coreia do Sul Home Vermelha",
+    "price": 129.9,
+    "image": "img/produtos/24-25/torcedor/COREA DO SUL/principal-VERMELHA.webp",
+    "images": [
+      "img/produtos/24-25/torcedor/COREA DO SUL/principal-VERMELHA.webp",
+      "img/produtos/24-25/torcedor/COREA DO SUL/costas-VERMELHA.webp",
+      "img/produtos/24-25/torcedor/COREA DO SUL/detalhes-VERMELHA.webp"
+    ],
+    "tags": [
+      "selecoes",
+      "asiatico"
+    ]
+  },
+  {
+    "id": 67,
+    "name": "Camisa Coreia do Sul Away Preta",
+    "price": 129.9,
+    "image": "img/produtos/24-25/torcedor/COREA DO SUL/principal-PRETA.webp",
+    "images": [
+      "img/produtos/24-25/torcedor/COREA DO SUL/principal-PRETA.webp",
+      "img/produtos/24-25/torcedor/COREA DO SUL/costas-PRETA.webp",
+      "img/produtos/24-25/torcedor/COREA DO SUL/detalhes-PRETA.webp"
+    ],
+    "tags": [
+      "selecoes"
+    ]
+  },
+  {
+    "id": 70,
+    "name": "Camisa Corinthians Home Feminina 24/25",
+    "price": 129.9,
+    "image": "img/produtos/24-25/torcedor/CORINTHIANS/detalhes-HOME FEMININA.webp",
+    "images": [
+      "img/produtos/24-25/torcedor/CORINTHIANS/detalhes-HOME FEMININA.webp",
+      "img/produtos/24-25/torcedor/CORINTHIANS/costas-HOME FEMININA.webp",
+      "img/produtos/24-25/torcedor/CORINTHIANS/detalhes-HOME FEMININA.webp"
+    ],
+    "tags": [
+      "nacional",
+      "feminina"
+    ],
+    "badge": "Feminina"
+  },
+  {
+    "id": 71,
+    "name": "Camisa Corinthians III 24/25 - Preta",
+    "price": 129.9,
+    "image": "img/produtos/24-25/torcedor/CORINTHIANS/principal-PRETA.webp",
+    "images": [
+      "img/produtos/24-25/torcedor/CORINTHIANS/principal-PRETA.webp",
+      "img/produtos/24-25/torcedor/CORINTHIANS/detalhes-PRETA.webp",
+      "img/produtos/24-25/torcedor/CORINTHIANS/detalhes2-PRETA.webp"
+    ],
+    "tags": [
+      "nacional",
+      "lancamento"
+    ],
+    "badge": "Antirracista"
+  },
+  {
+    "id": 740,
+    "name": "Camisa Corinthians Home 25/26",
+    "price": 129.9,
+    "image": "img/produtos/25-26/torcedor/CORINTHIANS/principal-HOME.webp",
+    "images": [
+      "img/produtos/25-26/torcedor/CORINTHIANS/principal-HOME.webp",
+      "img/produtos/25-26/torcedor/CORINTHIANS/costas-HOME.webp",
+      "img/produtos/25-26/torcedor/CORINTHIANS/detalhes-HOME.webp"
+    ],
+    "tags": [
+      "nacional",
+      "brasileirao"
+    ]
+  },
+  {
+    "id": 741,
+    "name": "Camisa Corinthians II 25/26",
+    "price": 129.9,
+    "image": "img/produtos/25-26/torcedor/CORINTHIANS/principal-SEGUNDA CAMISA.webp",
+    "images": [
+      "img/produtos/25-26/torcedor/CORINTHIANS/principal-SEGUNDA CAMISA.webp",
+      "img/produtos/25-26/torcedor/CORINTHIANS/costas-SEGUNDA CAMISA.webp",
+      "img/produtos/25-26/torcedor/CORINTHIANS/detalhes-SEGUNDA CAMISA.webp"
+    ],
+    "tags": [
+      "nacional",
+      "brasileirao"
+    ]
+  },
+  {
+    "id": 742,
+    "name": "Camisa Corinthians Treino Roxa",
+    "price": 129.9,
+    "image": "img/produtos/25-26/torcedor/CORINTHIANS/principal-TREINO ROXA.webp",
+    "images": [
+      "img/produtos/25-26/torcedor/CORINTHIANS/principal-TREINO ROXA.webp",
+      "img/produtos/25-26/torcedor/CORINTHIANS/costas-TREINO ROXA.webp",
+      "img/produtos/25-26/torcedor/CORINTHIANS/detalhes-TREINO ROXA.webp"
+    ],
+    "tags": [
+      "nacional",
+      "treino"
+    ]
+  },
+  {
+    "id": 743,
+    "name": "Camisa Corinthians Treino Cinza",
+    "price": 129.9,
+    "image": "img/produtos/25-26/torcedor/CORINTHIANS/principal-TREINO.webp",
+    "images": [
+      "img/produtos/25-26/torcedor/CORINTHIANS/principal-TREINO.webp",
+      "img/produtos/25-26/torcedor/CORINTHIANS/costas-TREINO.webp",
+      "img/produtos/25-26/torcedor/CORINTHIANS/detalhes-TREINO.webp"
+    ],
+    "tags": [
+      "nacional",
+      "treino"
+    ]
+  },
+  {
+    "id": 744,
+    "name": "Camisa Corinthians Especial Blackout",
+    "price": 129.9,
+    "image": "img/produtos/25-26/torcedor/CORINTHIANS/principal-ESPECIAL.webp",
+    "images": [
+      "img/produtos/25-26/torcedor/CORINTHIANS/principal-ESPECIAL.webp",
+      "img/produtos/25-26/torcedor/CORINTHIANS/costas-ESPECIAL.webp",
+      "img/produtos/25-26/torcedor/CORINTHIANS/detalhes-ESPECIAL.webp"
+    ],
+    "tags": [
+      "nacional",
+      "especial"
+    ]
+  },
+  {
+    "id": 80,
+    "name": "Camisa Flamengo Goleiro Amarela 24/25",
+    "price": 129.9,
+    "image": "img/produtos/24-25/torcedor/FLAMENGO/principla-GOLEIRO.webp",
+    "images": [
+      "img/produtos/24-25/torcedor/FLAMENGO/principla-GOLEIRO.webp",
+      "img/produtos/24-25/torcedor/FLAMENGO/costas-GOLEIRO.webp",
+      "img/produtos/24-25/torcedor/FLAMENGO/detalhesGOLEIRO.webp"
+    ],
+    "tags": [
+      "nacional",
+      "goleiro"
+    ]
+  },
+  {
+    "id": 81,
+    "name": "Camisa Flamengo Identidade Marrom",
+    "price": 129.9,
+    "image": "img/produtos/24-25/torcedor/FLAMENGO/principal-IDENTIDADE MARROM.webp",
+    "images": [
+      "img/produtos/24-25/torcedor/FLAMENGO/principal-IDENTIDADE MARROM.webp",
+      "img/produtos/24-25/torcedor/FLAMENGO/costas-IDENTIDADE MARROM.webp",
+      "img/produtos/24-25/torcedor/FLAMENGO/detalhes-IDENTIDADE MARROM.webp"
+    ],
+    "tags": [
+      "nacional",
+      "destaque"
+    ],
+    "badge": "Black"
+  },
+  {
+    "id": 82,
+    "name": "Camisa Flamengo Lifestyler Feminina",
+    "price": 129.9,
+    "image": "img/produtos/24-25/torcedor/FLAMENGO/principal-LIFESTYLER FEMININA.webp",
+    "images": [
+      "img/produtos/24-25/torcedor/FLAMENGO/principal-LIFESTYLER FEMININA.webp",
+      "img/produtos/24-25/torcedor/FLAMENGO/costas-LIFESTYLER FEMININA.webp",
+      "img/produtos/24-25/torcedor/FLAMENGO/detalhes-LIFESTYLER FEMININA.webp"
+    ],
+    "tags": [
+      "nacional",
+      "feminina"
+    ]
+  },
+  {
+    "id": 83,
+    "name": "Camisa Flamengo Lifestyler Masculina",
+    "price": 129.9,
+    "image": "img/produtos/24-25/torcedor/FLAMENGO/principal-LIFESTYLER.webp",
+    "images": [
+      "img/produtos/24-25/torcedor/FLAMENGO/principal-LIFESTYLER.webp",
+      "img/produtos/24-25/torcedor/FLAMENGO/costas-LIFESTYLER.webp",
+      "img/produtos/24-25/torcedor/FLAMENGO/detalhes-LIFESTYLER.webp"
+    ],
+    "tags": [
+      "nacional",
+      "destaque"
+    ]
+  },
+  {
+    "id": 84,
+    "name": "Camisa Flamengo Treino Azul",
+    "price": 129.9,
+    "image": "img/produtos/24-25/torcedor/FLAMENGO/principal-TREINO.webp",
+    "images": [
+      "img/produtos/24-25/torcedor/FLAMENGO/principal-TREINO.webp",
+      "img/produtos/24-25/torcedor/FLAMENGO/costas-TREINO.webp",
+      "img/produtos/24-25/torcedor/FLAMENGO/detalhes-TREINO.webp"
+    ],
+    "tags": [
+      "nacional",
+      "treino"
+    ]
+  },
+  {
+    "id": 90,
+    "name": "Camisa Fortaleza Away 24/25",
+    "price": 129.9,
+    "image": "img/produtos/24-25/torcedor/FORTALEZA/principal-FORTALEZA AWAY.webp",
+    "images": [
+      "img/produtos/24-25/torcedor/FORTALEZA/principal-FORTALEZA AWAY.webp",
+      "img/produtos/24-25/torcedor/FORTALEZA/costas-FORTALEZA AWAY.webp",
+      "img/produtos/24-25/torcedor/FORTALEZA/detalhes-FORTALEZA AWAY.webp"
+    ],
+    "tags": [
+      "nacional",
+      "brasileirao"
+    ]
+  },
+  {
+    "id": 91,
+    "name": "Camisa Japão Away 24/25",
+    "price": 129.9,
+    "image": "img/produtos/24-25/torcedor/JAPÃO/principal-AWAY.webp",
+    "images": [
+      "img/produtos/24-25/torcedor/JAPÃO/principal-AWAY.webp",
+      "img/produtos/24-25/torcedor/JAPÃO/costas-AWAY.webp",
+      "img/produtos/24-25/torcedor/JAPÃO/detalhes-AWAY.webp"
+    ],
+    "tags": [
+      "selecoes",
+      "asiatico"
+    ]
+  },
+  {
+    "id": 92,
+    "name": "Camisa Japão Treino Preta",
+    "price": 129.9,
+    "image": "img/produtos/24-25/torcedor/JAPÃO/principal-PRETA.webp",
+    "images": [
+      "img/produtos/24-25/torcedor/JAPÃO/principal-PRETA.webp",
+      "img/produtos/24-25/torcedor/JAPÃO/costas-PRETA.webp",
+      "img/produtos/24-25/torcedor/JAPÃO/detalhes-PRETA.webp"
+    ],
+    "tags": [
+      "selecoes",
+      "treino"
+    ]
+  },
+  {
+    "id": 93,
+    "name": "Camisa Juventus Lifestyle",
+    "price": 129.9,
+    "image": "img/produtos/24-25/torcedor/JUVENTUS/principal-LIFESTYLE.webp",
+    "images": [
+      "img/produtos/24-25/torcedor/JUVENTUS/principal-LIFESTYLE.webp",
+      "img/produtos/24-25/torcedor/JUVENTUS/costas-LIFESTYLE.webp",
+      "img/produtos/24-25/torcedor/JUVENTUS/detalhes-LIFESTYLE.webp"
+    ],
+    "tags": [
+      "europeus",
+      "italiano"
+    ]
+  },
+  {
+    "id": 94,
+    "name": "Camisa Juventus da Mooca Home",
+    "price": 129.9,
+    "image": "img/produtos/24-25/torcedor/JUVENTUS DA MOOCA/principal-HOME.webp",
+    "images": [
+      "img/produtos/24-25/torcedor/JUVENTUS DA MOOCA/principal-HOME.webp",
+      "img/produtos/24-25/torcedor/JUVENTUS DA MOOCA/costas-HOME.webp",
+      "img/produtos/24-25/torcedor/JUVENTUS DA MOOCA/detalhes-HOME.webp"
+    ],
+    "tags": [
+      "nacional",
+      "classico"
+    ]
+  },
+  {
+    "id": 95,
+    "name": "Camisa Liverpool Pré-Jogo Vermelha",
+    "price": 129.9,
+    "image": "img/produtos/24-25/torcedor/LIVERPOOL/principal-PRE JOGO VERMELHA.webp",
+    "images": [
+      "img/produtos/24-25/torcedor/LIVERPOOL/principal-PRE JOGO VERMELHA.webp",
+      "img/produtos/24-25/torcedor/LIVERPOOL/costas-PRE JOGO VERMELHA.webp",
+      "img/produtos/24-25/torcedor/LIVERPOOL/detalhes-PRE JOGO VERMELHA.webp"
+    ],
+    "tags": [
+      "europeus",
+      "ingles"
+    ]
+  },
+  {
+    "id": 96,
+    "name": "Camisa MILAN 125 Anos Curta",
+    "price": 129.9,
+    "image": "img/produtos/24-25/torcedor/MILAN/principal-125 ANOS CURTA.webp",
+    "images": [
+      "img/produtos/24-25/torcedor/MILAN/principal-125 ANOS CURTA.webp",
+      "img/produtos/24-25/torcedor/MILAN/costas-125 ANOS CURTA.webp",
+      "img/produtos/24-25/torcedor/MILAN/detalhes-125 ANOS CURTA.webp"
+    ],
+    "tags": [
+      "europeus",
+      "italiano"
+    ],
+    "badge": "Comemorativa"
+  },
+  {
+    "id": 97,
+    "name": "Camisa MILAN Third 24/25",
+    "price": 129.9,
+    "image": "img/produtos/24-25/torcedor/MILAN/principal-THIRD.webp",
+    "images": [
+      "img/produtos/24-25/torcedor/MILAN/principal-THIRD.webp",
+      "img/produtos/24-25/torcedor/MILAN/costas-THIRD.webp",
+      "img/produtos/24-25/torcedor/MILAN/detalhes-THIRD.webp"
+    ],
+    "tags": [
+      "europeus",
+      "italiano"
+    ]
+  },
+  {
+    "id": 98,
+    "name": "Camisa Paysandu Away 24/25",
+    "price": 129.9,
+    "image": "img/produtos/24-25/torcedor/PAYSANDU/principal-AWAY.webp",
+    "images": [
+      "img/produtos/24-25/torcedor/PAYSANDU/principal-AWAY.webp",
+      "img/produtos/24-25/torcedor/PAYSANDU/costas-AWAY.webp",
+      "img/produtos/24-25/torcedor/PAYSANDU/detalhes-AWAY.webp"
+    ],
+    "tags": [
+      "nacional",
+      "brasileirao"
+    ]
+  },
+  {
+    "id": 99,
+    "name": "Camisa Peñarol Home",
+    "price": 129.9,
+    "image": "img/produtos/24-25/torcedor/PEÑAROL/principal-HOME.webp",
+    "images": [
+      "img/produtos/24-25/torcedor/PEÑAROL/principal-HOME.webp",
+      "img/produtos/24-25/torcedor/PEÑAROL/costas-HOME.webp",
+      "img/produtos/24-25/torcedor/PEÑAROL/detalhes-HOME.webp"
+    ],
+    "tags": [
+      "internacional",
+      "sulamericano"
+    ]
+  },
+  {
+    "id": 100,
+    "name": "Camisa Roma Branca com Laranja",
+    "price": 129.9,
+    "image": "img/produtos/24-25/torcedor/ROMA/principal-BRANCA COM LARANJA.webp",
+    "images": [
+      "img/produtos/24-25/torcedor/ROMA/principal-BRANCA COM LARANJA.webp",
+      "img/produtos/24-25/torcedor/ROMA/costas-BRANCA COM LARANJA.webp",
+      "img/produtos/24-25/torcedor/ROMA/detalhes-BRANCA COM LARANJA.webp"
+    ],
+    "tags": [
+      "europeus",
+      "italiano"
+    ]
+  },
+  {
+    "id": 745,
+    "name": "Camisa Santos Home 24/25",
+    "price": 129.9,
+    "image": "img/produtos/24-25/torcedor/SANTOS/principal-HOME.webp",
+    "images": [
+      "img/produtos/24-25/torcedor/SANTOS/principal-HOME.webp",
+      "img/produtos/24-25/torcedor/SANTOS/costas-HOME.webp",
+      "img/produtos/24-25/torcedor/SANTOS/detalhes-HOME.webp"
+    ],
+    "tags": [
+      "nacional",
+      "brasileirao"
+    ]
+  },
+  {
+    "id": 102,
+    "name": "Camisa Santos Laranja (Goleiro/Treino)",
+    "price": 129.9,
+    "image": "img/produtos/24-25/torcedor/SANTOS/principal-LARANJA.webp",
+    "images": [
+      "img/produtos/24-25/torcedor/SANTOS/principal-LARANJA.webp",
+      "img/produtos/24-25/torcedor/SANTOS/costas-LARANJA.webp",
+      "img/produtos/24-25/torcedor/SANTOS/detalhes-LARANJA.webp"
+    ],
+    "tags": [
+      "nacional",
+      "goleiro"
+    ]
+  },
+  {
+    "id": 103,
+    "name": "Camisa Santos Treino Azul",
+    "price": 129.9,
+    "image": "img/produtos/24-25/torcedor/SANTOS/principal-TREINO.webp",
+    "images": [
+      "img/produtos/24-25/torcedor/SANTOS/principal-TREINO.webp",
+      "img/produtos/24-25/torcedor/SANTOS/costas-TREINO.webp",
+      "img/produtos/24-25/torcedor/SANTOS/detalhes-TREINO.webp"
+    ],
+    "tags": [
+      "nacional",
+      "treino"
+    ]
+  },
+  {
+    "id": 104,
+    "name": "Camisa Sport Recife Preta",
+    "price": 129.9,
+    "image": "img/produtos/24-25/torcedor/SPORT/principal-PRETA.webp",
+    "images": [
+      "img/produtos/24-25/torcedor/SPORT/principal-PRETA.webp",
+      "img/produtos/24-25/torcedor/SPORT/costas-PRETA.webp",
+      "img/produtos/24-25/torcedor/SPORT/detalhes-PRETA.webp"
+    ],
+    "tags": [
+      "nacional",
+      "brasileirao"
+    ]
+  },
+  {
+    "id": 105,
+    "name": "Camisa Sport Recife Third Vermelha",
+    "price": 129.9,
+    "image": "img/produtos/24-25/torcedor/SPORT/principal-THIRD.webp",
+    "images": [
+      "img/produtos/24-25/torcedor/SPORT/principal-THIRD.webp",
+      "img/produtos/24-25/torcedor/SPORT/costas-THIRD.webp",
+      "img/produtos/24-25/torcedor/SPORT/detalhes-THIRD.webp"
+    ],
+    "tags": [
+      "nacional",
+      "destaque"
+    ]
+  },
+  {
+    "id": 106,
+    "name": "Camisa Vasco Third 24/25 - Preta",
+    "price": 129.9,
+    "image": "img/produtos/24-25/torcedor/VASCO/principal-THIRD PRETA.webp",
+    "images": [
+      "img/produtos/24-25/torcedor/VASCO/principal-THIRD PRETA.webp",
+      "img/produtos/24-25/torcedor/VASCO/costas-THIRD.webp",
+      "img/produtos/24-25/torcedor/VASCO/detalhes-THIRD PRETA.webp"
+    ],
+    "tags": [
+      "nacional",
+      "brasileirao"
+    ]
+  },
+  {
+    "id": 107,
+    "name": "Camisa Vasco Off-White Diagonais",
+    "price": 129.9,
+    "image": "img/produtos/24-25/torcedor/VASCO/principal-THIRD.webp",
+    "images": [
+      "img/produtos/24-25/torcedor/VASCO/principal-THIRD.webp",
+      "img/produtos/24-25/torcedor/VASCO/costas-THIRD.webp",
+      "img/produtos/24-25/torcedor/VASCO/detalhes-THIRD.webp"
+    ],
+    "tags": [
+      "nacional",
+      "destaque"
+    ]
+  },
+  {
+    "id": 108,
+    "name": "Camisa Vasco Pré-Jogo Branca",
+    "price": 129.9,
+    "image": "img/produtos/24-25/torcedor/VASCO/principal-PRÉ JOGO.webp",
+    "images": [
+      "img/produtos/24-25/torcedor/VASCO/principal-PRÉ JOGO.webp",
+      "img/produtos/24-25/torcedor/VASCO/detalhes-PRÉ JOGO.webp"
+    ],
+    "tags": [
+      "nacional",
+      "treino"
+    ]
+  },
+  {
+    "id": 300,
+    "name": "Camisa Alemanha 1998 Retrô",
+    "price": 179.9,
+    "image": "img/produtos/retro/ALEMANHA/principal-1998.webp",
+    "images": [
+      "img/produtos/retro/ALEMANHA/principal-1998.webp",
+      "img/produtos/retro/ALEMANHA/costas-1998.webp",
+      "img/produtos/retro/ALEMANHA/detalhes-1998.webp"
+    ],
+    "tags": [
+      "retro",
+      "selecoes",
+      "europeus"
+    ]
+  },
+  {
+    "id": 301,
+    "name": "Camisa Alemanha 2014 Özil",
+    "price": 179.9,
+    "image": "img/produtos/retro/ALEMANHA/principal-OZIL-2014.webp",
+    "images": [
+      "img/produtos/retro/ALEMANHA/principal-OZIL-2014.webp",
+      "img/produtos/retro/ALEMANHA/costas-OZIL-2014.webp",
+      "img/produtos/retro/ALEMANHA/detalhes-OZIL-2014.webp",
+      "img/produtos/retro/ALEMANHA/detalhes1-OZIL-2014.webp"
+    ],
+    "tags": [
+      "retro",
+      "selecoes",
+      "europeus"
+    ],
+    "badge": "7x1"
+  },
+  {
+    "id": 302,
+    "name": "Camisa Atl. Madrid F. Torres",
+    "price": 179.9,
+    "image": "img/produtos/retro/ATLETICO DE MADRID/principal-FERNANDO TORRES.webp",
+    "images": [
+      "img/produtos/retro/ATLETICO DE MADRID/principal-FERNANDO TORRES.webp",
+      "img/produtos/retro/ATLETICO DE MADRID/costas-FERNANDO TORRES.webp",
+      "img/produtos/retro/ATLETICO DE MADRID/detalhes-FERNANDO TORRES.webp"
+    ],
+    "tags": [
+      "retro",
+      "europeus",
+      "espanhol"
+    ]
+  },
+  {
+    "id": 303,
+    "name": "Camisa Barcelona 10/11 Home",
+    "price": 179.9,
+    "image": "img/produtos/retro/BARCELONA/principal-BARCELONA HOME-10_11.webp",
+    "images": [
+      "img/produtos/retro/BARCELONA/principal-BARCELONA HOME-10_11.webp",
+      "img/produtos/retro/BARCELONA/costas-BARCELONA HOME-10_11.webp",
+      "img/produtos/retro/BARCELONA/detalhes-BARCELONA HOME-10_11.webp"
+    ],
+    "tags": [
+      "retro",
+      "europeus",
+      "espanhol"
+    ],
+    "badge": "Pep Team"
+  },
+  {
+    "id": 304,
+    "name": "Camisa Barcelona 16/17 Neymar",
+    "price": 179.9,
+    "image": "img/produtos/retro/BARCELONA/principal-NEYMAR-16_17.webp",
+    "images": [
+      "img/produtos/retro/BARCELONA/principal-NEYMAR-16_17.webp",
+      "img/produtos/retro/BARCELONA/costas-NEYMAR-16_17.webp",
+      "img/produtos/retro/BARCELONA/detalhes-NEYMAR-16_17.webp"
+    ],
+    "tags": [
+      "retro",
+      "europeus",
+      "espanhol"
+    ]
+  },
+  {
+    "id": 305,
+    "name": "Camisa Barcelona 2010 Ronaldinho",
+    "price": 179.9,
+    "image": "img/produtos/retro/BARCELONA/principal-RONALDINHO - 2010.webp",
+    "images": [
+      "img/produtos/retro/BARCELONA/principal-RONALDINHO - 2010.webp",
+      "img/produtos/retro/BARCELONA/costas-RONALDINHO - 2010.webp",
+      "img/produtos/retro/BARCELONA/detalhes-RONALDINHO - 2010.webp"
+    ],
+    "tags": [
+      "retro",
+      "europeus",
+      "espanhol"
+    ],
+    "badge": "R10"
+  },
+  {
+    "id": 306,
+    "name": "Camisa Barcelona 03/04 Away",
+    "price": 179.9,
+    "image": "img/produtos/retro/BARCELONA/principal-AWAY - 03_04.webp",
+    "images": [
+      "img/produtos/retro/BARCELONA/principal-AWAY - 03_04.webp",
+      "img/produtos/retro/BARCELONA/detalhes-AWAY - 03_04.webp",
+      "img/produtos/retro/BARCELONA/detalhes2-AWAY - 03_04.webp"
+    ],
+    "tags": [
+      "retro",
+      "europeus",
+      "espanhol"
+    ]
+  },
+  {
+    "id": 307,
+    "name": "Camisa Barcelona 16/17 Roxa Messi",
+    "price": 179.9,
+    "image": "img/produtos/retro/BARCELONA/principal-ROXA - MESSI - 16_17.webp",
+    "images": [
+      "img/produtos/retro/BARCELONA/principal-ROXA - MESSI - 16_17.webp",
+      "img/produtos/retro/BARCELONA/detalhes-ROXA - MESSI - 16_17.webp",
+      "img/produtos/retro/BARCELONA/detalhes1-ROXA - MESSI - 16_17.webp"
+    ],
+    "tags": [
+      "retro",
+      "europeus",
+      "espanhol"
+    ],
+    "badge": "Messi"
+  },
+  {
+    "id": 308,
+    "name": "Camisa Bayern 13/14 Home",
+    "price": 179.9,
+    "image": "img/produtos/retro/BAYERN/principal-HOME 13_14.webp",
+    "images": [
+      "img/produtos/retro/BAYERN/principal-HOME 13_14.webp",
+      "img/produtos/retro/BAYERN/costas-HOME 13_14.webp",
+      "img/produtos/retro/BAYERN/detalhes-HOME 13_14.webp"
+    ],
+    "tags": [
+      "retro",
+      "europeus",
+      "alemao"
+    ]
+  },
+  {
+    "id": 309,
+    "name": "Camisa Brasil 2002 Ronaldo",
+    "price": 179.9,
+    "image": "img/produtos/retro/BRASIL/principal-RONALDO_2002.webp",
+    "images": [
+      "img/produtos/retro/BRASIL/principal-RONALDO_2002.webp",
+      "img/produtos/retro/BRASIL/costas-RONALDO_2002.webp",
+      "img/produtos/retro/BRASIL/detalhes-RONALDO_2002.webp",
+      "img/produtos/retro/BRASIL/detalhes1-RONALDO_2002.webp"
+    ],
+    "tags": [
+      "retro",
+      "selecoes",
+      "destaque"
+    ],
+    "badge": "Penta"
+  },
+  {
+    "id": 317,
+    "name": "Camisa Inter de Milão 2010",
+    "price": 179.9,
+    "image": "img/produtos/retro/INTER DE MILÃO/principal-2010.webp",
+    "images": [
+      "img/produtos/retro/INTER DE MILÃO/principal-2010.webp",
+      "img/produtos/retro/INTER DE MILÃO/detalhes-2010.webp"
+    ],
+    "tags": [
+      "retro",
+      "europeus",
+      "italiano"
+    ]
+  },
+  {
+    "id": 318,
+    "name": "Camisa Inter 2010 Sneijder",
+    "price": 179.9,
+    "image": "img/produtos/retro/INTER DE MILÃO/principal-SNEIJDER 10.webp",
+    "images": [
+      "img/produtos/retro/INTER DE MILÃO/principal-SNEIJDER 10.webp",
+      "img/produtos/retro/INTER DE MILÃO/costas-SNEIJDER 10.webp",
+      "img/produtos/retro/INTER DE MILÃO/detalhes-SNEIJDER 10.webp"
+    ],
+    "tags": [
+      "retro",
+      "europeus",
+      "italiano"
+    ]
+  },
+  {
+    "id": 319,
+    "name": "Camisa Inter 2010 Eto'o",
+    "price": 179.9,
+    "image": "img/produtos/retro/INTER DE MILÃO/principal-ETO-9.webp",
+    "images": [
+      "img/produtos/retro/INTER DE MILÃO/principal-ETO-9.webp",
+      "img/produtos/retro/INTER DE MILÃO/costas-ETO-9.webp",
+      "img/produtos/retro/INTER DE MILÃO/detalhes-ETO-9.webp"
+    ],
+    "tags": [
+      "retro",
+      "europeus",
+      "italiano"
+    ]
+  },
+  {
+    "id": 420,
+    "name": "Camisa Atlético Mineiro Retrô 1995",
+    "price": 179.9,
+    "image": "img/produtos/retro/ATLETICO MINEIRO/principal-RETRO-1995.webp",
+    "images": [
+      "img/produtos/retro/ATLETICO MINEIRO/principal-RETRO-1995.webp"
+    ],
+    "tags": [
+      "retro",
+      "nacional"
+    ]
+  },
+  {
+    "id": 421,
+    "name": "Camisa Atlético Mineiro Retrô 2003",
+    "price": 179.9,
+    "image": "img/produtos/retro/ATLETICO MINEIRO/principal-RETRO-2003.webp",
+    "images": [
+      "img/produtos/retro/ATLETICO MINEIRO/principal-RETRO-2003.webp"
+    ],
+    "tags": [
+      "retro",
+      "nacional"
+    ]
+  },
+  {
+    "id": 422,
+    "name": "Camisa Atlético Mineiro Retrô Clássica",
+    "price": 179.9,
+    "image": "img/produtos/retro/ATLETICO MINEIRO/principal-RETRO.webp",
+    "images": [
+      "img/produtos/retro/ATLETICO MINEIRO/principal-RETRO.webp"
+    ],
+    "tags": [
+      "retro",
+      "nacional"
+    ]
+  },
+  {
+    "id": 423,
+    "name": "Camisa Athletico Paranaense Retrô",
+    "price": 179.9,
+    "image": "img/produtos/retro/ATLETICO PARANAENSE/principal-RETRO.webp",
+    "images": [
+      "img/produtos/retro/ATLETICO PARANAENSE/principal-RETRO.webp"
+    ],
+    "tags": [
+      "retro",
+      "nacional"
+    ]
+  },
+  {
+    "id": 505,
+    "name": "Camisa Bahia Retrô Renner",
+    "price": 179.9,
+    "image": "img/produtos/retro/BAHIA/principal-RETRO2.webp",
+    "images": [
+      "img/produtos/retro/BAHIA/principal-RETRO2.webp"
+    ],
+    "tags": [
+      "retro",
+      "nacional"
+    ]
+  },
+  {
+    "id": 506,
+    "name": "Camisa Bahia Retrô Coca-Cola",
+    "price": 179.9,
+    "image": "img/produtos/retro/BAHIA/principal-RETRO4.webp",
+    "images": [
+      "img/produtos/retro/BAHIA/principal-RETRO4.webp"
+    ],
+    "tags": [
+      "retro",
+      "nacional"
+    ]
+  }
+]

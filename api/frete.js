@@ -14,7 +14,7 @@ export default async function handler(req, res) {
 
     const cepLimpo = cepDestino.replace(/\D/g, '');
     const tokenMelhorEnvio = process.env.MELHOR_ENVIO_TOKEN;
-    const cepOrigem = "8760000";
+    const cepOrigem = "87600000";
 
     const urlApiMelhorEnvio = "https://www.melhorenvio.com.br/api/v2/me/shipment/calculate";
 
