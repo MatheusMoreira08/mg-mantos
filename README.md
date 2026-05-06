@@ -3,8 +3,9 @@
 ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
 ![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
+![Vercel](https://img.shields.io/badge/vercel-%23000000.svg?style=for-the-badge&logo=vercel&logoColor=white)
 
-> **MG Mantos** é uma aplicação Front-end de uma loja virtual moderna, responsiva e dinâmica, especializada na venda de camisas de futebol de alta qualidade. Desenvolvida inteiramente com Vanilla JS (sem frameworks), com checkout via WhatsApp.
+> **MG Mantos** é uma aplicação Front-end de uma loja virtual moderna, responsiva e dinâmica, especializada na venda de camisas de futebol de alta qualidade. Desenvolvida inteiramente com Vanilla JS (sem frameworks), com checkout via WhatsApp e deploy na Vercel.
 
 ---
 
@@ -68,6 +69,12 @@ cd mg-mantos
 Abra `index.html` no navegador ou use o **Live Server** do VS Code.
 
 > Para a API de frete funcionar localmente, configure a variável `MELHOR_ENVIO_TOKEN` e use o Vercel CLI.
+
+---
+
+## 🌐 Deploy
+
+Deploy automático na **Vercel** via push para o branch `main`.
 
 ---
 
