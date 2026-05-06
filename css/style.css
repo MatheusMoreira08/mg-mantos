@@ -874,7 +874,11 @@ footer {
   font-family: 'Segoe UI', sans-serif;
 }
 
-.modal-overlay.show,
+.modal-overlay.show {
+  display: flex;
+  opacity: 1;
+}
+
 .modal-box.show {
   display: flex;
   opacity: 1;

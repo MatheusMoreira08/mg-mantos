@@ -1,15 +1,19 @@
-// Arquivo: api/frete.js
-export default async function handler(req, res) {
-    // Essa rota só pode receber requisições do tipo POST (que enviam dados)
-    if (req.method !== 'POST') {
-        return res.status(405).json({ erro: 'Método não permitido.' });
+export default async function handler(request) {
+    if (request.method !== 'POST') {
+        return new Response(JSON.stringify({ erro: 'Método não permitido.' }), { status: 405 });
     }
 
-    // Pega o CEP que o front-end (frete.js) enviou
-    const { cepDestino } = req.body;
+    let body;
+    try {
+        body = await request.json();
+    } catch {
+        return new Response(JSON.stringify({ erro: 'Corpo inválido.' }), { status: 400 });
+    }
+
+    const { cepDestino } = body;
 
     if (!cepDestino) {
-        return res.status(400).json({ erro: 'CEP de destino não informado.' });
+        return new Response(JSON.stringify({ erro: 'CEP de destino não informado.' }), { status: 400 });
     }
 
     const cepLimpo = cepDestino.replace(/\D/g, '');
@@ -52,15 +56,14 @@ export default async function handler(req, res) {
 
         if (!response.ok) {
             console.error("Erro retornado pelo Melhor Envio:", response.status);
-            return res.status(response.status).json({ erro: 'Falha ao cotar no Melhor Envio.' });
+            return new Response(JSON.stringify({ erro: 'Falha ao cotar no Melhor Envio.' }), { status: response.status });
         }
 
         const data = await response.json();
-
-        return res.status(200).json(data);
+        return new Response(JSON.stringify(data), { status: 200 });
 
     } catch (error) {
         console.error("Erro interno na Vercel Function:", error);
-        return res.status(500).json({ erro: 'Erro interno no servidor ao calcular o frete.' });
+        return new Response(JSON.stringify({ erro: 'Erro interno no servidor ao calcular o frete.' }), { status: 500 });
     }
 }
