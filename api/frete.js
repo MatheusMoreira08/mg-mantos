@@ -8,22 +8,14 @@ export default async function handler(req, res) {
         return res.status(204).end();
     }
 
-    // Essa rota só pode receber requisições do tipo POST (que enviam dados)
     if (req.method !== 'POST') {
         return res.status(405).json({ erro: 'Método não permitido.' });
     }
 
-    let body;
-    try {
-        body = await request.json();
-    } catch {
-        return new Response(JSON.stringify({ erro: 'Corpo inválido.' }), { status: 400 });
-    }
-
-    const { cepDestino } = body;
+    const { cepDestino } = req.body;
 
     if (!cepDestino) {
-        return new Response(JSON.stringify({ erro: 'CEP de destino não informado.' }), { status: 400 });
+        return res.status(400).json({ erro: 'CEP de destino não informado.' });
     }
 
     const cepLimpo = cepDestino.replace(/\D/g, '');
@@ -66,6 +58,9 @@ export default async function handler(req, res) {
     };
 
     try {
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 8000);
+
         const response = await fetch(urlApiMelhorEnvio, {
             method: 'POST',
             headers: {
@@ -74,8 +69,11 @@ export default async function handler(req, res) {
                 'Authorization': `Bearer ${tokenMelhorEnvio}`,
                 'User-Agent': 'MGMantos'
             },
-            body: JSON.stringify(payload)
+            body: JSON.stringify(payload),
+            signal: controller.signal
         });
+
+        clearTimeout(timeout);
 
         if (!response.ok) {
             console.error("Erro retornado pelo Melhor Envio:", response.status);
@@ -91,7 +89,7 @@ export default async function handler(req, res) {
         return res.status(200).json(data);
 
     } catch (error) {
-        console.error("Erro interno na Vercel Function:", error);
+        console.error("Erro/Timeout:", error.message);
         return res.status(200).json(gerarFreteEstimado());
     }
 }
