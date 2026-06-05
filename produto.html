@@ -47,9 +47,10 @@
                 </a>
             </div>
 
-            <div class="search-bar">
-                <input type="text" placeholder="Buscar camisas...">
+            <div class="search-bar" style="position: relative;">
+                <input type="text" id="inputBusca" placeholder="Buscar camisas..." autocomplete="off">
                 <span class="material-icons-outlined search-icon">search</span>
+                <div id="caixaResultados" class="search-results-box" style="display: none;"></div>
             </div>
 
             <div class="header-actions">
@@ -162,8 +163,8 @@
             </div>
         </div>
     </div>
-    <script src="js/script.js" defer></script>
-    <script src="js/frete.js" defer></script>
+    <script src="js/config.js" defer></script>
+    <script src="js/main.js" defer></script>
 </body>
 
 </html>

@@ -13,11 +13,17 @@ export default async function handler(req, res) {
         return res.status(405).json({ erro: 'Método não permitido.' });
     }
 
-    // Pega o CEP que o front-end (frete.js) enviou
-    const { cepDestino } = req.body;
+    let body;
+    try {
+        body = await request.json();
+    } catch {
+        return new Response(JSON.stringify({ erro: 'Corpo inválido.' }), { status: 400 });
+    }
+
+    const { cepDestino } = body;
 
     if (!cepDestino) {
-        return res.status(400).json({ erro: 'CEP de destino não informado.' });
+        return new Response(JSON.stringify({ erro: 'CEP de destino não informado.' }), { status: 400 });
     }
 
     const cepLimpo = cepDestino.replace(/\D/g, '');
