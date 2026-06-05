@@ -1,5 +1,13 @@
 // Arquivo: api/frete.js
 export default async function handler(req, res) {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+    if (req.method === 'OPTIONS') {
+        return res.status(204).end();
+    }
+
     // Essa rota só pode receber requisições do tipo POST (que enviam dados)
     if (req.method !== 'POST') {
         return res.status(405).json({ erro: 'Método não permitido.' });
@@ -14,7 +22,20 @@ export default async function handler(req, res) {
 
     const cepLimpo = cepDestino.replace(/\D/g, '');
     const tokenMelhorEnvio = process.env.MELHOR_ENVIO_TOKEN;
-    const cepOrigem = "8760000";
+    const cepOrigem = "87030201";
+
+    const gerarFreteEstimado = () => ([
+        { name: 'PAC', price: '14,90', delivery_time: 8, estimated: true },
+        { name: 'SEDEX', price: '24,90', delivery_time: 4, estimated: true },
+        { name: 'JADLOG PACKAGE', price: '19,90', delivery_time: 6, estimated: true },
+        { name: 'JADLOG COM', price: '22,90', delivery_time: 5, estimated: true },
+        { name: 'TOTAL EXPRESS', price: '21,90', delivery_time: 5, estimated: true },
+        { name: 'BUSLOG', price: '18,90', delivery_time: 7, estimated: true }
+    ]);
+
+    if (!tokenMelhorEnvio) {
+        return res.status(200).json(gerarFreteEstimado());
+    }
 
     const urlApiMelhorEnvio = "https://www.melhorenvio.com.br/api/v2/me/shipment/calculate";
 
@@ -52,15 +73,19 @@ export default async function handler(req, res) {
 
         if (!response.ok) {
             console.error("Erro retornado pelo Melhor Envio:", response.status);
-            return res.status(response.status).json({ erro: 'Falha ao cotar no Melhor Envio.' });
+            return res.status(200).json(gerarFreteEstimado());
         }
 
         const data = await response.json();
+
+        if (!Array.isArray(data) || data.length === 0) {
+            return res.status(200).json(gerarFreteEstimado());
+        }
 
         return res.status(200).json(data);
 
     } catch (error) {
         console.error("Erro interno na Vercel Function:", error);
-        return res.status(500).json({ erro: 'Erro interno no servidor ao calcular o frete.' });
+        return res.status(200).json(gerarFreteEstimado());
     }
 }

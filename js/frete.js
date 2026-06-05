@@ -3,6 +3,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnCalcularFrete = document.getElementById('btnCalcularFrete');
     const divResultado = document.getElementById('resultadoFrete');
 
+    const endpoints = [
+        '/api/frete',
+        'https://mg-mantos.vercel.app/api/frete'
+    ];
+
     if (inputCep && btnCalcularFrete && divResultado) {
 
         inputCep.addEventListener('input', function (e) {
@@ -28,6 +33,30 @@ document.addEventListener('DOMContentLoaded', () => {
             return `${dia}/${mes}/${ano}`;
         }
 
+        async function consultarFrete(cep) {
+            let ultimoErro = null;
+
+            for (const endpoint of endpoints) {
+                try {
+                    const resposta = await fetch(endpoint, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ cepDestino: cep })
+                    });
+
+                    if (!resposta.ok) {
+                        throw new Error(`HTTP ${resposta.status}`);
+                    }
+
+                    return await resposta.json();
+                } catch (erro) {
+                    ultimoErro = erro;
+                }
+            }
+
+            throw ultimoErro || new Error('Falha ao consultar frete');
+        }
+
         btnCalcularFrete.addEventListener('click', async () => {
             const cep = inputCep.value;
 
@@ -39,15 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
             divResultado.innerHTML = "<span style='font-size: 13px; color: inherit; opacity: 0.7;'>Calculando prazos e preços...</span>";
 
             try {
-                const resposta = await fetch('/api/frete', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ cepDestino: cep })
-                });
-
-                if (!resposta.ok) throw new Error('Erro na API');
-
-                const transportadoras = await resposta.json();
+                const transportadoras = await consultarFrete(cep);
                 divResultado.innerHTML = '';
 
                 if (!transportadoras || transportadoras.error || transportadoras.length === 0) {
@@ -55,8 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     return;
                 }
 
-                const transportadorasDesejadas = ["PAC", "SEDEX", ".Package", ".Com", "Total Express", "Buslog"];
-
+const transportadorasDesejadas = ["PAC", "SEDEX", "JADLOG", "JADLOG PACKAGE", "JADLOG COM", ".Package", ".Com", "Total Express", "Buslog"];
                 const transportadorasVistas = new Set();
                 let htmlOpcoes = `<div style="margin-top: 20px; border-top: 1px solid var(--border-color, #444); padding-top: 15px;">`;
 
@@ -88,7 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 divResultado.innerHTML = htmlOpcoes;
 
             } catch (erro) {
-                divResultado.innerHTML = "<span style='color: #d32f2f; font-size: 13px;'>Erro ao conectar com as transportadoras.</span>";
+                divResultado.innerHTML = "<span style='color: #d32f2f; font-size: 13px;'>Não foi possível consultar o frete agora. Tente novamente em instantes.</span>";
             }
         });
     }
