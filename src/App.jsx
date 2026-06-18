@@ -1,16 +1,20 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Home from './pages/Home';
 import Login from './pages/Login';
-import MinhaConta from './pages/MinhaConta'; // <-- Importamos aqui!
+import MinhaConta from './pages/MinhaConta';
+import Produto from './pages/Produto'; 
+import Carrinho from './pages/Carrinho'; // <-- Importamos a página do carrinho aqui!
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<h1>Página Inicial em Construção</h1>} />
+        <Route path="/" element={<Home />} />
+        <Route path="/produto/:id" element={<Produto />} /> 
         <Route path="/login" element={<Login />} /> 
-        {/* Trocamos o h1 pelo componente MinhaConta */}
         <Route path="/minha-conta" element={<MinhaConta />} /> 
-        <Route path="/carrinho" element={<h1>Carrinho de Compras</h1>} />
+        {/* Trocamos o h1 pelo componente Carrinho */}
+        <Route path="/carrinho" element={<Carrinho />} /> 
       </Routes>
     </BrowserRouter>
   );
