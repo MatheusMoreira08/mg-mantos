@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="description"
+        content="Descobre o catálogo de produtos da MG Mantos. Qualidade e as melhores opções para o teu estilo." />
+    <meta name="google-site-verification" content="-LDwz12SpWCyfg8zjfu2L7egGakmSCvFxEfsuLAxnN0" />
+
+    <title>MG Mantos | A Casa do Torcedor</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2" integrity="sha256-xXM5w/oWsdadmmtGdJqBOe+NT8m7/kgUT/iXqn1CIuw=" crossorigin="anonymous"></script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "MG Mantos",
+      "alternateName": ["MGMantos", "Loja MG Mantos"],
+      "url": "https://mg-mantos.vercel.app/"
+    }
+    </script>
+
+    <link rel="icon" type="image/webp" href="img/front-page/logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@800&family=Oswald:wght@600&family=Material+Icons+Outlined&display=swap"
+        media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@800&family=Oswald:wght@600&family=Material+Icons+Outlined&display=swap">
+    </noscript>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/main.js"></script>
+</head>
+
+<body>
+
+    <div class="top-bar">FRETE GRÁTIS PARA TODO BRASIL <span>|</span> COMPRAS ACIMA DE R$ 199,90</div>
+
+    <div id="sidebar" class="sidebar">
+        <div class="sidebar-header">
+            <span id="logo-text">MG <span>MANTOS</span></span>
+            <span class="material-icons-outlined" onclick="toggleSidebar()" style="cursor:pointer">close</span>
+        </div>
+        <nav class="sidebar-links">
+            <a href="index.html"><span class="material-icons-outlined">home</span> Início</a>
+            <a href="categoria.html?tag=nacional">Nacionais</a>
+            <a href="categoria.html?tag=europeus">Europeus</a>
+            <a href="categoria.html?tag=feminina">Femininas</a>
+            <a href="categoria.html?tag=selecoes">Seleções</a>
+            <a href="categoria.html?tag=retro">Retrô</a>
+        </nav>
+    </div>
+
+    <div id="overlay" class="overlay" onclick="toggleSidebar()"></div>
+
+    <header>
+        <div class="container header-main">
+            <div class="logo-area">
+                <button class="menu-btn" onclick="toggleSidebar()" aria-label="Abrir Menu">
+                    <span class="material-icons-outlined">menu</span>
+                </button>
+                <a href="index.html" class="logo">
+                    <img src="img/front-page/logo.png" width="45" height="45" alt="MG Mantos">
+                    <span id="logo-text">MG <span>MANTOS</span></span>
+                </a>
+            </div>
+
+            <div class="search-bar" style="position: relative;">
+                <input type="text" id="inputBusca" placeholder="Buscar camisas..." autocomplete="off">
+                <span class="material-icons-outlined search-icon">search</span>
+
+                <div id="caixaResultados" class="search-results-box" style="display: none;"></div>
+            </div>
+
+            <div class="header-actions">
+                <div class="action-item" onclick="toggleTheme()" title="Mudar Tema">
+                    <span class="material-icons-outlined" id="theme-icon">dark_mode</span>
+                </div>
+                <div class="action-item" onclick="openCartModal(false)" style="cursor: pointer; position: relative;">
+                    <span class="material-icons-outlined">shopping_bag</span>
+                    <span class="cart-count-badge" style="display: none;">0</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="slider-container">
+            <div class="slider">
+                <a href="categoria.html?tag=lancamento" class="slide fade">
+                    <img src="./img/front-page/banner1.webp" alt="Bem Vindo" fetchpriority="high" width="1200"
+                        height="400" style="width: 100%; height: auto;">
+                </a>
+
+                <a href="#" class="slide fade">
+                    <img src="./img/front-page/banner2.webp" alt="Copa do Mundo" loading="lazy" width="1200"
+                        height="400">
+                </a>
+
+                <a href="categoria.html?tag=lancamento" class="slide fade">
+                    <img src="./img/front-page/banner3.webp" alt="Lançamento" loading="lazy" width="1200" height="400">
+                </a>
+                <a href="#" class="slide fade">
+                    <img src="./img/front-page/banner4.webp" alt="Frete" loading="lazy" width="1200" height="400">
+                </a>
+
+            </div>
+
+            <button class="prev-hero" onclick="plusSlides(-1)" aria-label="Banner Anterior">&#10094;</button>
+            <button class="next-hero" onclick="plusSlides(1)" aria-label="Próximo Banner">&#10095;</button>
+        </section>
+
+        <div class="container main-content">
+
+            <section class="categories-grid">
+                <a href="categoria.html?tag=nacional" class="cat-card">
+                    <img src="./img/front-page/nacional.webp" alt="Nacionais" loading="lazy" width="300" height="300">
+                    <div class="cat-label">NACIONAIS</div>
+                </a>
+                <a href="categoria.html?tag=europeus" class="cat-card">
+                    <img src="./img/front-page/europeu.jpg" alt="Europeus" loading="lazy" width="300" height="300">
+                    <div class="cat-label">EUROPEUS</div>
+                </a>
+                <a href="categoria.html?tag=selecoes" class="cat-card">
+                    <img src="./img/front-page/selecoess.avif" alt="Seleções" loading="lazy" width="300" height="300">
+                    <div class="cat-label">SELEÇÕES</div>
+                </a>
+            </section>
+
+            <section class="section-block">
+                <div class="section-header">
+                    <h2 class="section-title">Os Mais Vendidos</h2>
+                    <a href="categoria.html?tag=destaque" class="section-link">VER TODOS</a>
+                </div>
+                <div class="carousel-wrapper">
+                    <button class="carousel-btn btn-left"
+                        onclick="scrollCarousel('grid-destaques', -1)">&#10094;</button>
+                    <div class="carousel-track" id="grid-destaques"></div>
+                    <button class="carousel-btn btn-right"
+                        onclick="scrollCarousel('grid-destaques', 1)">&#10095;</button>
+                </div>
+            </section>
+
+            <section class="categories-grid">
+                <a href="categoria.html?tag=lancamento" class="cat-card">
+                    <img src="./img/front-page/lancamento.webp" alt="Lançamentos" loading="lazy">
+                    <div class="cat-label">LANÇAMENTOS</div>
+                </a>
+                <a href="categoria.html?tag=feminina" class="cat-card">
+                    <img src="./img/front-page/fem-marta.jpg" alt="Femininas" loading="lazy">
+                    <div class="cat-label">FEMININAS</div>
+                </a>
+                <a href="categoria.html?tag=internacional" class="cat-card">
+                    <img src="./img/front-page/restodomundo.avif" alt="Resto do Mundo" loading="lazy">
+                    <div class="cat-label">RESTO DO MUNDO</div>
+                </a>
+            </section>
+
+            <section class="section-block">
+                <div class="section-header">
+                    <h2 class="section-title">Lançamentos 26/27</h2>
+                    <a href="categoria.html?tag=lancamento" class="section-link">VER TODOS</a>
+                </div>
+                <div class="carousel-wrapper">
+                    <button class="carousel-btn btn-left"
+                        onclick="scrollCarousel('grid-lancamentos', -1)">&#10094;</button>
+                    <div class="carousel-track" id="grid-lancamentos"></div>
+                    <button class="carousel-btn btn-right"
+                        onclick="scrollCarousel('grid-lancamentos', 1)">&#10095;</button>
+                </div>
+            </section>
+
+        </div>
+
+        <div id="cart-modal-overlay" class="modal-overlay" onclick="closeCartModal()"></div>
+
+        <div id="cart-modal" class="modal-box">
+            <div class="modal-header">
+                <h3 id="modal-title">Seu Carrinho</h3>
+                <span class="close-modal" onclick="closeCartModal()">&times;</span>
+            </div>
+            <div class="modal-body" id="modal-cart-items">
+            </div>
+            <div class="modal-footer">
+                <div class="modal-total-row">
+                    <span>Total:</span>
+                    <span id="modal-total-price">R$ 0,00</span>
+                </div>
+                <div class="modal-buttons">
+                    <button class="btn-continue" onclick="closeCartModal()">Continuar Comprando</button>
+                    <button class="btn-finalize" onclick="finalizeOrder()">Finalizar no WhatsApp</button>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p class="copyright">&copy; 2026 MG Mantos. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="js/config.js" defer></script>
+    <script src="js/main.js" defer></script>
+</body>
+
+</html>

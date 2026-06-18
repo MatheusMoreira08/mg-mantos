@@ -1,5 +1,10 @@
 // js/main.js - Ponto de entrada da aplicação
 
+const _supabase = supabase.createClient(
+  'https://vwqsryyowsjexuryeyji.supabase.co',
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ3cXNyeXlvd3NqZXh1cnlsZXlqaSIsInJvbGUiOiJhbm9uIiwiaWF0IjoxNzgxNzU0MTU1LCJleHAiOjIwOTczMzAxNTV9.3ts1GBqCIstbEoa2NSdPHWVxipUgCF2BHXw8kT1Zjao' // sua anon key completa
+)
+
 let _products = [];
 let _fuseInstance = null;
 

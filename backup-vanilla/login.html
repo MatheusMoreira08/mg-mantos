@@ -1,0 +1,25 @@
+<form id="form-login">
+  <input type="email" id="email" placeholder="Seu e-mail" required />
+  <input type="password" id="senha" placeholder="Sua senha" required />
+  <button type="submit">Entrar</button>
+  <p id="erro" style="color:red;display:none"></p>
+</form>
+
+<script>
+document.getElementById('form-login').addEventListener('submit', async (e) => {
+  e.preventDefault()
+  const email = document.getElementById('email').value
+  const senha = document.getElementById('senha').value
+
+  const { data, error } = await _supabase.auth.signInWithPassword({ email, password: senha })
+
+  if (error) {
+    document.getElementById('erro').textContent = 'E-mail ou senha inválidos.'
+    document.getElementById('erro').style.display = 'block'
+    return
+  }
+
+  // Login ok → redireciona para área do cliente
+  window.location.href = '/minha-conta.html'
+})
+</script>
