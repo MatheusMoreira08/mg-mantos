@@ -10,10 +10,10 @@ export default function Home() {
 
   // Lógica do Carrossel de Banners
   const banners = [
-    '/img/banner1.webp', 
-    '/img/banner2.webp', 
-    '/img/banner3.webp', 
-    '/img/banner4.webp'
+    '/img/front-page/banner1.webp', 
+    '/img/front-page/banner2.webp', 
+    '/img/front-page/banner3.webp', 
+    '/img/front-page/banner4.webp'
   ];
   const [bannerAtual, setBannerAtual] = useState(0);
 
