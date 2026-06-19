@@ -1,169 +1,634 @@
-import { useState, useEffect, useContext } from 'react';
-import { Link } from 'react-router-dom';
-import { supabase } from '../services/supabase';
-import { CarrinhoContext } from '../context/CarrinhoContext';
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { supabase } from "../services/supabase";
+import ProdutoCard from "../components/ProdutoCard";
+import BannerCarousel from "../components/BannerCarousel";
 
 export default function Home() {
   const [produtos, setProdutos] = useState([]);
-  const [carregando, setCarregando] = useState(true);
-  const { carrinho } = useContext(CarrinhoContext);
+  const [abaPrincipal, setAbaPrincipal] = useState("Lançamentos");
+  const [ligaAtiva, setLigaAtiva] = useState("La Liga");
 
-  // Lógica do Carrossel de Banners
-  const banners = [
-    '/img/front-page/banner1.webp', 
-    '/img/front-page/banner2.webp', 
-    '/img/front-page/banner3.webp', 
-    '/img/front-page/banner4.webp'
+  const meusBanners = [
+    "/img/front-page/banner1.webp",
+    "/img/front-page/banner2.webp",
+    "/img/front-page/banner3.webp",
+    "/img/front-page/banner4.webp",
   ];
-  const [bannerAtual, setBannerAtual] = useState(0);
 
-  // Efeito que troca o banner a cada 4 segundos
+  const blocosCategorias = [
+    {
+      nome: "NACIONAIS",
+      imagem: "/img/front-page/nacional.webp",
+      link: "/categoria/brasileirao",
+    },
+    {
+      nome: "EUROPEUS",
+      imagem: "/img/front-page/europeu.jpg",
+      link: "/categoria/times-internacionais",
+    },
+    {
+      nome: "SELEÇÕES",
+      imagem: "/img/front-page/selecoess.avif",
+      link: "/categoria/selecoes",
+    },
+    {
+      nome: "LANÇAMENTOS",
+      imagem: "/img/front-page/lancamento.webp",
+      link: "/categoria/lancamentos",
+    },
+    {
+      nome: "FEMININAS",
+      imagem: "/img/front-page/fem-marta.jpg",
+      link: "/categoria/feminina",
+    },
+    {
+      nome: "RESTO DO MUNDO",
+      imagem: "/img/front-page/restodomundo.avif",
+      link: "/categoria/resto-do-mundo",
+    },
+  ];
+
+  const escudosTimesBR = [
+    {
+      nome: "Flamengo",
+      imagem:
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Flamengo_braz_logo.svg/120px-Flamengo_braz_logo.svg.png",
+      link: "/categoria/flamengo",
+    },
+    {
+      nome: "São Paulo",
+      imagem:
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/S%C3%A3o_Paulo_Futebol_Clube.svg/120px-S%C3%A3o_Paulo_Futebol_Clube.svg.png",
+      link: "/categoria/sao-paulo",
+    },
+    {
+      nome: "Corinthians",
+      imagem:
+        "https://upload.wikimedia.org/wikipedia/pt/thumb/b/b4/Corinthians_simbolo.png/120px-Corinthians_simbolo.png",
+      link: "/categoria/corinthians",
+    },
+    {
+      nome: "Palmeiras",
+      imagem:
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Palmeiras_logo.svg/120px-Palmeiras_logo.svg.png",
+      link: "/categoria/palmeiras",
+    },
+    {
+      nome: "Vasco",
+      imagem:
+        "https://upload.wikimedia.org/wikipedia/pt/thumb/a/ac/CRVascodaGama.png/120px-CRVascodaGama.png",
+      link: "/categoria/vasco",
+    },
+    {
+      nome: "Cruzeiro",
+      imagem:
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Cruzeiro_Esporte_Clube_%28logo%29.svg/120px-Cruzeiro_Esporte_Clube_%28logo%29.svg.png",
+      link: "/categoria/cruzeiro",
+    },
+    {
+      nome: "Atlético MG",
+      imagem:
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Atletico_mineiro_galo.png/120px-Atletico_mineiro_galo.png",
+      link: "/categoria/atletico-mg",
+    },
+    {
+      nome: "Grêmio",
+      imagem:
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Gr%C3%AAmio_FBPA_logo.svg/120px-Gr%C3%AAmio_FBPA_logo.svg.png",
+      link: "/categoria/gremio",
+    },
+  ];
+
+  const timesPorLiga = {
+    "La Liga": [
+      {
+        nome: "Real Madrid",
+        imagem:
+          "https://upload.wikimedia.org/wikipedia/pt/thumb/9/98/Real_Madrid.png/120px-Real_Madrid.png",
+        link: "/categoria/real-madrid",
+      },
+      {
+        nome: "Barcelona",
+        imagem:
+          "https://upload.wikimedia.org/wikipedia/pt/thumb/4/43/FCBarcelona.svg/120px-FCBarcelona.svg.png",
+        link: "/categoria/barcelona",
+      },
+      {
+        nome: "Atlético de Madrid",
+        imagem:
+          "https://upload.wikimedia.org/wikipedia/pt/thumb/c/c1/Atletico_Madrid_logo.svg/120px-Atletico_Madrid_logo.svg.png",
+        link: "/categoria/atletico-madrid",
+      },
+    ],
+    "Premier League": [
+      {
+        nome: "Manchester City",
+        imagem:
+          "https://upload.wikimedia.org/wikipedia/pt/thumb/0/02/Manchester_City_Football_Club.png/120px-Manchester_City_Football_Club.png",
+        link: "/categoria/manchester-city",
+      },
+      {
+        nome: "Arsenal",
+        imagem:
+          "https://upload.wikimedia.org/wikipedia/pt/thumb/5/53/Arsenal_FC.svg/120px-Arsenal_FC.svg.png",
+        link: "/categoria/arsenal",
+      },
+      {
+        nome: "Liverpool",
+        imagem:
+          "https://upload.wikimedia.org/wikipedia/pt/thumb/0/0c/Liverpool_FC.svg/120px-Liverpool_FC.svg.png",
+        link: "/categoria/liverpool",
+      },
+      {
+        nome: "Chelsea",
+        imagem:
+          "https://upload.wikimedia.org/wikipedia/pt/thumb/c/cc/Chelsea_FC.svg/120px-Chelsea_FC.svg.png",
+        link: "/categoria/chelsea",
+      },
+      {
+        nome: "Manchester United",
+        imagem:
+          "https://upload.wikimedia.org/wikipedia/pt/thumb/0/05/Manchester_United_FC_crest.svg/120px-Manchester_United_FC_crest.svg.png",
+        link: "/categoria/manchester-united",
+      },
+    ],
+    "Serie A": [
+      {
+        nome: "Juventus",
+        imagem:
+          "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Juventus_FC_2017_icon_%28black%29.svg/120px-Juventus_FC_2017_icon_%28black%29.svg.png",
+        link: "/categoria/juventus",
+      },
+      {
+        nome: "Milan",
+        imagem:
+          "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Logo_of_AC_Milan.svg/120px-Logo_of_AC_Milan.svg.png",
+        link: "/categoria/milan",
+      },
+      {
+        nome: "Inter de Milão",
+        imagem:
+          "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/FC_Internazionale_Milano_2021.svg/120px-FC_Internazionale_Milano_2021.svg.png",
+        link: "/categoria/inter-de-milao",
+      },
+    ],
+    Bundesliga: [
+      {
+        nome: "Bayern Munique",
+        imagem:
+          "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/FC_Bayern_M%C3%BCnchen_logo_%282017%29.svg/120px-FC_Bayern_M%C3%BCnchen_logo_%282017%29.svg.png",
+        link: "/categoria/bayern-munique",
+      },
+      {
+        nome: "Borussia Dortmund",
+        imagem:
+          "https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Borussia_Dortmund_logo.svg/120px-Borussia_Dortmund_logo.svg.png",
+        link: "/categoria/borussia-dortmund",
+      },
+      {
+        nome: "Bayer Leverkusen",
+        imagem:
+          "https://upload.wikimedia.org/wikipedia/pt/thumb/5/5f/Bayer_04_Leverkusen_logo.svg/120px-Bayer_04_Leverkusen_logo.svg.png",
+        link: "/categoria/bayer-leverkusen",
+      },
+    ],
+    "Ligue 1": [
+      {
+        nome: "PSG",
+        imagem:
+          "https://upload.wikimedia.org/wikipedia/pt/thumb/d/d4/Paris_Saint-Germain.svg/120px-Paris_Saint-Germain.svg.png",
+        link: "/categoria/psg",
+      },
+      {
+        nome: "Olympique Marseille",
+        imagem:
+          "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/Olympique_Marseille_logo.svg/120px-Olympique_Marseille_logo.svg.png",
+        link: "/categoria/olympique",
+      },
+    ],
+  };
+
   useEffect(() => {
-    const intervalo = setInterval(() => {
-      setBannerAtual((prev) => (prev + 1) % banners.length);
-    }, 4000);
-    return () => clearInterval(intervalo); // Limpa o intervalo se sair da página
-  }, []);
-
-  // Efeito que carrega os produtos
-  useEffect(() => {
-    const buscarProdutos = async () => {
-      try {
-        const { data, error } = await supabase
-          .from('products')
-          .select('*')
-          .order('name', { ascending: true });
-
-        if (error) throw error;
-        setProdutos(data);
-      } catch (erro) {
-        console.error('Erro ao carregar produtos:', erro.message);
-      } finally {
-        setCarregando(false);
-      }
+    const fetchProdutos = async () => {
+      const { data } = await supabase.from("products").select("*").limit(15);
+      if (data) setProdutos(data);
     };
-
-    buscarProdutos();
+    fetchProdutos();
   }, []);
 
   return (
-    <div style={{ backgroundColor: '#0a0a0a', color: '#fff', minHeight: '100vh' }}>
-      
-      {/* HEADER */}
-      <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '15px 40px', backgroundColor: '#050505', borderBottom: '1px solid #1a1a1a', position: 'sticky', top: 0, zIndex: 100 }}>
-        <Link to="/" style={{ textDecoration: 'none' }}>
-          <h1 style={{ margin: 0, fontSize: '26px', color: '#fff', fontWeight: '900', letterSpacing: '1px' }}>
-            MG <span style={{ color: '#6a0dad' }}>MANTOS</span>
-          </h1>
-        </Link>
+    <div
+      style={{
+        backgroundColor: "#ffffff",
+        width: "100%",
+        overflowX: "hidden",
+        fontFamily: "sans-serif",
+      }}
+    >
+      <BannerCarousel imagens={meusBanners} />
 
-        <div style={{ flex: '1', maxWidth: '500px', margin: '0 20px' }}>
-          <div style={{ display: 'flex', backgroundColor: '#141414', borderRadius: '25px', padding: '10px 20px', border: '1px solid #222' }}>
-            <input 
-              type="text" 
-              placeholder="Buscar camisas..." 
-              style={{ border: 'none', backgroundColor: 'transparent', color: '#fff', width: '100%', outline: 'none', fontSize: '15px' }} 
-            />
-            <span style={{ cursor: 'pointer', color: '#888' }}>🔍</span>
-          </div>
+      <div
+        style={{ maxWidth: "1250px", margin: "50px auto", padding: "0 20px" }}
+      >
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            gap: "30px",
+            marginBottom: "30px",
+            fontWeight: "bold",
+            fontSize: "14px",
+            textTransform: "uppercase",
+          }}
+        >
+          <span
+            onClick={() => setAbaPrincipal("Lançamentos")}
+            style={{
+              color: abaPrincipal === "Lançamentos" ? "#000" : "#999",
+              borderBottom:
+                abaPrincipal === "Lançamentos"
+                  ? "2px solid rgb(106, 13, 173)"
+                  : "none",
+              paddingBottom: "5px",
+              cursor: "pointer",
+              transition: "0.2s",
+            }}
+          >
+            Lançamentos
+          </span>
+          <span
+            onClick={() => setAbaPrincipal("Mais Vendidos")}
+            style={{
+              color: abaPrincipal === "Mais Vendidos" ? "#000" : "#999",
+              borderBottom:
+                abaPrincipal === "Mais Vendidos"
+                  ? "2px solid rgb(106, 13, 173)"
+                  : "none",
+              paddingBottom: "5px",
+              cursor: "pointer",
+              transition: "0.2s",
+            }}
+          >
+            Mais Vendidos
+          </span>
         </div>
-
-        <nav style={{ display: 'flex', gap: '25px', alignItems: 'center' }}>
-          <Link to="/minha-conta" style={{ color: '#fff', textDecoration: 'none', fontSize: '14px', fontWeight: 'bold', transition: 'color 0.3s' }}>MINHA CONTA</Link>
-          
-          <Link to="/carrinho" style={{ position: 'relative', display: 'flex', alignItems: 'center', gap: '5px', textDecoration: 'none', color: '#fff' }}>
-            <span style={{ fontSize: '22px' }}>🛒</span>
-            {carrinho.length > 0 && (
-              <span style={{ backgroundColor: '#6a0dad', color: '#fff', borderRadius: '50%', padding: '2px 7px', fontSize: '12px', fontWeight: 'bold', position: 'absolute', top: '-8px', right: '-12px' }}>
-                {carrinho.reduce((acc, item) => acc + item.quantidade, 0)}
-              </span>
-            )}
-          </Link>
-        </nav>
-      </header>
-
-      {/* CARROSSEL DE BANNERS DINÂMICO */}
-      <section style={{ width: '100%', maxHeight: '450px', overflow: 'hidden', backgroundColor: '#111', position: 'relative' }}>
-        <img 
-          src={banners[bannerAtual]} 
-          alt={`Banner ${bannerAtual + 1}`} 
-          style={{ width: '100%', height: '100%', objectFit: 'cover', minHeight: '300px', transition: 'opacity 0.5s ease-in-out' }}
-        />
-        
-        {/* Bolinhas indicadoras do carrossel */}
-        <div style={{ position: 'absolute', bottom: '20px', left: '50%', transform: 'translateX(-50%)', display: 'flex', gap: '10px' }}>
-          {banners.map((_, index) => (
-            <div 
-              key={index}
-              onClick={() => setBannerAtual(index)}
-              style={{ 
-                width: '12px', height: '12px', borderRadius: '50%', cursor: 'pointer', transition: '0.3s',
-                backgroundColor: index === bannerAtual ? '#6a0dad' : 'rgba(255, 255, 255, 0.5)',
-                boxShadow: index === bannerAtual ? '0 0 10px #6a0dad' : 'none'
-              }}
-            />
-          ))}
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+            gap: "20px",
+          }}
+        >
+          {abaPrincipal === "Lançamentos"
+            ? produtos
+                ?.slice(0, 5)
+                .map((p) => <ProdutoCard key={p.id} produto={p} />)
+            : produtos
+                ?.slice(5, 10)
+                .map((p) => <ProdutoCard key={p.id} produto={p} />)}
         </div>
-      </section>
+      </div>
 
-      {/* VITRINE DE PRODUTOS */}
-      <main style={{ padding: '50px 40px', maxWidth: '1400px', margin: '0 auto' }}>
-        
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', borderBottom: '2px solid #222', paddingBottom: '15px', marginBottom: '40px' }}>
-          <h2 style={{ margin: 0, fontSize: '28px', textTransform: 'uppercase', fontWeight: '900', letterSpacing: '1px' }}>
-            OS MAIS VENDIDOS
-          </h2>
-          <Link to="/" style={{ color: '#6a0dad', textDecoration: 'none', fontWeight: 'bold', fontSize: '14px' }}>VER TODOS</Link>
-        </div>
-
-        {carregando ? (
-          <div style={{ textAlign: 'center', padding: '50px' }}>
-            <h3 style={{ color: '#aaa' }}>Carregando os melhores mantos...</h3>
-          </div>
-        ) : (
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: '30px' }}>
-            {produtos.map((produto) => (
-              <div key={produto.id} style={{ backgroundColor: '#141414', borderRadius: '8px', overflow: 'hidden', border: '1px solid #222', position: 'relative', transition: 'transform 0.2s', cursor: 'pointer' }} onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-5px)'} onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}>
-                
-                {produto.badge && (
-                  <span style={{ position: 'absolute', top: '15px', left: '15px', backgroundColor: '#6a0dad', color: '#fff', padding: '4px 10px', borderRadius: '4px', fontSize: '11px', fontWeight: 'bold', textTransform: 'uppercase', zIndex: 10 }}>
-                    {produto.badge}
-                  </span>
-                )}
-
-                <div style={{ backgroundColor: '#0a0a0a', padding: '20px', height: '280px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                  <img src={`/${produto.image}`} alt={produto.name} style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }} />
+      <div
+        style={{
+          textAlign: "center",
+          margin: "60px 0",
+          backgroundColor: "#fafafa",
+          padding: "40px 0",
+        }}
+      >
+        <p
+          style={{
+            fontSize: "12px",
+            letterSpacing: "2px",
+            color: "#666",
+            textTransform: "uppercase",
+            marginBottom: "10px",
+          }}
+        >
+          Separamos para você!
+        </p>
+        <h2
+          style={{
+            fontSize: "28px",
+            fontWeight: "900",
+            margin: "0 0 40px 0",
+            color: "#000",
+          }}
+        >
+          DIVERSIFIQUE SEU PEDIDO
+        </h2>
+        <div
+          style={{ maxWidth: "1250px", margin: "0 auto", padding: "0 20px" }}
+        >
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(350px, 1fr))",
+              gap: "20px",
+            }}
+          >
+            {blocosCategorias.slice(0, 3).map((cat, index) => (
+              <Link
+                key={index}
+                to={cat.link}
+                style={{
+                  display: "block",
+                  position: "relative",
+                  borderRadius: "8px",
+                  overflow: "hidden",
+                  textDecoration: "none",
+                }}
+              >
+                <img
+                  src={cat.imagem}
+                  alt={cat.nome}
+                  style={{
+                    width: "100%",
+                    height: "250px",
+                    objectFit: "cover",
+                    display: "block",
+                    transition: "transform 0.3s",
+                  }}
+                  onMouseEnter={(e) =>
+                    (e.currentTarget.style.transform = "scale(1.05)")
+                  }
+                  onMouseLeave={(e) =>
+                    (e.currentTarget.style.transform = "scale(1)")
+                  }
+                />
+                <div
+                  style={{
+                    position: "absolute",
+                    bottom: "15px",
+                    left: "50%",
+                    transform: "translateX(-50%)",
+                    backgroundColor: "#fff",
+                    color: "#000",
+                    padding: "10px 30px",
+                    fontWeight: "900",
+                    fontSize: "14px",
+                    textTransform: "uppercase",
+                    borderRadius: "4px",
+                    boxShadow: "0 4px 6px rgba(0,0,0,0.1)",
+                  }}
+                >
+                  {cat.nome}
                 </div>
-                
-                <div style={{ padding: '20px' }}>
-                  <p style={{ color: '#777', fontSize: '12px', margin: '0 0 5px 0', textTransform: 'uppercase', fontWeight: 'bold' }}>Importada Tailandesa 1:1</p>
-                  <h3 style={{ fontSize: '16px', margin: '0 0 15px 0', minHeight: '44px', lineHeight: '1.4', fontWeight: '600' }}>
-                    {produto.name}
-                  </h3>
-                  
-                  <p style={{ color: '#fff', fontWeight: 'bold', fontSize: '24px', margin: '0 0 5px 0' }}>
-                    R$ {Number(produto.price).toFixed(2).replace('.', ',')}
-                  </p>
-                  <p style={{ color: '#aaa', fontSize: '12px', margin: '0 0 20px 0' }}>em até 3x sem juros</p>
-                  
-                  <Link 
-                    to={`/produto/${produto.id}`}
-                    style={{ display: 'block', backgroundColor: '#fff', color: '#000', textDecoration: 'none', padding: '12px', borderRadius: '4px', fontWeight: 'bold', textAlign: 'center', textTransform: 'uppercase', fontSize: '14px', transition: 'background 0.3s' }}
-                  >
-                    Ver Detalhes
-                  </Link>
-                </div>
-              </div>
+              </Link>
             ))}
           </div>
-        )}
-      </main>
+        </div>
+      </div>
 
-      {/* FOOTER */}
-      <footer style={{ backgroundColor: '#050505', padding: '40px', textAlign: 'center', borderTop: '1px solid #1a1a1a', marginTop: '40px' }}>
-        <h2 style={{ margin: '0 0 10px 0', color: '#fff' }}>MG <span style={{ color: '#6a0dad' }}>MANTOS</span></h2>
-        <p style={{ color: '#666', fontSize: '14px' }}>A Casa do Torcedor. Todos os direitos reservados.</p>
-      </footer>
+      <div
+        style={{
+          maxWidth: "1250px",
+          margin: "50px auto",
+          padding: "0 20px",
+          textAlign: "center",
+        }}
+      >
+        <h3
+          style={{
+            fontSize: "16px",
+            textTransform: "uppercase",
+            fontWeight: "bold",
+            marginBottom: "30px",
+            color: "#333",
+          }}
+        >
+          BRASILEIRÃO
+        </h3>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            gap: "30px",
+            flexWrap: "wrap",
+          }}
+        >
+          {escudosTimesBR.map((time, index) => (
+            // Adicionado textDecoration none e color transparent para não ficar com link azul feio se a imagem quebrar
+            <Link
+              key={index}
+              to={time.link}
+              style={{
+                transition: "transform 0.2s",
+                textDecoration: "none",
+                color: "transparent",
+              }}
+              onMouseEnter={(e) =>
+                (e.currentTarget.style.transform = "scale(1.1)")
+              }
+              onMouseLeave={(e) =>
+                (e.currentTarget.style.transform = "scale(1)")
+              }
+            >
+              <img
+                src={time.imagem}
+                alt={time.nome}
+                style={{ width: "60px", height: "60px", objectFit: "contain" }}
+                title={time.nome}
+              />
+            </Link>
+          ))}
+        </div>
+      </div>
+
+      <div
+        style={{
+          maxWidth: "1250px",
+          margin: "30px auto 50px",
+          padding: "0 20px",
+        }}
+      >
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+            gap: "20px",
+          }}
+        >
+          {produtos?.slice(5, 10).map((produto) => (
+            <ProdutoCard key={produto.id} produto={produto} />
+          ))}
+        </div>
+      </div>
+
+      <div
+        style={{ maxWidth: "1250px", margin: "60px auto", padding: "0 20px" }}
+      >
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(350px, 1fr))",
+            gap: "20px",
+          }}
+        >
+          {blocosCategorias.slice(3, 6).map((cat, index) => (
+            <Link
+              key={index}
+              to={cat.link}
+              style={{
+                display: "block",
+                position: "relative",
+                borderRadius: "8px",
+                overflow: "hidden",
+                textDecoration: "none",
+              }}
+            >
+              <img
+                src={cat.imagem}
+                alt={cat.nome}
+                style={{
+                  width: "100%",
+                  height: "250px",
+                  objectFit: "cover",
+                  display: "block",
+                  transition: "transform 0.3s",
+                }}
+                onMouseEnter={(e) =>
+                  (e.currentTarget.style.transform = "scale(1.05)")
+                }
+                onMouseLeave={(e) =>
+                  (e.currentTarget.style.transform = "scale(1)")
+                }
+              />
+              <div
+                style={{
+                  position: "absolute",
+                  bottom: "15px",
+                  left: "50%",
+                  transform: "translateX(-50%)",
+                  backgroundColor: "#fff",
+                  color: "#000",
+                  padding: "10px 30px",
+                  fontWeight: "900",
+                  fontSize: "14px",
+                  textTransform: "uppercase",
+                  borderRadius: "4px",
+                  boxShadow: "0 4px 6px rgba(0,0,0,0.1)",
+                }}
+              >
+                {cat.nome}
+              </div>
+            </Link>
+          ))}
+        </div>
+      </div>
+
+      <div style={{ textAlign: "center", margin: "80px 0 40px" }}>
+        <p
+          style={{
+            fontSize: "12px",
+            letterSpacing: "2px",
+            color: "#666",
+            textTransform: "uppercase",
+            marginBottom: "10px",
+          }}
+        >
+          As principais ligas do mundo
+        </p>
+        <h2
+          style={{
+            fontSize: "28px",
+            fontWeight: "900",
+            margin: "0 0 30px 0",
+            color: "#000",
+          }}
+        >
+          COMPRE POR LIGA 🏆
+        </h2>
+
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            gap: "20px",
+            marginBottom: "30px",
+            fontWeight: "bold",
+            fontSize: "13px",
+            textTransform: "uppercase",
+            flexWrap: "wrap",
+            padding: "0 20px",
+          }}
+        >
+          {Object.keys(timesPorLiga).map((liga) => (
+            <span
+              key={liga}
+              onClick={() => setLigaAtiva(liga)}
+              style={{
+                color: ligaAtiva === liga ? "#000" : "#999",
+                borderBottom:
+                  ligaAtiva === liga ? "2px solid rgb(106, 13, 173)" : "none",
+                paddingBottom: "5px",
+                cursor: "pointer",
+                transition: "color 0.3s",
+              }}
+            >
+              {liga}
+            </span>
+          ))}
+        </div>
+
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            gap: "30px",
+            flexWrap: "wrap",
+            marginBottom: "40px",
+            minHeight: "60px",
+          }}
+        >
+          {timesPorLiga[ligaAtiva].map((time, index) => (
+            <Link
+              key={index}
+              to={time.link}
+              style={{
+                transition: "transform 0.2s",
+                textDecoration: "none",
+                color: "transparent",
+              }}
+              onMouseEnter={(e) =>
+                (e.currentTarget.style.transform = "scale(1.1)")
+              }
+              onMouseLeave={(e) =>
+                (e.currentTarget.style.transform = "scale(1)")
+              }
+            >
+              <img
+                src={time.imagem}
+                alt={time.nome}
+                style={{ width: "50px", height: "50px", objectFit: "contain" }}
+                title={time.nome}
+              />
+            </Link>
+          ))}
+        </div>
+
+        <div
+          style={{ maxWidth: "1250px", margin: "0 auto", padding: "0 20px" }}
+        >
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+              gap: "20px",
+            }}
+          >
+            {produtos?.slice(10, 15).map((produto) => (
+              <ProdutoCard key={produto.id} produto={produto} />
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Retiramos a faixa de Comunidade e os banners vazios daqui para limpar o design */}
     </div>
   );
 }

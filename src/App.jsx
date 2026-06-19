@@ -1,23 +1,24 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Home from './pages/Home';
-import Login from './pages/Login';
-import MinhaConta from './pages/MinhaConta';
-import Produto from './pages/Produto'; 
-import Carrinho from './pages/Carrinho'; // <-- Importamos a página do carrinho aqui!
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Header from "./components/Header";
+import Footer from "./components/Footer"; // Importe o Footer
+import Home from "./pages/Home";
+import Produto from "./pages/Produto";
+import Categoria from "./pages/Categoria";
+import Carrinho from "./pages/Carrinho";
+import MinhaConta from "./pages/MinhaConta";
 
-function App() {
+export default function App() {
   return (
-    <BrowserRouter>
+    <Router>
+      <Header />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/produto/:id" element={<Produto />} /> 
-        <Route path="/login" element={<Login />} /> 
-        <Route path="/minha-conta" element={<MinhaConta />} /> 
-        {/* Trocamos o h1 pelo componente Carrinho */}
-        <Route path="/carrinho" element={<Carrinho />} /> 
+        <Route path="/produto/:id" element={<Produto />} />
+        <Route path="/categoria/:slug" element={<Categoria />} />
+        <Route path="/carrinho" element={<Carrinho />} />
+        <Route path="/minha-conta" element={<MinhaConta />} />
       </Routes>
-    </BrowserRouter>
+      <Footer /> {/* O Footer entra aqui, fechando o site! */}
+    </Router>
   );
 }
-
-export default App;
