@@ -13,37 +13,96 @@ export default function Carrinho() {
   const [processando, setProcessando] = useState(false);
   const navigate = useNavigate();
 
-  // Verifica se o usuário tá logado e puxa os endereços dele
+  // Estados para o formulário de NOVO ENDEREÇO direto no carrinho
+  const [mostrarFormEndereco, setMostrarFormEndereco] = useState(false);
+  const [novoEndereco, setNovoEndereco] = useState({
+    cep: "",
+    rua: "",
+    numero: "",
+    bairro: "",
+    cidade: "",
+    estado: "",
+  });
+  const [salvandoEndereco, setSalvandoEndereco] = useState(false);
+
+  // Busca os endereços do cliente
+  const carregarEnderecos = async (userId) => {
+    const { data, error } = await supabase
+      .from("addresses")
+      .select("*")
+      .eq("user_id", userId);
+    if (error) console.error("Erro ao puxar endereços:", error);
+
+    if (data && data.length > 0) {
+      setEnderecos(data);
+      setEnderecoSelecionado(data[0].id);
+      setMostrarFormEndereco(false);
+    } else {
+      setMostrarFormEndereco(true); // Se não tem endereço, abre o formulário logo de cara!
+    }
+  };
+
   useEffect(() => {
-    const carregarDados = async () => {
+    const carregarDadosUsuario = async () => {
       const {
         data: { session },
       } = await supabase.auth.getSession();
       if (session) {
         setUsuario(session.user);
-        const { data: dataEnderecos } = await supabase
-          .from("addresses")
-          .select("*");
-        if (dataEnderecos && dataEnderecos.length > 0) {
-          setEnderecos(dataEnderecos);
-          setEnderecoSelecionado(dataEnderecos[0].id); // Seleciona o 1º endereço por padrão
-        }
+        carregarEnderecos(session.user.id);
       }
     };
-    carregarDados();
+    carregarDadosUsuario();
   }, []);
 
-  // A função que salva a compra no Supabase!
+  // Salva o endereço escrito no carrinho direto no banco de dados
+  const handleSalvarEndereco = async () => {
+    if (!novoEndereco.cep || !novoEndereco.rua || !novoEndereco.numero) {
+      return alert("Por favor, preencha pelo menos o CEP, Rua e Número.");
+    }
+
+    setSalvandoEndereco(true);
+    try {
+      const { error } = await supabase
+        .from("addresses")
+        .insert([
+          {
+            user_id: usuario.id,
+            cep: novoEndereco.cep,
+            rua: novoEndereco.rua,
+            numero: novoEndereco.numero,
+            bairro: novoEndereco.bairro,
+            cidade: novoEndereco.cidade,
+            estado: novoEndereco.estado,
+          },
+        ])
+        .select();
+
+      if (error) throw new Error(error.message);
+
+      alert("Endereço salvo com sucesso!");
+      setNovoEndereco({
+        cep: "",
+        rua: "",
+        numero: "",
+        bairro: "",
+        cidade: "",
+        estado: "",
+      });
+      carregarEnderecos(usuario.id); // Recarrega para mostrar o endereço salvo
+    } catch (error) {
+      alert(
+        "Erro ao salvar endereço: Certifique-se que a tabela 'addresses' tem as colunas corretas. Erro: " +
+          error.message,
+      );
+    } finally {
+      setSalvandoEndereco(false);
+    }
+  };
+
   const finalizarCompra = async () => {
     if (!usuario) {
-      alert("Você precisa fazer login para finalizar a compra!");
-      navigate("/minha-conta"); // Direciona para a página de conta que agora é o login
-      return;
-    }
-    if (enderecos.length === 0) {
-      alert(
-        "Você precisa cadastrar um endereço de entrega na página Minha Conta!",
-      );
+      alert("Você precisa iniciar sessão para finalizar a compra!");
       navigate("/minha-conta");
       return;
     }
@@ -65,9 +124,10 @@ export default function Carrinho() {
         .select()
         .single();
 
-      if (erroPedido) throw erroPedido;
+      if (erroPedido)
+        throw new Error("Erro na tabela orders: " + erroPedido.message);
 
-      // 2. Prepara os itens do carrinho para salvar no banco
+      // 2. Prepara os itens
       const itensDoPedido = carrinho.map((item) => ({
         order_id: pedido.id,
         product_id: item.id,
@@ -75,21 +135,19 @@ export default function Carrinho() {
         preco_unitario: item.price,
       }));
 
-      // 3. Salva os itens na tabela order_items
+      // 3. Salva os itens
       const { error: erroItens } = await supabase
         .from("order_items")
         .insert(itensDoPedido);
-      if (erroItens) throw erroItens;
+      if (erroItens)
+        throw new Error("Erro na tabela order_items: " + erroItens.message);
 
-      // Sucesso! Limpa o carrinho e avisa o cliente
       limparCarrinho();
-      alert(
-        "🎉 Compra realizada com sucesso! Obrigado por comprar na MG Mantos.",
-      );
-      navigate("/minha-conta"); // Manda de volta pra conta pra ele ver o pedido depois
+      alert("🎉 Pedido finalizado com sucesso! O seu manto está garantido.");
+      navigate("/minha-conta");
     } catch (error) {
       console.error("Erro ao finalizar:", error);
-      alert("Houve um erro ao processar seu pedido. Tente novamente.");
+      alert("ERRO: " + error.message);
     } finally {
       setProcessando(false);
     }
@@ -169,7 +227,7 @@ export default function Carrinho() {
           </div>
         ) : (
           <div style={{ display: "flex", flexWrap: "wrap", gap: "30px" }}>
-            {/* Lista de Produtos (Lado Esquerdo) */}
+            {/* ITENS DO CARRINHO */}
             <div style={{ flex: "2", minWidth: "300px" }}>
               {carrinho.map((item) => (
                 <div
@@ -214,8 +272,19 @@ export default function Carrinho() {
                         fontSize: "13px",
                       }}
                     >
-                      Qtd: {item.quantidade}
+                      Qtd: {item.quantidade} | Tam: {item.tamanho}
                     </p>
+                    {item.personalizacao !== "Sem personalização" && (
+                      <p
+                        style={{
+                          color: "#888",
+                          margin: "0 0 5px 0",
+                          fontSize: "12px",
+                        }}
+                      >
+                        Pers: {item.personalizacao}
+                      </p>
+                    )}
                     <p
                       style={{
                         color: "rgb(106, 13, 173)",
@@ -247,7 +316,7 @@ export default function Carrinho() {
               ))}
             </div>
 
-            {/* Resumo e Checkout (Lado Direito) */}
+            {/* RESUMO DO PEDIDO E ENDEREÇO */}
             <div
               style={{
                 flex: "1",
@@ -277,7 +346,7 @@ export default function Carrinho() {
                 style={{
                   display: "flex",
                   justifyContent: "space-between",
-                  marginBottom: "15px",
+                  marginBottom: "20px",
                   color: "#666",
                   fontWeight: "500",
                 }}
@@ -286,25 +355,259 @@ export default function Carrinho() {
                 <span>R$ {valorTotal.toFixed(2).replace(".", ",")}</span>
               </div>
 
-              {/* Seleção de Endereço */}
-              <div
-                style={{
-                  marginBottom: "20px",
-                  paddingBottom: "20px",
-                  borderBottom: "1px solid #eee",
-                }}
-              >
-                <p
+              {/* SESSÃO DE ENDEREÇO INTEGRADA */}
+              {!usuario ? (
+                <div
                   style={{
-                    color: "#555",
-                    marginBottom: "10px",
-                    fontSize: "13px",
-                    fontWeight: "bold",
+                    marginBottom: "20px",
+                    paddingBottom: "20px",
+                    borderBottom: "1px solid #eee",
+                    textAlign: "center",
                   }}
                 >
-                  Endereço de Entrega:
-                </p>
-                {enderecos.length > 0 ? (
+                  <p
+                    style={{
+                      color: "#ff4757",
+                      fontSize: "13px",
+                      fontWeight: "bold",
+                      marginBottom: "15px",
+                    }}
+                  >
+                    Inicie sessão para inserir o endereço de entrega.
+                  </p>
+                  <button
+                    onClick={() => navigate("/minha-conta")}
+                    style={{
+                      backgroundColor: "#000",
+                      color: "#fff",
+                      padding: "10px 20px",
+                      border: "none",
+                      borderRadius: "4px",
+                      cursor: "pointer",
+                      fontWeight: "bold",
+                      width: "100%",
+                    }}
+                  >
+                    FAZER LOGIN
+                  </button>
+                </div>
+              ) : mostrarFormEndereco ? (
+                <div
+                  style={{
+                    marginBottom: "20px",
+                    paddingBottom: "20px",
+                    borderBottom: "1px solid #eee",
+                  }}
+                >
+                  <p
+                    style={{
+                      color: "#000",
+                      marginBottom: "15px",
+                      fontSize: "13px",
+                      fontWeight: "900",
+                      textTransform: "uppercase",
+                    }}
+                  >
+                    📍 Adicionar Endereço de Entrega
+                  </p>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: "10px",
+                    }}
+                  >
+                    <input
+                      type="text"
+                      placeholder="CEP"
+                      value={novoEndereco.cep}
+                      onChange={(e) =>
+                        setNovoEndereco({
+                          ...novoEndereco,
+                          cep: e.target.value,
+                        })
+                      }
+                      style={{
+                        padding: "10px",
+                        border: "1px solid #ddd",
+                        borderRadius: "4px",
+                        fontSize: "13px",
+                        outline: "none",
+                      }}
+                    />
+                    <input
+                      type="text"
+                      placeholder="Rua / Morada"
+                      value={novoEndereco.rua}
+                      onChange={(e) =>
+                        setNovoEndereco({
+                          ...novoEndereco,
+                          rua: e.target.value,
+                        })
+                      }
+                      style={{
+                        padding: "10px",
+                        border: "1px solid #ddd",
+                        borderRadius: "4px",
+                        fontSize: "13px",
+                        outline: "none",
+                      }}
+                    />
+                    <div style={{ display: "flex", gap: "10px" }}>
+                      <input
+                        type="text"
+                        placeholder="Número"
+                        value={novoEndereco.numero}
+                        onChange={(e) =>
+                          setNovoEndereco({
+                            ...novoEndereco,
+                            numero: e.target.value,
+                          })
+                        }
+                        style={{
+                          flex: 1,
+                          padding: "10px",
+                          border: "1px solid #ddd",
+                          borderRadius: "4px",
+                          fontSize: "13px",
+                          outline: "none",
+                        }}
+                      />
+                      <input
+                        type="text"
+                        placeholder="Bairro"
+                        value={novoEndereco.bairro}
+                        onChange={(e) =>
+                          setNovoEndereco({
+                            ...novoEndereco,
+                            bairro: e.target.value,
+                          })
+                        }
+                        style={{
+                          flex: 2,
+                          padding: "10px",
+                          border: "1px solid #ddd",
+                          borderRadius: "4px",
+                          fontSize: "13px",
+                          outline: "none",
+                        }}
+                      />
+                    </div>
+                    <div style={{ display: "flex", gap: "10px" }}>
+                      <input
+                        type="text"
+                        placeholder="Cidade"
+                        value={novoEndereco.cidade}
+                        onChange={(e) =>
+                          setNovoEndereco({
+                            ...novoEndereco,
+                            cidade: e.target.value,
+                          })
+                        }
+                        style={{
+                          flex: 2,
+                          padding: "10px",
+                          border: "1px solid #ddd",
+                          borderRadius: "4px",
+                          fontSize: "13px",
+                          outline: "none",
+                        }}
+                      />
+                      <input
+                        type="text"
+                        placeholder="Estado (UF)"
+                        value={novoEndereco.estado}
+                        onChange={(e) =>
+                          setNovoEndereco({
+                            ...novoEndereco,
+                            estado: e.target.value,
+                          })
+                        }
+                        style={{
+                          flex: 1,
+                          padding: "10px",
+                          border: "1px solid #ddd",
+                          borderRadius: "4px",
+                          fontSize: "13px",
+                          outline: "none",
+                        }}
+                      />
+                    </div>
+                    <button
+                      onClick={handleSalvarEndereco}
+                      disabled={salvandoEndereco}
+                      style={{
+                        backgroundColor: "#000",
+                        color: "#fff",
+                        padding: "12px",
+                        borderRadius: "4px",
+                        fontWeight: "bold",
+                        cursor: "pointer",
+                        marginTop: "5px",
+                        fontSize: "13px",
+                      }}
+                    >
+                      {salvandoEndereco
+                        ? "A GUARDAR..."
+                        : "GUARDAR E CONTINUAR"}
+                    </button>
+                    {enderecos.length > 0 && (
+                      <button
+                        onClick={() => setMostrarFormEndereco(false)}
+                        style={{
+                          backgroundColor: "transparent",
+                          color: "#666",
+                          border: "none",
+                          fontSize: "12px",
+                          cursor: "pointer",
+                          textDecoration: "underline",
+                        }}
+                      >
+                        Cancelar
+                      </button>
+                    )}
+                  </div>
+                </div>
+              ) : (
+                <div
+                  style={{
+                    marginBottom: "20px",
+                    paddingBottom: "20px",
+                    borderBottom: "1px solid #eee",
+                  }}
+                >
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      marginBottom: "10px",
+                    }}
+                  >
+                    <p
+                      style={{
+                        color: "#555",
+                        margin: 0,
+                        fontSize: "13px",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      📍 Entregar em:
+                    </p>
+                    <button
+                      onClick={() => setMostrarFormEndereco(true)}
+                      style={{
+                        backgroundColor: "transparent",
+                        color: "rgb(106, 13, 173)",
+                        border: "none",
+                        fontWeight: "bold",
+                        cursor: "pointer",
+                        fontSize: "12px",
+                      }}
+                    >
+                      + Novo
+                    </button>
+                  </div>
                   <select
                     value={enderecoSelecionado}
                     onChange={(e) => setEnderecoSelecionado(e.target.value)}
@@ -316,6 +619,7 @@ export default function Carrinho() {
                       border: "1px solid #ddd",
                       borderRadius: "4px",
                       outline: "none",
+                      fontSize: "13px",
                     }}
                   >
                     {enderecos.map((end) => (
@@ -324,19 +628,10 @@ export default function Carrinho() {
                       </option>
                     ))}
                   </select>
-                ) : (
-                  <p
-                    style={{
-                      color: "#ff4757",
-                      fontSize: "12px",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    Cadastre um endereço em "Minha Conta" para continuar.
-                  </p>
-                )}
-              </div>
+                </div>
+              )}
 
+              {/* TOTAL E BOTÃO FINALIZAR */}
               <div
                 style={{
                   display: "flex",
@@ -354,22 +649,32 @@ export default function Carrinho() {
 
               <button
                 onClick={finalizarCompra}
-                disabled={processando}
+                disabled={processando || mostrarFormEndereco || !usuario}
                 style={{
-                  backgroundColor: processando ? "#aaa" : "#00c853",
+                  backgroundColor:
+                    processando || mostrarFormEndereco || !usuario
+                      ? "#ccc"
+                      : "#00c853",
                   color: "#fff",
                   border: "none",
-                  padding: "15px",
+                  padding: "18px",
                   borderRadius: "4px",
                   fontWeight: "900",
-                  fontSize: "16px",
+                  fontSize: "15px",
                   width: "100%",
-                  cursor: processando ? "not-allowed" : "pointer",
+                  cursor:
+                    processando || mostrarFormEndereco || !usuario
+                      ? "not-allowed"
+                      : "pointer",
                   textTransform: "uppercase",
                   transition: "0.2s",
                 }}
               >
-                {processando ? "Processando..." : "Finalizar Compra"}
+                {processando
+                  ? "A PROCESSAR..."
+                  : mostrarFormEndereco || enderecos.length === 0
+                    ? "CADASTRE UM ENDEREÇO"
+                    : "FINALIZAR COMPRA"}
               </button>
             </div>
           </div>

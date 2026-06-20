@@ -105,7 +105,7 @@ export default function Produto() {
             }}
           >
             <img
-              src={produto.image || produto.imagem}
+              src={`/${produto.image || produto.imagem}`}
               alt={produto.name}
               style={{ width: "100%", maxWidth: "450px", objectFit: "contain" }}
             />
