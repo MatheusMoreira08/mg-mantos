@@ -8,13 +8,9 @@ export default function Categoria() {
   const [produtos, setProdutos] = useState([]);
   const [carregando, setCarregando] = useState(true);
 
-  // Função para remover acentos da URL antes de comparar com as tags
-  const removerAcentos = (str) => {
-    return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-  };
+  const removerAcentos = (str) =>
+    str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
-  // DICIONÁRIO DE SINÔNIMOS
-  // Mapeia o termo que vem na URL para as tags exatas que você colocou no JSON
   const sinonimos = {
     brasileirao: ["nacional", "brasileirao"],
     "times-internacionais": ["europeus", "internacional"],
@@ -27,42 +23,25 @@ export default function Categoria() {
   useEffect(() => {
     const fetchEFiltrarCategoria = async () => {
       setCarregando(true);
-
-      // Puxa todos os produtos do Supabase
-      const { data } = await supabase.from("products").select("*");
-
+      const { data } = await supabase.from("products").select("*").limit(60);
       if (data) {
         const slugNormalizado = removerAcentos(slug).toLowerCase();
-
-        // Descobre quais tags buscar baseado no dicionário ou no próprio slug da URL
         const tagsParaBuscar = sinonimos[slugNormalizado] || [slugNormalizado];
-
-        // Filtro otimizado para a estrutura de array do novo JSON
         const filtrados = data.filter((p) => {
           const nome = p.name?.toLowerCase() || "";
-
-          // Transforma o array de tags do banco em uma string única para busca flexível
           const tagsDoProduto =
             p.tags && Array.isArray(p.tags)
               ? p.tags.map((t) => removerAcentos(t).toLowerCase())
               : [];
-
-          // 1. Verifica se o nome do produto contém o termo digitado na URL
-          const matchNome = nome.includes(slugNormalizado.replace(/-/g, " "));
-
-          // 2. Verifica se alguma das tags do produto bate com a categoria selecionada
-          const matchTags = tagsParaBuscar.some((termo) =>
-            tagsDoProduto.includes(termo),
+          return (
+            nome.includes(slugNormalizado.replace(/-/g, " ")) ||
+            tagsParaBuscar.some((termo) => tagsDoProduto.includes(termo))
           );
-
-          return matchNome || matchTags;
         });
-
         setProdutos(filtrados);
       }
       setCarregando(false);
     };
-
     fetchEFiltrarCategoria();
   }, [slug]);
 
@@ -97,7 +76,6 @@ export default function Categoria() {
         >
           {formatarTitulo(slug)}
         </h1>
-
         {carregando ? (
           <p style={{ textAlign: "center", color: "#666", fontWeight: "bold" }}>
             Buscando produtos...
@@ -124,16 +102,12 @@ export default function Categoria() {
             >
               Nenhum produto encontrado nesta categoria.
             </p>
-            <p style={{ fontSize: "14px", color: "#888", marginTop: "10px" }}>
-              Tente cadastrar tags equivalentes no banco de dados ou mude de
-              liga.
-            </p>
           </div>
         ) : (
           <div
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+              gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))",
               gap: "25px",
             }}
           >

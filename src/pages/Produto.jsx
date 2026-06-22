@@ -7,16 +7,14 @@ export default function Produto() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [produto, setProduto] = useState(null);
-
-  // 1. Puxando a função de adicionar ao carrinho do seu Contexto
+  const [freteResultado, setFreteResultado] = useState(null);
+  const [calculandoFrete, setCalculandoFrete] = useState(false);
+  const [adicionado, setAdicionado] = useState(false);
   const { adicionarAoCarrinho } = useContext(CarrinhoContext);
-
-  // Estados do Produto
   const [tamanhoSelecionado, setTamanhoSelecionado] = useState("");
   const [nomePersonalizacao, setNomePersonalizacao] = useState("");
   const [numeroPersonalizacao, setNumeroPersonalizacao] = useState("");
   const [cep, setCep] = useState("");
-
   const tamanhos = ["P", "M", "G", "GG", "2GG", "3GG"];
 
   useEffect(() => {
@@ -31,45 +29,53 @@ export default function Produto() {
     fetchProduto();
   }, [id]);
 
-  // 2. Função real para processar a adição ao carrinho
+  const handleCalcularFrete = async () => {
+    const cepLimpo = cep.replace(/\D/g, "");
+    if (cepLimpo.length !== 8) {
+      alert("Digite um CEP válido com 8 dígitos.");
+      return;
+    }
+    setCalculandoFrete(true);
+    setFreteResultado(null);
+    try {
+      const res = await fetch(`/api/frete?cep=${cepLimpo}`);
+      const data = await res.json();
+      setFreteResultado(data);
+    } catch {
+      setFreteResultado({
+        erro: "Não foi possível calcular o frete. Tente novamente.",
+      });
+    } finally {
+      setCalculandoFrete(false);
+    }
+  };
+
   const handleAdicionarAoCarrinho = () => {
     if (!tamanhoSelecionado) {
       alert("Por favor, selecione um tamanho antes de comprar!");
       return;
     }
-
     const temPersonalizacao =
       nomePersonalizacao.trim() !== "" || numeroPersonalizacao.trim() !== "";
-
-    // Calcula o preço final (Soma R$ 25 se tiver personalização)
-    const precoBase = Number(produto.price);
-    const precoFinal = temPersonalizacao ? precoBase + 25 : precoBase;
-
-    // Monta o objeto que vai ser salvo no CarrinhoContext
-    const itemParaCarrinho = {
+    const precoFinal = temPersonalizacao
+      ? Number(produto.price) + 25
+      : Number(produto.price);
+    adicionarAoCarrinho({
       ...produto,
-      price: precoFinal, // Preço atualizado
+      price: precoFinal,
       tamanho: tamanhoSelecionado,
       personalizacao: temPersonalizacao
         ? `${nomePersonalizacao} - ${numeroPersonalizacao}`
         : "Sem personalização",
-      quantidade: 1, // Começa com 1 unidade
-    };
-
-    // Chama a função do seu contexto (certifique-se que o nome da função no seu Context é adicionarAoCarrinho)
-    adicionarAoCarrinho(itemParaCarrinho);
-
-    alert(
-      `Sucesso! ${produto.name} (Tamanho: ${tamanhoSelecionado}) foi adicionado ao seu carrinho.`,
-    );
-
-    // Opcional: Redirecionar o cliente automaticamente para o carrinho após adicionar
-    navigate("/carrinho");
+      quantidade: 1,
+    });
+    setAdicionado(true);
+    setTimeout(() => setAdicionado(false), 2500);
   };
 
   if (!produto)
     return (
-      <p style={{ textAlign: "center", marginTop: "50px", color: "#000" }}>
+      <p style={{ textAlign: "center", marginTop: "50px", color: "#666" }}>
         Carregando...
       </p>
     );
@@ -85,33 +91,43 @@ export default function Produto() {
       }}
     >
       <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 20px" }}>
-        {/* Breadcrumb (Caminho) */}
         <p style={{ fontSize: "12px", color: "#888", marginBottom: "20px" }}>
-          Início {">"} {produto.name}
+          <span
+            style={{ cursor: "pointer", textDecoration: "underline" }}
+            onClick={() => navigate("/")}
+          >
+            Início
+          </span>{" "}
+          {">"} {produto.name}
         </p>
-
         <div style={{ display: "flex", gap: "50px", flexWrap: "wrap" }}>
-          {/* ESQUERDA: Imagem com Borda */}
+          {/* BLOCO DA IMAGEM AJUSTADO PARA FICAR IGUAL AO EXEMPLO */}
           <div
             style={{
               flex: "1",
               minWidth: "300px",
               border: "1px solid #eaeaea",
               borderRadius: "8px",
-              padding: "40px",
+              padding: "20px" /* Bordinha branca mais sutil */,
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
+              backgroundColor: "#fff",
             }}
           >
             <img
               src={`/${produto.image || produto.imagem}`}
               alt={produto.name}
-              style={{ width: "100%", maxWidth: "450px", objectFit: "contain" }}
+              style={{
+                width: "100%",
+                maxWidth: "400px" /* Impede a camisa de ficar gigante */,
+                maxHeight: "450px" /* Controla a altura */,
+                objectFit: "contain" /* Mantém as proporções sem cortar */,
+                display: "block",
+              }}
             />
           </div>
 
-          {/* DIREITA: Informações e Compra */}
           <div
             style={{
               flex: "1",
@@ -127,11 +143,11 @@ export default function Produto() {
                 textTransform: "uppercase",
                 marginBottom: "15px",
                 letterSpacing: "1px",
+                color: "#000",
               }}
             >
               {produto.name}
             </h1>
-
             <p
               style={{
                 fontSize: "36px",
@@ -154,7 +170,6 @@ export default function Produto() {
               em até 3x sem juros
             </p>
 
-            {/* SELETOR DE TAMANHOS */}
             <div style={{ marginBottom: "25px" }}>
               <p
                 style={{
@@ -176,7 +191,8 @@ export default function Produto() {
                         tamanhoSelecionado === tam
                           ? "2px solid rgb(106, 13, 173)"
                           : "1px solid #ddd",
-                      backgroundColor: "#fff",
+                      backgroundColor:
+                        tamanhoSelecionado === tam ? "#f3e8ff" : "#fff",
                       color:
                         tamanhoSelecionado === tam
                           ? "rgb(106, 13, 173)"
@@ -194,7 +210,6 @@ export default function Produto() {
               </div>
             </div>
 
-            {/* CAIXA DE PERSONALIZAÇÃO */}
             <div
               style={{
                 backgroundColor: "#f9f9f9",
@@ -249,7 +264,6 @@ export default function Produto() {
               </p>
             </div>
 
-            {/* CALCULAR FRETE */}
             <div style={{ marginBottom: "30px" }}>
               <p
                 style={{
@@ -257,9 +271,6 @@ export default function Produto() {
                   fontWeight: "bold",
                   marginBottom: "10px",
                   color: "#555",
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "5px",
                 }}
               >
                 🚚 CALCULAR PRAZOS E PREÇOS
@@ -270,6 +281,8 @@ export default function Produto() {
                   placeholder="00000-000"
                   value={cep}
                   onChange={(e) => setCep(e.target.value)}
+                  onKeyDown={(e) => e.key === "Enter" && handleCalcularFrete()}
+                  maxLength={9}
                   style={{
                     flex: "1",
                     padding: "12px",
@@ -279,29 +292,61 @@ export default function Produto() {
                   }}
                 />
                 <button
+                  onClick={handleCalcularFrete}
+                  disabled={calculandoFrete}
                   style={{
                     padding: "0 20px",
-                    backgroundColor: "#333",
+                    backgroundColor: calculandoFrete ? "#999" : "#333",
                     color: "#fff",
                     border: "none",
                     borderRadius: "4px",
                     fontWeight: "bold",
-                    cursor: "pointer",
+                    cursor: calculandoFrete ? "not-allowed" : "pointer",
                     fontSize: "12px",
                   }}
                 >
-                  CONSULTAR
+                  {calculandoFrete ? "..." : "CONSULTAR"}
                 </button>
               </div>
+              {freteResultado && (
+                <div style={{ marginTop: "12px", fontSize: "13px" }}>
+                  {freteResultado.erro ? (
+                    <p style={{ color: "#ff4757" }}>{freteResultado.erro}</p>
+                  ) : Array.isArray(freteResultado) ? (
+                    freteResultado.map((opcao, i) => (
+                      <div
+                        key={i}
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          backgroundColor: "#f0faf0",
+                          padding: "8px 12px",
+                          borderRadius: "4px",
+                          border: "1px solid #d4edda",
+                          marginBottom: "6px",
+                        }}
+                      >
+                        <span>
+                          {opcao.name} — {opcao.delivery_time} dias úteis
+                        </span>
+                        <strong>
+                          R$ {Number(opcao.price).toFixed(2).replace(".", ",")}
+                        </strong>
+                      </div>
+                    ))
+                  ) : (
+                    <p style={{ color: "#888" }}>Nenhuma opção disponível.</p>
+                  )}
+                </div>
+              )}
             </div>
 
-            {/* BOTÃO COMPRAR VERDE */}
             <button
               onClick={handleAdicionarAoCarrinho}
               style={{
                 width: "100%",
                 padding: "18px",
-                backgroundColor: "#00c853",
+                backgroundColor: adicionado ? "#00b248" : "#00c853",
                 color: "#fff",
                 fontSize: "16px",
                 fontWeight: "900",
@@ -309,13 +354,30 @@ export default function Produto() {
                 borderRadius: "4px",
                 cursor: "pointer",
                 textTransform: "uppercase",
-                transition: "0.2s",
+                transition: "background 0.3s",
+                marginBottom: "12px",
               }}
-              onMouseEnter={(e) => (e.target.style.backgroundColor = "#00b248")}
-              onMouseLeave={(e) => (e.target.style.backgroundColor = "#00c853")}
             >
-              ADICIONAR AO CARRINHO
+              {adicionado
+                ? "✓ ADICIONADO AO CARRINHO!"
+                : "ADICIONAR AO CARRINHO"}
             </button>
+
+            {adicionado && (
+              <p
+                onClick={() => navigate("/carrinho")}
+                style={{
+                  textAlign: "center",
+                  fontSize: "13px",
+                  color: "rgb(106, 13, 173)",
+                  cursor: "pointer",
+                  textDecoration: "underline",
+                  margin: 0,
+                }}
+              >
+                Ver carrinho →
+              </p>
+            )}
           </div>
         </div>
       </div>

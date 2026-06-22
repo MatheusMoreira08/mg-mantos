@@ -297,7 +297,7 @@ export default function Carrinho() {
                     </p>
                   </div>
                   <button
-                    onClick={() => removerDoCarrinho(item.id)}
+                      onClick={() => removerDoCarrinho(item.id, item.tamanho)}
                     style={{
                       backgroundColor: "#fff",
                       color: "#ff4757",

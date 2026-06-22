@@ -12,27 +12,33 @@ export default function ProdutoCard({ produto }) {
         textAlign: "center",
         height: "100%",
         border: "1px solid #f0f0f0",
-        transition: "transform 0.2s ease-in-out",
+        transition: "transform 0.2s ease-in-out, box-shadow 0.2s",
+        borderRadius: "4px",
       }}
-      onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.02)")}
-      onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.transform = "scale(1.02)";
+        e.currentTarget.style.boxShadow = "0 6px 20px rgba(0,0,0,0.08)";
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.transform = "scale(1)";
+        e.currentTarget.style.boxShadow = "none";
+      }}
     >
-      {/* CAIXA TRAVADA: Usando objectFit: 'cover' para forçar o preenchimento igual */}
       <div
         style={{
           width: "100%",
           height: "220px",
           backgroundColor: "#f6f6f6",
           overflow: "hidden",
+          borderRadius: "4px",
         }}
       >
         <img
-          src={produto.imagem || produto.image}
+          src={`/${produto.image || produto.imagem}`}
           alt={produto.name}
           style={{ width: "100%", height: "100%", objectFit: "cover" }}
         />
       </div>
-
       <div
         style={{
           flexGrow: 1,
@@ -48,6 +54,7 @@ export default function ProdutoCard({ produto }) {
             color: "#333",
             marginTop: "15px",
             fontWeight: "500",
+            minHeight: "36px",
           }}
         >
           {produto.name}
@@ -57,13 +64,12 @@ export default function ProdutoCard({ produto }) {
             color: "#000",
             fontWeight: "900",
             fontSize: "16px",
-            margin: "15px 0",
+            margin: "10px 0",
           }}
         >
-          R$ {produto.price}
+          R$ {Number(produto.price).toFixed(2).replace(".", ",")}
         </p>
       </div>
-
       <Link
         to={`/produto/${produto.id}`}
         style={{ width: "100%", textDecoration: "none", marginTop: "auto" }}
@@ -79,9 +85,15 @@ export default function ProdutoCard({ produto }) {
             fontSize: "12px",
             cursor: "pointer",
             textTransform: "uppercase",
+            borderRadius: "0 0 4px 4px",
+            transition: "background 0.2s",
           }}
+          onMouseEnter={(e) => (e.target.style.backgroundColor = "#550aad")}
+          onMouseLeave={(e) =>
+            (e.target.style.backgroundColor = "rgb(106, 13, 173)")
+          }
         >
-          Adicionar ao Carrinho
+          Ver Produto
         </button>
       </Link>
     </div>

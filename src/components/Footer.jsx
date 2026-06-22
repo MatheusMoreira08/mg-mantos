@@ -8,6 +8,7 @@ export default function Footer() {
         color: "#fff",
         fontFamily: "sans-serif",
         paddingTop: "60px",
+        textAlign: "left" /* <-- A MÁGICA ACONTECE AQUI */,
       }}
     >
       <div
@@ -54,11 +55,12 @@ export default function Footer() {
               fontWeight: "bold",
               textTransform: "uppercase",
               marginBottom: "15px",
+              color: "#fff",
             }}
           >
             Central de Atendimento
           </h4>
-          <p style={{ fontSize: "13px", color: "#aaa", marginBottom: "10px" }}>
+          <p style={{ fontSize: "13px", color: "#aaa", marginBottom: "8px" }}>
             Horário de atendimento:
           </p>
           <ul
@@ -71,8 +73,8 @@ export default function Footer() {
               lineHeight: "1.8",
             }}
           >
-            <li>• Segunda à sexta-feira – 09h às 18h</li>
-            <li>• Sábado – 09h às 13h</li>
+            <li>Segunda à sexta-feira – 09h às 18h</li>
+            <li>Sábado – 09h às 13h</li>
           </ul>
 
           <h4
@@ -81,6 +83,7 @@ export default function Footer() {
               fontWeight: "bold",
               textTransform: "uppercase",
               marginBottom: "15px",
+              color: "#fff",
             }}
           >
             Contato
@@ -89,60 +92,19 @@ export default function Footer() {
             style={{
               listStyle: "none",
               padding: 0,
-              margin: "0 0 25px 0",
+              margin: 0,
               fontSize: "13px",
               color: "#ccc",
               lineHeight: "1.8",
             }}
           >
             <li>
-              • <strong>Email:</strong> atendimento@mgmantos.com
+              <strong>Email:</strong> mg.mantos01@gmail.com
             </li>
             <li>
-              • <strong>WhatsApp:</strong> (31) 90000-0000
+              <strong>WhatsApp:</strong> (44) 99821-5198
             </li>
           </ul>
-
-          <h4
-            style={{
-              fontSize: "14px",
-              fontWeight: "bold",
-              textTransform: "uppercase",
-              marginBottom: "15px",
-            }}
-          >
-            Siga-nos: 👇
-          </h4>
-          <div style={{ display: "flex", gap: "10px" }}>
-            <span
-              style={{
-                width: "35px",
-                height: "35px",
-                border: "1px solid #333",
-                borderRadius: "4px",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                cursor: "pointer",
-              }}
-            >
-              📸
-            </span>
-            <span
-              style={{
-                width: "35px",
-                height: "35px",
-                border: "1px solid #333",
-                borderRadius: "4px",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                cursor: "pointer",
-              }}
-            >
-              ✈️
-            </span>
-          </div>
         </div>
 
         {/* COLUNA 2 - Acesso Rápido */}
@@ -153,6 +115,7 @@ export default function Footer() {
               fontWeight: "bold",
               textTransform: "uppercase",
               marginBottom: "20px",
+              color: "#fff",
             }}
           >
             Acesso Rápido
@@ -199,7 +162,7 @@ export default function Footer() {
           </ul>
         </div>
 
-        {/* COLUNA 3 - Minha Conta */}
+        {/* COLUNA 3 - Minha Conta & Segurança */}
         <div style={{ flex: "1", minWidth: "200px" }}>
           <h4
             style={{
@@ -207,6 +170,7 @@ export default function Footer() {
               fontWeight: "bold",
               textTransform: "uppercase",
               marginBottom: "20px",
+              color: "#fff",
             }}
           >
             Minha Conta
@@ -245,25 +209,15 @@ export default function Footer() {
               </Link>
             </li>
           </ul>
-        </div>
 
-        {/* COLUNA 4 - Segurança e Apps */}
-        <div
-          style={{
-            flex: "1",
-            minWidth: "200px",
-            display: "flex",
-            flexDirection: "column",
-            gap: "15px",
-          }}
-        >
+          {/* Selo de Segurança */}
           <div
             style={{
               display: "flex",
               alignItems: "center",
               gap: "15px",
               color: "#fff",
-              marginBottom: "10px",
+              marginTop: "40px",
             }}
           >
             <span style={{ fontSize: "30px" }}>🔒</span>
@@ -279,68 +233,6 @@ export default function Footer() {
               <span style={{ fontSize: "14px" }}>SITE SEGURO</span>
             </div>
           </div>
-
-          {/* Selos emulados com botões */}
-          <div
-            style={{
-              backgroundColor: "#fff",
-              color: "#000",
-              padding: "10px",
-              borderRadius: "4px",
-              display: "inline-block",
-              fontWeight: "900",
-              fontSize: "18px",
-              width: "fit-content",
-              letterSpacing: "-0.5px",
-            }}
-          >
-            Reclame<span style={{ color: "#00c853" }}>AQUI</span>
-          </div>
-
-          <button
-            style={{
-              backgroundColor: "#fff",
-              border: "none",
-              padding: "10px 15px",
-              borderRadius: "4px",
-              display: "flex",
-              alignItems: "center",
-              gap: "10px",
-              cursor: "pointer",
-              width: "fit-content",
-              marginTop: "10px",
-            }}
-          >
-            <span style={{ fontSize: "24px" }}>🍏</span>
-            <div style={{ textAlign: "left", color: "#000" }}>
-              <div style={{ fontSize: "10px" }}>Disponível na</div>
-              <div style={{ fontSize: "14px", fontWeight: "bold" }}>
-                App Store
-              </div>
-            </div>
-          </button>
-
-          <button
-            style={{
-              backgroundColor: "#fff",
-              border: "none",
-              padding: "10px 15px",
-              borderRadius: "4px",
-              display: "flex",
-              alignItems: "center",
-              gap: "10px",
-              cursor: "pointer",
-              width: "fit-content",
-            }}
-          >
-            <span style={{ fontSize: "24px" }}>▶️</span>
-            <div style={{ textAlign: "left", color: "#000" }}>
-              <div style={{ fontSize: "10px" }}>Disponível no</div>
-              <div style={{ fontSize: "14px", fontWeight: "bold" }}>
-                Google Play
-              </div>
-            </div>
-          </button>
         </div>
       </div>
 
@@ -350,13 +242,14 @@ export default function Footer() {
           borderTop: "1px solid #222",
           marginTop: "50px",
           padding: "20px 0",
-          textAlign: "center",
+          textAlign:
+            "center" /* Este continua centralizado para ficar no meio certinho */,
           fontSize: "12px",
           color: "#888",
           fontWeight: "500",
         }}
       >
-        Copyright © MG MANTOS 2026 Todos direitos reservados.
+        Copyright © MG MANTOS 2026 Todos os direitos reservados.
       </div>
     </footer>
   );

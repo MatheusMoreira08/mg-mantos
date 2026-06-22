@@ -360,6 +360,7 @@ export default function MinhaConta() {
             fontWeight: "900",
             marginBottom: "20px",
             textTransform: "uppercase",
+            color: "#000" /* <-- CORRIGIDO AQUI */,
           }}
         >
           Meus Pedidos
@@ -479,7 +480,7 @@ export default function MinhaConta() {
           </div>
         )}
 
-        {/* SECÇÃO 2: ENDEREÇOS (AGORA ESTÁ AQUI!) */}
+        {/* SECÇÃO 2: ENDEREÇOS */}
         <div
           style={{
             display: "flex",
@@ -495,6 +496,7 @@ export default function MinhaConta() {
               fontWeight: "900",
               margin: 0,
               textTransform: "uppercase",
+              color: "#000" /* <-- CORRIGIDO AQUI */,
             }}
           >
             Meus Endereços
