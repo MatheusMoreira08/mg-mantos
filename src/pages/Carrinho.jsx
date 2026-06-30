@@ -231,7 +231,7 @@ export default function Carrinho() {
             <div style={{ flex: "2", minWidth: "300px" }}>
               {carrinho.map((item) => (
                 <div
-                  key={item.id}
+                  key={`${item.id}-${item.tamanho}-${item.personalizacao}`}
                   style={{
                     display: "flex",
                     gap: "20px",
@@ -293,11 +293,20 @@ export default function Carrinho() {
                         fontSize: "16px",
                       }}
                     >
-                      R$ {Number(item.price).toFixed(2).replace(".", ",")}
+                      R${" "}
+                      {(Number(item.price) * item.quantidade)
+                        .toFixed(2)
+                        .replace(".", ",")}
                     </p>
                   </div>
                   <button
-                      onClick={() => removerDoCarrinho(item.id, item.tamanho)}
+                    onClick={() =>
+                      removerDoCarrinho(
+                        item.id,
+                        item.tamanho,
+                        item.personalizacao,
+                      )
+                    }
                     style={{
                       backgroundColor: "#fff",
                       color: "#ff4757",

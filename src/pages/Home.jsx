@@ -157,7 +157,7 @@ export default function Home() {
       {
         nome: "Juventus",
         imagem:
-          "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Juventus_FC_2017_icon_%28black%29.svg/120px-Juventus_FC_2017_icon_%28black%29.svg.png",
+          "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Juventus_FC_2023_Brand_Mark.svg/120px-Juventus_FC_2023_Brand_Mark.svg.png",
         link: "/categoria/juventus",
       },
       {
@@ -211,7 +211,13 @@ export default function Home() {
 
   useEffect(() => {
     const fetchProdutos = async () => {
-      const { data } = await supabase.from("products").select("*").limit(15);
+      // Ordenado por created_at desc: os mais novos primeiro.
+      // Garantia que lancamentos = produtos recem adicionados, nao os primeiros cadastrados.
+      const { data } = await supabase
+        .from("products")
+        .select("*")
+        .order("created_at", { ascending: false })
+        .limit(15);
       if (data) setProdutos(data);
     };
     fetchProdutos();
@@ -410,10 +416,10 @@ export default function Home() {
             flexWrap: "wrap",
           }}
         >
-          {escudosTimesBR.map((time, index) => (
+          {escudosTimesBR.map((time) => (
             // Adicionado textDecoration none e color transparent para não ficar com link azul feio se a imagem quebrar
             <Link
-              key={index}
+              key={time.nome}
               to={time.link}
               style={{
                 transition: "transform 0.2s",
@@ -432,6 +438,9 @@ export default function Home() {
                 alt={time.nome}
                 style={{ width: "60px", height: "60px", objectFit: "contain" }}
                 title={time.nome}
+                onError={(e) => {
+                  e.target.style.display = "none";
+                }}
               />
             </Link>
           ))}
@@ -606,6 +615,9 @@ export default function Home() {
                 alt={time.nome}
                 style={{ width: "50px", height: "50px", objectFit: "contain" }}
                 title={time.nome}
+                onError={(e) => {
+                  e.target.style.display = "none";
+                }}
               />
             </Link>
           ))}

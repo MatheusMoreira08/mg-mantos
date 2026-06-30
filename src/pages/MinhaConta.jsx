@@ -146,7 +146,7 @@ export default function MinhaConta() {
 
   if (carregando)
     return (
-      <div style={{ textAlign: "center", padding: "50px" }}>A carregar...</div>
+      <div style={{ textAlign: "center", padding: "50px" }}>Carregando...</div>
     );
 
   if (!usuario) {
@@ -446,7 +446,8 @@ export default function MinhaConta() {
                         color: "#888",
                       }}
                     >
-                      Data: {new Date(pedido.created_at).toLocaleDateString()}
+                      Data:{" "}
+                      {new Date(pedido.created_at).toLocaleDateString("pt-BR")}
                     </p>
                     <p style={{ margin: 0, fontSize: "13px", color: "#555" }}>
                       <strong>{pedido.order_items?.length || 0}</strong>{" "}
@@ -565,7 +566,7 @@ export default function MinhaConta() {
               <input
                 type="text"
                 required
-                placeholder="Rua / Morada"
+                placeholder="Rua / Logradouro"
                 value={novoEndereco.rua}
                 onChange={(e) =>
                   setNovoEndereco({ ...novoEndereco, rua: e.target.value })
@@ -653,7 +654,7 @@ export default function MinhaConta() {
                   cursor: "pointer",
                 }}
               >
-                {salvandoEndereco ? "A SALVAR..." : "SALVAR ENDEREÇO"}
+                {salvandoEndereco ? "SALVANDO..." : "SALVAR ENDEREÇO"}
               </button>
               <button
                 type="button"

@@ -23,23 +23,22 @@ export default function Categoria() {
   useEffect(() => {
     const fetchEFiltrarCategoria = async () => {
       setCarregando(true);
-      const { data } = await supabase.from("products").select("*").limit(60);
-      if (data) {
-        const slugNormalizado = removerAcentos(slug).toLowerCase();
-        const tagsParaBuscar = sinonimos[slugNormalizado] || [slugNormalizado];
-        const filtrados = data.filter((p) => {
-          const nome = p.name?.toLowerCase() || "";
-          const tagsDoProduto =
-            p.tags && Array.isArray(p.tags)
-              ? p.tags.map((t) => removerAcentos(t).toLowerCase())
-              : [];
-          return (
-            nome.includes(slugNormalizado.replace(/-/g, " ")) ||
-            tagsParaBuscar.some((termo) => tagsDoProduto.includes(termo))
-          );
-        });
-        setProdutos(filtrados);
+      const slugNormalizado = removerAcentos(slug).toLowerCase();
+      const tagsParaBuscar = sinonimos[slugNormalizado] || [slugNormalizado];
+      const termoNome = slugNormalizado.replace(/-/g, " ");
+
+      // Filtra direto no banco: busca por tags (array overlap) OU nome (ilike).
+      // Escala independente do tamanho do catálogo, sem limit arbitrário.
+      const { data, error } = await supabase
+        .from("products")
+        .select("*")
+        .or(`tags.ov.{${tagsParaBuscar.join(",")}},name.ilike.%${termoNome}%`);
+
+      if (error) {
+        console.error("Erro ao buscar categoria:", error.message);
       }
+
+      setProdutos(data || []);
       setCarregando(false);
     };
     fetchEFiltrarCategoria();

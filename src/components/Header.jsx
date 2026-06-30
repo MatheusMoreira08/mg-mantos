@@ -47,6 +47,23 @@ export default function Header() {
     setTermoBusca("");
   };
 
+  // NOVO: se tiver só 1 resultado, vai direto pro produto.
+  // Se tiver mais de 1, mantém o dropdown aberto (o usuário escolhe).
+  const handleBuscar = () => {
+    if (resultadosBusca.length === 1) {
+      handleProdutoClick(resultadosBusca[0].id);
+    } else if (resultadosBusca.length > 1) {
+      setMostrarDropdown(true);
+    }
+  };
+
+  const handleBuscaKeyDown = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      handleBuscar();
+    }
+  };
+
   const quantidadeCarrinho = carrinho.reduce(
     (acc, item) => acc + item.quantidade,
     0,
@@ -122,6 +139,7 @@ export default function Header() {
                   termoBusca.length >= 2 && setMostrarDropdown(true)
                 }
                 onBlur={() => setTimeout(() => setMostrarDropdown(false), 200)}
+                onKeyDown={handleBuscaKeyDown}
                 style={{
                   width: "100%",
                   padding: "12px 20px",
@@ -134,6 +152,8 @@ export default function Header() {
                 }}
               />
               <button
+                type="button"
+                onClick={handleBuscar}
                 style={{
                   backgroundColor: "#00bfa5",
                   border: "none",

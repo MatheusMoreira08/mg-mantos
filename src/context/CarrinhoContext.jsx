@@ -38,12 +38,48 @@ export function CarrinhoProvider({ children }) {
     });
   };
 
-  const removerDoCarrinho = (produtoId, tamanho) => {
+  // BUGFIX: agora também diferencia por personalizacao, igual ao adicionarAoCarrinho.
+  // Antes: removia TODOS os itens com mesmo id+tamanho, ignorando personalizações diferentes.
+  const removerDoCarrinho = (produtoId, tamanho, personalizacao) => {
     setCarrinho((carrinhoAtual) =>
       carrinhoAtual.filter(
-        (item) => !(item.id === produtoId && item.tamanho === tamanho),
+        (item) =>
+          !(
+            item.id === produtoId &&
+            item.tamanho === tamanho &&
+            item.personalizacao === personalizacao
+          ),
       ),
     );
+  };
+
+  // NOVO (opcional): permite alterar a quantidade diretamente, ex: botões +/- no carrinho.
+  // Se a quantidade chegar a 0 ou menos, remove o item.
+  const atualizarQuantidade = (
+    produtoId,
+    tamanho,
+    personalizacao,
+    novaQuantidade,
+  ) => {
+    setCarrinho((carrinhoAtual) => {
+      if (novaQuantidade <= 0) {
+        return carrinhoAtual.filter(
+          (item) =>
+            !(
+              item.id === produtoId &&
+              item.tamanho === tamanho &&
+              item.personalizacao === personalizacao
+            ),
+        );
+      }
+      return carrinhoAtual.map((item) =>
+        item.id === produtoId &&
+        item.tamanho === tamanho &&
+        item.personalizacao === personalizacao
+          ? { ...item, quantidade: novaQuantidade }
+          : item,
+      );
+    });
   };
 
   const limparCarrinho = () => setCarrinho([]);
@@ -59,6 +95,7 @@ export function CarrinhoProvider({ children }) {
         carrinho,
         adicionarAoCarrinho,
         removerDoCarrinho,
+        atualizarQuantidade,
         limparCarrinho,
         valorTotal,
       }}

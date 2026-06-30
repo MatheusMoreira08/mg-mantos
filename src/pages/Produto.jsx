@@ -15,16 +15,22 @@ export default function Produto() {
   const [nomePersonalizacao, setNomePersonalizacao] = useState("");
   const [numeroPersonalizacao, setNumeroPersonalizacao] = useState("");
   const [cep, setCep] = useState("");
+  const [erroProduto, setErroProduto] = useState(false);
   const tamanhos = ["P", "M", "G", "GG", "2GG", "3GG"];
 
   useEffect(() => {
     const fetchProduto = async () => {
-      const { data } = await supabase
+      const { data, error } = await supabase
         .from("products")
         .select("*")
         .eq("id", id)
         .single();
-      if (data) setProduto(data);
+      if (data) {
+        setProduto(data);
+      } else {
+        console.error("Produto n\u00e3o encontrado:", error?.message);
+        setErroProduto(true);
+      }
     };
     fetchProduto();
   }, [id]);
@@ -73,6 +79,27 @@ export default function Produto() {
     setTimeout(() => setAdicionado(false), 2500);
   };
 
+  if (erroProduto)
+    return (
+      <div style={{ textAlign: "center", marginTop: "80px", color: "#666" }}>
+        <p style={{ fontSize: "48px" }}>\U0001f455</p>
+        <p style={{ fontSize: "18px", fontWeight: "bold", color: "#333" }}>
+          Produto n\u00e3o encontrado.
+        </p>
+        <p
+          onClick={() => navigate("/")}
+          style={{
+            color: "rgb(106, 13, 173)",
+            cursor: "pointer",
+            textDecoration: "underline",
+            marginTop: "10px",
+          }}
+        >
+          Voltar para o in\u00edcio
+        </p>
+      </div>
+    );
+
   if (!produto)
     return (
       <p style={{ textAlign: "center", marginTop: "50px", color: "#666" }}>
@@ -116,7 +143,14 @@ export default function Produto() {
             }}
           >
             <img
-              src={`/${produto.image || produto.imagem}`}
+              src={
+                produto.image || produto.imagem
+                  ? `/${produto.image || produto.imagem}`
+                  : "/placeholder-camisa.png"
+              }
+              onError={(e) => {
+                e.target.src = "/placeholder-camisa.png";
+              }}
               alt={produto.name}
               style={{
                 width: "100%",
