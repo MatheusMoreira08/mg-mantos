@@ -38,7 +38,7 @@ export default function BannerCarousel({ imagens }) {
         position: "relative",
         width: "100%",
         overflow: "hidden",
-        backgroundColor: "#000",
+        backgroundColor: "var(--bg-secondary)",
       }}
     >
       {/* BUG 1 FIX: injeta keyframes */}
@@ -65,8 +65,8 @@ export default function BannerCarousel({ imagens }) {
           top: "50%",
           left: "20px",
           transform: "translateY(-50%)",
-          background: "rgba(255,255,255,0.8)",
-          border: "none",
+          background: "var(--bg-card)",
+          border: "1px solid var(--border)",
           borderRadius: "50%",
           width: "45px",
           height: "45px",
@@ -76,7 +76,8 @@ export default function BannerCarousel({ imagens }) {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          color: "#000",
+          color: "var(--text-primary)",
+          boxShadow: "var(--shadow-card)",
         }}
       >
         ❮
@@ -90,8 +91,8 @@ export default function BannerCarousel({ imagens }) {
           top: "50%",
           right: "20px",
           transform: "translateY(-50%)",
-          background: "rgba(255,255,255,0.8)",
-          border: "none",
+          background: "var(--bg-card)",
+          border: "1px solid var(--border)",
           borderRadius: "50%",
           width: "45px",
           height: "45px",
@@ -101,7 +102,8 @@ export default function BannerCarousel({ imagens }) {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          color: "#000",
+          color: "var(--text-primary)",
+          boxShadow: "var(--shadow-card)",
         }}
       >
         ❯
@@ -130,7 +132,7 @@ export default function BannerCarousel({ imagens }) {
               height: "8px",
               borderRadius: "4px",
               border: "none",
-              backgroundColor: i === atual ? "#fff" : "rgba(255,255,255,0.5)",
+              backgroundColor: i === atual ? "var(--accent)" : "var(--border)",
               cursor: "pointer",
               padding: 0,
               transition: "all 0.3s",

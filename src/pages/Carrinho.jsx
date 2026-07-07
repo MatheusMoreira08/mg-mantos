@@ -1,6 +1,6 @@
 import { useContext, useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { CarrinhoContext } from "../context/CarrinhoContext";
+import { CarrinhoContext } from "../context/carrinho-context";
 import { supabase } from "../services/supabase";
 
 export default function Carrinho() {
@@ -156,10 +156,10 @@ export default function Carrinho() {
   return (
     <div
       style={{
-        backgroundColor: "#fafafa",
-        color: "#333",
+        backgroundColor: "var(--bg-primary)",
+        color: "var(--text-primary)",
         minHeight: "100vh",
-        fontFamily: "sans-serif",
+        fontFamily: "var(--font-body)",
         padding: "40px 20px",
       }}
     >
@@ -170,7 +170,7 @@ export default function Carrinho() {
             marginBottom: "30px",
             textTransform: "uppercase",
             fontWeight: "900",
-            color: "#000",
+            color: "var(--text-primary)",
           }}
         >
           Seu Carrinho
@@ -181,10 +181,10 @@ export default function Carrinho() {
             style={{
               textAlign: "center",
               padding: "80px 20px",
-              backgroundColor: "#fff",
-              borderRadius: "8px",
-              border: "1px solid #eaeaea",
-              boxShadow: "0 4px 10px rgba(0,0,0,0.03)",
+              backgroundColor: "var(--bg-card)",
+              borderRadius: "var(--radius-lg)",
+              border: "1px solid var(--border)",
+              boxShadow: "var(--shadow-card)",
             }}
           >
             <span
@@ -196,33 +196,34 @@ export default function Carrinho() {
             >
               🛒
             </span>
-            <h3
-              style={{
-                fontSize: "24px",
-                marginBottom: "15px",
-                fontWeight: "900",
-                textTransform: "uppercase",
-              }}
-            >
-              Sua sacola está vazia
-            </h3>
-            <p style={{ color: "#666", marginBottom: "30px" }}>
+              <h3
+                style={{
+                  fontSize: "24px",
+                  marginBottom: "15px",
+                  fontWeight: "900",
+                  textTransform: "uppercase",
+                  color: "var(--text-primary)",
+                }}
+              >
+                Sua sacola está vazia
+              </h3>
+              <p style={{ color: "var(--text-secondary)", marginBottom: "30px" }}>
               Navegue pelas nossas categorias e descubra os melhores mantos!
             </p>
             <Link
               to="/"
               style={{
                 display: "inline-block",
-                backgroundColor: "#00bfa5",
-                color: "#fff",
+                  backgroundColor: "var(--accent)",
+                  color: "var(--text-primary)",
                 textDecoration: "none",
                 padding: "15px 40px",
-                borderRadius: "4px",
+                  borderRadius: "var(--radius-md)",
                 fontWeight: "900",
                 textTransform: "uppercase",
               }}
             >
-              Continuar Comprando
+                Continuar Comprando
             </Link>
           </div>
         ) : (
@@ -235,12 +236,13 @@ export default function Carrinho() {
                   style={{
                     display: "flex",
                     gap: "20px",
-                    backgroundColor: "#fff",
+                    backgroundColor: "var(--bg-card)",
                     padding: "20px",
-                    borderRadius: "8px",
+                    borderRadius: "var(--radius-lg)",
                     marginBottom: "15px",
-                    border: "1px solid #eaeaea",
+                    border: "1px solid var(--border)",
                     alignItems: "center",
+                    boxShadow: "var(--shadow-card)",
                   }}
                 >
                   <img
@@ -250,8 +252,8 @@ export default function Carrinho() {
                       width: "90px",
                       height: "90px",
                       objectFit: "contain",
-                      backgroundColor: "#f6f6f6",
-                      borderRadius: "4px",
+                      backgroundColor: "var(--bg-secondary)",
+                      borderRadius: "var(--radius-md)",
                       padding: "5px",
                     }}
                   />
@@ -261,13 +263,14 @@ export default function Carrinho() {
                         margin: "0 0 10px 0",
                         fontSize: "15px",
                         fontWeight: "bold",
+                        color: "var(--text-primary)",
                       }}
                     >
                       {item.name}
                     </h4>
                     <p
                       style={{
-                        color: "#888",
+                        color: "var(--text-secondary)",
                         margin: "0 0 5px 0",
                         fontSize: "13px",
                       }}
@@ -277,7 +280,7 @@ export default function Carrinho() {
                     {item.personalizacao !== "Sem personalização" && (
                       <p
                         style={{
-                          color: "#888",
+                          color: "var(--text-secondary)",
                           margin: "0 0 5px 0",
                           fontSize: "12px",
                         }}
@@ -287,7 +290,7 @@ export default function Carrinho() {
                     )}
                     <p
                       style={{
-                        color: "rgb(106, 13, 173)",
+                        color: "var(--accent)",
                         fontWeight: "900",
                         margin: 0,
                         fontSize: "16px",
@@ -308,11 +311,11 @@ export default function Carrinho() {
                       )
                     }
                     style={{
-                      backgroundColor: "#fff",
-                      color: "#ff4757",
-                      border: "1px solid #ff4757",
+                      backgroundColor: "transparent",
+                      color: "var(--error)",
+                      border: "1px solid var(--error)",
                       padding: "8px 15px",
-                      borderRadius: "4px",
+                      borderRadius: "var(--radius-md)",
                       cursor: "pointer",
                       fontWeight: "bold",
                       fontSize: "12px",
@@ -330,22 +333,23 @@ export default function Carrinho() {
               style={{
                 flex: "1",
                 minWidth: "300px",
-                backgroundColor: "#fff",
+                backgroundColor: "var(--bg-card)",
                 padding: "30px",
-                borderRadius: "8px",
-                border: "1px solid #eaeaea",
+                borderRadius: "var(--radius-lg)",
+                border: "1px solid var(--border)",
                 height: "fit-content",
-                boxShadow: "0 4px 10px rgba(0,0,0,0.03)",
+                boxShadow: "var(--shadow-card)",
               }}
             >
               <h3
                 style={{
                   margin: "0 0 20px 0",
                   textTransform: "uppercase",
-                  borderBottom: "1px solid #eee",
+                  borderBottom: "1px solid var(--border)",
                   paddingBottom: "15px",
                   fontWeight: "900",
                   fontSize: "18px",
+                  color: "var(--text-primary)",
                 }}
               >
                 Resumo do Pedido
@@ -356,7 +360,7 @@ export default function Carrinho() {
                   display: "flex",
                   justifyContent: "space-between",
                   marginBottom: "20px",
-                  color: "#666",
+                  color: "var(--text-secondary)",
                   fontWeight: "500",
                 }}
               >
@@ -370,28 +374,28 @@ export default function Carrinho() {
                   style={{
                     marginBottom: "20px",
                     paddingBottom: "20px",
-                    borderBottom: "1px solid #eee",
+                    borderBottom: "1px solid var(--border)",
                     textAlign: "center",
                   }}
                 >
                   <p
                     style={{
-                      color: "#ff4757",
+                      color: "var(--error)",
                       fontSize: "13px",
                       fontWeight: "bold",
                       marginBottom: "15px",
                     }}
                   >
-                    Inicie sessão para inserir o endereço de entrega.
+                    Faça login para inserir o endereço de entrega.
                   </p>
                   <button
                     onClick={() => navigate("/minha-conta")}
                     style={{
-                      backgroundColor: "#000",
-                      color: "#fff",
+                      backgroundColor: "var(--accent)",
+                      color: "var(--text-primary)",
                       padding: "10px 20px",
                       border: "none",
-                      borderRadius: "4px",
+                      borderRadius: "var(--radius-md)",
                       cursor: "pointer",
                       fontWeight: "bold",
                       width: "100%",
@@ -405,12 +409,12 @@ export default function Carrinho() {
                   style={{
                     marginBottom: "20px",
                     paddingBottom: "20px",
-                    borderBottom: "1px solid #eee",
+                    borderBottom: "1px solid var(--border)",
                   }}
                 >
                   <p
                     style={{
-                      color: "#000",
+                      color: "var(--text-primary)",
                       marginBottom: "15px",
                       fontSize: "13px",
                       fontWeight: "900",
@@ -438,15 +442,17 @@ export default function Carrinho() {
                       }
                       style={{
                         padding: "10px",
-                        border: "1px solid #ddd",
-                        borderRadius: "4px",
+                        border: "1px solid var(--border)",
+                        borderRadius: "var(--radius-md)",
                         fontSize: "13px",
                         outline: "none",
+                        backgroundColor: "var(--bg-primary)",
+                        color: "var(--text-primary)",
                       }}
                     />
                     <input
                       type="text"
-                      placeholder="Rua / Morada"
+                      placeholder="Rua / Logradouro"
                       value={novoEndereco.rua}
                       onChange={(e) =>
                         setNovoEndereco({
@@ -456,10 +462,12 @@ export default function Carrinho() {
                       }
                       style={{
                         padding: "10px",
-                        border: "1px solid #ddd",
-                        borderRadius: "4px",
+                        border: "1px solid var(--border)",
+                        borderRadius: "var(--radius-md)",
                         fontSize: "13px",
                         outline: "none",
+                        backgroundColor: "var(--bg-primary)",
+                        color: "var(--text-primary)",
                       }}
                     />
                     <div style={{ display: "flex", gap: "10px" }}>
@@ -476,10 +484,12 @@ export default function Carrinho() {
                         style={{
                           flex: 1,
                           padding: "10px",
-                          border: "1px solid #ddd",
-                          borderRadius: "4px",
+                          border: "1px solid var(--border)",
+                          borderRadius: "var(--radius-md)",
                           fontSize: "13px",
                           outline: "none",
+                          backgroundColor: "var(--bg-primary)",
+                          color: "var(--text-primary)",
                         }}
                       />
                       <input
@@ -495,10 +505,12 @@ export default function Carrinho() {
                         style={{
                           flex: 2,
                           padding: "10px",
-                          border: "1px solid #ddd",
-                          borderRadius: "4px",
+                          border: "1px solid var(--border)",
+                          borderRadius: "var(--radius-md)",
                           fontSize: "13px",
                           outline: "none",
+                          backgroundColor: "var(--bg-primary)",
+                          color: "var(--text-primary)",
                         }}
                       />
                     </div>
@@ -516,7 +528,7 @@ export default function Carrinho() {
                         style={{
                           flex: 2,
                           padding: "10px",
-                          border: "1px solid #ddd",
+                          border: "1px solid var(--border)",
                           borderRadius: "4px",
                           fontSize: "13px",
                           outline: "none",
@@ -535,7 +547,7 @@ export default function Carrinho() {
                         style={{
                           flex: 1,
                           padding: "10px",
-                          border: "1px solid #ddd",
+                          border: "1px solid var(--border)",
                           borderRadius: "4px",
                           fontSize: "13px",
                           outline: "none",
@@ -546,26 +558,25 @@ export default function Carrinho() {
                       onClick={handleSalvarEndereco}
                       disabled={salvandoEndereco}
                       style={{
-                        backgroundColor: "#000",
-                        color: "#fff",
+                        backgroundColor: "var(--accent)",
+                        color: "var(--text-primary)",
                         padding: "12px",
-                        borderRadius: "4px",
+                        borderRadius: "var(--radius-md)",
                         fontWeight: "bold",
                         cursor: "pointer",
                         marginTop: "5px",
                         fontSize: "13px",
+                        border: "none",
                       }}
                     >
-                      {salvandoEndereco
-                        ? "A GUARDAR..."
-                        : "GUARDAR E CONTINUAR"}
+                      {salvandoEndereco ? "SALVANDO..." : "SALVAR E CONTINUAR"}
                     </button>
                     {enderecos.length > 0 && (
                       <button
                         onClick={() => setMostrarFormEndereco(false)}
                         style={{
                           backgroundColor: "transparent",
-                          color: "#666",
+                          color: "var(--text-secondary)",
                           border: "none",
                           fontSize: "12px",
                           cursor: "pointer",
@@ -582,7 +593,7 @@ export default function Carrinho() {
                   style={{
                     marginBottom: "20px",
                     paddingBottom: "20px",
-                    borderBottom: "1px solid #eee",
+                    borderBottom: "1px solid var(--border)",
                   }}
                 >
                   <div
@@ -595,7 +606,7 @@ export default function Carrinho() {
                   >
                     <p
                       style={{
-                        color: "#555",
+                        color: "var(--text-secondary)",
                         margin: 0,
                         fontSize: "13px",
                         fontWeight: "bold",
@@ -607,7 +618,7 @@ export default function Carrinho() {
                       onClick={() => setMostrarFormEndereco(true)}
                       style={{
                         backgroundColor: "transparent",
-                        color: "rgb(106, 13, 173)",
+                        color: "var(--accent)",
                         border: "none",
                         fontWeight: "bold",
                         cursor: "pointer",
@@ -623,10 +634,10 @@ export default function Carrinho() {
                     style={{
                       width: "100%",
                       padding: "12px",
-                      backgroundColor: "#f9f9f9",
-                      color: "#333",
-                      border: "1px solid #ddd",
-                      borderRadius: "4px",
+                      backgroundColor: "var(--bg-primary)",
+                      color: "var(--text-primary)",
+                      border: "1px solid var(--border)",
+                      borderRadius: "var(--radius-md)",
                       outline: "none",
                       fontSize: "13px",
                     }}
@@ -651,7 +662,7 @@ export default function Carrinho() {
                 }}
               >
                 <span>Total</span>
-                <span style={{ color: "rgb(106, 13, 173)" }}>
+                <span style={{ color: "var(--accent)" }}>
                   R$ {valorTotal.toFixed(2).replace(".", ",")}
                 </span>
               </div>
@@ -662,12 +673,12 @@ export default function Carrinho() {
                 style={{
                   backgroundColor:
                     processando || mostrarFormEndereco || !usuario
-                      ? "#ccc"
-                      : "#00c853",
-                  color: "#fff",
+                      ? "var(--bg-card-hover)"
+                      : "var(--accent)",
+                  color: "var(--text-primary)",
                   border: "none",
                   padding: "18px",
-                  borderRadius: "4px",
+                  borderRadius: "var(--radius-md)",
                   fontWeight: "900",
                   fontSize: "15px",
                   width: "100%",
@@ -679,9 +690,9 @@ export default function Carrinho() {
                   transition: "0.2s",
                 }}
               >
-                {processando
-                  ? "A PROCESSAR..."
-                  : mostrarFormEndereco || enderecos.length === 0
+                  {processando
+                    ? "PROCESSANDO..."
+                    : mostrarFormEndereco || enderecos.length === 0
                     ? "CADASTRE UM ENDEREÇO"
                     : "FINALIZAR COMPRA"}
               </button>

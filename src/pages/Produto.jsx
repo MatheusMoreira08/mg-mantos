@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { supabase } from "../services/supabase";
-import { CarrinhoContext } from "../context/CarrinhoContext";
+import { CarrinhoContext } from "../context/carrinho-context";
 
 export default function Produto() {
   const { id } = useParams();
@@ -81,15 +81,15 @@ export default function Produto() {
 
   if (erroProduto)
     return (
-      <div style={{ textAlign: "center", marginTop: "80px", color: "#666" }}>
+      <div style={{ textAlign: "center", marginTop: "80px", color: "var(--text-secondary)", fontFamily: "var(--font-body)" }}>
         <p style={{ fontSize: "48px" }}>\U0001f455</p>
-        <p style={{ fontSize: "18px", fontWeight: "bold", color: "#333" }}>
+        <p style={{ fontSize: "18px", fontWeight: "bold", color: "var(--text-primary)" }}>
           Produto n\u00e3o encontrado.
         </p>
         <p
           onClick={() => navigate("/")}
           style={{
-            color: "rgb(106, 13, 173)",
+            color: "var(--accent)",
             cursor: "pointer",
             textDecoration: "underline",
             marginTop: "10px",
@@ -102,7 +102,7 @@ export default function Produto() {
 
   if (!produto)
     return (
-      <p style={{ textAlign: "center", marginTop: "50px", color: "#666" }}>
+      <p style={{ textAlign: "center", marginTop: "50px", color: "var(--text-secondary)" }}>
         Carregando...
       </p>
     );
@@ -110,15 +110,15 @@ export default function Produto() {
   return (
     <div
       style={{
-        backgroundColor: "#ffffff",
+        backgroundColor: "var(--bg-primary)",
         minHeight: "100vh",
         padding: "40px 0",
-        color: "#333",
-        fontFamily: "sans-serif",
+        color: "var(--text-primary)",
+        fontFamily: "var(--font-body)",
       }}
     >
       <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 20px" }}>
-        <p style={{ fontSize: "12px", color: "#888", marginBottom: "20px" }}>
+        <p style={{ fontSize: "12px", color: "var(--text-secondary)", marginBottom: "20px" }}>
           <span
             style={{ cursor: "pointer", textDecoration: "underline" }}
             onClick={() => navigate("/")}
@@ -132,14 +132,16 @@ export default function Produto() {
           <div
             style={{
               flex: "1",
+              alignSelf: "flex-start",
               minWidth: "300px",
-              border: "1px solid #eaeaea",
-              borderRadius: "8px",
-              padding: "20px" /* Bordinha branca mais sutil */,
+              border: "1px solid var(--border)",
+              borderRadius: "var(--radius-lg)",
+              padding: "12px",
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
-              backgroundColor: "#fff",
+              backgroundColor: "var(--bg-card)",
+              boxShadow: "var(--shadow-card)",
             }}
           >
             <img
@@ -154,9 +156,9 @@ export default function Produto() {
               alt={produto.name}
               style={{
                 width: "100%",
-                maxWidth: "400px" /* Impede a camisa de ficar gigante */,
-                maxHeight: "450px" /* Controla a altura */,
-                objectFit: "contain" /* Mantém as proporções sem cortar */,
+                maxWidth: "520px",
+                maxHeight: "560px",
+                objectFit: "contain",
                 display: "block",
               }}
             />
@@ -177,7 +179,7 @@ export default function Produto() {
                 textTransform: "uppercase",
                 marginBottom: "15px",
                 letterSpacing: "1px",
-                color: "#000",
+                color: "var(--text-primary)",
               }}
             >
               {produto.name}
@@ -186,7 +188,7 @@ export default function Produto() {
               style={{
                 fontSize: "36px",
                 fontWeight: "900",
-                color: "rgb(106, 13, 173)",
+                color: "var(--accent)",
                 marginBottom: "5px",
               }}
             >
@@ -195,9 +197,9 @@ export default function Produto() {
             <p
               style={{
                 fontSize: "12px",
-                color: "#888",
+                color: "var(--text-secondary)",
                 paddingBottom: "20px",
-                borderBottom: "1px solid #eaeaea",
+                borderBottom: "1px solid var(--border)",
                 marginBottom: "30px",
               }}
             >
@@ -223,17 +225,17 @@ export default function Produto() {
                       padding: "8px 16px",
                       border:
                         tamanhoSelecionado === tam
-                          ? "2px solid rgb(106, 13, 173)"
-                          : "1px solid #ddd",
+                          ? "2px solid var(--accent)"
+                            : "1px solid var(--border)",
                       backgroundColor:
-                        tamanhoSelecionado === tam ? "#f3e8ff" : "#fff",
+                          tamanhoSelecionado === tam ? "rgba(106, 13, 173, 0.16)" : "var(--bg-secondary)",
                       color:
                         tamanhoSelecionado === tam
-                          ? "rgb(106, 13, 173)"
-                          : "#555",
+                            ? "var(--accent)"
+                            : "var(--text-secondary)",
                       fontWeight: "bold",
                       fontSize: "13px",
-                      borderRadius: "4px",
+                        borderRadius: "var(--radius-md)",
                       cursor: "pointer",
                       transition: "all 0.2s",
                     }}
@@ -246,17 +248,18 @@ export default function Produto() {
 
             <div
               style={{
-                backgroundColor: "#f9f9f9",
+                backgroundColor: "var(--bg-card)",
                 padding: "20px",
-                borderRadius: "8px",
+                borderRadius: "var(--radius-lg)",
                 marginBottom: "30px",
-                border: "1px solid #eaeaea",
+                border: "1px solid var(--border)",
+                boxShadow: "var(--shadow-card)",
               }}
             >
               <p
                 style={{
                   fontSize: "13px",
-                  color: "#555",
+                  color: "var(--text-secondary)",
                   marginBottom: "10px",
                   fontWeight: "500",
                 }}
@@ -274,9 +277,11 @@ export default function Produto() {
                   style={{
                     flex: "2",
                     padding: "12px",
-                    border: "1px solid #ddd",
-                    borderRadius: "4px",
+                    border: "1px solid var(--border)",
+                    borderRadius: "var(--radius-md)",
                     outline: "none",
+                    backgroundColor: "var(--bg-primary)",
+                    color: "var(--text-primary)",
                   }}
                 />
                 <input
@@ -287,13 +292,15 @@ export default function Produto() {
                   style={{
                     flex: "1",
                     padding: "12px",
-                    border: "1px solid #ddd",
-                    borderRadius: "4px",
+                    border: "1px solid var(--border)",
+                    borderRadius: "var(--radius-md)",
                     outline: "none",
+                    backgroundColor: "var(--bg-primary)",
+                    color: "var(--text-primary)",
                   }}
                 />
               </div>
-              <p style={{ fontSize: "11px", color: "#aaa", marginTop: "8px" }}>
+              <p style={{ fontSize: "11px", color: "var(--text-secondary)", marginTop: "8px" }}>
                 Ex: NEYMAR JR | 10
               </p>
             </div>
@@ -304,7 +311,7 @@ export default function Produto() {
                   fontSize: "12px",
                   fontWeight: "bold",
                   marginBottom: "10px",
-                  color: "#555",
+                  color: "var(--text-secondary)",
                 }}
               >
                 🚚 CALCULAR PRAZOS E PREÇOS
@@ -320,9 +327,11 @@ export default function Produto() {
                   style={{
                     flex: "1",
                     padding: "12px",
-                    border: "1px solid #ddd",
-                    borderRadius: "4px",
+                    border: "1px solid var(--border)",
+                    borderRadius: "var(--radius-md)",
                     outline: "none",
+                    backgroundColor: "var(--bg-primary)",
+                    color: "var(--text-primary)",
                   }}
                 />
                 <button
@@ -330,10 +339,10 @@ export default function Produto() {
                   disabled={calculandoFrete}
                   style={{
                     padding: "0 20px",
-                    backgroundColor: calculandoFrete ? "#999" : "#333",
-                    color: "#fff",
+                    backgroundColor: calculandoFrete ? "var(--bg-card-hover)" : "var(--accent)",
+                    color: "var(--text-primary)",
                     border: "none",
-                    borderRadius: "4px",
+                    borderRadius: "var(--radius-md)",
                     fontWeight: "bold",
                     cursor: calculandoFrete ? "not-allowed" : "pointer",
                     fontSize: "12px",
@@ -345,7 +354,7 @@ export default function Produto() {
               {freteResultado && (
                 <div style={{ marginTop: "12px", fontSize: "13px" }}>
                   {freteResultado.erro ? (
-                    <p style={{ color: "#ff4757" }}>{freteResultado.erro}</p>
+                    <p style={{ color: "var(--error)" }}>{freteResultado.erro}</p>
                   ) : Array.isArray(freteResultado) ? (
                     freteResultado.map((opcao, i) => (
                       <div
@@ -353,11 +362,12 @@ export default function Produto() {
                         style={{
                           display: "flex",
                           justifyContent: "space-between",
-                          backgroundColor: "#f0faf0",
+                          backgroundColor: "rgba(45, 158, 90, 0.14)",
                           padding: "8px 12px",
-                          borderRadius: "4px",
-                          border: "1px solid #d4edda",
+                          borderRadius: "var(--radius-md)",
+                          border: "1px solid rgba(45, 158, 90, 0.28)",
                           marginBottom: "6px",
+                          color: "var(--text-primary)",
                         }}
                       >
                         <span>
@@ -369,7 +379,7 @@ export default function Produto() {
                       </div>
                     ))
                   ) : (
-                    <p style={{ color: "#888" }}>Nenhuma opção disponível.</p>
+                    <p style={{ color: "var(--text-secondary)" }}>Nenhuma opção disponível.</p>
                   )}
                 </div>
               )}
@@ -380,12 +390,12 @@ export default function Produto() {
               style={{
                 width: "100%",
                 padding: "18px",
-                backgroundColor: adicionado ? "#00b248" : "#00c853",
-                color: "#fff",
+                backgroundColor: adicionado ? "var(--success)" : "var(--accent)",
+                color: "var(--text-primary)",
                 fontSize: "16px",
                 fontWeight: "900",
                 border: "none",
-                borderRadius: "4px",
+                borderRadius: "var(--radius-md)",
                 cursor: "pointer",
                 textTransform: "uppercase",
                 transition: "background 0.3s",
@@ -403,7 +413,7 @@ export default function Produto() {
                 style={{
                   textAlign: "center",
                   fontSize: "13px",
-                  color: "rgb(106, 13, 173)",
+                  color: "var(--accent)",
                   cursor: "pointer",
                   textDecoration: "underline",
                   margin: 0,

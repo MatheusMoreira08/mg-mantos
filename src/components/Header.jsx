@@ -1,10 +1,12 @@
 import { useState, useEffect, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { supabase } from "../services/supabase";
-import { CarrinhoContext } from "../context/CarrinhoContext";
+import { CarrinhoContext } from "../context/carrinho-context";
+import { ThemeContext } from "../context/theme-context";
 
 export default function Header() {
   const { carrinho } = useContext(CarrinhoContext);
+  const { theme, toggleTheme } = useContext(ThemeContext);
   const navigate = useNavigate();
 
   const categorias = [
@@ -77,17 +79,19 @@ export default function Header() {
     <header
       style={{
         width: "100%",
-        fontFamily: "sans-serif",
+        fontFamily: "var(--font-body)",
         boxSizing: "border-box",
+        color: "var(--text-primary)",
       }}
     >
       {/* BARRA SUPERIOR */}
       <div
         style={{
-          backgroundColor: "#000",
+          backgroundColor: "var(--bg-primary)",
           width: "100%",
           boxSizing: "border-box",
           padding: "15px 20px",
+          borderBottom: "1px solid var(--border)",
         }}
       >
         <div
@@ -119,11 +123,11 @@ export default function Header() {
               style={{
                 fontWeight: "900",
                 fontSize: "24px",
-                color: "#fff",
+                color: "var(--text-primary)",
                 letterSpacing: "-1px",
               }}
             >
-              MG <span style={{ color: "rgb(106, 13, 173)" }}>MANTOS</span>
+              MG <span style={{ color: "var(--accent)" }}>MANTOS</span>
             </span>
           </Link>
 
@@ -143,10 +147,10 @@ export default function Header() {
                 style={{
                   width: "100%",
                   padding: "12px 20px",
-                  borderRadius: "4px 0 0 4px",
-                  border: "none",
-                  backgroundColor: "#fff",
-                  color: "#333",
+                  borderRadius: "var(--radius-md) 0 0 var(--radius-md)",
+                  border: "1px solid var(--border)",
+                  backgroundColor: "var(--bg-card)",
+                  color: "var(--text-primary)",
                   outline: "none",
                   fontSize: "14px",
                 }}
@@ -155,12 +159,12 @@ export default function Header() {
                 type="button"
                 onClick={handleBuscar}
                 style={{
-                  backgroundColor: "#00bfa5",
+                  backgroundColor: "var(--accent)",
                   border: "none",
-                  borderRadius: "0 4px 4px 0",
+                  borderRadius: "0 var(--radius-md) var(--radius-md) 0",
                   padding: "0 20px",
                   cursor: "pointer",
-                  color: "#fff",
+                  color: "var(--text-primary)",
                   fontSize: "16px",
                   flexShrink: 0,
                 }}
@@ -177,12 +181,12 @@ export default function Header() {
                   top: "100%",
                   left: 0,
                   width: "100%",
-                  backgroundColor: "#fff",
-                  borderRadius: "4px",
-                  boxShadow: "0 4px 15px rgba(0,0,0,0.2)",
+                  backgroundColor: "var(--bg-card)",
+                  borderRadius: "var(--radius-md)",
+                  boxShadow: "var(--shadow-hover)",
                   zIndex: 1000,
                   marginTop: "5px",
-                  border: "1px solid #eee",
+                  border: "1px solid var(--border)",
                   overflow: "hidden",
                 }}
               >
@@ -195,16 +199,16 @@ export default function Header() {
                       alignItems: "center",
                       gap: "15px",
                       padding: "10px 15px",
-                      borderBottom: "1px solid #f0f0f0",
+                      borderBottom: "1px solid var(--border)",
                       cursor: "pointer",
-                      backgroundColor: "#fff",
+                      backgroundColor: "var(--bg-card)",
                       transition: "background 0.2s",
                     }}
                     onMouseEnter={(e) =>
-                      (e.currentTarget.style.backgroundColor = "#f9f9f9")
+                      (e.currentTarget.style.backgroundColor = "var(--bg-card-hover)")
                     }
                     onMouseLeave={(e) =>
-                      (e.currentTarget.style.backgroundColor = "#fff")
+                      (e.currentTarget.style.backgroundColor = "var(--bg-card)")
                     }
                   >
                     <img
@@ -221,7 +225,7 @@ export default function Header() {
                         style={{
                           margin: 0,
                           fontSize: "13px",
-                          color: "#333",
+                          color: "var(--text-primary)",
                           fontWeight: "bold",
                         }}
                       >
@@ -231,7 +235,7 @@ export default function Header() {
                         style={{
                           margin: 0,
                           fontSize: "13px",
-                          color: "#00bfa5",
+                          color: "var(--accent)",
                           fontWeight: "900",
                         }}
                       >
@@ -249,14 +253,35 @@ export default function Header() {
             style={{
               display: "flex",
               alignItems: "center",
-              gap: "25px",
+              gap: "16px",
               flexShrink: 0,
             }}
           >
+            <button
+              type="button"
+              onClick={toggleTheme}
+              aria-label={theme === "dark" ? "Ativar tema claro" : "Ativar tema escuro"}
+              style={{
+                border: "1px solid var(--border)",
+                backgroundColor: "var(--bg-card)",
+                color: "var(--text-primary)",
+                borderRadius: "var(--radius-full)",
+                padding: "10px 14px",
+                cursor: "pointer",
+                fontWeight: "900",
+                fontSize: "12px",
+                textTransform: "uppercase",
+                letterSpacing: "0.4px",
+                boxShadow: "var(--shadow-card)",
+                whiteSpace: "nowrap",
+              }}
+            >
+              {theme === "dark" ? "☀️ Claro" : "🌙 Escuro"}
+            </button>
             <Link
               to="/minha-conta"
               style={{
-                color: "#fff",
+                color: "var(--text-primary)",
                 textDecoration: "none",
                 fontSize: "20px",
               }}
@@ -266,7 +291,7 @@ export default function Header() {
             <Link
               to="/carrinho"
               style={{
-                color: "#fff",
+                color: "var(--text-primary)",
                 textDecoration: "none",
                 display: "flex",
                 alignItems: "center",
@@ -287,8 +312,8 @@ export default function Header() {
                     position: "absolute",
                     top: "-4px",
                     right: "-8px",
-                    backgroundColor: "#00bfa5",
-                    color: "#fff",
+                    backgroundColor: "var(--accent)",
+                    color: "var(--text-primary)",
                     borderRadius: "50%",
                     width: "20px",
                     height: "20px",
@@ -311,8 +336,8 @@ export default function Header() {
       {/* BARRA DE CATEGORIAS */}
       <nav
         style={{
-          backgroundColor: "#1a1a1a",
-          borderTop: "1px solid #333",
+          backgroundColor: "var(--bg-secondary)",
+          borderTop: "1px solid var(--border)",
           width: "100%",
           boxSizing: "border-box",
           padding: "12px 20px",
@@ -332,7 +357,7 @@ export default function Header() {
           <Link
             to="/carrinho"
             style={{
-              color: "#fff",
+              color: "var(--text-primary)",
               textDecoration: "none",
               fontSize: "13px",
               fontWeight: "900",
@@ -346,15 +371,15 @@ export default function Header() {
               key={cat}
               to={`/categoria/${cat.toLowerCase().replace(/ /g, "-")}`}
               style={{
-                color: "#fff",
+                color: "var(--text-primary)",
                 textDecoration: "none",
                 fontSize: "13px",
                 fontWeight: "bold",
                 textTransform: "uppercase",
                 transition: "color 0.2s",
               }}
-              onMouseEnter={(e) => (e.target.style.color = "rgb(106, 13, 173)")}
-              onMouseLeave={(e) => (e.target.style.color = "#fff")}
+              onMouseEnter={(e) => (e.currentTarget.style.color = "var(--accent)")}
+              onMouseLeave={(e) => (e.currentTarget.style.color = "var(--text-primary)")}
             >
               {cat}
             </Link>

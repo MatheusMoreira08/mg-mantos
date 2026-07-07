@@ -4,11 +4,12 @@ export default function Footer() {
   return (
     <footer
       style={{
-        backgroundColor: "#0a0a0a",
-        color: "#fff",
-        fontFamily: "sans-serif",
+        backgroundColor: "var(--bg-primary)",
+        color: "var(--text-primary)",
+        fontFamily: "var(--font-body)",
         paddingTop: "60px",
         textAlign: "left" /* <-- A MÁGICA ACONTECE AQUI */,
+        borderTop: "1px solid var(--border)",
       }}
     >
       <div
@@ -41,11 +42,11 @@ export default function Footer() {
               style={{
                 fontWeight: "900",
                 fontSize: "22px",
-                color: "#fff",
+                color: "var(--text-primary)",
                 letterSpacing: "-1px",
               }}
             >
-              MG <span style={{ color: "rgb(106, 13, 173)" }}>MANTOS</span>
+              MG <span style={{ color: "var(--accent)" }}>MANTOS</span>
             </span>
           </div>
 
@@ -55,12 +56,12 @@ export default function Footer() {
               fontWeight: "bold",
               textTransform: "uppercase",
               marginBottom: "15px",
-              color: "#fff",
+              color: "var(--text-primary)",
             }}
           >
             Central de Atendimento
           </h4>
-          <p style={{ fontSize: "13px", color: "#aaa", marginBottom: "8px" }}>
+          <p style={{ fontSize: "13px", color: "var(--text-secondary)", marginBottom: "8px" }}>
             Horário de atendimento:
           </p>
           <ul
@@ -69,7 +70,7 @@ export default function Footer() {
               padding: 0,
               margin: "0 0 25px 0",
               fontSize: "13px",
-              color: "#ccc",
+              color: "var(--text-secondary)",
               lineHeight: "1.8",
             }}
           >
@@ -83,7 +84,7 @@ export default function Footer() {
               fontWeight: "bold",
               textTransform: "uppercase",
               marginBottom: "15px",
-              color: "#fff",
+              color: "var(--text-primary)",
             }}
           >
             Contato
@@ -94,7 +95,7 @@ export default function Footer() {
               padding: 0,
               margin: 0,
               fontSize: "13px",
-              color: "#ccc",
+              color: "var(--text-secondary)",
               lineHeight: "1.8",
             }}
           >
@@ -115,7 +116,7 @@ export default function Footer() {
               fontWeight: "bold",
               textTransform: "uppercase",
               marginBottom: "20px",
-              color: "#fff",
+              color: "var(--text-primary)",
             }}
           >
             Acesso Rápido
@@ -130,32 +131,32 @@ export default function Footer() {
             }}
           >
             <li>
-              <Link to="/" style={{ color: "#ccc", textDecoration: "none" }}>
+              <Link to="/" style={{ color: "var(--text-secondary)", textDecoration: "none" }}>
                 Início
               </Link>
             </li>
             <li>
-              <Link to="#" style={{ color: "#ccc", textDecoration: "none" }}>
+              <Link to="#" style={{ color: "var(--text-secondary)", textDecoration: "none" }}>
                 Políticas de Privacidade
               </Link>
             </li>
             <li>
-              <Link to="#" style={{ color: "#ccc", textDecoration: "none" }}>
+              <Link to="#" style={{ color: "var(--text-secondary)", textDecoration: "none" }}>
                 Política de Reembolso e Devoluções
               </Link>
             </li>
             <li>
-              <Link to="#" style={{ color: "#ccc", textDecoration: "none" }}>
+              <Link to="#" style={{ color: "var(--text-secondary)", textDecoration: "none" }}>
                 Política de Envio
               </Link>
             </li>
             <li>
-              <Link to="#" style={{ color: "#ccc", textDecoration: "none" }}>
+              <Link to="#" style={{ color: "var(--text-secondary)", textDecoration: "none" }}>
                 Termos e Condições
               </Link>
             </li>
             <li>
-              <Link to="#" style={{ color: "#ccc", textDecoration: "none" }}>
+              <Link to="#" style={{ color: "var(--text-secondary)", textDecoration: "none" }}>
                 FAQ
               </Link>
             </li>
@@ -170,7 +171,7 @@ export default function Footer() {
               fontWeight: "bold",
               textTransform: "uppercase",
               marginBottom: "20px",
-              color: "#fff",
+              color: "var(--text-primary)",
             }}
           >
             Minha Conta
@@ -187,7 +188,7 @@ export default function Footer() {
             <li>
               <Link
                 to="/minha-conta"
-                style={{ color: "#ccc", textDecoration: "none" }}
+                style={{ color: "var(--text-secondary)", textDecoration: "none" }}
               >
                 Minha conta
               </Link>
@@ -195,7 +196,7 @@ export default function Footer() {
             <li>
               <Link
                 to="/minha-conta"
-                style={{ color: "#ccc", textDecoration: "none" }}
+                style={{ color: "var(--text-secondary)", textDecoration: "none" }}
               >
                 Histórico de Pedidos
               </Link>
@@ -203,7 +204,7 @@ export default function Footer() {
             <li>
               <Link
                 to="/minha-conta"
-                style={{ color: "#ccc", textDecoration: "none" }}
+                style={{ color: "var(--text-secondary)", textDecoration: "none" }}
               >
                 Endereços
               </Link>
@@ -216,7 +217,7 @@ export default function Footer() {
               display: "flex",
               alignItems: "center",
               gap: "15px",
-              color: "#fff",
+              color: "var(--text-primary)",
               marginTop: "40px",
             }}
           >
@@ -239,13 +240,13 @@ export default function Footer() {
       {/* Copyright */}
       <div
         style={{
-          borderTop: "1px solid #222",
+          borderTop: "1px solid var(--border)",
           marginTop: "50px",
           padding: "20px 0",
           textAlign:
             "center" /* Este continua centralizado para ficar no meio certinho */,
           fontSize: "12px",
-          color: "#888",
+          color: "var(--text-secondary)",
           fontWeight: "500",
         }}
       >

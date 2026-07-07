@@ -52,14 +52,12 @@ export default function Home() {
   const escudosTimesBR = [
     {
       nome: "Flamengo",
-      imagem:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Flamengo_braz_logo.svg/120px-Flamengo_braz_logo.svg.png",
+      imagem: "/img/times/flamengo.svg",
       link: "/categoria/flamengo",
     },
     {
       nome: "São Paulo",
-      imagem:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/S%C3%A3o_Paulo_Futebol_Clube.svg/120px-S%C3%A3o_Paulo_Futebol_Clube.svg.png",
+      imagem: "/img/times/sao-paulo.svg",
       link: "/categoria/sao-paulo",
     },
     {
@@ -76,8 +74,7 @@ export default function Home() {
     },
     {
       nome: "Vasco",
-      imagem:
-        "https://upload.wikimedia.org/wikipedia/pt/thumb/a/ac/CRVascodaGama.png/120px-CRVascodaGama.png",
+      imagem: "/img/times/vasco.svg",
       link: "/categoria/vasco",
     },
     {
@@ -94,8 +91,7 @@ export default function Home() {
     },
     {
       nome: "Grêmio",
-      imagem:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Gr%C3%AAmio_FBPA_logo.svg/120px-Gr%C3%AAmio_FBPA_logo.svg.png",
+      imagem: "/img/times/gremio.svg",
       link: "/categoria/gremio",
     },
   ];
@@ -148,8 +144,7 @@ export default function Home() {
       },
       {
         nome: "Manchester United",
-        imagem:
-          "https://upload.wikimedia.org/wikipedia/pt/thumb/0/05/Manchester_United_FC_crest.svg/120px-Manchester_United_FC_crest.svg.png",
+        imagem: "/img/times/manchester-united.svg",
         link: "/categoria/manchester-united",
       },
     ],
@@ -226,10 +221,11 @@ export default function Home() {
   return (
     <div
       style={{
-        backgroundColor: "#ffffff",
+          backgroundColor: "var(--bg-primary)",
         width: "100%",
         overflowX: "hidden",
-        fontFamily: "sans-serif",
+          fontFamily: "var(--font-body)",
+          color: "var(--text-primary)",
       }}
     >
       <BannerCarousel imagens={meusBanners} />
@@ -251,10 +247,13 @@ export default function Home() {
           <span
             onClick={() => setAbaPrincipal("Lançamentos")}
             style={{
-              color: abaPrincipal === "Lançamentos" ? "#000" : "#999",
+                color:
+                  abaPrincipal === "Lançamentos"
+                    ? "var(--text-primary)"
+                    : "var(--text-secondary)",
               borderBottom:
                 abaPrincipal === "Lançamentos"
-                  ? "2px solid rgb(106, 13, 173)"
+                  ? "2px solid var(--accent)"
                   : "none",
               paddingBottom: "5px",
               cursor: "pointer",
@@ -266,10 +265,13 @@ export default function Home() {
           <span
             onClick={() => setAbaPrincipal("Mais Vendidos")}
             style={{
-              color: abaPrincipal === "Mais Vendidos" ? "#000" : "#999",
+                color:
+                  abaPrincipal === "Mais Vendidos"
+                    ? "var(--text-primary)"
+                    : "var(--text-secondary)",
               borderBottom:
                 abaPrincipal === "Mais Vendidos"
-                  ? "2px solid rgb(106, 13, 173)"
+                  ? "2px solid var(--accent)"
                   : "none",
               paddingBottom: "5px",
               cursor: "pointer",
@@ -300,7 +302,7 @@ export default function Home() {
         style={{
           textAlign: "center",
           margin: "60px 0",
-          backgroundColor: "#fafafa",
+           backgroundColor: "var(--bg-secondary)",
           padding: "40px 0",
         }}
       >
@@ -308,7 +310,7 @@ export default function Home() {
           style={{
             fontSize: "12px",
             letterSpacing: "2px",
-            color: "#666",
+             color: "var(--text-secondary)",
             textTransform: "uppercase",
             marginBottom: "10px",
           }}
@@ -320,7 +322,7 @@ export default function Home() {
             fontSize: "28px",
             fontWeight: "900",
             margin: "0 0 40px 0",
-            color: "#000",
+             color: "var(--text-primary)",
           }}
         >
           DIVERSIFIQUE SEU PEDIDO
@@ -370,14 +372,14 @@ export default function Home() {
                     bottom: "15px",
                     left: "50%",
                     transform: "translateX(-50%)",
-                    backgroundColor: "#fff",
-                    color: "#000",
+                    backgroundColor: "var(--bg-card)",
+                    color: "var(--text-primary)",
                     padding: "10px 30px",
                     fontWeight: "900",
                     fontSize: "14px",
                     textTransform: "uppercase",
                     borderRadius: "4px",
-                    boxShadow: "0 4px 6px rgba(0,0,0,0.1)",
+                    boxShadow: "var(--shadow-card)",
                   }}
                 >
                   {cat.nome}
@@ -402,7 +404,7 @@ export default function Home() {
             textTransform: "uppercase",
             fontWeight: "bold",
             marginBottom: "30px",
-            color: "#333",
+             color: "var(--text-secondary)",
           }}
         >
           BRASILEIRÃO
@@ -439,7 +441,9 @@ export default function Home() {
                 style={{ width: "60px", height: "60px", objectFit: "contain" }}
                 title={time.nome}
                 onError={(e) => {
-                  e.target.style.display = "none";
+                  const inicial = time.nome.charAt(0).toUpperCase();
+                  e.currentTarget.onerror = null;
+                  e.currentTarget.src = `https://placehold.co/60x60/1a1a1a/f0f0f0?text=${encodeURIComponent(inicial)}`;
                 }}
               />
             </Link>
@@ -512,14 +516,14 @@ export default function Home() {
                   bottom: "15px",
                   left: "50%",
                   transform: "translateX(-50%)",
-                  backgroundColor: "#fff",
-                  color: "#000",
+                    backgroundColor: "var(--bg-card)",
+                    color: "var(--text-primary)",
                   padding: "10px 30px",
                   fontWeight: "900",
                   fontSize: "14px",
                   textTransform: "uppercase",
                   borderRadius: "4px",
-                  boxShadow: "0 4px 6px rgba(0,0,0,0.1)",
+                    boxShadow: "var(--shadow-card)",
                 }}
               >
                 {cat.nome}
@@ -529,14 +533,14 @@ export default function Home() {
         </div>
       </div>
 
-      <div style={{ textAlign: "center", margin: "80px 0 40px" }}>
+      <div style={{ textAlign: "center", margin: "48px 0 28px" }}>
         <p
           style={{
             fontSize: "12px",
             letterSpacing: "2px",
-            color: "#666",
+            color: "var(--text-secondary)",
             textTransform: "uppercase",
-            marginBottom: "10px",
+            marginBottom: "6px",
           }}
         >
           As principais ligas do mundo
@@ -545,8 +549,8 @@ export default function Home() {
           style={{
             fontSize: "28px",
             fontWeight: "900",
-            margin: "0 0 30px 0",
-            color: "#000",
+            margin: "0 0 20px 0",
+            color: "var(--text-primary)",
           }}
         >
           COMPRE POR LIGA 🏆
@@ -557,7 +561,7 @@ export default function Home() {
             display: "flex",
             justifyContent: "center",
             gap: "20px",
-            marginBottom: "30px",
+            marginBottom: "18px",
             fontWeight: "bold",
             fontSize: "13px",
             textTransform: "uppercase",
@@ -570,9 +574,12 @@ export default function Home() {
               key={liga}
               onClick={() => setLigaAtiva(liga)}
               style={{
-                color: ligaAtiva === liga ? "#000" : "#999",
+                color:
+                  ligaAtiva === liga
+                    ? "var(--text-primary)"
+                    : "var(--text-secondary)",
                 borderBottom:
-                  ligaAtiva === liga ? "2px solid rgb(106, 13, 173)" : "none",
+                  ligaAtiva === liga ? "2px solid var(--accent)" : "none",
                 paddingBottom: "5px",
                 cursor: "pointer",
                 transition: "color 0.3s",
@@ -588,10 +595,10 @@ export default function Home() {
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            gap: "30px",
+            gap: "22px",
             flexWrap: "wrap",
-            marginBottom: "40px",
-            minHeight: "60px",
+            marginBottom: "24px",
+            minHeight: "44px",
           }}
         >
           {timesPorLiga[ligaAtiva].map((time, index) => (
@@ -613,12 +620,25 @@ export default function Home() {
               <img
                 src={time.imagem}
                 alt={time.nome}
-                style={{ width: "50px", height: "50px", objectFit: "contain" }}
+                style={{ width: "52px", height: "52px", objectFit: "contain" }}
                 title={time.nome}
                 onError={(e) => {
-                  e.target.style.display = "none";
+                  const inicial = time.nome.charAt(0).toUpperCase();
+                  e.currentTarget.onerror = null;
+                  e.currentTarget.src = `https://placehold.co/52x52/1a1a1a/f0f0f0?text=${encodeURIComponent(inicial)}`;
                 }}
               />
+              <div
+                style={{
+                  marginTop: "8px",
+                  fontSize: "11px",
+                  lineHeight: "1.1",
+                  color: "var(--text-secondary)",
+                  maxWidth: "82px",
+                }}
+              >
+                {time.nome}
+              </div>
             </Link>
           ))}
         </div>

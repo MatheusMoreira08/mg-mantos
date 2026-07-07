@@ -1,42 +1,56 @@
 import { Link } from "react-router-dom";
 
 export default function ProdutoCard({ produto }) {
+  const imagemProduto = produto.image || produto.imagem;
+
   return (
     <div
       style={{
-        backgroundColor: "#fff",
+        backgroundColor: "var(--bg-card)",
         padding: "10px",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
         textAlign: "center",
         height: "100%",
-        border: "1px solid #f0f0f0",
+        border: "1px solid var(--border)",
         transition: "transform 0.2s ease-in-out, box-shadow 0.2s",
-        borderRadius: "4px",
+        borderRadius: "var(--radius-md)",
+        boxShadow: "var(--shadow-card)",
+        color: "var(--text-primary)",
       }}
       onMouseEnter={(e) => {
         e.currentTarget.style.transform = "scale(1.02)";
-        e.currentTarget.style.boxShadow = "0 6px 20px rgba(0,0,0,0.08)";
+        e.currentTarget.style.boxShadow = "var(--shadow-hover)";
       }}
       onMouseLeave={(e) => {
         e.currentTarget.style.transform = "scale(1)";
-        e.currentTarget.style.boxShadow = "none";
+        e.currentTarget.style.boxShadow = "var(--shadow-card)";
       }}
     >
       <div
         style={{
           width: "100%",
-          height: "220px",
-          backgroundColor: "#f6f6f6",
+          height: "260px",
+          backgroundColor: "var(--bg-secondary)",
           overflow: "hidden",
           borderRadius: "4px",
         }}
       >
         <img
-          src={`/${produto.image || produto.imagem}`}
+          src={imagemProduto ? `/${imagemProduto}` : "/placeholder-camisa.png"}
           alt={produto.name}
-          style={{ width: "100%", height: "100%", objectFit: "cover" }}
+          style={{
+            width: "100%",
+            height: "100%",
+            objectFit: "contain",
+            padding: "8px",
+            boxSizing: "border-box",
+          }}
+          onError={(e) => {
+            e.currentTarget.onerror = null;
+            e.currentTarget.src = "/placeholder-camisa.png";
+          }}
         />
       </div>
       <div
@@ -51,7 +65,7 @@ export default function ProdutoCard({ produto }) {
         <h3
           style={{
             fontSize: "13px",
-            color: "#333",
+            color: "var(--text-secondary)",
             marginTop: "15px",
             fontWeight: "500",
             minHeight: "36px",
@@ -61,7 +75,7 @@ export default function ProdutoCard({ produto }) {
         </h3>
         <p
           style={{
-            color: "#000",
+            color: "var(--text-primary)",
             fontWeight: "900",
             fontSize: "16px",
             margin: "10px 0",
@@ -76,8 +90,8 @@ export default function ProdutoCard({ produto }) {
       >
         <button
           style={{
-            backgroundColor: "rgb(106, 13, 173)",
-            color: "#fff",
+            backgroundColor: "var(--accent)",
+            color: "var(--text-primary)",
             border: "none",
             padding: "12px 0",
             width: "100%",
@@ -85,12 +99,12 @@ export default function ProdutoCard({ produto }) {
             fontSize: "12px",
             cursor: "pointer",
             textTransform: "uppercase",
-            borderRadius: "0 0 4px 4px",
+            borderRadius: "0 0 var(--radius-md) var(--radius-md)",
             transition: "background 0.2s",
           }}
-          onMouseEnter={(e) => (e.target.style.backgroundColor = "#550aad")}
+          onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "var(--accent-light)")}
           onMouseLeave={(e) =>
-            (e.target.style.backgroundColor = "rgb(106, 13, 173)")
+            (e.currentTarget.style.backgroundColor = "var(--accent)")
           }
         >
           Ver Produto

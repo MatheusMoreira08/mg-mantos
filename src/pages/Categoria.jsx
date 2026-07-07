@@ -3,6 +3,15 @@ import { useParams } from "react-router-dom";
 import { supabase } from "../services/supabase";
 import ProdutoCard from "../components/ProdutoCard";
 
+const sinonimos = {
+  brasileirao: ["nacional", "brasileirao"],
+  "times-internacionais": ["europeus", "internacional"],
+  feminina: ["feminina"],
+  selecoes: ["selecoes"],
+  retro: ["retro"],
+  jogador: ["jogador"],
+};
+
 export default function Categoria() {
   const { slug } = useParams();
   const [produtos, setProdutos] = useState([]);
@@ -10,15 +19,6 @@ export default function Categoria() {
 
   const removerAcentos = (str) =>
     str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-
-  const sinonimos = {
-    brasileirao: ["nacional", "brasileirao"],
-    "times-internacionais": ["europeus", "internacional"],
-    feminina: ["feminina"],
-    selecoes: ["selecoes"],
-    retro: ["retro"],
-    jogador: ["jogador"],
-  };
 
   useEffect(() => {
     const fetchEFiltrarCategoria = async () => {
@@ -56,10 +56,11 @@ export default function Categoria() {
   return (
     <div
       style={{
-        backgroundColor: "#fafafa",
+        backgroundColor: "var(--bg-primary)",
         minHeight: "100vh",
         padding: "50px 0",
-        fontFamily: "sans-serif",
+        fontFamily: "var(--font-body)",
+        color: "var(--text-primary)",
       }}
     >
       <div style={{ maxWidth: "1250px", margin: "0 auto", padding: "0 20px" }}>
@@ -68,7 +69,7 @@ export default function Categoria() {
             textAlign: "center",
             textTransform: "capitalize",
             marginBottom: "40px",
-            color: "#000",
+            color: "var(--text-primary)",
             fontSize: "32px",
             fontWeight: "900",
           }}
@@ -76,7 +77,7 @@ export default function Categoria() {
           {formatarTitulo(slug)}
         </h1>
         {carregando ? (
-          <p style={{ textAlign: "center", color: "#666", fontWeight: "bold" }}>
+          <p style={{ textAlign: "center", color: "var(--text-secondary)", fontWeight: "bold" }}>
             Buscando produtos...
           </p>
         ) : produtos.length === 0 ? (
@@ -84,17 +85,18 @@ export default function Categoria() {
             style={{
               textAlign: "center",
               marginTop: "50px",
-              backgroundColor: "#fff",
+              backgroundColor: "var(--bg-card)",
               padding: "60px 20px",
-              borderRadius: "8px",
-              border: "1px solid #eaeaea",
+              borderRadius: "var(--radius-lg)",
+              border: "1px solid var(--border)",
+              boxShadow: "var(--shadow-card)",
             }}
           >
             <span style={{ fontSize: "50px" }}>👕</span>
             <p
               style={{
                 fontSize: "18px",
-                color: "#333",
+                color: "var(--text-primary)",
                 fontWeight: "bold",
                 marginTop: "20px",
               }}

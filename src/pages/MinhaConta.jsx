@@ -146,30 +146,41 @@ export default function MinhaConta() {
 
   if (carregando)
     return (
-      <div style={{ textAlign: "center", padding: "50px" }}>Carregando...</div>
+      <div
+        style={{
+          textAlign: "center",
+          padding: "50px",
+          color: "var(--text-primary)",
+          fontFamily: "var(--font-body)",
+          backgroundColor: "var(--bg-primary)",
+          minHeight: "100vh",
+        }}
+      >
+        Carregando...
+      </div>
     );
 
   if (!usuario) {
     return (
       <div
         style={{
-          backgroundColor: "#fafafa",
+          backgroundColor: "var(--bg-primary)",
           minHeight: "100vh",
           padding: "60px 20px",
           display: "flex",
           justifyContent: "center",
-          fontFamily: "sans-serif",
+          fontFamily: "var(--font-body)",
         }}
       >
         <div
           style={{
             width: "100%",
             maxWidth: "450px",
-            backgroundColor: "#fff",
+            backgroundColor: "var(--bg-card)",
             padding: "40px",
-            borderRadius: "8px",
-            boxShadow: "0 4px 15px rgba(0,0,0,0.05)",
-            border: "1px solid #eaeaea",
+            borderRadius: "var(--radius-lg)",
+            boxShadow: "var(--shadow-hover)",
+            border: "1px solid var(--border)",
             height: "fit-content",
           }}
         >
@@ -179,7 +190,7 @@ export default function MinhaConta() {
               fontWeight: "900",
               marginBottom: "30px",
               textAlign: "center",
-              color: "#000",
+              color: "var(--text-primary)",
               textTransform: "uppercase",
             }}
           >
@@ -201,8 +212,10 @@ export default function MinhaConta() {
               placeholder="E-mail"
               style={{
                 padding: "12px",
-                border: "1px solid #ddd",
-                borderRadius: "4px",
+                border: "1px solid var(--border)",
+                borderRadius: "var(--radius-md)",
+                backgroundColor: "var(--bg-primary)",
+                color: "var(--text-primary)",
               }}
             />
             {modo !== "recuperar" && (
@@ -214,8 +227,10 @@ export default function MinhaConta() {
                 placeholder="Senha"
                 style={{
                   padding: "12px",
-                  border: "1px solid #ddd",
-                  borderRadius: "4px",
+                  border: "1px solid var(--border)",
+                  borderRadius: "var(--radius-md)",
+                  backgroundColor: "var(--bg-primary)",
+                  color: "var(--text-primary)",
                 }}
               />
             )}
@@ -225,7 +240,7 @@ export default function MinhaConta() {
                 style={{
                   textAlign: "right",
                   fontSize: "12px",
-                  color: "rgb(106, 13, 173)",
+                  color: "var(--accent)",
                   cursor: "pointer",
                   fontWeight: "bold",
                   margin: "0",
@@ -238,18 +253,18 @@ export default function MinhaConta() {
               type="submit"
               disabled={processando}
               style={{
-                backgroundColor: "#000",
-                color: "#fff",
+                backgroundColor: processando ? "var(--bg-card-hover)" : "var(--accent)",
+                color: "var(--text-primary)",
                 padding: "15px",
                 border: "none",
-                borderRadius: "4px",
+                borderRadius: "var(--radius-md)",
                 fontWeight: "900",
-                cursor: "pointer",
+                cursor: processando ? "not-allowed" : "pointer",
                 marginTop: "10px",
               }}
             >
               {processando
-                ? "AGUARDE..."
+                ? "AGUARDANDO..."
                 : modo === "login"
                   ? "ENTRAR"
                   : modo === "cadastro"
@@ -269,7 +284,7 @@ export default function MinhaConta() {
                     setSenha("");
                   }}
                   style={{
-                    color: "rgb(106, 13, 173)",
+                    color: "var(--accent)",
                     cursor: "pointer",
                     fontWeight: "bold",
                   }}
@@ -286,7 +301,7 @@ export default function MinhaConta() {
                     setSenha("");
                   }}
                   style={{
-                    color: "rgb(106, 13, 173)",
+                    color: "var(--accent)",
                     cursor: "pointer",
                     fontWeight: "bold",
                   }}
@@ -304,11 +319,11 @@ export default function MinhaConta() {
   return (
     <div
       style={{
-        backgroundColor: "#fafafa",
-        color: "#333",
+        backgroundColor: "var(--bg-primary)",
+        color: "var(--text-primary)",
         minHeight: "100vh",
         padding: "40px 20px",
-        fontFamily: "sans-serif",
+        fontFamily: "var(--font-body)",
       }}
     >
       <div style={{ maxWidth: "900px", margin: "0 auto" }}>
@@ -319,7 +334,7 @@ export default function MinhaConta() {
             alignItems: "center",
             marginBottom: "40px",
             paddingBottom: "20px",
-            borderBottom: "1px solid #eaeaea",
+            borderBottom: "1px solid var(--border)",
           }}
         >
           <div>
@@ -328,23 +343,23 @@ export default function MinhaConta() {
                 margin: "0 0 5px 0",
                 fontSize: "28px",
                 fontWeight: "900",
-                color: "#000",
+                color: "var(--text-primary)",
               }}
             >
               Minha Conta
             </h1>
-            <p style={{ color: "#666", margin: 0 }}>
+            <p style={{ color: "var(--text-secondary)", margin: 0 }}>
               Bem-vindo(a), <strong>{usuario?.email}</strong>
             </p>
           </div>
           <button
             onClick={sair}
             style={{
-              backgroundColor: "#fff",
-              color: "#ff4757",
-              border: "1px solid #ff4757",
+              backgroundColor: "transparent",
+              color: "var(--error)",
+              border: "1px solid var(--error)",
               padding: "8px 16px",
-              borderRadius: "4px",
+              borderRadius: "var(--radius-md)",
               cursor: "pointer",
               fontWeight: "bold",
             }}
@@ -360,7 +375,7 @@ export default function MinhaConta() {
             fontWeight: "900",
             marginBottom: "20px",
             textTransform: "uppercase",
-            color: "#000" /* <-- CORRIGIDO AQUI */,
+            color: "var(--text-primary)",
           }}
         >
           Meus Pedidos
@@ -368,22 +383,23 @@ export default function MinhaConta() {
         {pedidos.length === 0 ? (
           <div
             style={{
-              backgroundColor: "#fff",
+              backgroundColor: "var(--bg-card)",
               padding: "40px",
-              borderRadius: "8px",
-              border: "1px solid #eaeaea",
+              borderRadius: "var(--radius-lg)",
+              border: "1px solid var(--border)",
               textAlign: "center",
+              boxShadow: "var(--shadow-card)",
             }}
           >
             <p
-              style={{ fontSize: "16px", color: "#666", marginBottom: "15px" }}
+              style={{ fontSize: "16px", color: "var(--text-secondary)", marginBottom: "15px" }}
             >
               Você ainda não realizou nenhum pedido.
             </p>
             <Link
               to="/"
               style={{
-                color: "rgb(106, 13, 173)",
+                color: "var(--accent)",
                 fontWeight: "bold",
                 textDecoration: "none",
               }}
@@ -399,11 +415,11 @@ export default function MinhaConta() {
               <div
                 key={pedido.id}
                 style={{
-                  backgroundColor: "#fff",
+                  backgroundColor: "var(--bg-card)",
                   padding: "25px",
-                  borderRadius: "8px",
-                  border: "1px solid #eaeaea",
-                  boxShadow: "0 2px 8px rgba(0,0,0,0.02)",
+                  borderRadius: "var(--radius-lg)",
+                  border: "1px solid var(--border)",
+                  boxShadow: "var(--shadow-card)",
                 }}
               >
                 <div
@@ -411,7 +427,7 @@ export default function MinhaConta() {
                     display: "flex",
                     justifyContent: "space-between",
                     marginBottom: "15px",
-                    borderBottom: "1px solid #eee",
+                    borderBottom: "1px solid var(--border)",
                     paddingBottom: "15px",
                   }}
                 >
@@ -420,8 +436,8 @@ export default function MinhaConta() {
                   </span>
                   <span
                     style={{
-                      backgroundColor: "#e6f9ed",
-                      color: "#00c853",
+                      backgroundColor: "rgba(45, 158, 90, 0.15)",
+                      color: "var(--success)",
                       padding: "4px 10px",
                       borderRadius: "20px",
                       fontSize: "12px",
@@ -443,13 +459,13 @@ export default function MinhaConta() {
                       style={{
                         margin: "0 0 5px 0",
                         fontSize: "13px",
-                        color: "#888",
+                        color: "var(--text-secondary)",
                       }}
                     >
                       Data:{" "}
                       {new Date(pedido.created_at).toLocaleDateString("pt-BR")}
                     </p>
-                    <p style={{ margin: 0, fontSize: "13px", color: "#555" }}>
+                    <p style={{ margin: 0, fontSize: "13px", color: "var(--text-secondary)" }}>
                       <strong>{pedido.order_items?.length || 0}</strong>{" "}
                       item(ns)
                     </p>
@@ -459,7 +475,7 @@ export default function MinhaConta() {
                       style={{
                         margin: "0 0 5px 0",
                         fontSize: "12px",
-                        color: "#888",
+                        color: "var(--text-secondary)",
                       }}
                     >
                       Total
@@ -469,7 +485,7 @@ export default function MinhaConta() {
                         margin: 0,
                         fontSize: "18px",
                         fontWeight: "900",
-                        color: "rgb(106, 13, 173)",
+                        color: "var(--accent)",
                       }}
                     >
                       R$ {Number(pedido.total).toFixed(2).replace(".", ",")}
@@ -497,7 +513,7 @@ export default function MinhaConta() {
               fontWeight: "900",
               margin: 0,
               textTransform: "uppercase",
-              color: "#000" /* <-- CORRIGIDO AQUI */,
+              color: "var(--text-primary)",
             }}
           >
             Meus Endereços
@@ -506,11 +522,11 @@ export default function MinhaConta() {
             <button
               onClick={() => setMostrarFormEndereco(true)}
               style={{
-                backgroundColor: "#000",
-                color: "#fff",
+                backgroundColor: "var(--accent)",
+                color: "var(--text-primary)",
                 border: "none",
                 padding: "8px 16px",
-                borderRadius: "4px",
+                borderRadius: "var(--radius-md)",
                 cursor: "pointer",
                 fontWeight: "bold",
                 fontSize: "12px",
@@ -525,11 +541,11 @@ export default function MinhaConta() {
           <form
             onSubmit={handleSalvarEndereco}
             style={{
-              backgroundColor: "#fff",
+              backgroundColor: "var(--bg-card)",
               padding: "30px",
-              borderRadius: "8px",
-              border: "1px solid #eaeaea",
-              boxShadow: "0 2px 8px rgba(0,0,0,0.02)",
+              borderRadius: "var(--radius-lg)",
+              border: "1px solid var(--border)",
+              boxShadow: "var(--shadow-card)",
             }}
           >
             <h3
@@ -558,9 +574,11 @@ export default function MinhaConta() {
                 }
                 style={{
                   padding: "12px",
-                  border: "1px solid #ddd",
-                  borderRadius: "4px",
+                    border: "1px solid var(--border)",
+                    borderRadius: "var(--radius-md)",
                   outline: "none",
+                    backgroundColor: "var(--bg-primary)",
+                    color: "var(--text-primary)",
                 }}
               />
               <input
@@ -573,9 +591,11 @@ export default function MinhaConta() {
                 }
                 style={{
                   padding: "12px",
-                  border: "1px solid #ddd",
-                  borderRadius: "4px",
+                  border: "1px solid var(--border)",
+                  borderRadius: "var(--radius-md)",
                   outline: "none",
+                  backgroundColor: "var(--bg-primary)",
+                  color: "var(--text-primary)",
                 }}
               />
               <input
@@ -588,9 +608,11 @@ export default function MinhaConta() {
                 }
                 style={{
                   padding: "12px",
-                  border: "1px solid #ddd",
-                  borderRadius: "4px",
+                  border: "1px solid var(--border)",
+                  borderRadius: "var(--radius-md)",
                   outline: "none",
+                  backgroundColor: "var(--bg-primary)",
+                  color: "var(--text-primary)",
                 }}
               />
               <input
@@ -603,9 +625,11 @@ export default function MinhaConta() {
                 }
                 style={{
                   padding: "12px",
-                  border: "1px solid #ddd",
-                  borderRadius: "4px",
+                  border: "1px solid var(--border)",
+                  borderRadius: "var(--radius-md)",
                   outline: "none",
+                  backgroundColor: "var(--bg-primary)",
+                  color: "var(--text-primary)",
                 }}
               />
               <input
@@ -618,9 +642,11 @@ export default function MinhaConta() {
                 }
                 style={{
                   padding: "12px",
-                  border: "1px solid #ddd",
-                  borderRadius: "4px",
+                  border: "1px solid var(--border)",
+                  borderRadius: "var(--radius-md)",
                   outline: "none",
+                  backgroundColor: "var(--bg-primary)",
+                  color: "var(--text-primary)",
                 }}
               />
               <input
@@ -633,9 +659,11 @@ export default function MinhaConta() {
                 }
                 style={{
                   padding: "12px",
-                  border: "1px solid #ddd",
-                  borderRadius: "4px",
+                  border: "1px solid var(--border)",
+                  borderRadius: "var(--radius-md)",
                   outline: "none",
+                  backgroundColor: "var(--bg-primary)",
+                  color: "var(--text-primary)",
                 }}
               />
             </div>
@@ -645,11 +673,11 @@ export default function MinhaConta() {
                 disabled={salvandoEndereco}
                 style={{
                   flex: 1,
-                  backgroundColor: "#00c853",
-                  color: "#fff",
+                  backgroundColor: "var(--accent)",
+                  color: "var(--text-primary)",
                   border: "none",
                   padding: "12px",
-                  borderRadius: "4px",
+                  borderRadius: "var(--radius-md)",
                   fontWeight: "bold",
                   cursor: "pointer",
                 }}
@@ -661,11 +689,11 @@ export default function MinhaConta() {
                 onClick={() => setMostrarFormEndereco(false)}
                 style={{
                   flex: 1,
-                  backgroundColor: "#f0f0f0",
-                  color: "#333",
-                  border: "1px solid #ddd",
+                  backgroundColor: "transparent",
+                  color: "var(--text-secondary)",
+                  border: "1px solid var(--border)",
                   padding: "12px",
-                  borderRadius: "4px",
+                  borderRadius: "var(--radius-md)",
                   fontWeight: "bold",
                   cursor: "pointer",
                 }}
@@ -677,14 +705,15 @@ export default function MinhaConta() {
         ) : enderecos.length === 0 ? (
           <div
             style={{
-              backgroundColor: "#fff",
+              backgroundColor: "var(--bg-card)",
               padding: "30px",
-              borderRadius: "8px",
-              border: "1px solid #eaeaea",
+              borderRadius: "var(--radius-lg)",
+              border: "1px solid var(--border)",
               textAlign: "center",
+              boxShadow: "var(--shadow-card)",
             }}
           >
-            <p style={{ fontSize: "14px", color: "#666", margin: 0 }}>
+            <p style={{ fontSize: "14px", color: "var(--text-secondary)", margin: 0 }}>
               Você ainda não tem nenhum endereço cadastrado.
             </p>
           </div>
@@ -700,10 +729,11 @@ export default function MinhaConta() {
               <div
                 key={end.id}
                 style={{
-                  backgroundColor: "#fff",
+                  backgroundColor: "var(--bg-card)",
                   padding: "20px",
-                  borderRadius: "8px",
-                  border: "1px solid #eaeaea",
+                  borderRadius: "var(--radius-lg)",
+                  border: "1px solid var(--border)",
+                  boxShadow: "var(--shadow-card)",
                 }}
               >
                 <p
@@ -711,6 +741,7 @@ export default function MinhaConta() {
                     margin: "0 0 5px 0",
                     fontWeight: "bold",
                     fontSize: "14px",
+                    color: "var(--text-primary)",
                   }}
                 >
                   {end.rua}, {end.numero}
@@ -719,12 +750,12 @@ export default function MinhaConta() {
                   style={{
                     margin: "0 0 5px 0",
                     fontSize: "13px",
-                    color: "#666",
+                    color: "var(--text-secondary)",
                   }}
                 >
                   Bairro: {end.bairro}
                 </p>
-                <p style={{ margin: 0, fontSize: "13px", color: "#666" }}>
+                <p style={{ margin: 0, fontSize: "13px", color: "var(--text-secondary)" }}>
                   {end.cidade} - {end.estado} | CEP: {end.cep}
                 </p>
               </div>
