@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { supabase } from "../services/supabase";
+import { supabase, isSupabaseConfigured } from "../services/supabase";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function MinhaConta() {
@@ -17,6 +17,7 @@ export default function MinhaConta() {
 
   // Estados de Endereço
   const [mostrarFormEndereco, setMostrarFormEndereco] = useState(false);
+  const [buscandoCep, setBuscandoCep] = useState(false);
   const [novoEndereco, setNovoEndereco] = useState({
     cep: "",
     rua: "",
@@ -28,44 +29,86 @@ export default function MinhaConta() {
   const [salvandoEndereco, setSalvandoEndereco] = useState(false);
 
   const buscarDadosUsuario = async (userId) => {
-    // 1. Busca Pedidos
-    const { data: dadosPedidos, error: erroPedidos } = await supabase
-      .from("orders")
-      .select("*, order_items(id, quantidade, preco_unitario, products(name))")
-      .eq("user_id", userId)
-      .order("created_at", { ascending: false });
+    if (!isSupabaseConfigured) return;
+    try {
+      const { data: dadosPedidos } = await supabase
+        .from("orders")
+        .select("*, order_items(id, quantidade, preco_unitario, products(name))")
+        .eq("user_id", userId)
+        .order("created_at", { ascending: false });
 
-    if (dadosPedidos) setPedidos(dadosPedidos);
-    if (erroPedidos) console.error("Erro ao buscar pedidos:", erroPedidos);
+      if (dadosPedidos) setPedidos(dadosPedidos);
 
-    // 2. Busca Endereços (Certifique-se que a tabela se chama 'addresses' no Supabase)
-    const { data: dadosEnderecos, error: erroEnderecos } = await supabase
-      .from("addresses")
-      .select("*")
-      .eq("user_id", userId);
+      const { data: dadosEnderecos } = await supabase
+        .from("addresses")
+        .select("*")
+        .eq("user_id", userId);
 
-    if (dadosEnderecos) setEnderecos(dadosEnderecos);
-    if (erroEnderecos)
-      console.error("Erro ao buscar endereços:", erroEnderecos);
+      if (dadosEnderecos) setEnderecos(dadosEnderecos);
+    } catch (e) {
+      console.warn("Erro ao buscar dados do usuário:", e);
+    }
   };
 
   useEffect(() => {
     const carregarDados = async () => {
-      const {
-        data: { session },
-      } = await supabase.auth.getSession();
-      if (session) {
-        setUsuario(session.user);
-        buscarDadosUsuario(session.user.id);
+      if (isSupabaseConfigured) {
+        try {
+          const {
+            data: { session },
+          } = await supabase.auth.getSession();
+          if (session) {
+            setUsuario(session.user);
+            buscarDadosUsuario(session.user.id);
+          }
+        } catch (e) {
+          console.warn("Falha ao obter sessão do Supabase:", e);
+        }
       }
       setCarregando(false);
     };
     carregarDados();
   }, []);
 
+  const handleCepChange = async (e) => {
+    const valor = e.target.value;
+    setNovoEndereco((prev) => ({ ...prev, cep: valor }));
+
+    const cepLimpo = valor.replace(/\D/g, "");
+    if (cepLimpo.length === 8) {
+      setBuscandoCep(true);
+      try {
+        const res = await fetch(`https://viacep.com.br/ws/${cepLimpo}/json/`);
+        const data = await res.json();
+        if (!data.erro) {
+          setNovoEndereco((prev) => ({
+            ...prev,
+            rua: data.logradouro || prev.rua,
+            bairro: data.bairro || prev.bairro,
+            cidade: data.localidade || prev.cidade,
+            estado: data.uf || prev.estado,
+          }));
+        }
+      } catch (err) {
+        console.warn("Erro ao consultar ViaCEP:", err);
+      } finally {
+        setBuscandoCep(false);
+      }
+    }
+  };
+
   const handleAutenticacao = async (e) => {
     e.preventDefault();
     setProcessando(true);
+
+    if (!isSupabaseConfigured) {
+      // Simulação em modo offline/demo
+      const userSimulado = { id: "user-demo", email: email };
+      setUsuario(userSimulado);
+      setProcessando(false);
+      return;
+    }
+
     try {
       if (modo === "login") {
         const { data, error } = await supabase.auth.signInWithPassword({
@@ -100,6 +143,16 @@ export default function MinhaConta() {
   const handleSalvarEndereco = async (e) => {
     e.preventDefault();
     setSalvandoEndereco(true);
+
+    if (!isSupabaseConfigured || !usuario) {
+      const endLocal = { id: "loc-" + Date.now(), ...novoEndereco };
+      setEnderecos((prev) => [...prev, endLocal]);
+      setMostrarFormEndereco(false);
+      setNovoEndereco({ cep: "", rua: "", numero: "", bairro: "", cidade: "", estado: "" });
+      setSalvandoEndereco(false);
+      return;
+    }
+
     try {
       const { error } = await supabase.from("addresses").insert([
         {
@@ -127,17 +180,16 @@ export default function MinhaConta() {
       });
       buscarDadosUsuario(usuario.id);
     } catch (error) {
-      alert(
-        "Erro ao salvar o endereço no banco de dados. Verifique as colunas da tabela 'addresses'. Detalhe: " +
-          error.message,
-      );
+      alert("Erro ao salvar endereço: " + error.message);
     } finally {
       setSalvandoEndereco(false);
     }
   };
 
   const sair = async () => {
-    await supabase.auth.signOut();
+    if (isSupabaseConfigured) {
+      await supabase.auth.signOut();
+    }
     setUsuario(null);
     setEmail("");
     setSenha("");
@@ -149,14 +201,14 @@ export default function MinhaConta() {
       <div
         style={{
           textAlign: "center",
-          padding: "50px",
+          padding: "80px",
           color: "var(--text-primary)",
           fontFamily: "var(--font-body)",
           backgroundColor: "var(--bg-primary)",
           minHeight: "100vh",
         }}
       >
-        Carregando...
+        Carregando informações da conta...
       </div>
     );
 
@@ -209,13 +261,14 @@ export default function MinhaConta() {
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="E-mail"
+              placeholder="Seu E-mail"
               style={{
                 padding: "12px",
                 border: "1px solid var(--border)",
                 borderRadius: "var(--radius-md)",
                 backgroundColor: "var(--bg-primary)",
                 color: "var(--text-primary)",
+                fontSize: "14px",
               }}
             />
             {modo !== "recuperar" && (
@@ -224,13 +277,14 @@ export default function MinhaConta() {
                 required
                 value={senha}
                 onChange={(e) => setSenha(e.target.value)}
-                placeholder="Senha"
+                placeholder="Sua Senha"
                 style={{
                   padding: "12px",
                   border: "1px solid var(--border)",
                   borderRadius: "var(--radius-md)",
                   backgroundColor: "var(--bg-primary)",
                   color: "var(--text-primary)",
+                  fontSize: "14px",
                 }}
               />
             )}
@@ -254,21 +308,22 @@ export default function MinhaConta() {
               disabled={processando}
               style={{
                 backgroundColor: processando ? "var(--bg-card-hover)" : "var(--accent)",
-                color: "var(--text-primary)",
+                color: "#ffffff",
                 padding: "15px",
                 border: "none",
                 borderRadius: "var(--radius-md)",
                 fontWeight: "900",
                 cursor: processando ? "not-allowed" : "pointer",
                 marginTop: "10px",
+                fontSize: "14px",
               }}
             >
               {processando
                 ? "AGUARDANDO..."
                 : modo === "login"
-                  ? "ENTRAR"
+                  ? "ENTRAR NA CONTA"
                   : modo === "cadastro"
-                    ? "CADASTRAR"
+                    ? "CRIAR CONTA"
                     : "ENVIAR LINK"}
             </button>
           </form>
@@ -322,7 +377,7 @@ export default function MinhaConta() {
         backgroundColor: "var(--bg-primary)",
         color: "var(--text-primary)",
         minHeight: "100vh",
-        padding: "40px 20px",
+        padding: "40px 20px 80px",
         fontFamily: "var(--font-body)",
       }}
     >
@@ -362,6 +417,7 @@ export default function MinhaConta() {
               borderRadius: "var(--radius-md)",
               cursor: "pointer",
               fontWeight: "bold",
+              fontSize: "12px",
             }}
           >
             Sair da Conta
@@ -392,7 +448,7 @@ export default function MinhaConta() {
             }}
           >
             <p
-              style={{ fontSize: "16px", color: "var(--text-secondary)", marginBottom: "15px" }}
+              style={{ fontSize: "15px", color: "var(--text-secondary)", marginBottom: "15px" }}
             >
               Você ainda não realizou nenhum pedido.
             </p>
@@ -404,7 +460,7 @@ export default function MinhaConta() {
                 textDecoration: "none",
               }}
             >
-              Voltar à Loja
+              Explorar Mantos
             </Link>
           </div>
         ) : (
@@ -432,7 +488,7 @@ export default function MinhaConta() {
                   }}
                 >
                   <span style={{ fontWeight: "900", fontSize: "14px" }}>
-                    PEDIDO: #{pedido.id.slice(0, 8).toUpperCase()}
+                    PEDIDO: #{String(pedido.id).slice(0, 8).toUpperCase()}
                   </span>
                   <span
                     style={{
@@ -463,11 +519,12 @@ export default function MinhaConta() {
                       }}
                     >
                       Data:{" "}
-                      {new Date(pedido.created_at).toLocaleDateString("pt-BR")}
+                      {pedido.created_at
+                        ? new Date(pedido.created_at).toLocaleDateString("pt-BR")
+                        : "Recente"}
                     </p>
                     <p style={{ margin: 0, fontSize: "13px", color: "var(--text-secondary)" }}>
-                      <strong>{pedido.order_items?.length || 0}</strong>{" "}
-                      item(ns)
+                      <strong>{pedido.order_items?.length || 1}</strong> item(ns)
                     </p>
                   </div>
                   <div style={{ textAlign: "right" }}>
@@ -523,7 +580,7 @@ export default function MinhaConta() {
               onClick={() => setMostrarFormEndereco(true)}
               style={{
                 backgroundColor: "var(--accent)",
-                color: "var(--text-primary)",
+                color: "#ffffff",
                 border: "none",
                 padding: "8px 16px",
                 borderRadius: "var(--radius-md)",
@@ -564,23 +621,31 @@ export default function MinhaConta() {
                 gap: "15px",
               }}
             >
-              <input
-                type="text"
-                required
-                placeholder="CEP"
-                value={novoEndereco.cep}
-                onChange={(e) =>
-                  setNovoEndereco({ ...novoEndereco, cep: e.target.value })
-                }
-                style={{
-                  padding: "12px",
+              <div style={{ position: "relative" }}>
+                <input
+                  type="text"
+                  required
+                  placeholder="CEP (Auto-preenchimento)"
+                  value={novoEndereco.cep}
+                  onChange={handleCepChange}
+                  maxLength={9}
+                  style={{
+                    width: "100%",
+                    boxSizing: "border-box",
+                    padding: "12px",
                     border: "1px solid var(--border)",
                     borderRadius: "var(--radius-md)",
-                  outline: "none",
+                    outline: "none",
                     backgroundColor: "var(--bg-primary)",
                     color: "var(--text-primary)",
-                }}
-              />
+                  }}
+                />
+                {buscandoCep && (
+                  <span style={{ position: "absolute", right: "10px", top: "12px", fontSize: "11px", color: "var(--accent)" }}>
+                    Buscando...
+                  </span>
+                )}
+              </div>
               <input
                 type="text"
                 required
@@ -652,11 +717,12 @@ export default function MinhaConta() {
               <input
                 type="text"
                 required
-                placeholder="Estado (UF)"
+                placeholder="UF"
                 value={novoEndereco.estado}
                 onChange={(e) =>
                   setNovoEndereco({ ...novoEndereco, estado: e.target.value })
                 }
+                maxLength={2}
                 style={{
                   padding: "12px",
                   border: "1px solid var(--border)",
@@ -674,7 +740,7 @@ export default function MinhaConta() {
                 style={{
                   flex: 1,
                   backgroundColor: "var(--accent)",
-                  color: "var(--text-primary)",
+                  color: "#ffffff",
                   border: "none",
                   padding: "12px",
                   borderRadius: "var(--radius-md)",

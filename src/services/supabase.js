@@ -1,16 +1,20 @@
 import { createClient } from '@supabase/supabase-js';
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+// Valores padrão seguros para evitar que o app quebre se as env vars não estiverem setadas
+const defaultUrl = "https://placeholder-project.supabase.co";
+const defaultKey = "placeholder-key";
 
-// Aviso em desenvolvimento se as variáveis estiverem faltando
-if (import.meta.env.DEV && (!supabaseUrl || !supabaseAnonKey)) {
-  console.error(
-    '[MG Mantos] Variáveis de ambiente do Supabase não encontradas.\n' +
-    'Crie um arquivo .env na raiz do projeto com:\n' +
-    '  VITE_SUPABASE_URL=...\n' +
-    '  VITE_SUPABASE_ANON_KEY=...'
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || defaultUrl;
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || defaultKey;
+
+export const isSupabaseConfigured = Boolean(
+  import.meta.env.VITE_SUPABASE_URL && import.meta.env.VITE_SUPABASE_ANON_KEY
+);
+
+if (import.meta.env.DEV && !isSupabaseConfigured) {
+  console.warn(
+    '[MG Mantos] Variáveis de ambiente do Supabase não encontradas. O app funcionará utilizando o catálogo offline (products.json).'
   );
 }
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+export const supabase = createClient(supabaseUrl, supabaseAnonKey);

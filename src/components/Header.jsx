@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { supabase } from "../services/supabase";
+import { buscarProdutos } from "../services/productService";
 import { CarrinhoContext } from "../context/carrinho-context";
 import { ThemeContext } from "../context/theme-context";
 
@@ -23,23 +23,17 @@ export default function Header() {
   const [mostrarDropdown, setMostrarDropdown] = useState(false);
 
   useEffect(() => {
-    const buscarProdutos = async () => {
+    const executarBusca = async () => {
       if (termoBusca.length < 2) {
         setResultadosBusca([]);
         setMostrarDropdown(false);
         return;
       }
-      const { data } = await supabase
-        .from("products")
-        .select("id, name, price, image, imagem")
-        .ilike("name", `%${termoBusca}%`)
-        .limit(5);
-      if (data) {
-        setResultadosBusca(data);
-        setMostrarDropdown(true);
-      }
+      const resultados = await buscarProdutos(termoBusca, 6);
+      setResultadosBusca(resultados || []);
+      setMostrarDropdown(true);
     };
-    const timeoutId = setTimeout(() => buscarProdutos(), 300);
+    const timeoutId = setTimeout(() => executarBusca(), 250);
     return () => clearTimeout(timeoutId);
   }, [termoBusca]);
 
@@ -84,6 +78,21 @@ export default function Header() {
         color: "var(--text-primary)",
       }}
     >
+      {/* BARRA DE ANÚNCIOS / FRETE */}
+      <div
+        style={{
+          backgroundColor: "var(--accent)",
+          color: "#ffffff",
+          textAlign: "center",
+          padding: "8px 15px",
+          fontSize: "12px",
+          fontWeight: "800",
+          letterSpacing: "0.5px",
+          textTransform: "uppercase",
+        }}
+      >
+        🚚 FRETE GRÁTIS ACIMA DE R$ 299 | 💳 ATÉ 3X SEM JUROS NO CARTÃO | ⚡ ENVIOS PARA TODO O BRASIL
+      </div>
       {/* BARRA SUPERIOR */}
       <div
         style={{

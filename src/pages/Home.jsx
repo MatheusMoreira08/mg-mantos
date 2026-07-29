@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { supabase } from "../services/supabase";
+import { getProdutos } from "../services/productService";
 import ProdutoCard from "../components/ProdutoCard";
 import BannerCarousel from "../components/BannerCarousel";
 
@@ -192,8 +192,7 @@ export default function Home() {
     "Ligue 1": [
       {
         nome: "PSG",
-        imagem:
-          "https://upload.wikimedia.org/wikipedia/pt/thumb/d/d4/Paris_Saint-Germain.svg/120px-Paris_Saint-Germain.svg.png",
+        imagem: "https://crests.football-data.org/524.png",
         link: "/categoria/psg",
       },
       {
@@ -208,13 +207,8 @@ export default function Home() {
   useEffect(() => {
     const fetchProdutos = async () => {
       try {
-        const { data, error } = await supabase
-          .from("products")
-          .select("*")
-          .order("created_at", { ascending: false })
-          .limit(15);
-        if (error) throw error;
-        if (data) setProdutos(data);
+        const data = await getProdutos(20);
+        if (data && data.length > 0) setProdutos(data);
       } catch (e) {
         setErroFetch(e.message);
       }
@@ -225,23 +219,80 @@ export default function Home() {
   return (
     <div
       style={{
-          backgroundColor: "var(--bg-primary)",
+        backgroundColor: "var(--bg-primary)",
         width: "100%",
         overflowX: "hidden",
-          fontFamily: "var(--font-body)",
-          color: "var(--text-primary)",
+        fontFamily: "var(--font-body)",
+        color: "var(--text-primary)",
       }}
     >
-        <BannerCarousel imagens={meusBanners} />
-        {erroFetch && (
-          <p style={{ color: "var(--error)", textAlign: "center", marginTop: "20px" }}>
-            Erro ao carregar produtos: {erroFetch}
-          </p>
-        )}
+      <BannerCarousel imagens={meusBanners} />
 
+      {/* SELOS DE CONFIANÇA / E-COMMERCE BENEFÍCIOS */}
       <div
-        style={{ maxWidth: "1250px", margin: "50px auto", padding: "0 20px" }}
+        style={{
+          backgroundColor: "var(--bg-secondary)",
+          borderBottom: "1px solid var(--border)",
+          padding: "25px 20px",
+        }}
       >
+        <div
+          style={{
+            maxWidth: "1250px",
+            margin: "0 auto",
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+            gap: "20px",
+            textAlign: "center",
+          }}
+        >
+          <div style={{ padding: "10px" }}>
+            <span style={{ fontSize: "28px" }}>📦</span>
+            <h4 style={{ margin: "8px 0 4px", fontSize: "14px", fontWeight: "900" }}>
+              FRETE PARA TODO BRASIL
+            </h4>
+            <p style={{ fontSize: "12px", color: "var(--text-secondary)" }}>
+              Entrega rápida e rastreada via Correios/Transportadoras
+            </p>
+          </div>
+          <div style={{ padding: "10px" }}>
+            <span style={{ fontSize: "28px" }}>🛡️</span>
+            <h4 style={{ margin: "8px 0 4px", fontSize: "14px", fontWeight: "900" }}>
+              COMPRA 100% SEGURA
+            </h4>
+            <p style={{ fontSize: "12px", color: "var(--text-secondary)" }}>
+              Checkout criptografado e integrado com Mercado Pago
+            </p>
+          </div>
+          <div style={{ padding: "10px" }}>
+            <span style={{ fontSize: "28px" }}>💳</span>
+            <h4 style={{ margin: "8px 0 4px", fontSize: "14px", fontWeight: "900" }}>
+              PARCELE EM ATÉ 3X
+            </h4>
+            <p style={{ fontSize: "12px", color: "var(--text-secondary)" }}>
+              Sem juros nos cartões de crédito ou Pix com desconto
+            </p>
+          </div>
+          <div style={{ padding: "10px" }}>
+            <span style={{ fontSize: "28px" }}>⭐</span>
+            <h4 style={{ margin: "8px 0 4px", fontSize: "14px", fontWeight: "900" }}>
+              QUALIDADE PREMIUM
+            </h4>
+            <p style={{ fontSize: "12px", color: "var(--text-secondary)" }}>
+              Mantos oficiais, tecidos respiráveis e bordados perfeitos
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {erroFetch && (
+        <p style={{ color: "var(--error)", textAlign: "center", marginTop: "20px" }}>
+          Erro ao carregar produtos: {erroFetch}
+        </p>
+      )}
+
+      {/* SEÇÃO PRINCIPAL DE PRODUTOS: LANÇAMENTOS E MAIS VENDIDOS */}
+      <div style={{ maxWidth: "1250px", margin: "50px auto", padding: "0 20px" }}>
         <div
           style={{
             display: "flex",
@@ -256,10 +307,10 @@ export default function Home() {
           <span
             onClick={() => setAbaPrincipal("Lançamentos")}
             style={{
-                color:
-                  abaPrincipal === "Lançamentos"
-                    ? "var(--text-primary)"
-                    : "var(--text-secondary)",
+              color:
+                abaPrincipal === "Lançamentos"
+                  ? "var(--text-primary)"
+                  : "var(--text-secondary)",
               borderBottom:
                 abaPrincipal === "Lançamentos"
                   ? "2px solid var(--accent)"
@@ -274,10 +325,10 @@ export default function Home() {
           <span
             onClick={() => setAbaPrincipal("Mais Vendidos")}
             style={{
-                color:
-                  abaPrincipal === "Mais Vendidos"
-                    ? "var(--text-primary)"
-                    : "var(--text-secondary)",
+              color:
+                abaPrincipal === "Mais Vendidos"
+                  ? "var(--text-primary)"
+                  : "var(--text-secondary)",
               borderBottom:
                 abaPrincipal === "Mais Vendidos"
                   ? "2px solid var(--accent)"
@@ -290,10 +341,11 @@ export default function Home() {
             Mais Vendidos
           </span>
         </div>
+
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+            gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
             gap: "20px",
           }}
         >
@@ -307,11 +359,12 @@ export default function Home() {
         </div>
       </div>
 
+      {/* BLOCOS DE CATEGORIAS */}
       <div
         style={{
           textAlign: "center",
           margin: "60px 0",
-           backgroundColor: "var(--bg-secondary)",
+          backgroundColor: "var(--bg-secondary)",
           padding: "40px 0",
         }}
       >
@@ -319,7 +372,7 @@ export default function Home() {
           style={{
             fontSize: "12px",
             letterSpacing: "2px",
-             color: "var(--text-secondary)",
+            color: "var(--text-secondary)",
             textTransform: "uppercase",
             marginBottom: "10px",
           }}
@@ -331,24 +384,22 @@ export default function Home() {
             fontSize: "28px",
             fontWeight: "900",
             margin: "0 0 40px 0",
-             color: "var(--text-primary)",
+            color: "var(--text-primary)",
           }}
         >
           DIVERSIFIQUE SEU PEDIDO
         </h2>
-        <div
-          style={{ maxWidth: "1250px", margin: "0 auto", padding: "0 20px" }}
-        >
+        <div style={{ maxWidth: "1250px", margin: "0 auto", padding: "0 20px" }}>
           <div
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(350px, 1fr))",
+              gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
               gap: "20px",
             }}
           >
-            {blocosCategorias.slice(0, 3).map((cat, index) => (
-               <Link
-                     key={cat.nome}
+            {blocosCategorias.slice(0, 3).map((cat) => (
+              <Link
+                key={cat.nome}
                 to={cat.link}
                 style={{
                   display: "block",
@@ -374,6 +425,10 @@ export default function Home() {
                   onMouseLeave={(e) =>
                     (e.currentTarget.style.transform = "scale(1)")
                   }
+                  onError={(e) => {
+                    e.currentTarget.onerror = null;
+                    e.currentTarget.src = `https://placehold.co/600x400/1a1a1a/ffffff?text=${encodeURIComponent(cat.nome)}`;
+                  }}
                 />
                 <div
                   style={{
@@ -399,6 +454,7 @@ export default function Home() {
         </div>
       </div>
 
+      {/* ESCUDOS BRASILEIRÃO */}
       <div
         style={{
           maxWidth: "1250px",
@@ -413,10 +469,10 @@ export default function Home() {
             textTransform: "uppercase",
             fontWeight: "bold",
             marginBottom: "30px",
-             color: "var(--text-secondary)",
+            color: "var(--text-secondary)",
           }}
         >
-          BRASILEIRÃO
+          BRASILEIRÃO 🇧🇷
         </h3>
         <div
           style={{
@@ -428,7 +484,6 @@ export default function Home() {
           }}
         >
           {escudosTimesBR.map((time) => (
-            // Adicionado textDecoration none e color transparent para não ficar com link azul feio se a imagem quebrar
             <Link
               key={time.nome}
               to={time.link}
@@ -449,6 +504,7 @@ export default function Home() {
                 alt={time.nome}
                 style={{ width: "60px", height: "60px", objectFit: "contain" }}
                 title={time.nome}
+                referrerPolicy="no-referrer"
                 onError={(e) => {
                   const inicial = time.nome.charAt(0).toUpperCase();
                   e.currentTarget.onerror = null;
@@ -460,6 +516,7 @@ export default function Home() {
         </div>
       </div>
 
+      {/* SEGUNDA GRADE DE PRODUTOS */}
       <div
         style={{
           maxWidth: "1250px",
@@ -470,7 +527,7 @@ export default function Home() {
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+            gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
             gap: "20px",
           }}
         >
@@ -480,68 +537,7 @@ export default function Home() {
         </div>
       </div>
 
-      <div
-        style={{ maxWidth: "1250px", margin: "60px auto", padding: "0 20px" }}
-      >
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(350px, 1fr))",
-            gap: "20px",
-          }}
-        >
-{blocosCategorias.slice(3, 6).map((cat, index) => (
-          <Link
-            key={cat.nome}
-              to={cat.link}
-              style={{
-                display: "block",
-                position: "relative",
-                borderRadius: "8px",
-                overflow: "hidden",
-                textDecoration: "none",
-              }}
-            >
-              <img
-                src={cat.imagem}
-                alt={cat.nome}
-                style={{
-                  width: "100%",
-                  height: "250px",
-                  objectFit: "cover",
-                  display: "block",
-                  transition: "transform 0.3s",
-                }}
-                onMouseEnter={(e) =>
-                  (e.currentTarget.style.transform = "scale(1.05)")
-                }
-                onMouseLeave={(e) =>
-                  (e.currentTarget.style.transform = "scale(1)")
-                }
-              />
-              <div
-                style={{
-                  position: "absolute",
-                  bottom: "15px",
-                  left: "50%",
-                  transform: "translateX(-50%)",
-                    backgroundColor: "var(--bg-card)",
-                    color: "var(--text-primary)",
-                  padding: "10px 30px",
-                  fontWeight: "900",
-                  fontSize: "14px",
-                  textTransform: "uppercase",
-                  borderRadius: "4px",
-                    boxShadow: "var(--shadow-card)",
-                }}
-              >
-                {cat.nome}
-              </div>
-            </Link>
-          ))}
-        </div>
-      </div>
-
+      {/* COMPRE POR LIGA */}
       <div style={{ textAlign: "center", margin: "48px 0 28px" }}>
         <p
           style={{
@@ -610,14 +606,14 @@ export default function Home() {
             minHeight: "44px",
           }}
         >
-          {timesPorLiga[ligaAtiva].map((time, index) => (
+          {timesPorLiga[ligaAtiva]?.map((time) => (
             <Link
-              key={index}
+              key={`${ligaAtiva}-${time.nome}`}
               to={time.link}
               style={{
                 transition: "transform 0.2s",
                 textDecoration: "none",
-                color: "transparent",
+                color: "var(--text-secondary)",
               }}
               onMouseEnter={(e) =>
                 (e.currentTarget.style.transform = "scale(1.1)")
@@ -631,6 +627,7 @@ export default function Home() {
                 alt={time.nome}
                 style={{ width: "52px", height: "52px", objectFit: "contain" }}
                 title={time.nome}
+                referrerPolicy="no-referrer"
                 onError={(e) => {
                   const inicial = time.nome.charAt(0).toUpperCase();
                   e.currentTarget.onerror = null;
@@ -652,13 +649,11 @@ export default function Home() {
           ))}
         </div>
 
-        <div
-          style={{ maxWidth: "1250px", margin: "0 auto", padding: "0 20px" }}
-        >
+        <div style={{ maxWidth: "1250px", margin: "0 auto", padding: "0 20px" }}>
           <div
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+              gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
               gap: "20px",
             }}
           >
@@ -668,8 +663,6 @@ export default function Home() {
           </div>
         </div>
       </div>
-
-      {/* Retiramos a faixa de Comunidade e os banners vazios daqui para limpar o design */}
     </div>
   );
 }

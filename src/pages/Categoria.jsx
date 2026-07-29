@@ -1,50 +1,27 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { supabase } from "../services/supabase";
+import { getProdutosPorCategoria } from "../services/productService";
 import ProdutoCard from "../components/ProdutoCard";
-
-const sinonimos = {
-  brasileirao: ["nacional", "brasileirao"],
-  "times-internacionais": ["europeus", "internacional"],
-  feminina: ["feminina"],
-  selecoes: ["selecoes"],
-  retro: ["retro"],
-  jogador: ["jogador"],
-};
 
 export default function Categoria() {
   const { slug } = useParams();
   const [produtos, setProdutos] = useState([]);
   const [carregando, setCarregando] = useState(true);
 
-  const removerAcentos = (str) =>
+  const removerAcentos = (str = "") =>
     str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
   useEffect(() => {
-    const fetchEFiltrarCategoria = async () => {
+    const carregarCategoria = async () => {
       setCarregando(true);
-      const slugNormalizado = removerAcentos(slug).toLowerCase();
-      const tagsParaBuscar = sinonimos[slugNormalizado] || [slugNormalizado];
-      const termoNome = slugNormalizado.replace(/-/g, " ");
-
-      // Filtra direto no banco: busca por tags (array overlap) OU nome (ilike).
-      // Escala independente do tamanho do catálogo, sem limit arbitrário.
-      const { data, error } = await supabase
-        .from("products")
-        .select("*")
-        .or(`tags.ov.{${tagsParaBuscar.join(",")}},name.ilike.%${termoNome}%`);
-
-      if (error) {
-        console.error("Erro ao buscar categoria:", error.message);
-      }
-
+      const data = await getProdutosPorCategoria(slug);
       setProdutos(data || []);
       setCarregando(false);
     };
-    fetchEFiltrarCategoria();
+    carregarCategoria();
   }, [slug]);
 
-  const formatarTitulo = (texto) => {
+  const formatarTitulo = (texto = "") => {
     const limpo = removerAcentos(texto).toLowerCase();
     if (limpo === "brasileirao") return "Brasileirão";
     if (limpo === "times-internacionais") return "Times Internacionais";
@@ -58,7 +35,7 @@ export default function Categoria() {
       style={{
         backgroundColor: "var(--bg-primary)",
         minHeight: "100vh",
-        padding: "50px 0",
+        padding: "50px 0 80px",
         fontFamily: "var(--font-body)",
         color: "var(--text-primary)",
       }}
@@ -67,24 +44,43 @@ export default function Categoria() {
         <h1
           style={{
             textAlign: "center",
-            textTransform: "capitalize",
-            marginBottom: "40px",
+            textTransform: "uppercase",
+            marginBottom: "10px",
             color: "var(--text-primary)",
             fontSize: "32px",
             fontWeight: "900",
+            letterSpacing: "1px",
           }}
         >
           {formatarTitulo(slug)}
         </h1>
+        <p
+          style={{
+            textAlign: "center",
+            color: "var(--text-secondary)",
+            marginBottom: "40px",
+            fontSize: "14px",
+          }}
+        >
+          Confira nossa seleção exclusiva para {formatarTitulo(slug)}
+        </p>
+
         {carregando ? (
-          <p style={{ textAlign: "center", color: "var(--text-secondary)", fontWeight: "bold" }}>
-            Buscando produtos...
+          <p
+            style={{
+              textAlign: "center",
+              color: "var(--text-secondary)",
+              fontWeight: "bold",
+              padding: "60px 0",
+            }}
+          >
+            Buscando mantos...
           </p>
         ) : produtos.length === 0 ? (
           <div
             style={{
               textAlign: "center",
-              marginTop: "50px",
+              marginTop: "30px",
               backgroundColor: "var(--bg-card)",
               padding: "60px 20px",
               borderRadius: "var(--radius-lg)",
@@ -101,7 +97,7 @@ export default function Categoria() {
                 marginTop: "20px",
               }}
             >
-              Nenhum produto encontrado nesta categoria.
+              Nenhum produto encontrado nesta categoria no momento.
             </p>
           </div>
         ) : (

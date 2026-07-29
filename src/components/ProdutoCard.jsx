@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 
 export default function ProdutoCard({ produto }) {
   const imagemProduto = produto.image || produto.imagem;
+  const badge = produto.badge || (produto.tags?.includes("lancamento") ? "Lançamento" : null);
 
   return (
     <div
@@ -18,16 +19,38 @@ export default function ProdutoCard({ produto }) {
         borderRadius: "var(--radius-md)",
         boxShadow: "var(--shadow-card)",
         color: "var(--text-primary)",
+        position: "relative",
       }}
       onMouseEnter={(e) => {
-        e.currentTarget.style.transform = "scale(1.02)";
+        e.currentTarget.style.transform = "translateY(-4px)";
         e.currentTarget.style.boxShadow = "var(--shadow-hover)";
       }}
       onMouseLeave={(e) => {
-        e.currentTarget.style.transform = "scale(1)";
+        e.currentTarget.style.transform = "translateY(0)";
         e.currentTarget.style.boxShadow = "var(--shadow-card)";
       }}
     >
+      {badge && (
+        <span
+          style={{
+            position: "absolute",
+            top: "14px",
+            right: "14px",
+            backgroundColor: "var(--accent)",
+            color: "#ffffff",
+            fontSize: "10px",
+            fontWeight: "900",
+            padding: "4px 8px",
+            borderRadius: "var(--radius-sm)",
+            textTransform: "uppercase",
+            letterSpacing: "0.5px",
+            zIndex: 2,
+            boxShadow: "0 2px 6px rgba(0,0,0,0.2)",
+          }}
+        >
+          {badge}
+        </span>
+      )}
       <div
         style={{
           width: "100%",
@@ -35,6 +58,7 @@ export default function ProdutoCard({ produto }) {
           backgroundColor: "var(--bg-secondary)",
           overflow: "hidden",
           borderRadius: "4px",
+          position: "relative",
         }}
       >
         <img
@@ -49,7 +73,7 @@ export default function ProdutoCard({ produto }) {
           }}
           onError={(e) => {
             e.currentTarget.onerror = null;
-            e.currentTarget.src = "/placeholder-camisa.png";
+            e.currentTarget.src = `https://placehold.co/300x300/1a1a1a/ffffff?text=${encodeURIComponent(produto.name || 'MG Mantos')}`;
           }}
         />
       </div>

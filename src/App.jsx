@@ -24,6 +24,7 @@ export default function App() {
         <Route path="/categoria/:slug" element={<Categoria />} />
         <Route path="/carrinho" element={<Carrinho />} />
         <Route path="/minha-conta" element={<MinhaConta />} />
+        <Route path="/pedido-confirmado/:orderId" element={<PedidoConfirmado />} />
 
         {/* Rota 404: qualquer URL desconhecida volta para a home */}
         <Route path="*" element={<Navigate to="/" replace />} />
