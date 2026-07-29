@@ -118,7 +118,7 @@ export default function Carrinho() {
             user_id: usuario.id,
             address_id: enderecoSelecionado,
             total: valorTotal,
-            status: "Pedido Recebido",
+            status: "pendente",
           },
         ])
         .select()
@@ -142,9 +142,39 @@ export default function Carrinho() {
       if (erroItens)
         throw new Error("Erro na tabela order_items: " + erroItens.message);
 
-      limparCarrinho();
-      alert("🎉 Pedido finalizado com sucesso! O seu manto está garantido.");
-      navigate("/minha-conta");
+       limparCarrinho();
+
+       // Monta itens para a preferência do Mercado Pago
+       const mpItems = carrinho.map((item) => ({
+         nome: item.name,
+         quantidade: item.quantidade,
+         precoUnitario: Number(item.price),
+       }));
+
+       // Cria a preferência de pagamento
+       try {
+         const prefResp = await fetch("/api/criar-preferencia", {
+           method: "POST",
+           headers: { "Content-Type": "application/json" },
+           body: JSON.stringify({
+             orderId: pedido.id,
+             items: mpItems,
+             email: usuario.email,
+           }),
+         });
+         if (!prefResp.ok) {
+           alert("Erro ao iniciar pagamento. Por favor, tente novamente.");
+           setProcessando(false);
+           return;
+         }
+         const prefData = await prefResp.json();
+         window.location.href = prefData.init_point;
+       } catch (e) {
+         console.error("Erro ao criar preferência:", e);
+         alert("Erro ao iniciar pagamento. Por favor, tente novamente.");
+         setProcessando(false);
+         return;
+       }
     } catch (error) {
       console.error("Erro ao finalizar:", error);
       alert("ERRO: " + error.message);

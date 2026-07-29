@@ -8,6 +8,7 @@ export default function Home() {
   const [produtos, setProdutos] = useState([]);
   const [abaPrincipal, setAbaPrincipal] = useState("Lançamentos");
   const [ligaAtiva, setLigaAtiva] = useState("La Liga");
+  const [erroFetch, setErroFetch] = useState(null);
 
   const meusBanners = [
     "/img/front-page/banner1.webp",
@@ -206,14 +207,17 @@ export default function Home() {
 
   useEffect(() => {
     const fetchProdutos = async () => {
-      // Ordenado por created_at desc: os mais novos primeiro.
-      // Garantia que lancamentos = produtos recem adicionados, nao os primeiros cadastrados.
-      const { data } = await supabase
-        .from("products")
-        .select("*")
-        .order("created_at", { ascending: false })
-        .limit(15);
-      if (data) setProdutos(data);
+      try {
+        const { data, error } = await supabase
+          .from("products")
+          .select("*")
+          .order("created_at", { ascending: false })
+          .limit(15);
+        if (error) throw error;
+        if (data) setProdutos(data);
+      } catch (e) {
+        setErroFetch(e.message);
+      }
     };
     fetchProdutos();
   }, []);
@@ -228,7 +232,12 @@ export default function Home() {
           color: "var(--text-primary)",
       }}
     >
-      <BannerCarousel imagens={meusBanners} />
+        <BannerCarousel imagens={meusBanners} />
+        {erroFetch && (
+          <p style={{ color: "var(--error)", textAlign: "center", marginTop: "20px" }}>
+            Erro ao carregar produtos: {erroFetch}
+          </p>
+        )}
 
       <div
         style={{ maxWidth: "1250px", margin: "50px auto", padding: "0 20px" }}
@@ -338,8 +347,8 @@ export default function Home() {
             }}
           >
             {blocosCategorias.slice(0, 3).map((cat, index) => (
-              <Link
-                key={index}
+               <Link
+                     key={cat.nome}
                 to={cat.link}
                 style={{
                   display: "block",
@@ -481,9 +490,9 @@ export default function Home() {
             gap: "20px",
           }}
         >
-          {blocosCategorias.slice(3, 6).map((cat, index) => (
-            <Link
-              key={index}
+{blocosCategorias.slice(3, 6).map((cat, index) => (
+          <Link
+            key={cat.nome}
               to={cat.link}
               style={{
                 display: "block",

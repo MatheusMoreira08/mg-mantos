@@ -44,7 +44,13 @@ export default function Produto() {
     setCalculandoFrete(true);
     setFreteResultado(null);
     try {
-      const res = await fetch(`/api/frete?cep=${cepLimpo}`);
+      const res = await fetch('/api/frete', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ cepDestino: cepLimpo })
+      });
       const data = await res.json();
       setFreteResultado(data);
     } catch {

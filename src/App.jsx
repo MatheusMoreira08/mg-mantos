@@ -11,7 +11,8 @@ import Produto from "./pages/Produto";
 import Categoria from "./pages/Categoria";
 import Carrinho from "./pages/Carrinho";
 import MinhaConta from "./pages/MinhaConta";
-import Login from "./pages/Login";
+import PedidoConfirmado from "./pages/PedidoConfirmado";
+
 
 export default function App() {
   return (
@@ -23,7 +24,7 @@ export default function App() {
         <Route path="/categoria/:slug" element={<Categoria />} />
         <Route path="/carrinho" element={<Carrinho />} />
         <Route path="/minha-conta" element={<MinhaConta />} />
-        <Route path="/login" element={<Login />} />
+
         {/* Rota 404: qualquer URL desconhecida volta para a home */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
