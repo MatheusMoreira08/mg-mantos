@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 
-export default function BannerCarousel({ imagens }) {
+export default function BannerCarousel({ imagens = [] }) {
   const [atual, setAtual] = useState(0);
   const [ticker, setTicker] = useState(0); // resetar o autoplay ao clicar
 

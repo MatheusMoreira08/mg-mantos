@@ -80,3 +80,35 @@ textarea {
 a {
   color: inherit;
 }
+
+.glowing-btn {
+  box-shadow: 0 0 20px rgba(106, 13, 173, 0.4);
+  transition: all 0.3s ease;
+}
+.glowing-btn:hover {
+  box-shadow: 0 0 30px rgba(106, 13, 173, 0.7);
+  transform: translateY(-2px);
+}
+.glowing-btn:active {
+  transform: scale(0.98);
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+@keyframes toastSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-12px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+

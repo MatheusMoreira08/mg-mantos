@@ -1,8 +1,9 @@
 import { useState, useEffect, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { buscarProdutos } from "../services/productService";
+import { supabase } from "../services/supabase";
 import { CarrinhoContext } from "../context/carrinho-context";
 import { ThemeContext } from "../context/theme-context";
+import productsData from "../data/products.json";
 
 export default function Header() {
   const { carrinho } = useContext(CarrinhoContext);
@@ -23,17 +24,34 @@ export default function Header() {
   const [mostrarDropdown, setMostrarDropdown] = useState(false);
 
   useEffect(() => {
-    const executarBusca = async () => {
+    const buscarProdutos = async () => {
       if (termoBusca.length < 2) {
         setResultadosBusca([]);
         setMostrarDropdown(false);
         return;
       }
-      const resultados = await buscarProdutos(termoBusca, 6);
-      setResultadosBusca(resultados || []);
-      setMostrarDropdown(true);
+      try {
+        const { data } = await supabase
+          .from("products")
+          .select("id, name, price, image, imagem")
+          .ilike("name", `%${termoBusca}%`)
+          .limit(5);
+        if (data && data.length > 0) {
+          setResultadosBusca(data);
+          setMostrarDropdown(true);
+          return;
+        }
+      } catch (err) {
+        console.warn("Supabase search offline:", err);
+      }
+
+      const resLocal = productsData
+        .filter((p) => (p.name || "").toLowerCase().includes(termoBusca.toLowerCase()))
+        .slice(0, 5);
+      setResultadosBusca(resLocal);
+      setMostrarDropdown(resLocal.length > 0);
     };
-    const timeoutId = setTimeout(() => executarBusca(), 250);
+    const timeoutId = setTimeout(() => buscarProdutos(), 300);
     return () => clearTimeout(timeoutId);
   }, [termoBusca]);
 
@@ -78,21 +96,6 @@ export default function Header() {
         color: "var(--text-primary)",
       }}
     >
-      {/* BARRA DE ANÚNCIOS / FRETE */}
-      <div
-        style={{
-          backgroundColor: "var(--accent)",
-          color: "#ffffff",
-          textAlign: "center",
-          padding: "8px 15px",
-          fontSize: "12px",
-          fontWeight: "800",
-          letterSpacing: "0.5px",
-          textTransform: "uppercase",
-        }}
-      >
-        🚚 FRETE GRÁTIS ACIMA DE R$ 299 | 💳 ATÉ 3X SEM JUROS NO CARTÃO | ⚡ ENVIOS PARA TODO O BRASIL
-      </div>
       {/* BARRA SUPERIOR */}
       <div
         style={{
@@ -124,9 +127,12 @@ export default function Header() {
             }}
           >
             <img
-              src="/img/front-page/logo.png"
+              src="/img/front-page/logo.webp"
               alt="MG Mantos"
               style={{ height: "45px", objectFit: "contain" }}
+              onError={(e) => {
+                e.currentTarget.style.display = "none";
+              }}
             />
             <span
               style={{

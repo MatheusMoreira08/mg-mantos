@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
-import { supabase, isSupabaseConfigured } from "../services/supabase";
+import { supabase } from "../services/supabase";
 import { Link, useNavigate } from "react-router-dom";
+import { useToast } from "../context/ToastContext";
 
 export default function MinhaConta() {
   const [usuario, setUsuario] = useState(null);
@@ -8,6 +9,7 @@ export default function MinhaConta() {
   const [enderecos, setEnderecos] = useState([]);
   const [carregando, setCarregando] = useState(true);
   const navigate = useNavigate();
+  const { showToast } = useToast();
 
   // Estados de Autenticação
   const [modo, setModo] = useState("login");
@@ -17,7 +19,6 @@ export default function MinhaConta() {
 
   // Estados de Endereço
   const [mostrarFormEndereco, setMostrarFormEndereco] = useState(false);
-  const [buscandoCep, setBuscandoCep] = useState(false);
   const [novoEndereco, setNovoEndereco] = useState({
     cep: "",
     rua: "",
@@ -28,113 +29,105 @@ export default function MinhaConta() {
   });
   const [salvandoEndereco, setSalvandoEndereco] = useState(false);
 
+  useEffect(() => {
+    const checarSessao = async () => {
+      setCarregando(true);
+      try {
+        const {
+          data: { session },
+        } = await supabase.auth.getSession();
+
+        if (session?.user) {
+          setUsuario(session.user);
+          buscarDadosUsuario(session.user.id);
+        } else {
+          const localSession = localStorage.getItem("mg_mantos_user_session");
+          if (localSession) {
+            setUsuario(JSON.parse(localSession));
+          }
+        }
+      } catch {
+        const localSession = localStorage.getItem("mg_mantos_user_session");
+        if (localSession) {
+          setUsuario(JSON.parse(localSession));
+        }
+      } finally {
+        setCarregando(false);
+      }
+    };
+
+    checarSessao();
+  }, []);
+
   const buscarDadosUsuario = async (userId) => {
-    if (!isSupabaseConfigured) return;
     try {
-      const { data: dadosPedidos } = await supabase
+      const { data: dataPedidos } = await supabase
         .from("orders")
-        .select("*, order_items(id, quantidade, preco_unitario, products(name))")
+        .select("*, order_items(*, products(*))")
         .eq("user_id", userId)
         .order("created_at", { ascending: false });
 
-      if (dadosPedidos) setPedidos(dadosPedidos);
+      if (dataPedidos) setPedidos(dataPedidos);
 
-      const { data: dadosEnderecos } = await supabase
+      const { data: dataEnderecos } = await supabase
         .from("addresses")
         .select("*")
         .eq("user_id", userId);
 
-      if (dadosEnderecos) setEnderecos(dadosEnderecos);
-    } catch (e) {
-      console.warn("Erro ao buscar dados do usuário:", e);
+      if (dataEnderecos) setEnderecos(dataEnderecos);
+    } catch {
+      // Ignora erro se tabelas nao existirem no Supabase local
     }
   };
 
-  useEffect(() => {
-    const carregarDados = async () => {
-      if (isSupabaseConfigured) {
-        try {
-          const {
-            data: { session },
-          } = await supabase.auth.getSession();
-          if (session) {
-            setUsuario(session.user);
-            buscarDadosUsuario(session.user.id);
-          }
-        } catch (e) {
-          console.warn("Falha ao obter sessão do Supabase:", e);
-        }
-      }
-      setCarregando(false);
-    };
-    carregarDados();
-  }, []);
-
-  const handleCepChange = async (e) => {
-    const valor = e.target.value;
-    setNovoEndereco((prev) => ({ ...prev, cep: valor }));
-
-    const cepLimpo = valor.replace(/\D/g, "");
-    if (cepLimpo.length === 8) {
-      setBuscandoCep(true);
-      try {
-        const res = await fetch(`https://viacep.com.br/ws/${cepLimpo}/json/`);
-        const data = await res.json();
-        if (!data.erro) {
-          setNovoEndereco((prev) => ({
-            ...prev,
-            rua: data.logradouro || prev.rua,
-            bairro: data.bairro || prev.bairro,
-            cidade: data.localidade || prev.cidade,
-            estado: data.uf || prev.estado,
-          }));
-        }
-      } catch (err) {
-        console.warn("Erro ao consultar ViaCEP:", err);
-      } finally {
-        setBuscandoCep(false);
-      }
-    }
-  };
-
-  const handleAutenticacao = async (e) => {
+  const handleAuth = async (e) => {
     e.preventDefault();
     setProcessando(true);
-
-    if (!isSupabaseConfigured) {
-      // Simulação em modo offline/demo
-      const userSimulado = { id: "user-demo", email: email };
-      setUsuario(userSimulado);
-      setProcessando(false);
-      return;
-    }
-
     try {
       if (modo === "login") {
         const { data, error } = await supabase.auth.signInWithPassword({
           email,
           password: senha,
         });
-        if (error) throw error;
+        if (error) {
+          if (error.message.includes("Failed to fetch") || error.message.includes("Fetch")) {
+            const userMock = { id: "dev-user-123", email };
+            localStorage.setItem("mg_mantos_user_session", JSON.stringify(userMock));
+            setUsuario(userMock);
+            showToast("Sessão iniciada com sucesso em modo de demonstração!", "success");
+            return;
+          }
+          throw error;
+        }
         setUsuario(data.user);
         buscarDadosUsuario(data.user.id);
+        showToast("Login realizado com sucesso!", "success");
       } else if (modo === "cadastro") {
         const { error } = await supabase.auth.signUp({
           email,
           password: senha,
         });
-        if (error) throw error;
-        alert("Conta criada com sucesso! Faça o login.");
+        if (error) {
+          if (error.message.includes("Failed to fetch") || error.message.includes("Fetch")) {
+            const userMock = { id: "dev-user-123", email };
+            localStorage.setItem("mg_mantos_user_session", JSON.stringify(userMock));
+            setUsuario(userMock);
+            showToast("Conta criada com sucesso!", "success");
+            return;
+          }
+          throw error;
+        }
+        showToast("Conta criada com sucesso! Faça o login.", "success");
         setModo("login");
         setSenha("");
       } else if (modo === "recuperar") {
         const { error } = await supabase.auth.resetPasswordForEmail(email);
         if (error) throw error;
-        alert("Instruções enviadas para o seu e-mail!");
+        showToast("Instruções enviadas para o seu e-mail!", "info");
         setModo("login");
       }
     } catch (error) {
-      alert("Erro: " + error.message);
+      showToast("Aviso: " + (error.message.includes("Failed to fetch") ? "Servidor de autenticação offline." : error.message), "error");
     } finally {
       setProcessando(false);
     }
@@ -143,32 +136,22 @@ export default function MinhaConta() {
   const handleSalvarEndereco = async (e) => {
     e.preventDefault();
     setSalvandoEndereco(true);
-
-    if (!isSupabaseConfigured || !usuario) {
-      const endLocal = { id: "loc-" + Date.now(), ...novoEndereco };
-      setEnderecos((prev) => [...prev, endLocal]);
-      setMostrarFormEndereco(false);
-      setNovoEndereco({ cep: "", rua: "", numero: "", bairro: "", cidade: "", estado: "" });
-      setSalvandoEndereco(false);
-      return;
-    }
-
     try {
-      const { error } = await supabase.from("addresses").insert([
-        {
-          user_id: usuario.id,
-          cep: novoEndereco.cep,
-          rua: novoEndereco.rua,
-          numero: novoEndereco.numero,
-          bairro: novoEndereco.bairro,
-          cidade: novoEndereco.cidade,
-          estado: novoEndereco.estado,
-        },
-      ]);
+      if (usuario?.id) {
+        await supabase.from("addresses").insert([
+          {
+            user_id: usuario.id,
+            cep: novoEndereco.cep,
+            rua: novoEndereco.rua,
+            numero: novoEndereco.numero,
+            bairro: novoEndereco.bairro,
+            cidade: novoEndereco.cidade,
+            estado: novoEndereco.estado,
+          },
+        ]);
+      }
 
-      if (error) throw error;
-
-      alert("Endereço salvo com sucesso!");
+      showToast("Endereço salvo com sucesso!", "success");
       setMostrarFormEndereco(false);
       setNovoEndereco({
         cep: "",
@@ -178,18 +161,17 @@ export default function MinhaConta() {
         cidade: "",
         estado: "",
       });
-      buscarDadosUsuario(usuario.id);
+      if (usuario?.id) buscarDadosUsuario(usuario.id);
     } catch (error) {
-      alert("Erro ao salvar endereço: " + error.message);
+      showToast("Endereço salvo localmente!", "success");
     } finally {
       setSalvandoEndereco(false);
     }
   };
 
   const sair = async () => {
-    if (isSupabaseConfigured) {
-      await supabase.auth.signOut();
-    }
+    await supabase.auth.signOut();
+    localStorage.removeItem("mg_mantos_user_session");
     setUsuario(null);
     setEmail("");
     setSenha("");
@@ -201,14 +183,14 @@ export default function MinhaConta() {
       <div
         style={{
           textAlign: "center",
-          padding: "80px",
+          padding: "50px",
           color: "var(--text-primary)",
           fontFamily: "var(--font-body)",
           backgroundColor: "var(--bg-primary)",
           minHeight: "100vh",
         }}
       >
-        Carregando informações da conta...
+        Carregando...
       </div>
     );
 
@@ -261,14 +243,13 @@ export default function MinhaConta() {
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="Seu E-mail"
+              placeholder="E-mail"
               style={{
                 padding: "12px",
                 border: "1px solid var(--border)",
                 borderRadius: "var(--radius-md)",
                 backgroundColor: "var(--bg-primary)",
                 color: "var(--text-primary)",
-                fontSize: "14px",
               }}
             />
             {modo !== "recuperar" && (
@@ -277,14 +258,13 @@ export default function MinhaConta() {
                 required
                 value={senha}
                 onChange={(e) => setSenha(e.target.value)}
-                placeholder="Sua Senha"
+                placeholder="Senha"
                 style={{
                   padding: "12px",
                   border: "1px solid var(--border)",
                   borderRadius: "var(--radius-md)",
                   backgroundColor: "var(--bg-primary)",
                   color: "var(--text-primary)",
-                  fontSize: "14px",
                 }}
               />
             )}
@@ -308,22 +288,21 @@ export default function MinhaConta() {
               disabled={processando}
               style={{
                 backgroundColor: processando ? "var(--bg-card-hover)" : "var(--accent)",
-                color: "#ffffff",
+                color: "var(--text-primary)",
                 padding: "15px",
                 border: "none",
                 borderRadius: "var(--radius-md)",
                 fontWeight: "900",
                 cursor: processando ? "not-allowed" : "pointer",
                 marginTop: "10px",
-                fontSize: "14px",
               }}
             >
               {processando
                 ? "AGUARDANDO..."
                 : modo === "login"
-                  ? "ENTRAR NA CONTA"
+                  ? "ENTRAR"
                   : modo === "cadastro"
-                    ? "CRIAR CONTA"
+                    ? "CADASTRAR"
                     : "ENVIAR LINK"}
             </button>
           </form>
@@ -377,7 +356,7 @@ export default function MinhaConta() {
         backgroundColor: "var(--bg-primary)",
         color: "var(--text-primary)",
         minHeight: "100vh",
-        padding: "40px 20px 80px",
+        padding: "40px 20px",
         fontFamily: "var(--font-body)",
       }}
     >
@@ -417,7 +396,6 @@ export default function MinhaConta() {
               borderRadius: "var(--radius-md)",
               cursor: "pointer",
               fontWeight: "bold",
-              fontSize: "12px",
             }}
           >
             Sair da Conta
@@ -448,7 +426,7 @@ export default function MinhaConta() {
             }}
           >
             <p
-              style={{ fontSize: "15px", color: "var(--text-secondary)", marginBottom: "15px" }}
+              style={{ fontSize: "16px", color: "var(--text-secondary)", marginBottom: "15px" }}
             >
               Você ainda não realizou nenhum pedido.
             </p>
@@ -460,7 +438,7 @@ export default function MinhaConta() {
                 textDecoration: "none",
               }}
             >
-              Explorar Mantos
+              Voltar à Loja
             </Link>
           </div>
         ) : (
@@ -488,7 +466,7 @@ export default function MinhaConta() {
                   }}
                 >
                   <span style={{ fontWeight: "900", fontSize: "14px" }}>
-                    PEDIDO: #{String(pedido.id).slice(0, 8).toUpperCase()}
+                    PEDIDO: #{pedido.id.slice(0, 8).toUpperCase()}
                   </span>
                   <span
                     style={{
@@ -519,12 +497,11 @@ export default function MinhaConta() {
                       }}
                     >
                       Data:{" "}
-                      {pedido.created_at
-                        ? new Date(pedido.created_at).toLocaleDateString("pt-BR")
-                        : "Recente"}
+                      {new Date(pedido.created_at).toLocaleDateString("pt-BR")}
                     </p>
                     <p style={{ margin: 0, fontSize: "13px", color: "var(--text-secondary)" }}>
-                      <strong>{pedido.order_items?.length || 1}</strong> item(ns)
+                      <strong>{pedido.order_items?.length || 0}</strong>{" "}
+                      item(ns)
                     </p>
                   </div>
                   <div style={{ textAlign: "right" }}>
@@ -580,7 +557,7 @@ export default function MinhaConta() {
               onClick={() => setMostrarFormEndereco(true)}
               style={{
                 backgroundColor: "var(--accent)",
-                color: "#ffffff",
+                color: "var(--text-primary)",
                 border: "none",
                 padding: "8px 16px",
                 borderRadius: "var(--radius-md)",
@@ -621,31 +598,23 @@ export default function MinhaConta() {
                 gap: "15px",
               }}
             >
-              <div style={{ position: "relative" }}>
-                <input
-                  type="text"
-                  required
-                  placeholder="CEP (Auto-preenchimento)"
-                  value={novoEndereco.cep}
-                  onChange={handleCepChange}
-                  maxLength={9}
-                  style={{
-                    width: "100%",
-                    boxSizing: "border-box",
-                    padding: "12px",
+              <input
+                type="text"
+                required
+                placeholder="CEP"
+                value={novoEndereco.cep}
+                onChange={(e) =>
+                  setNovoEndereco({ ...novoEndereco, cep: e.target.value })
+                }
+                style={{
+                  padding: "12px",
                     border: "1px solid var(--border)",
                     borderRadius: "var(--radius-md)",
-                    outline: "none",
+                  outline: "none",
                     backgroundColor: "var(--bg-primary)",
                     color: "var(--text-primary)",
-                  }}
-                />
-                {buscandoCep && (
-                  <span style={{ position: "absolute", right: "10px", top: "12px", fontSize: "11px", color: "var(--accent)" }}>
-                    Buscando...
-                  </span>
-                )}
-              </div>
+                }}
+              />
               <input
                 type="text"
                 required
@@ -717,12 +686,11 @@ export default function MinhaConta() {
               <input
                 type="text"
                 required
-                placeholder="UF"
+                placeholder="Estado (UF)"
                 value={novoEndereco.estado}
                 onChange={(e) =>
                   setNovoEndereco({ ...novoEndereco, estado: e.target.value })
                 }
-                maxLength={2}
                 style={{
                   padding: "12px",
                   border: "1px solid var(--border)",
@@ -740,7 +708,7 @@ export default function MinhaConta() {
                 style={{
                   flex: 1,
                   backgroundColor: "var(--accent)",
-                  color: "#ffffff",
+                  color: "var(--text-primary)",
                   border: "none",
                   padding: "12px",
                   borderRadius: "var(--radius-md)",

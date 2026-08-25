@@ -2,21 +2,20 @@ import { Link } from "react-router-dom";
 
 export default function ProdutoCard({ produto }) {
   const imagemProduto = produto.image || produto.imagem;
-  const badge = produto.badge || (produto.tags?.includes("lancamento") ? "Lançamento" : null);
 
   return (
     <div
       style={{
         backgroundColor: "var(--bg-card)",
-        padding: "10px",
+        padding: "12px",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
         textAlign: "center",
         height: "100%",
         border: "1px solid var(--border)",
-        transition: "transform 0.2s ease-in-out, box-shadow 0.2s",
-        borderRadius: "var(--radius-md)",
+        transition: "all 0.3s ease",
+        borderRadius: "var(--radius-lg)",
         boxShadow: "var(--shadow-card)",
         color: "var(--text-primary)",
         position: "relative",
@@ -24,40 +23,44 @@ export default function ProdutoCard({ produto }) {
       onMouseEnter={(e) => {
         e.currentTarget.style.transform = "translateY(-4px)";
         e.currentTarget.style.boxShadow = "var(--shadow-hover)";
+        e.currentTarget.style.borderColor = "var(--accent)";
       }}
       onMouseLeave={(e) => {
         e.currentTarget.style.transform = "translateY(0)";
         e.currentTarget.style.boxShadow = "var(--shadow-card)";
+        e.currentTarget.style.borderColor = "var(--border)";
       }}
     >
-      {badge && (
+      {/* Badge / Tag de Destaque se existir */}
+      {produto.badge && (
         <span
           style={{
             position: "absolute",
-            top: "14px",
-            right: "14px",
+            top: "20px",
+            right: "20px",
             backgroundColor: "var(--accent)",
             color: "#ffffff",
-            fontSize: "10px",
+            fontSize: "11px",
             fontWeight: "900",
             padding: "4px 8px",
             borderRadius: "var(--radius-sm)",
+            zIndex: 2,
             textTransform: "uppercase",
             letterSpacing: "0.5px",
-            zIndex: 2,
-            boxShadow: "0 2px 6px rgba(0,0,0,0.2)",
           }}
         >
-          {badge}
+          {produto.badge}
         </span>
       )}
+
+      {/* Imagem do Produto */}
       <div
         style={{
           width: "100%",
-          height: "260px",
+          height: "250px",
           backgroundColor: "var(--bg-secondary)",
           overflow: "hidden",
-          borderRadius: "4px",
+          borderRadius: "var(--radius-md)",
           position: "relative",
         }}
       >
@@ -68,70 +71,84 @@ export default function ProdutoCard({ produto }) {
             width: "100%",
             height: "100%",
             objectFit: "contain",
-            padding: "8px",
+            padding: "12px",
             boxSizing: "border-box",
+            transition: "transform 0.4s ease",
           }}
           onError={(e) => {
             e.currentTarget.onerror = null;
-            e.currentTarget.src = `https://placehold.co/300x300/1a1a1a/ffffff?text=${encodeURIComponent(produto.name || 'MG Mantos')}`;
+            e.currentTarget.src = "/placeholder-camisa.png";
           }}
         />
       </div>
+
+      {/* Título & Preço */}
       <div
         style={{
           flexGrow: 1,
           display: "flex",
           flexDirection: "column",
-          justifyContent: "center",
+          justifyContent: "space-between",
           width: "100%",
+          padding: "12px 4px 16px",
         }}
       >
         <h3
           style={{
-            fontSize: "13px",
-            color: "var(--text-secondary)",
-            marginTop: "15px",
-            fontWeight: "500",
-            minHeight: "36px",
+            fontSize: "14px",
+            color: "var(--text-primary)",
+            fontWeight: "600",
+            margin: "0 0 8px 0",
+            lineHeight: "1.3",
+            display: "-webkit-box",
+            WebkitLineClamp: 2,
+            WebkitBoxOrient: "vertical",
+            overflow: "hidden",
           }}
         >
           {produto.name}
         </h3>
-        <p
-          style={{
-            color: "var(--text-primary)",
-            fontWeight: "900",
-            fontSize: "16px",
-            margin: "10px 0",
-          }}
-        >
-          R$ {Number(produto.price).toFixed(2).replace(".", ",")}
-        </p>
+        <div>
+          <p
+            style={{
+              color: "var(--accent-light)",
+              fontWeight: "900",
+              fontSize: "18px",
+              margin: "4px 0 0 0",
+            }}
+          >
+            R$ {Number(produto.price).toFixed(2).replace(".", ",")}
+          </p>
+          <p style={{ fontSize: "11px", color: "var(--text-muted)", margin: "2px 0 0 0" }}>
+            em até 3x sem juros
+          </p>
+        </div>
       </div>
+
+      {/* Botão de Ver Produto */}
       <Link
         to={`/produto/${produto.id}`}
-        style={{ width: "100%", textDecoration: "none", marginTop: "auto" }}
+        style={{ width: "100%", textDecoration: "none" }}
       >
         <button
           style={{
             backgroundColor: "var(--accent)",
-            color: "var(--text-primary)",
+            color: "#ffffff",
             border: "none",
             padding: "12px 0",
             width: "100%",
-            fontWeight: "bold",
+            fontWeight: "900",
             fontSize: "12px",
             cursor: "pointer",
             textTransform: "uppercase",
-            borderRadius: "0 0 var(--radius-md) var(--radius-md)",
-            transition: "background 0.2s",
+            letterSpacing: "1px",
+            borderRadius: "var(--radius-md)",
+            transition: "all 0.2s ease",
           }}
           onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "var(--accent-light)")}
-          onMouseLeave={(e) =>
-            (e.currentTarget.style.backgroundColor = "var(--accent)")
-          }
+          onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "var(--accent)")}
         >
-          Ver Produto
+          Ver Manto
         </button>
       </Link>
     </div>

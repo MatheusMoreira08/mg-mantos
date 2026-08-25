@@ -34,9 +34,12 @@ export default function Footer() {
             }}
           >
             <img
-              src="/img/front-page/logo.png"
+              src="/img/front-page/logo.webp"
               alt="MG Mantos"
               style={{ height: "40px", objectFit: "contain" }}
+              onError={(e) => {
+                e.currentTarget.style.display = "none";
+              }}
             />
             <span
               style={{

@@ -4,7 +4,7 @@ import { ThemeContext } from "./theme-context";
 export function ThemeProvider({ children }) {
   const [theme, setTheme] = useState(() => {
     try {
-      return localStorage.getItem("mg_mantos_theme") || "light";
+      return localStorage.getItem("mg_mantos_theme") || "dark";
     } catch {
       return "light";
     }
