@@ -26,6 +26,10 @@ export default function Login() {
 
         if (error) {
           if (error.message.includes("Failed to fetch") || error.message.includes("Fetch")) {
+            if (!import.meta.env.DEV) {
+              setErro("Servidor de autenticação indisponível. Tente novamente.");
+              return;
+            }
             // Em dev local, permite login de teste amigável quando o backend Supabase estiver desconectado
             localStorage.setItem("mg_mantos_user_session", JSON.stringify({ email }));
             showToast("Sessão iniciada em modo de demonstração!", "success");
@@ -45,6 +49,10 @@ export default function Login() {
 
         if (error) {
           if (error.message.includes("Failed to fetch") || error.message.includes("Fetch")) {
+            if (!import.meta.env.DEV) {
+              setErro("Servidor de autenticação indisponível. Tente novamente.");
+              return;
+            }
             localStorage.setItem("mg_mantos_user_session", JSON.stringify({ email }));
             showToast("Conta de teste criada com sucesso!", "success");
             navigate("/minha-conta");

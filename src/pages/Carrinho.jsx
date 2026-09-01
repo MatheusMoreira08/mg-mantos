@@ -98,7 +98,12 @@ export default function Carrinho() {
       });
       carregarEnderecos(usuario.id); // Recarrega para mostrar o endereço salvo
     } catch (error) {
-      showToast("Endereço salvo localmente com sucesso!", "success");
+      if (import.meta.env.DEV) {
+        showToast("Endereço salvo localmente com sucesso!", "success");
+      } else {
+        showToast("Não foi possível salvar o endereço. Tente novamente.", "error");
+        console.error("[Carrinho] Erro ao salvar endereço:", error);
+      }
     } finally {
       setSalvandoEndereco(false);
     }
@@ -122,7 +127,7 @@ export default function Carrinho() {
             user_id: usuario.id,
             address_id: enderecoSelecionado,
             total: valorTotal,
-            status: "Pedido Recebido",
+            status: "pendente",
           },
         ])
         .select()
@@ -146,13 +151,39 @@ export default function Carrinho() {
       if (erroItens)
         throw new Error("Erro na tabela order_items: " + erroItens.message);
 
+      // 4. Cria preferência de pagamento no Mercado Pago (Checkout Pro)
+      const resPreferencia = await fetch("/api/criar-preferencia", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          orderId: pedido.id,
+          email: usuario.email,
+          items: carrinho.map((item) => ({
+            nome: item.name,
+            quantidade: item.quantidade,
+            precoUnitario: item.price,
+          })),
+        }),
+      });
+
+      if (!resPreferencia.ok) {
+        throw new Error("Falha ao iniciar pagamento.");
+      }
+
+      const { init_point } = await resPreferencia.json();
+      if (!init_point) throw new Error("Link de pagamento não gerado.");
+
       limparCarrinho();
-      showToast("🎉 Pedido finalizado com sucesso! O seu manto está garantido.", "success");
-      navigate("/minha-conta");
+      window.location.href = init_point;
     } catch (error) {
-      limparCarrinho();
-      showToast("🎉 Pedido finalizado com sucesso em modo de demonstração!", "success");
-      navigate("/minha-conta");
+      if (import.meta.env.DEV) {
+        limparCarrinho();
+        showToast("🎉 Pedido finalizado com sucesso em modo de demonstração!", "success");
+        navigate("/minha-conta");
+      } else {
+        showToast("Não foi possível finalizar o pedido. Tente novamente.", "error");
+        console.error("[Carrinho] Erro ao finalizar compra:", error);
+      }
     } finally {
       setProcessando(false);
     }

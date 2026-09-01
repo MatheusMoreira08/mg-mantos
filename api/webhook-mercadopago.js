@@ -25,7 +25,10 @@ export default async function handler(req, res) {
   try {
     const body = req.body || {};
     const type = body.type || req.query.type;
+    // Nunca confie cegamente no payload do webhook: usamos apenas o ID e
+    // re-buscamos o pagamento real abaixo via API do Mercado Pago.
     const paymentId = body.data?.id || req.query["data.id"];
+    const requestId = body.id || req.headers["x-request-id"] || null;
 
     if (type !== "payment" || !paymentId) {
       return res.status(200).json({ received: true });
@@ -45,7 +48,11 @@ export default async function handler(req, res) {
 
       if (error) {
         console.error("Erro ao atualizar pedido no Supabase:", error.message);
+      } else {
+        console.log("Pedido atualizado:", { orderId, status: statusMapeado, requestId });
       }
+    } else {
+      console.warn("Webhook recebido sem external_reference:", { paymentId, requestId });
     }
 
     return res.status(200).json({ received: true });

@@ -40,16 +40,18 @@ export default function MinhaConta() {
         if (session?.user) {
           setUsuario(session.user);
           buscarDadosUsuario(session.user.id);
-        } else {
+        } else if (import.meta.env.DEV) {
           const localSession = localStorage.getItem("mg_mantos_user_session");
           if (localSession) {
             setUsuario(JSON.parse(localSession));
           }
         }
       } catch {
-        const localSession = localStorage.getItem("mg_mantos_user_session");
-        if (localSession) {
-          setUsuario(JSON.parse(localSession));
+        if (import.meta.env.DEV) {
+          const localSession = localStorage.getItem("mg_mantos_user_session");
+          if (localSession) {
+            setUsuario(JSON.parse(localSession));
+          }
         }
       } finally {
         setCarregando(false);
@@ -91,6 +93,7 @@ export default function MinhaConta() {
         });
         if (error) {
           if (error.message.includes("Failed to fetch") || error.message.includes("Fetch")) {
+            if (!import.meta.env.DEV) throw error;
             const userMock = { id: "dev-user-123", email };
             localStorage.setItem("mg_mantos_user_session", JSON.stringify(userMock));
             setUsuario(userMock);
@@ -109,6 +112,7 @@ export default function MinhaConta() {
         });
         if (error) {
           if (error.message.includes("Failed to fetch") || error.message.includes("Fetch")) {
+            if (!import.meta.env.DEV) throw error;
             const userMock = { id: "dev-user-123", email };
             localStorage.setItem("mg_mantos_user_session", JSON.stringify(userMock));
             setUsuario(userMock);
@@ -163,7 +167,12 @@ export default function MinhaConta() {
       });
       if (usuario?.id) buscarDadosUsuario(usuario.id);
     } catch (error) {
-      showToast("Endereço salvo localmente!", "success");
+      console.error("[MinhaConta] Erro ao salvar endereço:", error);
+      if (import.meta.env.DEV) {
+        showToast("Endereço salvo localmente!", "success");
+      } else {
+        showToast("Não foi possível salvar o endereço. Tente novamente.", "error");
+      }
     } finally {
       setSalvandoEndereco(false);
     }
@@ -235,7 +244,7 @@ export default function MinhaConta() {
                 : "RECUPERAR SENHA"}
           </h1>
           <form
-            onSubmit={handleAutenticacao}
+            onSubmit={handleAuth}
             style={{ display: "flex", flexDirection: "column", gap: "15px" }}
           >
             <input

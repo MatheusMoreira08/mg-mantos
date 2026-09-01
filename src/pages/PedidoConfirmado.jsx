@@ -11,12 +11,17 @@ export default function PedidoConfirmado() {
 
   useEffect(() => {
     const buscarDados = async () => {
-      if (isSupabaseConfigured) {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+
+      if (isSupabaseConfigured && session?.user) {
         try {
           const { data: ord } = await supabase
             .from("orders")
             .select("*")
             .eq("id", orderId)
+            .eq("user_id", session.user.id)
             .single();
 
           if (ord) {
@@ -33,6 +38,7 @@ export default function PedidoConfirmado() {
                 .from("addresses")
                 .select("*")
                 .eq("id", ord.address_id)
+                .eq("user_id", session.user.id)
                 .single();
               if (end) setEndereco(end);
             }
@@ -40,26 +46,33 @@ export default function PedidoConfirmado() {
             setCarregando(false);
             return;
           }
+          setCarregando(false);
+          return;
         } catch (e) {
           console.warn("Erro ao buscar pedido no Supabase:", e);
+          setCarregando(false);
+          return;
         }
       }
 
-      // Fallback para exibição de pedido simulado/recente
-      setPedido({
-        id: orderId || "PED-849201",
-        status: "aprovado",
-        total: 129.9,
-        created_at: new Date().toISOString(),
-      });
-      setItens([
-        {
-          id: 1,
-          quantity: 1,
-          name: "Camisa de Futebol Oficial",
-          preco_unitario: 129.9,
-        },
-      ]);
+      // Fallback para exibição de pedido simulado apenas em dev local
+      if (import.meta.env.DEV) {
+        setPedido({
+          id: orderId || "PED-849201",
+          status: "aprovado",
+          total: 129.9,
+          created_at: new Date().toISOString(),
+        });
+        setItens([
+          {
+            id: 1,
+            quantity: 1,
+            name: "Camisa de Futebol Oficial",
+            preco_unitario: 129.9,
+          },
+        ]);
+      }
+
       setCarregando(false);
     };
     buscarDados();
@@ -78,6 +91,29 @@ export default function PedidoConfirmado() {
         }}
       >
         <p>Carregando informações do seu pedido...</p>
+      </div>
+    );
+  }
+
+  if (!pedido) {
+    return (
+      <div
+        style={{
+          backgroundColor: "var(--bg-primary)",
+          minHeight: "100vh",
+          color: "var(--text-primary)",
+          padding: "80px 20px",
+          fontFamily: "var(--font-body)",
+          textAlign: "center",
+        }}
+      >
+        <h2>Pedido não encontrado</h2>
+        <p style={{ color: "var(--text-secondary)" }}>
+          Não foi possível localizar este pedido para a sua conta.
+        </p>
+        <Link to="/" style={{ color: "var(--accent)", fontWeight: "bold" }}>
+          Voltar para a Loja
+        </Link>
       </div>
     );
   }
