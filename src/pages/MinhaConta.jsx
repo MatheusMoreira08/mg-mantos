@@ -2,6 +2,12 @@ import { useState, useEffect } from "react";
 import { supabase } from "../services/supabase";
 import { Link, useNavigate } from "react-router-dom";
 import { useToast } from "../context/ToastContext";
+import AddressForm from "../components/AddressForm";
+import {
+  listarEnderecos,
+  salvarEndereco,
+  removerEndereco,
+} from "../services/addressService";
 
 export default function MinhaConta() {
   const [usuario, setUsuario] = useState(null);
@@ -19,15 +25,29 @@ export default function MinhaConta() {
 
   // Estados de Endereço
   const [mostrarFormEndereco, setMostrarFormEndereco] = useState(false);
-  const [novoEndereco, setNovoEndereco] = useState({
-    cep: "",
-    rua: "",
-    numero: "",
-    bairro: "",
-    cidade: "",
-    estado: "",
-  });
   const [salvandoEndereco, setSalvandoEndereco] = useState(false);
+
+  const buscarDadosUsuario = async (userId) => {
+    if (!userId) return;
+    try {
+      const { data: dataPedidos } = await supabase
+        .from("orders")
+        .select("*, order_items(*, products(*))")
+        .eq("user_id", userId)
+        .order("created_at", { ascending: false });
+
+      if (dataPedidos) setPedidos(dataPedidos);
+    } catch {
+      // Ignora erro se tabelas de pedidos não estiverem configuradas localmente
+    }
+
+    try {
+      const lista = await listarEnderecos(userId);
+      setEnderecos(lista || []);
+    } catch (err) {
+      console.warn("[MinhaConta] Erro ao carregar endereços:", err);
+    }
+  };
 
   useEffect(() => {
     const checarSessao = async () => {
@@ -43,14 +63,18 @@ export default function MinhaConta() {
         } else if (import.meta.env.DEV) {
           const localSession = localStorage.getItem("mg_mantos_user_session");
           if (localSession) {
-            setUsuario(JSON.parse(localSession));
+            const parsed = JSON.parse(localSession);
+            setUsuario(parsed);
+            if (parsed.id) buscarDadosUsuario(parsed.id);
           }
         }
       } catch {
         if (import.meta.env.DEV) {
           const localSession = localStorage.getItem("mg_mantos_user_session");
           if (localSession) {
-            setUsuario(JSON.parse(localSession));
+            const parsed = JSON.parse(localSession);
+            setUsuario(parsed);
+            if (parsed.id) buscarDadosUsuario(parsed.id);
           }
         }
       } finally {
@@ -60,27 +84,6 @@ export default function MinhaConta() {
 
     checarSessao();
   }, []);
-
-  const buscarDadosUsuario = async (userId) => {
-    try {
-      const { data: dataPedidos } = await supabase
-        .from("orders")
-        .select("*, order_items(*, products(*))")
-        .eq("user_id", userId)
-        .order("created_at", { ascending: false });
-
-      if (dataPedidos) setPedidos(dataPedidos);
-
-      const { data: dataEnderecos } = await supabase
-        .from("addresses")
-        .select("*")
-        .eq("user_id", userId);
-
-      if (dataEnderecos) setEnderecos(dataEnderecos);
-    } catch {
-      // Ignora erro se tabelas nao existirem no Supabase local
-    }
-  };
 
   const handleAuth = async (e) => {
     e.preventDefault();
@@ -137,44 +140,39 @@ export default function MinhaConta() {
     }
   };
 
-  const handleSalvarEndereco = async (e) => {
-    e.preventDefault();
+  const handleSalvarEndereco = async (dadosEndereco) => {
+    if (!usuario?.id) {
+      showToast("Você precisa estar autenticado para cadastrar um endereço.", "error");
+      return;
+    }
+
     setSalvandoEndereco(true);
     try {
-      if (usuario?.id) {
-        await supabase.from("addresses").insert([
-          {
-            user_id: usuario.id,
-            cep: novoEndereco.cep,
-            rua: novoEndereco.rua,
-            numero: novoEndereco.numero,
-            bairro: novoEndereco.bairro,
-            cidade: novoEndereco.cidade,
-            estado: novoEndereco.estado,
-          },
-        ]);
-      }
-
+      const enderecoSalvo = await salvarEndereco(usuario.id, dadosEndereco);
       showToast("Endereço salvo com sucesso!", "success");
       setMostrarFormEndereco(false);
-      setNovoEndereco({
-        cep: "",
-        rua: "",
-        numero: "",
-        bairro: "",
-        cidade: "",
-        estado: "",
-      });
-      if (usuario?.id) buscarDadosUsuario(usuario.id);
+      
+      const atualizados = [
+        enderecoSalvo,
+        ...enderecos.filter((e) => e.id !== enderecoSalvo.id),
+      ];
+      setEnderecos(atualizados);
     } catch (error) {
       console.error("[MinhaConta] Erro ao salvar endereço:", error);
-      if (import.meta.env.DEV) {
-        showToast("Endereço salvo localmente!", "success");
-      } else {
-        showToast("Não foi possível salvar o endereço. Tente novamente.", "error");
-      }
+      showToast(error.message || "Não foi possível salvar o endereço.", "error");
     } finally {
       setSalvandoEndereco(false);
+    }
+  };
+
+  const handleExcluirEndereco = async (enderecoId) => {
+    if (!usuario?.id || !enderecoId) return;
+    try {
+      await removerEndereco(enderecoId, usuario.id);
+      setEnderecos((prev) => prev.filter((e) => e.id !== enderecoId));
+      showToast("Endereço removido com sucesso.", "info");
+    } catch (error) {
+      showToast("Erro ao remover endereço: " + error.message, "error");
     }
   };
 
@@ -581,8 +579,7 @@ export default function MinhaConta() {
         </div>
 
         {mostrarFormEndereco ? (
-          <form
-            onSubmit={handleSalvarEndereco}
+          <div
             style={{
               backgroundColor: "var(--bg-card)",
               padding: "30px",
@@ -591,160 +588,14 @@ export default function MinhaConta() {
               boxShadow: "var(--shadow-card)",
             }}
           >
-            <h3
-              style={{
-                fontSize: "16px",
-                fontWeight: "bold",
-                marginBottom: "20px",
-              }}
-            >
-              Adicionar Novo Endereço
-            </h3>
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "1fr 1fr",
-                gap: "15px",
-              }}
-            >
-              <input
-                type="text"
-                required
-                placeholder="CEP"
-                value={novoEndereco.cep}
-                onChange={(e) =>
-                  setNovoEndereco({ ...novoEndereco, cep: e.target.value })
-                }
-                style={{
-                  padding: "12px",
-                    border: "1px solid var(--border)",
-                    borderRadius: "var(--radius-md)",
-                  outline: "none",
-                    backgroundColor: "var(--bg-primary)",
-                    color: "var(--text-primary)",
-                }}
-              />
-              <input
-                type="text"
-                required
-                placeholder="Rua / Logradouro"
-                value={novoEndereco.rua}
-                onChange={(e) =>
-                  setNovoEndereco({ ...novoEndereco, rua: e.target.value })
-                }
-                style={{
-                  padding: "12px",
-                  border: "1px solid var(--border)",
-                  borderRadius: "var(--radius-md)",
-                  outline: "none",
-                  backgroundColor: "var(--bg-primary)",
-                  color: "var(--text-primary)",
-                }}
-              />
-              <input
-                type="text"
-                required
-                placeholder="Número"
-                value={novoEndereco.numero}
-                onChange={(e) =>
-                  setNovoEndereco({ ...novoEndereco, numero: e.target.value })
-                }
-                style={{
-                  padding: "12px",
-                  border: "1px solid var(--border)",
-                  borderRadius: "var(--radius-md)",
-                  outline: "none",
-                  backgroundColor: "var(--bg-primary)",
-                  color: "var(--text-primary)",
-                }}
-              />
-              <input
-                type="text"
-                required
-                placeholder="Bairro"
-                value={novoEndereco.bairro}
-                onChange={(e) =>
-                  setNovoEndereco({ ...novoEndereco, bairro: e.target.value })
-                }
-                style={{
-                  padding: "12px",
-                  border: "1px solid var(--border)",
-                  borderRadius: "var(--radius-md)",
-                  outline: "none",
-                  backgroundColor: "var(--bg-primary)",
-                  color: "var(--text-primary)",
-                }}
-              />
-              <input
-                type="text"
-                required
-                placeholder="Cidade"
-                value={novoEndereco.cidade}
-                onChange={(e) =>
-                  setNovoEndereco({ ...novoEndereco, cidade: e.target.value })
-                }
-                style={{
-                  padding: "12px",
-                  border: "1px solid var(--border)",
-                  borderRadius: "var(--radius-md)",
-                  outline: "none",
-                  backgroundColor: "var(--bg-primary)",
-                  color: "var(--text-primary)",
-                }}
-              />
-              <input
-                type="text"
-                required
-                placeholder="Estado (UF)"
-                value={novoEndereco.estado}
-                onChange={(e) =>
-                  setNovoEndereco({ ...novoEndereco, estado: e.target.value })
-                }
-                style={{
-                  padding: "12px",
-                  border: "1px solid var(--border)",
-                  borderRadius: "var(--radius-md)",
-                  outline: "none",
-                  backgroundColor: "var(--bg-primary)",
-                  color: "var(--text-primary)",
-                }}
-              />
-            </div>
-            <div style={{ display: "flex", gap: "10px", marginTop: "20px" }}>
-              <button
-                type="submit"
-                disabled={salvandoEndereco}
-                style={{
-                  flex: 1,
-                  backgroundColor: "var(--accent)",
-                  color: "var(--text-primary)",
-                  border: "none",
-                  padding: "12px",
-                  borderRadius: "var(--radius-md)",
-                  fontWeight: "bold",
-                  cursor: "pointer",
-                }}
-              >
-                {salvandoEndereco ? "SALVANDO..." : "SALVAR ENDEREÇO"}
-              </button>
-              <button
-                type="button"
-                onClick={() => setMostrarFormEndereco(false)}
-                style={{
-                  flex: 1,
-                  backgroundColor: "transparent",
-                  color: "var(--text-secondary)",
-                  border: "1px solid var(--border)",
-                  padding: "12px",
-                  borderRadius: "var(--radius-md)",
-                  fontWeight: "bold",
-                  cursor: "pointer",
-                }}
-              >
-                CANCELAR
-              </button>
-            </div>
-          </form>
+            <AddressForm
+              onSalvar={handleSalvarEndereco}
+              onCancelar={() => setMostrarFormEndereco(false)}
+              salvando={salvandoEndereco}
+              titulo="Adicionar Novo Endereço"
+              submitLabel="SALVAR ENDEREÇO"
+            />
+          </div>
         ) : enderecos.length === 0 ? (
           <div
             style={{
@@ -777,30 +628,51 @@ export default function MinhaConta() {
                   borderRadius: "var(--radius-lg)",
                   border: "1px solid var(--border)",
                   boxShadow: "var(--shadow-card)",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
                 }}
               >
-                <p
-                  style={{
-                    margin: "0 0 5px 0",
-                    fontWeight: "bold",
-                    fontSize: "14px",
-                    color: "var(--text-primary)",
-                  }}
-                >
-                  {end.rua}, {end.numero}
-                </p>
-                <p
-                  style={{
-                    margin: "0 0 5px 0",
-                    fontSize: "13px",
-                    color: "var(--text-secondary)",
-                  }}
-                >
-                  Bairro: {end.bairro}
-                </p>
-                <p style={{ margin: 0, fontSize: "13px", color: "var(--text-secondary)" }}>
-                  {end.cidade} - {end.estado} | CEP: {end.cep}
-                </p>
+                <div>
+                  <p
+                    style={{
+                      margin: "0 0 5px 0",
+                      fontWeight: "bold",
+                      fontSize: "14px",
+                      color: "var(--text-primary)",
+                    }}
+                  >
+                    {end.rua}, {end.numero}
+                  </p>
+                  <p
+                    style={{
+                      margin: "0 0 5px 0",
+                      fontSize: "13px",
+                      color: "var(--text-secondary)",
+                    }}
+                  >
+                    Bairro: {end.bairro}
+                  </p>
+                  <p style={{ margin: 0, fontSize: "13px", color: "var(--text-secondary)" }}>
+                    {end.cidade} - {end.estado} | CEP: {end.cep}
+                  </p>
+                </div>
+                <div style={{ marginTop: "15px", paddingTop: "10px", borderTop: "1px solid var(--border)", display: "flex", justifyContent: "flex-end" }}>
+                  <button
+                    onClick={() => handleExcluirEndereco(end.id)}
+                    style={{
+                      backgroundColor: "transparent",
+                      color: "var(--error)",
+                      border: "none",
+                      fontSize: "12px",
+                      fontWeight: "bold",
+                      cursor: "pointer",
+                      padding: "4px 8px",
+                    }}
+                  >
+                    Remover
+                  </button>
+                </div>
               </div>
             ))}
           </div>

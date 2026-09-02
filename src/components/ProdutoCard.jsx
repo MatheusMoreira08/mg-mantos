@@ -119,9 +119,6 @@ export default function ProdutoCard({ produto }) {
           >
             R$ {Number(produto.price).toFixed(2).replace(".", ",")}
           </p>
-          <p style={{ fontSize: "11px", color: "var(--text-muted)", margin: "2px 0 0 0" }}>
-            em até 3x sem juros
-          </p>
         </div>
       </div>
 

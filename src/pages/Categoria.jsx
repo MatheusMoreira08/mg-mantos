@@ -42,7 +42,7 @@ export default function Categoria() {
       const termoNome = slugNormalizado.replace(/-/g, " ");
 
       try {
-        const { data, error } = await supabase
+        const { data } = await supabase
           .from("products")
           .select("*")
           .or(`tags.ov.{${tagsParaBuscar.join(",")}},name.ilike.%${termoNome}%`);

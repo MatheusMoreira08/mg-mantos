@@ -21,13 +21,15 @@ export function CarrinhoProvider({ children }) {
         (item) =>
           item.id === produto.id &&
           item.tamanho === produto.tamanho &&
-          item.personalizacao === produto.personalizacao,
+          item.personalizacao === produto.personalizacao &&
+          item.modelo === produto.modelo,
       );
       if (itemExistente) {
         return carrinhoAtual.map((item) =>
           item.id === produto.id &&
           item.tamanho === produto.tamanho &&
-          item.personalizacao === produto.personalizacao
+          item.personalizacao === produto.personalizacao &&
+          item.modelo === produto.modelo
             ? { ...item, quantidade: item.quantidade + 1 }
             : item,
         );
@@ -37,27 +39,25 @@ export function CarrinhoProvider({ children }) {
     });
   };
 
-  // BUGFIX: agora também diferencia por personalizacao, igual ao adicionarAoCarrinho.
-  // Antes: removia TODOS os itens com mesmo id+tamanho, ignorando personalizações diferentes.
-  const removerDoCarrinho = (produtoId, tamanho, personalizacao) => {
+  const removerDoCarrinho = (produtoId, tamanho, personalizacao, modelo) => {
     setCarrinho((carrinhoAtual) =>
       carrinhoAtual.filter(
         (item) =>
           !(
             item.id === produtoId &&
             item.tamanho === tamanho &&
-            item.personalizacao === personalizacao
+            item.personalizacao === personalizacao &&
+            (!modelo || item.modelo === modelo)
           ),
       ),
     );
   };
 
-  // NOVO (opcional): permite alterar a quantidade diretamente, ex: botões +/- no carrinho.
-  // Se a quantidade chegar a 0 ou menos, remove o item.
   const atualizarQuantidade = (
     produtoId,
     tamanho,
     personalizacao,
+    modelo,
     novaQuantidade,
   ) => {
     setCarrinho((carrinhoAtual) => {
@@ -67,14 +67,16 @@ export function CarrinhoProvider({ children }) {
             !(
               item.id === produtoId &&
               item.tamanho === tamanho &&
-              item.personalizacao === personalizacao
+              item.personalizacao === personalizacao &&
+              (!modelo || item.modelo === modelo)
             ),
         );
       }
       return carrinhoAtual.map((item) =>
         item.id === produtoId &&
         item.tamanho === tamanho &&
-        item.personalizacao === personalizacao
+        item.personalizacao === personalizacao &&
+        (!modelo || item.modelo === modelo)
           ? { ...item, quantidade: novaQuantidade }
           : item,
       );

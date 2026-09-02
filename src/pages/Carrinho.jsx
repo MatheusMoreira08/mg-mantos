@@ -3,107 +3,140 @@ import { Link, useNavigate } from "react-router-dom";
 import { CarrinhoContext } from "../context/carrinho-context";
 import { supabase } from "../services/supabase";
 import { useToast } from "../context/ToastContext";
+import AddressForm from "../components/AddressForm";
+import { listarEnderecos, salvarEndereco } from "../services/addressService";
 
 export default function Carrinho() {
   const { carrinho, removerDoCarrinho, limparCarrinho, valorTotal } =
     useContext(CarrinhoContext);
   const { showToast } = useToast();
 
-  const [usuario, setUsuario] = useState(null);
-  const [enderecos, setEnderecos] = useState([]);
-  const [enderecoSelecionado, setEnderecoSelecionado] = useState("");
+  const [usuario, setUsuario] = useState(() => {
+    try {
+      const local = localStorage.getItem("mg_mantos_user_session");
+      return local ? JSON.parse(local) : null;
+    } catch {
+      return null;
+    }
+  });
+
+  const [enderecos, setEnderecos] = useState(() => {
+    try {
+      const localUser = localStorage.getItem("mg_mantos_user_session");
+      if (localUser) {
+        const u = JSON.parse(localUser);
+        if (u?.id) {
+          const salvos = localStorage.getItem(`mg_mantos_enderecos_${u.id}`);
+          return salvos ? JSON.parse(salvos) : [];
+        }
+      }
+      return [];
+    } catch {
+      return [];
+    }
+  });
+
+  const [enderecoSelecionado, setEnderecoSelecionado] = useState(() => {
+    try {
+      const localUser = localStorage.getItem("mg_mantos_user_session");
+      if (localUser) {
+        const u = JSON.parse(localUser);
+        if (u?.id) {
+          const salvos = localStorage.getItem(`mg_mantos_enderecos_${u.id}`);
+          const parsed = salvos ? JSON.parse(salvos) : [];
+          return parsed.length > 0 ? parsed[0].id : "";
+        }
+      }
+      return "";
+    } catch {
+      return "";
+    }
+  });
+
   const [processando, setProcessando] = useState(false);
   const navigate = useNavigate();
 
   // Estados para o formulário de NOVO ENDEREÇO direto no carrinho
   const [mostrarFormEndereco, setMostrarFormEndereco] = useState(false);
-  const [novoEndereco, setNovoEndereco] = useState({
-    cep: "",
-    rua: "",
-    numero: "",
-    bairro: "",
-    cidade: "",
-    estado: "",
-  });
   const [salvandoEndereco, setSalvandoEndereco] = useState(false);
 
   // Busca os endereços do cliente
   const carregarEnderecos = async (userId) => {
+    if (!userId) {
+      setCarregandoEnderecos(false);
+      return;
+    }
     try {
-      const { data, error } = await supabase
-        .from("addresses")
-        .select("*")
-        .eq("user_id", userId);
-      if (error) console.error("Erro ao puxar endereços:", error);
-
+      const data = await listarEnderecos(userId);
       if (data && data.length > 0) {
         setEnderecos(data);
-        setEnderecoSelecionado(data[0].id);
-        setMostrarFormEndereco(false);
+        setEnderecoSelecionado((prev) =>
+          prev && data.some((d) => d.id === prev) ? prev : data[0].id
+        );
       } else {
-        setMostrarFormEndereco(true);
+        setEnderecos([]);
       }
-    } catch {
-      // Ignora erro se a tabela nao existir no dev local
+    } catch (err) {
+      console.warn("[Carrinho] Erro ao buscar endereços:", err);
+    } finally {
+      setCarregandoEnderecos(false);
     }
   };
 
   useEffect(() => {
     const carregarDadosUsuario = async () => {
-      const {
-        data: { session },
-      } = await supabase.auth.getSession();
-      if (session) {
-        setUsuario(session.user);
-        carregarEnderecos(session.user.id);
+      try {
+        const {
+          data: { session },
+        } = await supabase.auth.getSession();
+        if (session?.user) {
+          setUsuario(session.user);
+          await carregarEnderecos(session.user.id);
+          return;
+        }
+      } catch (err) {
+        console.warn("[Carrinho] Erro ao verificar sessão do Supabase:", err);
+      }
+
+      if (import.meta.env.DEV) {
+        const localSession = localStorage.getItem("mg_mantos_user_session");
+        if (localSession) {
+          const parsed = JSON.parse(localSession);
+          setUsuario(parsed);
+          if (parsed.id) await carregarEnderecos(parsed.id);
+        } else {
+          setCarregandoEnderecos(false);
+        }
+      } else {
+        setCarregandoEnderecos(false);
       }
     };
     carregarDadosUsuario();
   }, []);
 
   // Salva o endereço escrito no carrinho direto no banco de dados
-  const handleSalvarEndereco = async () => {
-    if (!novoEndereco.cep || !novoEndereco.rua || !novoEndereco.numero) {
-      showToast("Por favor, preencha pelo menos o CEP, Rua e Número.", "warning");
+  const handleSalvarEndereco = async (dadosEndereco) => {
+    if (!usuario?.id) {
+      showToast("Você precisa iniciar sessão para cadastrar um endereço!", "warning");
+      navigate("/minha-conta");
       return;
     }
 
     setSalvandoEndereco(true);
     try {
-      const { error } = await supabase
-        .from("addresses")
-        .insert([
-          {
-            user_id: usuario.id,
-            cep: novoEndereco.cep,
-            rua: novoEndereco.rua,
-            numero: novoEndereco.numero,
-            bairro: novoEndereco.bairro,
-            cidade: novoEndereco.cidade,
-            estado: novoEndereco.estado,
-          },
-        ])
-        .select();
-
-      if (error) throw new Error(error.message);
-
+      const enderecoSalvo = await salvarEndereco(usuario.id, dadosEndereco);
       showToast("Endereço salvo com sucesso!", "success");
-      setNovoEndereco({
-        cep: "",
-        rua: "",
-        numero: "",
-        bairro: "",
-        cidade: "",
-        estado: "",
-      });
-      carregarEnderecos(usuario.id); // Recarrega para mostrar o endereço salvo
+
+      const atualizados = [
+        enderecoSalvo,
+        ...enderecos.filter((e) => e.id !== enderecoSalvo.id),
+      ];
+      setEnderecos(atualizados);
+      setEnderecoSelecionado(enderecoSalvo.id);
+      setMostrarFormEndereco(false);
     } catch (error) {
-      if (import.meta.env.DEV) {
-        showToast("Endereço salvo localmente com sucesso!", "success");
-      } else {
-        showToast("Não foi possível salvar o endereço. Tente novamente.", "error");
-        console.error("[Carrinho] Erro ao salvar endereço:", error);
-      }
+      console.error("[Carrinho] Erro ao salvar endereço:", error);
+      showToast(error.message || "Não foi possível salvar o endereço.", "error");
     } finally {
       setSalvandoEndereco(false);
     }
@@ -268,7 +301,7 @@ export default function Carrinho() {
             <div style={{ flex: "2", minWidth: "300px" }}>
               {carrinho.map((item) => (
                 <div
-                  key={`${item.id}-${item.tamanho}-${item.personalizacao}`}
+                  key={`${item.id}-${item.tamanho}-${item.personalizacao}-${item.modelo || "padrao"}`}
                   style={{
                     display: "flex",
                     gap: "20px",
@@ -282,7 +315,7 @@ export default function Carrinho() {
                   }}
                 >
                   <img
-                    src={`/${item.image || item.imagem}`}
+                    src={`/${String(item.image || item.imagem || "placeholder-camisa.png").replace(/^\//, "")}`}
                     alt={item.name}
                     style={{
                       width: "90px",
@@ -312,8 +345,9 @@ export default function Carrinho() {
                       }}
                     >
                       Qtd: {item.quantidade} | Tam: {item.tamanho}
+                      {item.modelo && ` | Versão: ${item.modelo}`}
                     </p>
-                    {item.personalizacao !== "Sem personalização" && (
+                    {item.personalizacao && item.personalizacao !== "Sem personalização" && (
                       <p
                         style={{
                           color: "var(--text-secondary)",
@@ -344,6 +378,7 @@ export default function Carrinho() {
                         item.id,
                         item.tamanho,
                         item.personalizacao,
+                        item.modelo,
                       )
                     }
                     style={{
@@ -416,25 +451,26 @@ export default function Carrinho() {
                 >
                   <p
                     style={{
-                      color: "var(--error)",
+                      color: "var(--text-secondary)",
                       fontSize: "13px",
                       fontWeight: "bold",
                       marginBottom: "15px",
                     }}
                   >
-                    Faça login para inserir o endereço de entrega.
+                    Faça login para selecionar o endereço de entrega.
                   </p>
                   <button
                     onClick={() => navigate("/minha-conta")}
                     style={{
                       backgroundColor: "var(--accent)",
                       color: "var(--text-primary)",
-                      padding: "10px 20px",
+                      padding: "12px 20px",
                       border: "none",
                       borderRadius: "var(--radius-md)",
                       cursor: "pointer",
-                      fontWeight: "bold",
+                      fontWeight: "900",
                       width: "100%",
+                      fontSize: "13px",
                     }}
                   >
                     FAZER LOGIN
@@ -448,183 +484,15 @@ export default function Carrinho() {
                     borderBottom: "1px solid var(--border)",
                   }}
                 >
-                  <p
-                    style={{
-                      color: "var(--text-primary)",
-                      marginBottom: "15px",
-                      fontSize: "13px",
-                      fontWeight: "900",
-                      textTransform: "uppercase",
-                    }}
-                  >
-                    📍 Adicionar Endereço de Entrega
-                  </p>
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      gap: "10px",
-                    }}
-                  >
-                    <input
-                      type="text"
-                      placeholder="CEP"
-                      value={novoEndereco.cep}
-                      onChange={(e) =>
-                        setNovoEndereco({
-                          ...novoEndereco,
-                          cep: e.target.value,
-                        })
-                      }
-                      style={{
-                        padding: "10px",
-                        border: "1px solid var(--border)",
-                        borderRadius: "var(--radius-md)",
-                        fontSize: "13px",
-                        outline: "none",
-                        backgroundColor: "var(--bg-primary)",
-                        color: "var(--text-primary)",
-                      }}
-                    />
-                    <input
-                      type="text"
-                      placeholder="Rua / Logradouro"
-                      value={novoEndereco.rua}
-                      onChange={(e) =>
-                        setNovoEndereco({
-                          ...novoEndereco,
-                          rua: e.target.value,
-                        })
-                      }
-                      style={{
-                        padding: "10px",
-                        border: "1px solid var(--border)",
-                        borderRadius: "var(--radius-md)",
-                        fontSize: "13px",
-                        outline: "none",
-                        backgroundColor: "var(--bg-primary)",
-                        color: "var(--text-primary)",
-                      }}
-                    />
-                    <div style={{ display: "flex", gap: "10px" }}>
-                      <input
-                        type="text"
-                        placeholder="Número"
-                        value={novoEndereco.numero}
-                        onChange={(e) =>
-                          setNovoEndereco({
-                            ...novoEndereco,
-                            numero: e.target.value,
-                          })
-                        }
-                        style={{
-                          flex: 1,
-                          padding: "10px",
-                          border: "1px solid var(--border)",
-                          borderRadius: "var(--radius-md)",
-                          fontSize: "13px",
-                          outline: "none",
-                          backgroundColor: "var(--bg-primary)",
-                          color: "var(--text-primary)",
-                        }}
-                      />
-                      <input
-                        type="text"
-                        placeholder="Bairro"
-                        value={novoEndereco.bairro}
-                        onChange={(e) =>
-                          setNovoEndereco({
-                            ...novoEndereco,
-                            bairro: e.target.value,
-                          })
-                        }
-                        style={{
-                          flex: 2,
-                          padding: "10px",
-                          border: "1px solid var(--border)",
-                          borderRadius: "var(--radius-md)",
-                          fontSize: "13px",
-                          outline: "none",
-                          backgroundColor: "var(--bg-primary)",
-                          color: "var(--text-primary)",
-                        }}
-                      />
-                    </div>
-                    <div style={{ display: "flex", gap: "10px" }}>
-                      <input
-                        type="text"
-                        placeholder="Cidade"
-                        value={novoEndereco.cidade}
-                        onChange={(e) =>
-                          setNovoEndereco({
-                            ...novoEndereco,
-                            cidade: e.target.value,
-                          })
-                        }
-                        style={{
-                          flex: 2,
-                          padding: "10px",
-                          border: "1px solid var(--border)",
-                          borderRadius: "4px",
-                          fontSize: "13px",
-                          outline: "none",
-                        }}
-                      />
-                      <input
-                        type="text"
-                        placeholder="Estado (UF)"
-                        value={novoEndereco.estado}
-                        onChange={(e) =>
-                          setNovoEndereco({
-                            ...novoEndereco,
-                            estado: e.target.value,
-                          })
-                        }
-                        style={{
-                          flex: 1,
-                          padding: "10px",
-                          border: "1px solid var(--border)",
-                          borderRadius: "4px",
-                          fontSize: "13px",
-                          outline: "none",
-                        }}
-                      />
-                    </div>
-                    <button
-                      onClick={handleSalvarEndereco}
-                      disabled={salvandoEndereco}
-                      style={{
-                        backgroundColor: "var(--accent)",
-                        color: "var(--text-primary)",
-                        padding: "12px",
-                        borderRadius: "var(--radius-md)",
-                        fontWeight: "bold",
-                        cursor: "pointer",
-                        marginTop: "5px",
-                        fontSize: "13px",
-                        border: "none",
-                      }}
-                    >
-                      {salvandoEndereco ? "SALVANDO..." : "SALVAR E CONTINUAR"}
-                    </button>
-                    {enderecos.length > 0 && (
-                      <button
-                        onClick={() => setMostrarFormEndereco(false)}
-                        style={{
-                          backgroundColor: "transparent",
-                          color: "var(--text-secondary)",
-                          border: "none",
-                          fontSize: "12px",
-                          cursor: "pointer",
-                          textDecoration: "underline",
-                        }}
-                      >
-                        Cancelar
-                      </button>
-                    )}
-                  </div>
+                  <AddressForm
+                    onSalvar={handleSalvarEndereco}
+                    onCancelar={enderecos.length > 0 ? () => setMostrarFormEndereco(false) : undefined}
+                    salvando={salvandoEndereco}
+                    titulo="Adicionar Novo Endereço"
+                    submitLabel="SALVAR E CONTINUAR"
+                  />
                 </div>
-              ) : (
+              ) : enderecos.length > 0 ? (
                 <div
                   style={{
                     marginBottom: "20px",
@@ -665,7 +533,7 @@ export default function Carrinho() {
                     </button>
                   </div>
                   <select
-                    value={enderecoSelecionado}
+                    value={enderecoSelecionado || (enderecos[0]?.id ?? "")}
                     onChange={(e) => setEnderecoSelecionado(e.target.value)}
                     style={{
                       width: "100%",
@@ -676,14 +544,64 @@ export default function Carrinho() {
                       borderRadius: "var(--radius-md)",
                       outline: "none",
                       fontSize: "13px",
+                      fontWeight: "600",
+                      cursor: "pointer",
                     }}
                   >
                     {enderecos.map((end) => (
-                      <option key={end.id} value={end.id}>
-                        {end.rua}, {end.numero} - {end.cidade}
+                      <option
+                        key={end.id}
+                        value={end.id}
+                        style={{
+                          backgroundColor: "var(--bg-card)",
+                          color: "var(--text-primary)",
+                        }}
+                      >
+                        {end.rua}, {end.numero} — {end.bairro}, {end.cidade}/{end.estado}
                       </option>
                     ))}
                   </select>
+                </div>
+              ) : (
+                <div
+                  style={{
+                    marginBottom: "20px",
+                    paddingBottom: "20px",
+                    borderBottom: "1px solid var(--border)",
+                  }}
+                >
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      marginBottom: "12px",
+                    }}
+                  >
+                    <p style={{ color: "var(--text-secondary)", margin: 0, fontSize: "13px", fontWeight: "bold" }}>
+                      📍 Endereço de Entrega
+                    </p>
+                  </div>
+                  <p style={{ fontSize: "13px", color: "var(--text-secondary)", marginBottom: "12px" }}>
+                    Nenhum endereço cadastrado.
+                  </p>
+                  <button
+                    onClick={() => setMostrarFormEndereco(true)}
+                    style={{
+                      backgroundColor: "var(--accent)",
+                      color: "var(--text-primary)",
+                      padding: "12px 16px",
+                      border: "none",
+                      borderRadius: "var(--radius-md)",
+                      cursor: "pointer",
+                      fontWeight: "900",
+                      fontSize: "13px",
+                      width: "100%",
+                      textTransform: "uppercase",
+                    }}
+                  >
+                    + CADASTRAR ENDEREÇO
+                  </button>
                 </div>
               )}
 
@@ -705,10 +623,10 @@ export default function Carrinho() {
 
               <button
                 onClick={finalizarCompra}
-                disabled={processando || mostrarFormEndereco || !usuario}
+                disabled={processando || mostrarFormEndereco || !usuario || enderecos.length === 0}
                 style={{
                   backgroundColor:
-                    processando || mostrarFormEndereco || !usuario
+                    processando || mostrarFormEndereco || !usuario || enderecos.length === 0
                       ? "var(--bg-card-hover)"
                       : "var(--accent)",
                   color: "var(--text-primary)",
@@ -719,18 +637,20 @@ export default function Carrinho() {
                   fontSize: "15px",
                   width: "100%",
                   cursor:
-                    processando || mostrarFormEndereco || !usuario
+                    processando || mostrarFormEndereco || !usuario || enderecos.length === 0
                       ? "not-allowed"
                       : "pointer",
                   textTransform: "uppercase",
                   transition: "0.2s",
                 }}
               >
-                  {processando
-                    ? "PROCESSANDO..."
-                    : mostrarFormEndereco || enderecos.length === 0
-                    ? "CADASTRE UM ENDEREÇO"
-                    : "FINALIZAR COMPRA"}
+                {processando
+                  ? "PROCESSANDO..."
+                  : !usuario
+                  ? "FAÇA LOGIN PARA CONTINUAR"
+                  : mostrarFormEndereco || enderecos.length === 0
+                  ? "CADASTRE UM ENDEREÇO"
+                  : "FINALIZAR COMPRA"}
               </button>
             </div>
           </div>

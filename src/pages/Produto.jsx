@@ -35,6 +35,7 @@ export default function Produto() {
   const tamanhos = ["P", "M", "G", "GG", "2GG", "3GG"];
 
   useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
     const fetchProduto = async () => {
       try {
         const { data } = await supabase
@@ -57,7 +58,7 @@ export default function Produto() {
           }
           setErroProduto(false);
         }
-      } catch (e) {
+      } catch {
         // Supabase offline: mantem produto local ja carregado instantaneamente
       }
     };

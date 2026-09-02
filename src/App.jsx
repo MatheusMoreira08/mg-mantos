@@ -6,6 +6,7 @@ import {
 } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import ScrollToTop from "./components/ScrollToTop";
 import Home from "./pages/Home";
 import Produto from "./pages/Produto";
 import Categoria from "./pages/Categoria";
@@ -17,6 +18,7 @@ import PedidoConfirmado from "./pages/PedidoConfirmado";
 export default function App() {
   return (
     <Router>
+      <ScrollToTop />
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />

@@ -31,7 +31,7 @@ export default function Login() {
               return;
             }
             // Em dev local, permite login de teste amigável quando o backend Supabase estiver desconectado
-            localStorage.setItem("mg_mantos_user_session", JSON.stringify({ email }));
+            localStorage.setItem("mg_mantos_user_session", JSON.stringify({ id: "dev-user-123", email }));
             showToast("Sessão iniciada em modo de demonstração!", "success");
             navigate("/minha-conta");
             return;
@@ -53,7 +53,7 @@ export default function Login() {
               setErro("Servidor de autenticação indisponível. Tente novamente.");
               return;
             }
-            localStorage.setItem("mg_mantos_user_session", JSON.stringify({ email }));
+            localStorage.setItem("mg_mantos_user_session", JSON.stringify({ id: "dev-user-123", email }));
             showToast("Conta de teste criada com sucesso!", "success");
             navigate("/minha-conta");
             return;

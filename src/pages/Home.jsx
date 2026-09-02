@@ -64,14 +64,12 @@ export default function Home() {
     },
     {
       nome: "Corinthians",
-      imagem:
-        "https://upload.wikimedia.org/wikipedia/pt/thumb/b/b4/Corinthians_simbolo.png/120px-Corinthians_simbolo.png",
+      imagem: "/img/times/corinthians.svg",
       link: "/categoria/corinthians",
     },
     {
       nome: "Palmeiras",
-      imagem:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Palmeiras_logo.svg/120px-Palmeiras_logo.svg.png",
+      imagem: "/img/times/palmeiras.svg",
       link: "/categoria/palmeiras",
     },
     {
@@ -81,14 +79,12 @@ export default function Home() {
     },
     {
       nome: "Cruzeiro",
-      imagem:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Cruzeiro_Esporte_Clube_%28logo%29.svg/120px-Cruzeiro_Esporte_Clube_%28logo%29.svg.png",
+      imagem: "/img/times/cruzeiro.svg",
       link: "/categoria/cruzeiro",
     },
     {
       nome: "Atlético MG",
-      imagem:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Atletico_mineiro_galo.png/120px-Atletico_mineiro_galo.png",
+      imagem: "/img/times/atletico-mg.svg",
       link: "/categoria/atletico-mg",
     },
     {
@@ -102,46 +98,39 @@ export default function Home() {
     "La Liga": [
       {
         nome: "Real Madrid",
-        imagem:
-          "https://upload.wikimedia.org/wikipedia/pt/thumb/9/98/Real_Madrid.png/120px-Real_Madrid.png",
+        imagem: "/img/times/real-madrid.svg",
         link: "/categoria/real-madrid",
       },
       {
         nome: "Barcelona",
-        imagem:
-          "https://upload.wikimedia.org/wikipedia/pt/thumb/4/43/FCBarcelona.svg/120px-FCBarcelona.svg.png",
+        imagem: "/img/times/barcelona.svg",
         link: "/categoria/barcelona",
       },
       {
         nome: "Atlético de Madrid",
-        imagem:
-          "https://upload.wikimedia.org/wikipedia/pt/thumb/c/c1/Atletico_Madrid_logo.svg/120px-Atletico_Madrid_logo.svg.png",
+        imagem: "/img/times/atletico-madrid.svg",
         link: "/categoria/atletico-madrid",
       },
     ],
     "Premier League": [
       {
         nome: "Manchester City",
-        imagem:
-          "https://upload.wikimedia.org/wikipedia/pt/thumb/0/02/Manchester_City_Football_Club.png/120px-Manchester_City_Football_Club.png",
+        imagem: "/img/times/manchester-city.svg",
         link: "/categoria/manchester-city",
       },
       {
         nome: "Arsenal",
-        imagem:
-          "https://upload.wikimedia.org/wikipedia/pt/thumb/5/53/Arsenal_FC.svg/120px-Arsenal_FC.svg.png",
+        imagem: "/img/times/arsenal.svg",
         link: "/categoria/arsenal",
       },
       {
         nome: "Liverpool",
-        imagem:
-          "https://upload.wikimedia.org/wikipedia/pt/thumb/0/0c/Liverpool_FC.svg/120px-Liverpool_FC.svg.png",
+        imagem: "/img/times/liverpool.svg",
         link: "/categoria/liverpool",
       },
       {
         nome: "Chelsea",
-        imagem:
-          "https://upload.wikimedia.org/wikipedia/pt/thumb/c/cc/Chelsea_FC.svg/120px-Chelsea_FC.svg.png",
+        imagem: "/img/times/chelsea.svg",
         link: "/categoria/chelsea",
       },
       {
@@ -153,54 +142,46 @@ export default function Home() {
     "Serie A": [
       {
         nome: "Juventus",
-        imagem:
-          "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Juventus_FC_2023_Brand_Mark.svg/120px-Juventus_FC_2023_Brand_Mark.svg.png",
+        imagem: "/img/times/juventus.svg",
         link: "/categoria/juventus",
       },
       {
         nome: "Milan",
-        imagem:
-          "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Logo_of_AC_Milan.svg/120px-Logo_of_AC_Milan.svg.png",
+        imagem: "/img/times/milan.svg",
         link: "/categoria/milan",
       },
       {
         nome: "Inter de Milão",
-        imagem:
-          "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/FC_Internazionale_Milano_2021.svg/120px-FC_Internazionale_Milano_2021.svg.png",
+        imagem: "/img/times/inter-de-milao.svg",
         link: "/categoria/inter-de-milao",
       },
     ],
     Bundesliga: [
       {
         nome: "Bayern Munique",
-        imagem:
-          "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/FC_Bayern_M%C3%BCnchen_logo_%282017%29.svg/120px-FC_Bayern_M%C3%BCnchen_logo_%282017%29.svg.png",
+        imagem: "/img/times/bayern-munique.svg",
         link: "/categoria/bayern-munique",
       },
       {
         nome: "Borussia Dortmund",
-        imagem:
-          "https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Borussia_Dortmund_logo.svg/120px-Borussia_Dortmund_logo.svg.png",
+        imagem: "/img/times/borussia-dortmund.svg",
         link: "/categoria/borussia-dortmund",
       },
       {
         nome: "Bayer Leverkusen",
-        imagem:
-          "https://upload.wikimedia.org/wikipedia/pt/thumb/5/5f/Bayer_04_Leverkusen_logo.svg/120px-Bayer_04_Leverkusen_logo.svg.png",
+        imagem: "/img/times/bayer-leverkusen.svg",
         link: "/categoria/bayer-leverkusen",
       },
     ],
     "Ligue 1": [
       {
         nome: "PSG",
-        imagem:
-          "https://upload.wikimedia.org/wikipedia/pt/thumb/d/d4/Paris_Saint-Germain.svg/120px-Paris_Saint-Germain.svg.png",
+        imagem: "/img/times/psg.svg",
         link: "/categoria/psg",
       },
       {
         nome: "Olympique Marseille",
-        imagem:
-          "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/Olympique_Marseille_logo.svg/120px-Olympique_Marseille_logo.svg.png",
+        imagem: "/img/times/olympique.svg",
         link: "/categoria/olympique",
       },
     ],
