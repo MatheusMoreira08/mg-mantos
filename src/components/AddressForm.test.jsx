@@ -88,6 +88,7 @@ describe("Componente AddressForm", () => {
       cep: "30130-100",
       rua: "Avenida Afonso Pena",
       numero: "1500",
+      complemento: "",
       bairro: "Centro",
       cidade: "Belo Horizonte",
       estado: "MG",

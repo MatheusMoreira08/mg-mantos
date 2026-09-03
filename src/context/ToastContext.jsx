@@ -1,5 +1,11 @@
 /* eslint-disable react-refresh/only-export-components */
-import { createContext, useState, useContext } from "react";
+import {
+  createContext,
+  useState,
+  useContext,
+  useCallback,
+  useMemo,
+} from "react";
 
 const ToastContext = createContext({
   showToast: () => {},
@@ -8,18 +14,22 @@ const ToastContext = createContext({
 export function ToastProvider({ children }) {
   const [toasts, setToasts] = useState([]);
 
-  const showToast = (mensagem, tipo = "info") => {
+  // Memoiza as funções e o valor do Provider para evitar re-renders em cascata
+  // (flicker) em todos os consumidores de useToast() a cada mudança de estado.
+  const showToast = useCallback((mensagem, tipo = "info") => {
     const id = Date.now() + Math.random();
     setToasts((prev) => [...prev, { id, mensagem, tipo }]);
 
     setTimeout(() => {
       setToasts((prev) => prev.filter((t) => t.id !== id));
     }, 3500);
-  };
+  }, []);
 
-  const removeToast = (id) => {
+  const removeToast = useCallback((id) => {
     setToasts((prev) => prev.filter((t) => t.id !== id));
-  };
+  }, []);
+
+  const value = useMemo(() => ({ showToast }), [showToast]);
 
   const getStyleForType = (tipo) => {
     switch (tipo) {
@@ -51,7 +61,7 @@ export function ToastProvider({ children }) {
   };
 
   return (
-    <ToastContext.Provider value={{ showToast }}>
+    <ToastContext.Provider value={value}>
       {children}
       {/* Toast Container */}
       <div

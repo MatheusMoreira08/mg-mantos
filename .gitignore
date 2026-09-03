@@ -7,10 +7,17 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# Dependências e build
 node_modules
 dist
 dist-ssr
 *.local
+.vite
+.eslintcache
+*.tsbuildinfo
+coverage
+
+# Ambiente (SEGREDOS — nunca versionar)
 .env
 .env.local
 .env.*.local
@@ -18,8 +25,14 @@ dist-ssr
 !.env.example
 api/.env
 
+# Plataformas de hospedagem / tooling
+.vercel
+.netlify
+.netlify/cache
+.parcel-cache
+.firebase
 
-# Editor directories and files
+# Editor / SO
 .vscode/*
 !.vscode/extensions.json
 .idea
@@ -29,3 +42,4 @@ api/.env
 *.njsproj
 *.sln
 *.sw?
+Thumbs.db

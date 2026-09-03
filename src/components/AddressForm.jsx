@@ -1,6 +1,7 @@
 import { useState, useRef } from "react";
 import { buscarEnderecoPorCep, formatarCep } from "../services/viaCepService";
 import { useToast } from "../context/ToastContext";
+import { sanearTexto, validarUF } from "../services/validation";
 
 export default function AddressForm({
   onSalvar,
@@ -13,6 +14,7 @@ export default function AddressForm({
     cep: "",
     rua: "",
     numero: "",
+    complemento: "",
     bairro: "",
     cidade: "",
     estado: "",
@@ -53,6 +55,10 @@ export default function AddressForm({
     e.preventDefault();
     if (!form.cep || !form.rua || !form.numero || !form.bairro || !form.cidade || !form.estado) {
       showToast("Por favor, preencha todos os campos do endereço.", "warning");
+      return;
+    }
+    if (!validarUF(form.estado)) {
+      showToast("Informe uma UF válida (ex: SP).", "warning");
       return;
     }
     onSalvar(form);
@@ -126,7 +132,7 @@ export default function AddressForm({
         type="text"
         placeholder="Rua / Logradouro / Avenida"
         value={form.rua}
-        onChange={(e) => setForm({ ...form, rua: e.target.value })}
+        onChange={(e) => setForm({ ...form, rua: sanearTexto(e.target.value, 120) })}
         required
         style={{
           width: "100%",
@@ -149,7 +155,7 @@ export default function AddressForm({
           type="text"
           placeholder="Número"
           value={form.numero}
-          onChange={(e) => setForm({ ...form, numero: e.target.value })}
+          onChange={(e) => setForm({ ...form, numero: sanearTexto(e.target.value, 20) })}
           required
           style={{
             width: "100%",
@@ -168,7 +174,7 @@ export default function AddressForm({
           type="text"
           placeholder="Bairro"
           value={form.bairro}
-          onChange={(e) => setForm({ ...form, bairro: e.target.value })}
+          onChange={(e) => setForm({ ...form, bairro: sanearTexto(e.target.value, 80) })}
           required
           style={{
             width: "100%",
@@ -184,6 +190,26 @@ export default function AddressForm({
         />
       </div>
 
+      {/* Complemento (opcional) */}
+      <input
+        id="input-complemento"
+        type="text"
+        placeholder="Complemento (ex: Apto, Bloco, Referência)"
+        value={form.complemento}
+        onChange={(e) => setForm({ ...form, complemento: sanearTexto(e.target.value, 80) })}
+        style={{
+          width: "100%",
+          padding: "12px",
+          border: "1px solid var(--border)",
+          borderRadius: "var(--radius-md)",
+          backgroundColor: "var(--bg-primary)",
+          color: "var(--text-primary)",
+          fontSize: "14px",
+          outline: "none",
+          boxSizing: "border-box",
+        }}
+      />
+
       {/* Cidade e UF */}
       <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr", gap: "10px" }}>
         <input
@@ -191,7 +217,7 @@ export default function AddressForm({
           type="text"
           placeholder="Cidade"
           value={form.cidade}
-          onChange={(e) => setForm({ ...form, cidade: e.target.value })}
+          onChange={(e) => setForm({ ...form, cidade: sanearTexto(e.target.value, 80) })}
           required
           style={{
             width: "100%",
@@ -211,7 +237,9 @@ export default function AddressForm({
           placeholder="UF (ex: SP)"
           value={form.estado}
           maxLength={2}
-          onChange={(e) => setForm({ ...form, estado: e.target.value.toUpperCase() })}
+          onChange={(e) =>
+                setForm({ ...form, estado: e.target.value.replace(/[^a-zA-Z]/g, "").toUpperCase().slice(0, 2) })
+              }
           required
           style={{
             width: "100%",

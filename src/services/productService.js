@@ -5,6 +5,18 @@ function removerAcentos(str = "") {
   return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 }
 
+/**
+ * Converte um ID para o tipo esperado pelo banco na inserção de itens.
+ * Se o ID for numérico (ex.: bigint/integer), retorna `Number`; caso contrário
+ * (uuid/texto), retorna a string original. Isso evita falha na FK
+ * `order_items.product_id -> products(id)` quando a coluna é numeric.
+ */
+export function normalizarIdBanco(id) {
+  const str = String(id ?? "").trim();
+  if (/^\d+$/.test(str)) return Number(str);
+  return str;
+}
+
 function normalizarProduto(item) {
   if (!item) return null;
   const image = item.image || item.imagem || "";
@@ -14,10 +26,14 @@ function normalizarProduto(item) {
 
   return {
     id: String(item.id),
-    name: item.name || item.nome || "Manto Exclusivo",
+    name: item.name || item.nome || item.title || "Manto Exclusivo",
+    description: item.description || "",
     price: Number(item.price || item.preco || 129.9),
     image: image,
     images: images,
+    sizes: Array.isArray(item.sizes) ? item.sizes : [],
+    stock: Number.isFinite(Number(item.stock)) ? Number(item.stock) : 0,
+    is_active: item.is_active !== false,
     tags: Array.isArray(item.tags) ? item.tags : [],
     badge: item.badge || (item.tags?.includes("lancamento") ? "Lançamento" : null),
   };
@@ -29,6 +45,7 @@ export async function getProdutos(limite = 50) {
       const { data, error } = await supabase
         .from("products")
         .select("*")
+        .eq("is_active", true)
         .order("created_at", { ascending: false })
         .limit(limite);
 
@@ -51,6 +68,7 @@ export async function getProdutoPorId(id) {
         .from("products")
         .select("*")
         .eq("id", id)
+        .eq("is_active", true)
         .single();
 
       if (!error && data) {
@@ -85,6 +103,7 @@ export async function getProdutosPorCategoria(slug) {
       const { data, error } = await supabase
         .from("products")
         .select("*")
+        .eq("is_active", true)
         .or(`tags.ov.{${tagsParaBuscar.join(",")}},name.ilike.%${termo}%`);
 
       if (!error && data && data.length > 0) {
@@ -116,6 +135,7 @@ export async function buscarProdutos(termo, limite = 8) {
       const { data, error } = await supabase
         .from("products")
         .select("*")
+        .eq("is_active", true)
         .ilike("name", `%${termo}%`)
         .limit(limite);
 

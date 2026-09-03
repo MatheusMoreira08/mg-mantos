@@ -393,20 +393,40 @@ export default function MinhaConta() {
               Bem-vindo(a), <strong>{usuario?.email}</strong>
             </p>
           </div>
-          <button
-            onClick={sair}
-            style={{
-              backgroundColor: "transparent",
-              color: "var(--error)",
-              border: "1px solid var(--error)",
-              padding: "8px 16px",
-              borderRadius: "var(--radius-md)",
-              cursor: "pointer",
-              fontWeight: "bold",
-            }}
-          >
-            Sair da Conta
-          </button>
+          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+            {Boolean(
+              usuario?.user_metadata?.is_admin === true ||
+                usuario?.user_metadata?.is_admin === "true",
+            ) && (
+              <Link
+                to="/admin"
+                style={{
+                  backgroundColor: "var(--accent)",
+                  color: "var(--text-primary)",
+                  textDecoration: "none",
+                  padding: "8px 16px",
+                  borderRadius: "var(--radius-md)",
+                  fontWeight: "bold",
+                }}
+              >
+                Painel Admin
+              </Link>
+            )}
+            <button
+              onClick={sair}
+              style={{
+                backgroundColor: "transparent",
+                color: "var(--error)",
+                border: "1px solid var(--error)",
+                padding: "8px 16px",
+                borderRadius: "var(--radius-md)",
+                cursor: "pointer",
+                fontWeight: "bold",
+              }}
+            >
+              Sair da Conta
+            </button>
+          </div>
         </header>
 
         {/* SECÇÃO 1: PEDIDOS */}
@@ -512,6 +532,21 @@ export default function MinhaConta() {
                     </p>
                   </div>
                   <div style={{ textAlign: "right" }}>
+                    {pedido.frete_valor != null && (
+                      <p
+                        style={{
+                          margin: "0 0 5px 0",
+                          fontSize: "12px",
+                          color: "var(--text-secondary)",
+                        }}
+                      >
+                        Frete:{" "}
+                        {pedido.frete
+                          ? `${pedido.frete} — `
+                          : ""}
+                        R$ {Number(pedido.frete_valor || 0).toFixed(2).replace(".", ",")}
+                      </p>
+                    )}
                     <p
                       style={{
                         margin: "0 0 5px 0",

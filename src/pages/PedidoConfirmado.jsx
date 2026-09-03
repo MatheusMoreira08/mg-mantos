@@ -230,21 +230,64 @@ export default function PedidoConfirmado() {
           ))}
         </div>
 
+        {/* DETALHAMENTO DO PAGAMENTO: SUBTOTAL + FRETE + TOTAL */}
         <div
           style={{
-            display: "flex",
-            justifyContent: "space-between",
-            fontSize: "18px",
-            fontWeight: "900",
             borderTop: "1px solid var(--border)",
             paddingTop: "15px",
             marginBottom: "30px",
+            display: "flex",
+            flexDirection: "column",
+            gap: "10px",
           }}
         >
-          <span>Valor Total</span>
-          <span style={{ color: "var(--accent)" }}>
-            R$ {Number(pedido.total).toFixed(2).replace(".", ",")}
-          </span>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              fontSize: "14px",
+              color: "var(--text-secondary)",
+            }}
+          >
+            <span>Subtotal</span>
+            <span>
+              R${" "}
+              {(Number(pedido.total) - Number(pedido.frete_valor || 0))
+                .toFixed(2)
+                .replace(".", ",")}
+            </span>
+          </div>
+
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              fontSize: "14px",
+              color: "var(--text-secondary)",
+            }}
+          >
+            <span>
+              Frete
+              {pedido.frete ? ` (${pedido.frete})` : ""}
+            </span>
+            <span>
+              R$ {Number(pedido.frete_valor || 0).toFixed(2).replace(".", ",")}
+            </span>
+          </div>
+
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              fontSize: "18px",
+              fontWeight: "900",
+            }}
+          >
+            <span>Valor Total</span>
+            <span style={{ color: "var(--accent)" }}>
+              R$ {Number(pedido.total).toFixed(2).replace(".", ",")}
+            </span>
+          </div>
         </div>
 
         {/* ENDEREÇO DE ENTREGA */}

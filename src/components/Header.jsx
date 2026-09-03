@@ -1,9 +1,8 @@
 import { useState, useEffect, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { supabase } from "../services/supabase";
 import { CarrinhoContext } from "../context/carrinho-context";
 import { ThemeContext } from "../context/theme-context";
-import productsData from "../data/products.json";
+import { buscarProdutos as buscarProdutosService } from "../services/productService";
 
 export default function Header() {
   const { carrinho } = useContext(CarrinhoContext);
@@ -24,34 +23,17 @@ export default function Header() {
   const [mostrarDropdown, setMostrarDropdown] = useState(false);
 
   useEffect(() => {
-    const buscarProdutos = async () => {
+    const aoBuscar = async () => {
       if (termoBusca.length < 2) {
         setResultadosBusca([]);
         setMostrarDropdown(false);
         return;
       }
-      try {
-        const { data } = await supabase
-          .from("products")
-          .select("id, name, price, image, imagem")
-          .ilike("name", `%${termoBusca}%`)
-          .limit(5);
-        if (data && data.length > 0) {
-          setResultadosBusca(data);
-          setMostrarDropdown(true);
-          return;
-        }
-      } catch (err) {
-        console.warn("Supabase search offline:", err);
-      }
-
-      const resLocal = productsData
-        .filter((p) => (p.name || "").toLowerCase().includes(termoBusca.toLowerCase()))
-        .slice(0, 5);
-      setResultadosBusca(resLocal);
-      setMostrarDropdown(resLocal.length > 0);
+      const res = await buscarProdutosService(termoBusca, 5);
+      setResultadosBusca(res || []);
+      setMostrarDropdown((res || []).length > 0);
     };
-    const timeoutId = setTimeout(() => buscarProdutos(), 300);
+    const timeoutId = setTimeout(aoBuscar, 300);
     return () => clearTimeout(timeoutId);
   }, [termoBusca]);
 

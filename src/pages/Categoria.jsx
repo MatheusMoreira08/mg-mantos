@@ -1,80 +1,47 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { supabase } from "../services/supabase";
 import ProdutoCard from "../components/ProdutoCard";
-import productsData from "../data/products.json";
-
-const sinonimos = {
-  brasileirao: ["nacional", "brasileirao"],
-  "times-internacionais": ["europeus", "internacional"],
-  feminina: ["feminina"],
-  selecoes: ["selecoes"],
-  retro: ["retro"],
-  jogador: ["jogador"],
-};
+import { getProdutosPorCategoria, getProdutos } from "../services/productService";
 
 export default function Categoria() {
   const { slug } = useParams();
 
-  const removerAcentos = (str) =>
-    (str || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-
-  const [produtos, setProdutos] = useState(() => {
-    const slugNormalizado = removerAcentos(slug).toLowerCase();
-    const tagsParaBuscar = sinonimos[slugNormalizado] || [slugNormalizado];
-    const termoNome = slugNormalizado.replace(/-/g, " ");
-    const filtrados = productsData.filter((p) => {
-      const pTags = p.tags || [];
-      const pNome = (p.name || "").toLowerCase();
-      const bateTag = tagsParaBuscar.some((t) => pTags.includes(t));
-      const bateNome = pNome.includes(termoNome);
-      return bateTag || bateNome;
-    });
-    return filtrados.length > 0 ? filtrados : productsData.slice(0, 12);
-  });
-  const [carregando, setCarregando] = useState(false);
+  const [produtos, setProdutos] = useState([]);
+  const [carregando, setCarregando] = useState(true);
 
   useEffect(() => {
-    const fetchEFiltrarCategoria = async () => {
+    let ativo = true;
+
+    (async () => {
+      await new Promise((r) => setTimeout(r, 0));
+      if (!ativo) return;
       setCarregando(true);
-      const slugNormalizado = removerAcentos(slug).toLowerCase();
-      const tagsParaBuscar = sinonimos[slugNormalizado] || [slugNormalizado];
-      const termoNome = slugNormalizado.replace(/-/g, " ");
 
       try {
-        const { data } = await supabase
-          .from("products")
-          .select("*")
-          .or(`tags.ov.{${tagsParaBuscar.join(",")}},name.ilike.%${termoNome}%`);
-
-        if (data && data.length > 0) {
-          setProdutos(data);
+        const resultado = await getProdutosPorCategoria(slug);
+        if (!ativo) return;
+        if (!resultado || resultado.length === 0) {
+          const destaques = await getProdutos(12);
+          if (ativo) setProdutos(destaques || []);
         } else {
-          // Fallback para products.json local
-          const filtrados = productsData.filter((p) => {
-            const pTags = p.tags || [];
-            const pNome = (p.name || "").toLowerCase();
-            const bateTag = tagsParaBuscar.some((t) => pTags.includes(t));
-            const bateNome = pNome.includes(termoNome);
-            return bateTag || bateNome;
-          });
-          setProdutos(filtrados.length > 0 ? filtrados : productsData.slice(0, 12));
+          setProdutos(resultado);
         }
       } catch {
-        const filtrados = productsData.filter((p) => {
-          const pTags = p.tags || [];
-          const pNome = (p.name || "").toLowerCase();
-          const bateTag = tagsParaBuscar.some((t) => pTags.includes(t));
-          const bateNome = pNome.includes(termoNome);
-          return bateTag || bateNome;
-        });
-        setProdutos(filtrados.length > 0 ? filtrados : productsData.slice(0, 12));
+        if (!ativo) return;
+        const destaques = await getProdutos(12);
+        if (ativo) setProdutos(destaques || []);
       } finally {
-        setCarregando(false);
+        if (ativo) setCarregando(false);
       }
+    })();
+
+    return () => {
+      ativo = false;
     };
-    fetchEFiltrarCategoria();
   }, [slug]);
+
+  const removerAcentos = (str) =>
+    (str || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
   const formatarTitulo = (texto) => {
     const limpo = removerAcentos(texto).toLowerCase();

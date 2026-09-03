@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { supabase } from "../services/supabase";
 import ProdutoCard from "../components/ProdutoCard";
 import BannerCarousel from "../components/BannerCarousel";
-import productsData from "../data/products.json";
+import { getProdutos } from "../services/productService";
+import { escudosTimesBR, timesPorLiga } from "../data/teamBadges";
 
 export default function Home() {
-  const [produtos, setProdutos] = useState(productsData);
+  const [produtos, setProdutos] = useState([]);
   const [abaPrincipal, setAbaPrincipal] = useState("Lançamentos");
   const [ligaAtiva, setLigaAtiva] = useState("La Liga");
 
@@ -51,160 +51,10 @@ export default function Home() {
     },
   ];
 
-  const escudosTimesBR = [
-    {
-      nome: "Flamengo",
-      imagem: "/img/times/flamengo.svg",
-      link: "/categoria/flamengo",
-    },
-    {
-      nome: "São Paulo",
-      imagem: "/img/times/sao-paulo.svg",
-      link: "/categoria/sao-paulo",
-    },
-    {
-      nome: "Corinthians",
-      imagem: "/img/times/corinthians.svg",
-      link: "/categoria/corinthians",
-    },
-    {
-      nome: "Palmeiras",
-      imagem: "/img/times/palmeiras.svg",
-      link: "/categoria/palmeiras",
-    },
-    {
-      nome: "Vasco",
-      imagem: "/img/times/vasco.svg",
-      link: "/categoria/vasco",
-    },
-    {
-      nome: "Cruzeiro",
-      imagem: "/img/times/cruzeiro.svg",
-      link: "/categoria/cruzeiro",
-    },
-    {
-      nome: "Atlético MG",
-      imagem: "/img/times/atletico-mg.svg",
-      link: "/categoria/atletico-mg",
-    },
-    {
-      nome: "Grêmio",
-      imagem: "/img/times/gremio.svg",
-      link: "/categoria/gremio",
-    },
-  ];
-
-  const timesPorLiga = {
-    "La Liga": [
-      {
-        nome: "Real Madrid",
-        imagem: "/img/times/real-madrid.svg",
-        link: "/categoria/real-madrid",
-      },
-      {
-        nome: "Barcelona",
-        imagem: "/img/times/barcelona.svg",
-        link: "/categoria/barcelona",
-      },
-      {
-        nome: "Atlético de Madrid",
-        imagem: "/img/times/atletico-madrid.svg",
-        link: "/categoria/atletico-madrid",
-      },
-    ],
-    "Premier League": [
-      {
-        nome: "Manchester City",
-        imagem: "/img/times/manchester-city.svg",
-        link: "/categoria/manchester-city",
-      },
-      {
-        nome: "Arsenal",
-        imagem: "/img/times/arsenal.svg",
-        link: "/categoria/arsenal",
-      },
-      {
-        nome: "Liverpool",
-        imagem: "/img/times/liverpool.svg",
-        link: "/categoria/liverpool",
-      },
-      {
-        nome: "Chelsea",
-        imagem: "/img/times/chelsea.svg",
-        link: "/categoria/chelsea",
-      },
-      {
-        nome: "Manchester United",
-        imagem: "/img/times/manchester-united.svg",
-        link: "/categoria/manchester-united",
-      },
-    ],
-    "Serie A": [
-      {
-        nome: "Juventus",
-        imagem: "/img/times/juventus.svg",
-        link: "/categoria/juventus",
-      },
-      {
-        nome: "Milan",
-        imagem: "/img/times/milan.svg",
-        link: "/categoria/milan",
-      },
-      {
-        nome: "Inter de Milão",
-        imagem: "/img/times/inter-de-milao.svg",
-        link: "/categoria/inter-de-milao",
-      },
-    ],
-    Bundesliga: [
-      {
-        nome: "Bayern Munique",
-        imagem: "/img/times/bayern-munique.svg",
-        link: "/categoria/bayern-munique",
-      },
-      {
-        nome: "Borussia Dortmund",
-        imagem: "/img/times/borussia-dortmund.svg",
-        link: "/categoria/borussia-dortmund",
-      },
-      {
-        nome: "Bayer Leverkusen",
-        imagem: "/img/times/bayer-leverkusen.svg",
-        link: "/categoria/bayer-leverkusen",
-      },
-    ],
-    "Ligue 1": [
-      {
-        nome: "PSG",
-        imagem: "/img/times/psg.svg",
-        link: "/categoria/psg",
-      },
-      {
-        nome: "Olympique Marseille",
-        imagem: "/img/times/olympique.svg",
-        link: "/categoria/olympique",
-      },
-    ],
-  };
-
   useEffect(() => {
-    const fetchProdutos = async () => {
-      try {
-        const { data } = await supabase
-          .from("products")
-          .select("*")
-          .order("created_at", { ascending: false })
-          .limit(15);
-        if (data && data.length > 0) {
-          setProdutos(data);
-        } else {
-          setProdutos(productsData);
-        }
-      } catch {
-        setProdutos(productsData);
-      }
-    };
-    fetchProdutos();
+    getProdutos(50)
+      .then((lista) => setProdutos(lista || []))
+      .catch(() => setProdutos([]));
   }, []);
 
   return (

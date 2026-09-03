@@ -1,68 +1,80 @@
 import { useState, useEffect, useContext } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
-import { supabase } from "../services/supabase";
 import { CarrinhoContext } from "../context/carrinho-context";
 import { useToast } from "../context/ToastContext";
-import productsData from "../data/products.json";
+import { getProdutoPorId } from "../services/productService";
+import { calcularFrete } from "../services/shippingService";
+import { buscarEnderecoPorCep, limparCep } from "../services/viaCepService";
+import {
+  validarNomePersonalizacao,
+  validarNumeroPersonalizacao,
+} from "../services/validation";
 
 export default function Produto() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { showToast } = useToast();
 
-  const localInicial = productsData.find((p) => String(p.id) === String(id));
-  const [produto, setProduto] = useState(localInicial || null);
-  const [imagemAtiva, setImagemAtiva] = useState(() => {
-    if (!localInicial) return "/placeholder-camisa.png";
-    const img = localInicial.image || localInicial.imagem || (Array.isArray(localInicial.images) && localInicial.images[0]) || "";
-    return img ? `/${img.replace(/^\//, "")}` : "/placeholder-camisa.png";
-  });
+  const [produto, setProduto] = useState(null);
+  const [imagemAtiva, setImagemAtiva] = useState("/placeholder-camisa.png");
   const [freteResultado, setFreteResultado] = useState(null);
   const [calculandoFrete, setCalculandoFrete] = useState(false);
   const [adicionado, setAdicionado] = useState(false);
   const [favorito, setFavorito] = useState(false);
   const { adicionarAoCarrinho } = useContext(CarrinhoContext);
 
-  const [modeloSelecionado, setModeloSelecionado] = useState(() => {
-    return localInicial?.badge?.toLowerCase().includes("jogador") ? "JOGADOR" : "TORCEDOR";
-  });
+  const [modeloSelecionado, setModeloSelecionado] = useState("TORCEDOR");
   const [tamanhoSelecionado, setTamanhoSelecionado] = useState("");
   const [nomePersonalizacao, setNomePersonalizacao] = useState("");
   const [numeroPersonalizacao, setNumeroPersonalizacao] = useState("");
   const [cep, setCep] = useState("");
-  const [erroProduto, setErroProduto] = useState(!localInicial);
+  const [erroProduto, setErroProduto] = useState(false);
 
-  const tamanhos = ["P", "M", "G", "GG", "2GG", "3GG"];
+  const tamanhos = produto?.sizes?.length
+    ? produto.sizes
+    : ["P", "M", "G", "GG", "2GG", "3GG"];
 
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "instant" });
-    const fetchProduto = async () => {
+
+    let ativo = true;
+
+    (async () => {
+      await new Promise((r) => setTimeout(r, 0));
+      if (!ativo) return;
+
+      setProduto(null);
+      setErroProduto(false);
+      setImagemAtiva("/placeholder-camisa.png");
+
       try {
-        const { data } = await supabase
-          .from("products")
-          .select("*")
-          .eq("id", id)
-          .single();
-        if (data) {
-          setProduto(data);
-          const imgInicial =
-            data.image ||
-            data.imagem ||
-            (Array.isArray(data.images) && data.images[0]) ||
-            "";
-          setImagemAtiva(
-            imgInicial ? `/${imgInicial.replace(/^\//, "")}` : "/placeholder-camisa.png"
-          );
-          if (data.badge && data.badge.toLowerCase().includes("jogador")) {
-            setModeloSelecionado("JOGADOR");
-          }
-          setErroProduto(false);
+        const dados = await getProdutoPorId(id);
+        if (!ativo) return;
+        if (!dados) {
+          setErroProduto(true);
+          return;
+        }
+        setProduto(dados);
+        const img =
+          dados.image ||
+          (Array.isArray(dados.images) && dados.images[0]) ||
+          "";
+        setImagemAtiva(
+          img ? `/${String(img).replace(/^\//, "")}` : "/placeholder-camisa.png"
+        );
+        if (String(dados.badge || "").toLowerCase().includes("jogador")) {
+          setModeloSelecionado("JOGADOR");
+        } else {
+          setModeloSelecionado("TORCEDOR");
         }
       } catch {
-        // Supabase offline: mantem produto local ja carregado instantaneamente
+        if (ativo) setErroProduto(true);
       }
+    })();
+
+    return () => {
+      ativo = false;
     };
-    fetchProduto();
   }, [id]);
 
   const precoBase = produto ? Number(produto.price) : 129.9;
@@ -71,39 +83,31 @@ export default function Produto() {
   const precoFinal = temPersonalizacao ? precoModelo + 25 : precoModelo;
 
   const handleCalcularFrete = async () => {
-    const cepLimpo = cep.replace(/\D/g, "");
+    const cepLimpo = limparCep(cep);
     if (cepLimpo.length !== 8) {
       showToast("Digite um CEP válido com 8 dígitos.", "warning");
       return;
     }
     setCalculandoFrete(true);
     setFreteResultado(null);
-    try {
-      const res = await fetch(`https://viacep.com.br/ws/${cepLimpo}/json/`);
-      const data = await res.json();
 
-      if (data.erro) {
-        setFreteResultado({ erro: "CEP não encontrado. Verifique os dígitos." });
-        return;
+    try {
+      // 1. Localidade (cidade/UF) para exibição amigável
+      let localidade = "Sua região";
+      try {
+        const endereco = await buscarEnderecoPorCep(cepLimpo);
+        if (endereco.cidade && endereco.estado) {
+          localidade = `${endereco.cidade} - ${endereco.estado}`;
+        }
+      } catch {
+        // Localidade é opcional; o frete ainda pode ser calculado.
       }
 
-      const localidade = data.localidade && data.uf ? `${data.localidade} - ${data.uf}` : "Sua região";
-
-      setFreteResultado({
-        localidade,
-        opcoes: [
-          { name: `PAC (Econômico)`, price: 19.9, delivery_time: "4 a 7" },
-          { name: `SEDEX (Expresso)`, price: 32.9, delivery_time: "2 a 3" },
-        ],
-      });
-    } catch {
-      setFreteResultado({
-        localidade: "Brasil",
-        opcoes: [
-          { name: "PAC (Econômico)", price: 19.9, delivery_time: "4 a 7" },
-          { name: "SEDEX (Expresso)", price: 34.9, delivery_time: "2 a 3" },
-        ],
-      });
+      // 2. Cálculo real via backend (Melhor Envio) com fallback estimado
+      const resultado = await calcularFrete(cepLimpo);
+      setFreteResultado({ localidade, opcoes: resultado.opcoes });
+    } catch (err) {
+      setFreteResultado({ erro: err.message || "Não foi possível calcular o frete." });
     } finally {
       setCalculandoFrete(false);
     }
@@ -355,7 +359,10 @@ export default function Produto() {
                   type="text"
                   placeholder="Nome (Deixe em branco para sem nome)"
                   value={nomePersonalizacao}
-                  onChange={(e) => setNomePersonalizacao(e.target.value.toUpperCase())}
+                  maxLength={15}
+                  onChange={(e) =>
+                    setNomePersonalizacao(validarNomePersonalizacao(e.target.value).toUpperCase())
+                  }
                   style={{
                     flex: "2",
                     padding: "10px 14px",
@@ -371,7 +378,8 @@ export default function Produto() {
                   type="text"
                   placeholder="Nº (Ex: 10)"
                   value={numeroPersonalizacao}
-                  onChange={(e) => setNumeroPersonalizacao(e.target.value)}
+                  maxLength={2}
+                  onChange={(e) => setNumeroPersonalizacao(validarNumeroPersonalizacao(e.target.value))}
                   style={{
                     flex: "1",
                     padding: "10px 14px",

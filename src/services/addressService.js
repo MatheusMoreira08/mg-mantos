@@ -40,9 +40,11 @@ export async function salvarEndereco(userId, dados) {
     cep: String(dados.cep || "").replace(/\D/g, ""),
     rua: String(dados.rua || "").trim(),
     numero: String(dados.numero || "").trim(),
+    complemento: String(dados.complemento || "").trim(),
     bairro: String(dados.bairro || "").trim(),
     cidade: String(dados.cidade || "").trim(),
     estado: String(dados.estado || "").trim().toUpperCase(),
+    is_default: Boolean(dados.is_default),
   };
 
   if (
