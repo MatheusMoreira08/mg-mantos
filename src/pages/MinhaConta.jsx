@@ -32,6 +32,8 @@ export default function MinhaConta() {
   useEffect(() => {
     if (authLoading || !usuario?.id) return;
 
+    let ativo = true;
+
     // Pedidos do usuário
     supabase
       .from("orders")
@@ -39,7 +41,7 @@ export default function MinhaConta() {
       .eq("user_id", usuario.id)
       .order("created_at", { ascending: false })
       .then(({ data }) => {
-        if (data) setPedidos(data);
+        if (ativo && data) setPedidos(data);
       })
       .catch(() => {
         // Ignora erro se tabelas de pedidos não estiverem configuradas localmente.
@@ -47,8 +49,14 @@ export default function MinhaConta() {
 
     // Endereços do usuário (não roda enquanto authLoading/usuário null)
     listarEnderecos(usuario.id)
-      .then((lista) => setEnderecos(lista || []))
+      .then((lista) => {
+        if (ativo) setEnderecos(lista || []);
+      })
       .catch((err) => console.warn("[MinhaConta] Erro ao carregar endereços:", err));
+
+    return () => {
+      ativo = false;
+    };
   }, [authLoading, usuario?.id]);
 
   const handleAuth = async (e) => {

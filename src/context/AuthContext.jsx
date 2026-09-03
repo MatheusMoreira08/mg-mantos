@@ -30,11 +30,7 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     let ativo = true;
 
-    // onAuthStateChange emite INITIAL_SESSION assim que a sessão é restaurada,
-    // garantindo authLoading=false somente após o user real (ou null) estar pronto.
-    const { data: authListener } = supabase.auth.onAuthStateChange((_event, session) => {
-      if (!ativo) return;
-
+    const aplicarSessao = (session) => {
       if (session?.user) {
         setUser(session.user);
       } else if (import.meta.env.DEV) {
@@ -48,8 +44,24 @@ export function AuthProvider({ children }) {
       } else {
         setUser(null);
       }
-
       setAuthLoading(false);
+    };
+
+    // 1. Inicializa imediatamente com a sessão ativa (caso exista), antes mesmo
+    //    de o evento INITIAL_SESSION disparar — evita estado nulo transitório.
+    supabase.auth
+      .getSession()
+      .then(({ data: { session } }) => {
+        if (ativo) aplicarSessao(session);
+      })
+      .catch(() => {
+        if (ativo) aplicarSessao(null);
+      });
+
+    // 2. Inscreve para mudanças futuras de autenticação.
+    const { data: authListener } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (!ativo) return;
+      aplicarSessao(session);
     });
 
     return () => {

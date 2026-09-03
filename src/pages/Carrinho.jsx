@@ -112,6 +112,9 @@ export default function Carrinho() {
 
   // Só busca endereços depois de a sessão estar resolvida (authLoading=false)
   // e com um userId válido — nunca com userId nulo/indefinido no F5.
+  // A flag `ativo` controla a montagem/unmount e o efeito re-executa quando
+  // `usuario.id` muda (navegação Voltar/Avançar). Enquanto `authLoading` estiver
+  // pendente não busca nada (não limpa `enderecos`).
   useEffect(() => {
     if (authLoading) return;
 
