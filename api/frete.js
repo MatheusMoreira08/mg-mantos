@@ -1,12 +1,35 @@
 import { calcularOpcoesFrete } from "./_lib/frete.js";
 
 /**
+ * Filtra as opções para exibir apenas as 4 principais: SEDEX, PAC, .Package e
+ * Loggi. Remove itens inválidos (sem preço numérico) e limita a 4 resultados.
+ */
+function filtrarOpcoesPrincipais(opcoes) {
+  if (!Array.isArray(opcoes)) return [];
+  return opcoes
+    .filter(
+      (opcao) =>
+        opcao && Number.isFinite(Number(opcao.price)) && Number(opcao.price) > 0,
+    )
+    .filter((opcao) => {
+      const nome = String(opcao.name || "").toUpperCase();
+      return (
+        nome.includes("SEDEX") ||
+        nome.includes("PAC") ||
+        nome.includes("PACKAGE") ||
+        nome.includes("LOGGI")
+      );
+    })
+    .slice(0, 4);
+}
+
+/**
  * Endpoint público de cálculo de frete.
  * A origem é fixa (Maringá/PR) — definida em `_lib/frete.js` — e o destino é o
  * CEP do cliente informado no corpo da requisição.
  *
  * Body: { cepDestino: "00000000" }
- * Response: [{ id, name, price, delivery_time, prazo_entrega, estimated }]
+ * Response: até 4 opções [{ id, name, price, delivery_time, prazo_entrega, estimated }]
  */
 export default async function handler(req, res) {
   const origensPermitidas = (
@@ -46,7 +69,7 @@ export default async function handler(req, res) {
 
   try {
     const opcoes = await calcularOpcoesFrete(cepLimpo);
-    return res.status(200).json(opcoes);
+    return res.status(200).json(filtrarOpcoesPrincipais(opcoes));
   } catch (err) {
     console.error("[frete] Erro inesperado:", err.message);
     return res.status(500).json({ erro: "Falha ao calcular o frete." });

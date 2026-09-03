@@ -43,3 +43,5 @@ api/.env
 *.sln
 *.sw?
 Thumbs.db
+.vercel
+.env*

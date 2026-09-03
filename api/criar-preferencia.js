@@ -216,6 +216,9 @@ export default async function handler(req, res) {
     return res.status(200).json({ init_point: response.init_point });
   } catch (e) {
     console.error("[preferencia] Erro ao criar preferência:", e);
-    return res.status(500).json({ error: "Failed to create payment preference" });
+    return res.status(500).json({
+      error: e?.message || "Failed to create payment preference",
+      details: e?.cause || null,
+    });
   }
 }

@@ -2,6 +2,9 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 import { listarEnderecos, salvarEndereco, removerEndereco } from "./addressService";
 import { supabase } from "./supabase";
 
+// UUID válido para os testes que exercitam o caminho do Supabase.
+const UUID_VALIDO = "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa";
+
 describe("addressService", () => {
   beforeEach(() => {
     localStorage.clear();
@@ -13,10 +16,15 @@ describe("addressService", () => {
     expect(res).toEqual([]);
   });
 
+  it("deve retornar array vazio se userId não for um UUID válido", async () => {
+    const res = await listarEnderecos("nao-e-um-uuid");
+    expect(res).toEqual([]);
+  });
+
   it("deve salvar e listar endereços com sucesso via Supabase", async () => {
     const mockEndereco = {
       id: "addr-1",
-      user_id: "user-123",
+      user_id: UUID_VALIDO,
       cep: "01001000",
       rua: "Praça da Sé",
       numero: "100",
@@ -46,7 +54,7 @@ describe("addressService", () => {
       return {};
     });
 
-    const enderecoSalvo = await salvarEndereco("user-123", {
+    const enderecoSalvo = await salvarEndereco(UUID_VALIDO, {
       cep: "01001-000",
       rua: "Praça da Sé",
       numero: "100",
@@ -57,7 +65,7 @@ describe("addressService", () => {
 
     expect(enderecoSalvo).toEqual(mockEndereco);
 
-    const lista = await listarEnderecos("user-123");
+    const lista = await listarEnderecos(UUID_VALIDO);
     expect(lista).toEqual([mockEndereco]);
   });
 
@@ -75,21 +83,21 @@ describe("addressService", () => {
       estado: "SP",
     };
 
-    const enderecoSalvo = await salvarEndereco("dev-user-123", dadosEndereco);
+    const enderecoSalvo = await salvarEndereco(UUID_VALIDO, dadosEndereco);
 
     expect(enderecoSalvo).toBeDefined();
     expect(enderecoSalvo.rua).toBe("Praça da Sé");
     expect(enderecoSalvo.numero).toBe("100");
-    expect(enderecoSalvo.user_id).toBe("dev-user-123");
+    expect(enderecoSalvo.user_id).toBe(UUID_VALIDO);
 
-    const lista = await listarEnderecos("dev-user-123");
+    const lista = await listarEnderecos(UUID_VALIDO);
     expect(lista.length).toBe(1);
     expect(lista[0].id).toBe(enderecoSalvo.id);
   });
 
   it("deve validar campos obrigatórios ao salvar endereço", async () => {
     await expect(
-      salvarEndereco("dev-user-123", {
+      salvarEndereco(UUID_VALIDO, {
         cep: "01001-000",
         rua: "",
         numero: "100",
@@ -105,7 +113,7 @@ describe("addressService", () => {
       throw new Error("fetch failed");
     });
 
-    const endereco = await salvarEndereco("dev-user-123", {
+    const endereco = await salvarEndereco(UUID_VALIDO, {
       cep: "01001-000",
       rua: "Rua Teste",
       numero: "123",
@@ -114,11 +122,11 @@ describe("addressService", () => {
       estado: "MG",
     });
 
-    let lista = await listarEnderecos("dev-user-123");
+    let lista = await listarEnderecos(UUID_VALIDO);
     expect(lista.length).toBe(1);
 
-    await removerEndereco(endereco.id, "dev-user-123");
-    lista = await listarEnderecos("dev-user-123");
+    await removerEndereco(endereco.id, UUID_VALIDO);
+    lista = await listarEnderecos(UUID_VALIDO);
     expect(lista.length).toBe(0);
   });
 });

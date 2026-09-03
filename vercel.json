@@ -6,14 +6,6 @@
       "maxDuration": 30
     }
   },
-  "env": {
-    "MERCADOPAGO_ACCESS_TOKEN": "@mercadopago_access_token",
-    "MELHOR_ENVIO_TOKEN": "@melhor_envio_token",
-    "SUPABASE_SERVICE_ROLE_KEY": "@supabase_service_role_key",
-    "VITE_SUPABASE_URL": "@vite_supabase_url",
-    "VITE_SUPABASE_ANON_KEY": "@vite_supabase_anon_key",
-    "ALLOWED_ORIGINS": "@allowed_origins"
-  },
   "headers": [
     {
       "source": "/(.*)",
