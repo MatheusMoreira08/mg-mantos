@@ -113,16 +113,28 @@ export default function Carrinho() {
   // Só busca endereços depois de a sessão estar resolvida (authLoading=false)
   // e com um userId válido — nunca com userId nulo/indefinido no F5.
   // A flag `ativo` controla a montagem/unmount e o efeito re-executa quando
-  // `usuario.id` muda (navegação Voltar/Avançar). Enquanto `authLoading` estiver
-  // pendente não busca nada (não limpa `enderecos`).
+  // `usuario.id` muda (navegação Voltar/Avançar). Se o userId ainda não estiver
+  // disponível, lê a sessão do Supabase diretamente (fallback do primeiro render).
   useEffect(() => {
-    if (authLoading) return;
-
     let ativo = true;
 
     (async () => {
       await new Promise((resolve) => setTimeout(resolve, 0));
-      if (ativo) await carregarEnderecos(usuario?.id);
+      if (!ativo) return;
+
+      let userId = usuario?.id;
+      if (!userId) {
+        try {
+          const {
+            data: { session },
+          } = await supabase.auth.getSession();
+          userId = session?.user?.id || null;
+        } catch {
+          userId = null;
+        }
+      }
+
+      if (ativo) await carregarEnderecos(userId);
     })();
 
     return () => {

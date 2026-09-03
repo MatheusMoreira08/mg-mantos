@@ -27,32 +27,51 @@ export default function MinhaConta() {
   const [mostrarFormEndereco, setMostrarFormEndereco] = useState(false);
   const [salvandoEndereco, setSalvandoEndereco] = useState(false);
 
-  // Só busca dados (pedidos e endereços) depois de a sessão estar resolvida
-  // (authLoading=false) e com um userId válido — evita userId nulo/indefinido no F5.
+  // Busca dados (pedidos e endereços). Resolve o userId do contexto; se ainda
+  // não estiver disponível no primeiro render, lê a sessão do Supabase direto.
   useEffect(() => {
-    if (authLoading || !usuario?.id) return;
-
     let ativo = true;
 
-    // Pedidos do usuário
-    supabase
-      .from("orders")
-      .select("*, order_items(*, products(*))")
-      .eq("user_id", usuario.id)
-      .order("created_at", { ascending: false })
-      .then(({ data }) => {
-        if (ativo && data) setPedidos(data);
-      })
-      .catch(() => {
-        // Ignora erro se tabelas de pedidos não estiverem configuradas localmente.
-      });
+    async function buscar() {
+      let userId = usuario?.id;
 
-    // Endereços do usuário (não roda enquanto authLoading/usuário null)
-    listarEnderecos(usuario.id)
-      .then((lista) => {
+      // Fallback: lê a sessão diretamente caso o AuthContext ainda não tenha
+      // exposto user.id (ex.: F5/primeiro render da rota).
+      if (!userId) {
+        try {
+          const {
+            data: { session },
+          } = await supabase.auth.getSession();
+          userId = session?.user?.id || null;
+        } catch {
+          userId = null;
+        }
+      }
+
+      if (!userId || !ativo) return;
+
+      // Pedidos do usuário
+      try {
+        const { data } = await supabase
+          .from("orders")
+          .select("*, order_items(*, products(*))")
+          .eq("user_id", userId)
+          .order("created_at", { ascending: false });
+        if (ativo && data) setPedidos(data);
+      } catch {
+        // Ignora erro se tabelas de pedidos não estiverem configuradas localmente.
+      }
+
+      // Endereços do usuário
+      try {
+        const lista = await listarEnderecos(userId);
         if (ativo) setEnderecos(lista || []);
-      })
-      .catch((err) => console.warn("[MinhaConta] Erro ao carregar endereços:", err));
+      } catch (err) {
+        console.warn("[MinhaConta] Erro ao carregar endereços:", err);
+      }
+    }
+
+    buscar();
 
     return () => {
       ativo = false;
