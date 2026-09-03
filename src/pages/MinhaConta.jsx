@@ -50,39 +50,37 @@ export default function MinhaConta() {
   };
 
   useEffect(() => {
-    const checarSessao = async () => {
-      setCarregando(true);
-      try {
-        const {
-          data: { session },
-        } = await supabase.auth.getSession();
+    let ativo = true;
 
-        if (session?.user) {
-          setUsuario(session.user);
-          buscarDadosUsuario(session.user.id);
-        } else if (import.meta.env.DEV) {
-          const localSession = localStorage.getItem("mg_mantos_user_session");
-          if (localSession) {
-            const parsed = JSON.parse(localSession);
-            setUsuario(parsed);
-            if (parsed.id) buscarDadosUsuario(parsed.id);
-          }
+    const aoMudarSessao = async (session) => {
+      if (ativo) setCarregando(true);
+
+      if (session?.user) {
+        if (ativo) setUsuario(session.user);
+        await buscarDadosUsuario(session.user.id);
+      } else if (import.meta.env.DEV) {
+        const localSession = localStorage.getItem("mg_mantos_user_session");
+        if (localSession) {
+          const parsed = JSON.parse(localSession);
+          if (ativo) setUsuario(parsed);
+          if (parsed.id) await buscarDadosUsuario(parsed.id);
         }
-      } catch {
-        if (import.meta.env.DEV) {
-          const localSession = localStorage.getItem("mg_mantos_user_session");
-          if (localSession) {
-            const parsed = JSON.parse(localSession);
-            setUsuario(parsed);
-            if (parsed.id) buscarDadosUsuario(parsed.id);
-          }
-        }
-      } finally {
-        setCarregando(false);
       }
+
+      if (ativo) setCarregando(false);
     };
 
-    checarSessao();
+    // onAuthStateChange emite INITIAL_SESSION assim que a sessão é restaurada
+    // do storage, garantindo que a busca (pedidos/endereços) só rode com o
+    // userId válido após o F5.
+    const { data: authListener } = supabase.auth.onAuthStateChange((_event, session) => {
+      aoMudarSessao(session);
+    });
+
+    return () => {
+      ativo = false;
+      authListener?.subscription?.unsubscribe();
+    };
   }, []);
 
   const handleAuth = async (e) => {

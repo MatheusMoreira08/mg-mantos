@@ -118,34 +118,41 @@ export default function Carrinho() {
   };
 
   useEffect(() => {
-    const carregarDadosUsuario = async () => {
-      try {
-        const {
-          data: { session },
-        } = await supabase.auth.getSession();
-        if (session?.user) {
-          setUsuario(session.user);
-          await carregarEnderecos(session.user.id);
-          return;
-        }
-      } catch (err) {
-        console.warn("[Carrinho] Erro ao verificar sessão do Supabase:", err);
+    let ativo = true;
+
+    const carregarDadosUsuario = async (session) => {
+      // Sessão do Supabase restaurou: busca endereços com o id real.
+      if (session?.user) {
+        if (ativo) setUsuario(session.user);
+        await carregarEnderecos(session.user.id);
+        return;
       }
 
+      // Fallback demo (DEV): sessão local.
       if (import.meta.env.DEV) {
         const localSession = localStorage.getItem("mg_mantos_user_session");
         if (localSession) {
           const parsed = JSON.parse(localSession);
-          setUsuario(parsed);
+          if (ativo) setUsuario(parsed);
           if (parsed.id) await carregarEnderecos(parsed.id);
-        } else {
-          setCarregandoEnderecos(false);
+          return;
         }
-      } else {
-        setCarregandoEnderecos(false);
       }
+
+      setCarregandoEnderecos(false);
     };
-    carregarDadosUsuario();
+
+    // onAuthStateChange emite INITIAL_SESSION assim que a sessão é restaurada
+    // do storage, garantindo que a busca de endereços só rode com o userId
+    // válido (evita userId nulo após F5).
+    const { data: authListener } = supabase.auth.onAuthStateChange((_event, session) => {
+      carregarDadosUsuario(session);
+    });
+
+    return () => {
+      ativo = false;
+      authListener?.subscription?.unsubscribe();
+    };
   }, []);
 
   // Sempre que o endereço selecionado (ou a lista) mudar, recalcula o frete
@@ -820,7 +827,7 @@ export default function Carrinho() {
                   ) : (
                     <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
                       {opcoesFrete.map((opcao) => {
-                        const selecionada = opcao.id === freteId;
+                        const selecionada = freteSelecionado?.id === opcao.id;
                         return (
                           <label
                             key={opcao.id}

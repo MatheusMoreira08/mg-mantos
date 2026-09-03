@@ -53,7 +53,10 @@ function normalizarMelhorEnvio(data) {
 
   return data
     .map((o) => {
-      const id = String(o.company?.id ?? o.id ?? "");
+      // Usa o id do SERVIÇO (o.id, único por modalidade ex.: PAC vs SEDEX),
+      // e não o id da TRANSPORTADORA (o.company.id), que se repete entre
+      // modalidades da mesma transportadora e causava colisão no radio.
+      const id = String(o.id ?? o.company?.id ?? "");
       const price = Number(o.price);
       if (!id || !Number.isFinite(price)) return null;
 
