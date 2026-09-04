@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { supabase } from "../services/supabase";
 import { Link, useNavigate } from "react-router-dom";
 import { useToast } from "../context/ToastContext";
+import { useAuth } from "../context/AuthContext";
 import AddressForm from "../components/AddressForm";
 import {
   listarEnderecos,
@@ -10,10 +11,9 @@ import {
 } from "../services/addressService";
 
 export default function MinhaConta() {
-  const [usuario, setUsuario] = useState(null);
+  const { user: usuario, authLoading, isAdmin, setDemoUser, logout } = useAuth();
   const [pedidos, setPedidos] = useState([]);
   const [enderecos, setEnderecos] = useState([]);
-  const [carregando, setCarregando] = useState(true);
   const navigate = useNavigate();
   const { showToast } = useToast();
 
@@ -27,86 +27,75 @@ export default function MinhaConta() {
   const [mostrarFormEndereco, setMostrarFormEndereco] = useState(false);
   const [salvandoEndereco, setSalvandoEndereco] = useState(false);
 
-  const buscarDadosUsuario = async (userId) => {
-    if (!userId) return;
-    try {
-      const { data: dataPedidos } = await supabase
-        .from("orders")
-        .select("*, order_items(*, products(*))")
-        .eq("user_id", userId)
-        .order("created_at", { ascending: false });
-
-      if (dataPedidos) setPedidos(dataPedidos);
-    } catch {
-      // Ignora erro se tabelas de pedidos não estiverem configuradas localmente
-    }
-
-    try {
-      const lista = await listarEnderecos(userId);
-      setEnderecos(lista || []);
-    } catch (err) {
-      console.warn("[MinhaConta] Erro ao carregar endereços:", err);
-    }
-  };
-
+  // Busca dados (pedidos e endereços). Resolve o userId do contexto; se ainda
+  // não estiver disponível no primeiro render, lê a sessão do Supabase direto.
   useEffect(() => {
-    const checarSessao = async () => {
-      setCarregando(true);
-      try {
-        const {
-          data: { session },
-        } = await supabase.auth.getSession();
+    let ativo = true;
 
-        if (session?.user) {
-          setUsuario(session.user);
-          buscarDadosUsuario(session.user.id);
-        } else if (import.meta.env.DEV) {
-          const localSession = localStorage.getItem("mg_mantos_user_session");
-          if (localSession) {
-            const parsed = JSON.parse(localSession);
-            setUsuario(parsed);
-            if (parsed.id) buscarDadosUsuario(parsed.id);
-          }
+    async function buscar() {
+      let userId = usuario?.id;
+
+      // Fallback: lê a sessão diretamente caso o AuthContext ainda não tenha
+      // exposto user.id (ex.: F5/primeiro render da rota).
+      if (!userId) {
+        try {
+          const {
+            data: { session },
+          } = await supabase.auth.getSession();
+          userId = session?.user?.id || null;
+        } catch {
+          userId = null;
         }
-      } catch {
-        if (import.meta.env.DEV) {
-          const localSession = localStorage.getItem("mg_mantos_user_session");
-          if (localSession) {
-            const parsed = JSON.parse(localSession);
-            setUsuario(parsed);
-            if (parsed.id) buscarDadosUsuario(parsed.id);
-          }
-        }
-      } finally {
-        setCarregando(false);
       }
-    };
 
-    checarSessao();
-  }, []);
+      if (!userId || !ativo) return;
+
+      // Pedidos do usuário
+      try {
+        const { data } = await supabase
+          .from("orders")
+          .select("*, order_items(*, products(*))")
+          .eq("user_id", userId)
+          .order("created_at", { ascending: false });
+        if (ativo && data) setPedidos(data);
+      } catch {
+        // Ignora erro se tabelas de pedidos não estiverem configuradas localmente.
+      }
+
+      // Endereços do usuário
+      try {
+        const lista = await listarEnderecos(userId);
+        if (ativo) setEnderecos(lista || []);
+      } catch (err) {
+        console.warn("[MinhaConta] Erro ao carregar endereços:", err);
+      }
+    }
+
+    buscar();
+
+    return () => {
+      ativo = false;
+    };
+  }, [authLoading, usuario?.id]);
 
   const handleAuth = async (e) => {
     e.preventDefault();
     setProcessando(true);
     try {
       if (modo === "login") {
-        const { data, error } = await supabase.auth.signInWithPassword({
+        const { error } = await supabase.auth.signInWithPassword({
           email,
           password: senha,
         });
         if (error) {
           if (error.message.includes("Failed to fetch") || error.message.includes("Fetch")) {
             if (!import.meta.env.DEV) throw error;
-            const userMock = { id: "dev-user-123", email };
-            localStorage.setItem("mg_mantos_user_session", JSON.stringify(userMock));
-            setUsuario(userMock);
+            setDemoUser({ id: "dev-user-123", email });
             showToast("Sessão iniciada com sucesso em modo de demonstração!", "success");
             return;
           }
           throw error;
         }
-        setUsuario(data.user);
-        buscarDadosUsuario(data.user.id);
         showToast("Login realizado com sucesso!", "success");
       } else if (modo === "cadastro") {
         const { error } = await supabase.auth.signUp({
@@ -116,9 +105,7 @@ export default function MinhaConta() {
         if (error) {
           if (error.message.includes("Failed to fetch") || error.message.includes("Fetch")) {
             if (!import.meta.env.DEV) throw error;
-            const userMock = { id: "dev-user-123", email };
-            localStorage.setItem("mg_mantos_user_session", JSON.stringify(userMock));
-            setUsuario(userMock);
+            setDemoUser({ id: "dev-user-123", email });
             showToast("Conta criada com sucesso!", "success");
             return;
           }
@@ -177,15 +164,13 @@ export default function MinhaConta() {
   };
 
   const sair = async () => {
-    await supabase.auth.signOut();
-    localStorage.removeItem("mg_mantos_user_session");
-    setUsuario(null);
+    await logout();
     setEmail("");
     setSenha("");
     navigate("/");
   };
 
-  if (carregando)
+  if (authLoading)
     return (
       <div
         style={{
@@ -394,10 +379,7 @@ export default function MinhaConta() {
             </p>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-            {Boolean(
-              usuario?.user_metadata?.is_admin === true ||
-                usuario?.user_metadata?.is_admin === "true",
-            ) && (
+            {isAdmin && (
               <Link
                 to="/admin"
                 style={{

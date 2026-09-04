@@ -5,8 +5,16 @@ import { supabase, isSupabaseConfigured } from "./supabase";
  * e suporte a fallback local
  */
 
+// Regex semântica de UUID (v1-v5), usada para evitar queries com IDs inválidos.
+const UUID_REGEX =
+  /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+
 export async function listarEnderecos(userId) {
-  if (!userId) return [];
+  // Valida antes de consultar: sem userId (undefined/null) ou sem UUID válido,
+  // retorna vazio sem chamar o Supabase (evita erro na FK uuid).
+  if (!userId || (isSupabaseConfigured && !UUID_REGEX.test(String(userId)))) {
+    return [];
+  }
 
   try {
     if (isSupabaseConfigured) {
@@ -24,7 +32,7 @@ export async function listarEnderecos(userId) {
     const dadosLocais = localStorage.getItem(`mg_mantos_enderecos_${userId}`);
     return dadosLocais ? JSON.parse(dadosLocais) : [];
   } catch (error) {
-    console.warn("[addressService] Erro ao listar endereços do Supabase:", error);
+    console.error("Erro Supabase Endereços:", error);
     const dadosLocais = localStorage.getItem(`mg_mantos_enderecos_${userId}`);
     return dadosLocais ? JSON.parse(dadosLocais) : [];
   }

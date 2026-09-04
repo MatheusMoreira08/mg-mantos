@@ -148,7 +148,7 @@ export default function AddressForm({
       />
 
       {/* Número e Bairro */}
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 2fr", gap: "10px" }}>
+      <div className="responsive-grid" style={{ "--grid-cols": "1fr 2fr" }}>
         <input
           id="input-numero"
           ref={inputNumeroRef}
@@ -211,7 +211,7 @@ export default function AddressForm({
       />
 
       {/* Cidade e UF */}
-      <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr", gap: "10px" }}>
+      <div className="responsive-grid" style={{ "--grid-cols": "2fr 1fr" }}>
         <input
           id="input-cidade"
           type="text"
@@ -257,7 +257,7 @@ export default function AddressForm({
       </div>
 
       {/* Botões de Ação */}
-      <div style={{ display: "flex", gap: "10px", marginTop: "6px" }}>
+      <div className="responsive-row" style={{ marginTop: "6px" }}>
         <button
           type="submit"
           disabled={salvando || buscandoCep}

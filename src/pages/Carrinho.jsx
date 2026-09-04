@@ -1,8 +1,9 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, useCallback } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { CarrinhoContext } from "../context/carrinho-context";
 import { supabase } from "../services/supabase";
 import { useToast } from "../context/ToastContext";
+import { useAuth } from "../context/AuthContext";
 import AddressForm from "../components/AddressForm";
 import { listarEnderecos, salvarEndereco } from "../services/addressService";
 import { calcularFrete } from "../services/shippingService";
@@ -13,15 +14,7 @@ export default function Carrinho() {
   const { carrinho, removerDoCarrinho, limparCarrinho, valorTotal } =
     useContext(CarrinhoContext);
   const { showToast } = useToast();
-
-  const [usuario, setUsuario] = useState(() => {
-    try {
-      const local = localStorage.getItem("mg_mantos_user_session");
-      return local ? JSON.parse(local) : null;
-    } catch {
-      return null;
-    }
-  });
+  const { user: usuario, authLoading } = useAuth();
 
   const [enderecos, setEnderecos] = useState(() => {
     try {
@@ -95,7 +88,7 @@ export default function Carrinho() {
   const totalFinal = valorTotal + freteValor;
 
   // Busca os endereços do cliente
-  const carregarEnderecos = async (userId) => {
+  const carregarEnderecos = useCallback(async (userId) => {
     if (!userId) {
       setCarregandoEnderecos(false);
       return;
@@ -115,38 +108,39 @@ export default function Carrinho() {
     } finally {
       setCarregandoEnderecos(false);
     }
-  };
-
-  useEffect(() => {
-    const carregarDadosUsuario = async () => {
-      try {
-        const {
-          data: { session },
-        } = await supabase.auth.getSession();
-        if (session?.user) {
-          setUsuario(session.user);
-          await carregarEnderecos(session.user.id);
-          return;
-        }
-      } catch (err) {
-        console.warn("[Carrinho] Erro ao verificar sessão do Supabase:", err);
-      }
-
-      if (import.meta.env.DEV) {
-        const localSession = localStorage.getItem("mg_mantos_user_session");
-        if (localSession) {
-          const parsed = JSON.parse(localSession);
-          setUsuario(parsed);
-          if (parsed.id) await carregarEnderecos(parsed.id);
-        } else {
-          setCarregandoEnderecos(false);
-        }
-      } else {
-        setCarregandoEnderecos(false);
-      }
-    };
-    carregarDadosUsuario();
   }, []);
+
+  // Só busca endereços depois de a sessão estar resolvida (authLoading=false)
+  // e com um userId válido — nunca com userId nulo/indefinido no F5.
+  // A flag `ativo` controla a montagem/unmount e o efeito re-executa quando
+  // `usuario.id` muda (navegação Voltar/Avançar). Se o userId ainda não estiver
+  // disponível, lê a sessão do Supabase diretamente (fallback do primeiro render).
+  useEffect(() => {
+    let ativo = true;
+
+    (async () => {
+      await new Promise((resolve) => setTimeout(resolve, 0));
+      if (!ativo) return;
+
+      let userId = usuario?.id;
+      if (!userId) {
+        try {
+          const {
+            data: { session },
+          } = await supabase.auth.getSession();
+          userId = session?.user?.id || null;
+        } catch {
+          userId = null;
+        }
+      }
+
+      if (ativo) await carregarEnderecos(userId);
+    })();
+
+    return () => {
+      ativo = false;
+    };
+  }, [authLoading, usuario?.id, carregarEnderecos]);
 
   // Sempre que o endereço selecionado (ou a lista) mudar, recalcula o frete
   // usando o CEP desse endereço.
@@ -314,7 +308,20 @@ export default function Carrinho() {
       });
 
       if (!resPreferencia.ok) {
-        throw new Error("Falha ao iniciar pagamento.");
+        let detalhe = "";
+        try {
+          const body = await resPreferencia.json();
+          const motivo = String(body?.error || "");
+          const details = body?.details
+            ? typeof body.details === "string"
+              ? body.details
+              : JSON.stringify(body.details)
+            : "";
+          if (motivo || details) detalhe = [motivo, details].filter(Boolean).join(" — ");
+        } catch {
+          // corpo não-JSON
+        }
+        throw new Error(detalhe || "Falha ao iniciar pagamento.");
       }
 
       const { init_point } = await resPreferencia.json();
@@ -324,7 +331,12 @@ export default function Carrinho() {
       window.location.href = init_point;
     } catch (error) {
       console.error("[Carrinho] Erro ao finalizar compra:", error);
-      showToast("Não foi possível finalizar o pedido. Tente novamente.", "error");
+      showToast(
+        error?.message && error.message !== "Falha ao iniciar pagamento."
+          ? `Erro no pagamento: ${error.message}`
+          : "Não foi possível finalizar o pedido. Tente novamente.",
+        "error",
+      );
     } finally {
       setProcessando(false);
     }
@@ -820,7 +832,7 @@ export default function Carrinho() {
                   ) : (
                     <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
                       {opcoesFrete.map((opcao) => {
-                        const selecionada = opcao.id === freteId;
+                        const selecionada = freteSelecionado?.id === opcao.id;
                         return (
                           <label
                             key={opcao.id}

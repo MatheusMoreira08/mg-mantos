@@ -193,7 +193,16 @@ export default async function handler(req, res) {
       payerEmail = req.body?.email || "";
     }
 
-    // 7. Cria a preferência com o frete explícito no custo de envio (shipments).
+    // 7. Validação do token antes de chamar o Mercado Pago (diagnóstico claro).
+    if (!process.env.MERCADOPAGO_ACCESS_TOKEN) {
+      console.error("[preferencia] MERCADOPAGO_ACCESS_TOKEN ausente/undefined.");
+      return res.status(500).json({
+        error: "Token do Mercado Pago ausente",
+        details: "MERCADOPAGO_ACCESS_TOKEN não configurado no ambiente da Vercel.",
+      });
+    }
+
+    // 8. Cria a preferência com o frete explícito no custo de envio (shipments).
     const preference = new Preference(mpClient);
     const response = await preference.create({
       body: {
@@ -216,6 +225,12 @@ export default async function handler(req, res) {
     return res.status(200).json({ init_point: response.init_point });
   } catch (e) {
     console.error("[preferencia] Erro ao criar preferência:", e);
-    return res.status(500).json({ error: "Failed to create payment preference" });
+    // A resposta exata da API do Mercado Pago fica em e.cause (ou e.respose.data).
+    const details = e?.cause ?? e?.response?.data ?? e?.response ?? null;
+    console.error("[preferencia] Resposta Mercado Pago:", JSON.stringify(details ?? {}));
+    return res.status(500).json({
+      error: e?.message || "Failed to create payment preference",
+      details,
+    });
   }
 }
