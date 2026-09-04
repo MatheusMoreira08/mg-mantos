@@ -193,6 +193,20 @@ export default async function handler(req, res) {
       payerEmail = req.body?.email || "";
     }
 
+    // 6b. Sanitização do payer: o MP bloqueia quando o comprador é o próprio
+    //     vendedor (UNAUTHORIZED). Se o e-mail bater com o do seller, em dev
+    //     usa um comprador genérico e em produção omite o campo.
+    const sellerEmail = process.env.MERCADOPAGO_SELLER_EMAIL || "";
+    if (payerEmail && sellerEmail && payerEmail.toLowerCase() === sellerEmail.toLowerCase()) {
+      const dev = process.env.NODE_ENV !== "production";
+      payerEmail = dev ? "comprador.teste@mg-mantos.com.br" : "";
+    }
+
+    // Diagnóstico sem expor segredo: prefixo do token e e-mail do payer.
+    const mpToken = process.env.MERCADOPAGO_ACCESS_TOKEN || "";
+    console.log("[preferencia] Token MP prefixo:", mpToken ? `${mpToken.slice(0, 8)}…` : "(vazio)");
+    console.log("[preferencia] payerEmail:", payerEmail || "(omitido)");
+
     // 7. Validação do token antes de chamar o Mercado Pago (diagnóstico claro).
     if (!process.env.MERCADOPAGO_ACCESS_TOKEN) {
       console.error("[preferencia] MERCADOPAGO_ACCESS_TOKEN ausente/undefined.");
@@ -225,11 +239,19 @@ export default async function handler(req, res) {
     return res.status(200).json({ init_point: response.init_point });
   } catch (e) {
     console.error("[preferencia] Erro ao criar preferência:", e);
-    // A resposta exata da API do Mercado Pago fica em e.cause (ou e.respose.data).
+    // A resposta exata da API do Mercado Pago fica em e.cause (ou e.response.data).
     const details = e?.cause ?? e?.response?.data ?? e?.response ?? null;
     console.error("[preferencia] Resposta Mercado Pago:", JSON.stringify(details ?? {}));
+
+    const raw = JSON.stringify({ message: e?.message, cause: details });
+    const isUnauthorized = /UNAUTHORIZED|policy/i.test(raw);
+
+    const mensagem = isUnauthorized
+      ? "Pagamento recusado pelo Mercado Pago (UNAUTHORIZED). Verifique: (1) MERCADOPAGO_ACCESS_TOKEN do mesmo ambiente (teste vs produção); (2) o e-mail do comprador não pode ser o mesmo da conta vendedora no MP; (3) token válido com Checkout Pro habilitado."
+      : e?.message || "Failed to create payment preference";
+
     return res.status(500).json({
-      error: e?.message || "Failed to create payment preference",
+      error: mensagem,
       details,
     });
   }

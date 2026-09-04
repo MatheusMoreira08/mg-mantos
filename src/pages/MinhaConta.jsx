@@ -30,6 +30,11 @@ export default function MinhaConta() {
   // Busca dados (pedidos e endereços). Resolve o userId do contexto; se ainda
   // não estiver disponível no primeiro render, lê a sessão do Supabase direto.
   useEffect(() => {
+    // Guard anti-race do F5: enquanto a sessão não estiver resolvida (authLoading),
+    // não dispara as queries, senão elas rodam como anônimas e o RLS
+    // (auth.uid() = user_id) bloqueia, zerando a lista.
+    if (authLoading) return;
+
     let ativo = true;
 
     async function buscar() {
