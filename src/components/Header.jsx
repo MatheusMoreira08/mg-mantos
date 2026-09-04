@@ -96,6 +96,7 @@ export default function Header() {
             justifyContent: "space-between",
             alignItems: "center",
             gap: "20px",
+            flexWrap: "wrap",
           }}
         >
           <Link

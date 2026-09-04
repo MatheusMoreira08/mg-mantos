@@ -5,9 +5,16 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+html {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
 body {
   margin: 0;
   min-width: 320px;
+  max-width: 100vw;
+  overflow-x: hidden;
   background: var(--bg-primary);
   color: var(--text-primary);
   font-family: var(--font-body);
@@ -110,5 +117,36 @@ a {
     opacity: 1;
     transform: translateY(0) scale(1);
   }
+}
+
+/* ---- Responsividade mobile ---- */
+
+/* Grid que vira coluna única no mobile (deixa a razão de colunas via --grid-cols). */
+.responsive-grid {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 1fr;
+}
+@media (min-width: 768px) {
+  .responsive-grid {
+    grid-template-columns: var(--grid-cols, 1fr 1fr);
+  }
+}
+
+/* Linha flex que empilha no mobile e fica lado a lado em telas > 768px. */
+.responsive-row {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+@media (min-width: 768px) {
+  .responsive-row {
+    flex-direction: row;
+  }
+}
+
+/* Ocupa 100% da largura em telas pequenas. */
+.w-full-mobile {
+  width: 100% !important;
 }
 
